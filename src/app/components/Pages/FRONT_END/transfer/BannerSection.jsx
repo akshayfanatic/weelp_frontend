@@ -1,4 +1,5 @@
 import TransferForm from "./transferbookingform";
+import Image from "next/image";
 
 const BannerSection = () => {
   return (
@@ -8,15 +9,19 @@ const BannerSection = () => {
           Book Your Taxi
         </h1>
         <p className="text-sm sm:text-lg font-medium text-grayDark text-center">
-          You'll discover everything from whisky to Harry Potter, or even some
-          bodysnatchers, in Scotland's captivating capital.
+          You&apos;ll discover everything from whisky to Harry Potter, or even
+          some bodysnatchers, in Scotland&apos;s captivating capital.
         </p>
         <div className={`mt-2`}>
           <TransferForm />
         </div>
-        <img
-          className="hidden 2xl:block absolute -top-8 right-0 scale-90"
+        
+        <Image
+          className="hidden 2xl:block absolute -top-4 right-0 scale-90"
           src="/assets/Group5.png"
+          alt="imagebackground"
+          width={500}
+          height={300}
         />
       </div>
     </section>

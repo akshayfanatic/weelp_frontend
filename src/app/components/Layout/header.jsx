@@ -91,13 +91,13 @@ const Header = () => {
         {/* Menu Bar */}
         <div className="flex text-black px-12 py-4 w-full items-center bg-white">
           <div className="logo">
-            <a href="/">
+            <Link href="/">
               <img
                 src="/assets/images/SiteLogo.png"
                 alt="Logo"
                 className="h-10"
               />
-            </a>
+            </Link>
           </div>
           <nav className=" menu flex flex-grow justify-center space-x-10 flex-wrap">
             <button
@@ -115,12 +115,12 @@ const Header = () => {
                 />
               )}
             </button>
-            <a
-              href="/Tours & Experiences"
+            <Link
+              href="/"
               className="text-Bluewhale font-medium"
             >
               Tours & Experiences
-            </a>
+            </Link>
             <Link href="/transfers" className="text-Bluewhale font-medium">
               Transfers
             </Link>

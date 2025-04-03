@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const DestinationCard = ({
   url,
@@ -17,12 +18,14 @@ const DestinationCard = ({
   return (
     <div className="relative w-full max-w-sm sm:w-fit mx-auto">
       <Link href={`/city/${url}`}>
-        <img
+        <Image
           src={imgUrl || "/assets/images/china.jpg"}
           alt="image"
-          className={`object-cover w-full duration-1000 hover:scale-105  ${
+          className={`object-cover w-full duration-1000 hover:scale-105 ${
             imgHeight ?? "h-[360px]"
-          } ${imgWidth ?? "sm:w-[278px]"}  rounded-lg`} // Full width inside the container
+          } ${imgWidth ?? "sm:w-[278px]"} rounded-lg`}
+          width={imgWidth || 278} // Default width if imgWidth is undefined
+          height={imgHeight || 360} // Default height if imgHeight is undefined
         />
 
         {/* Text Overlay */}

@@ -78,6 +78,7 @@ export const CityFilter = () => {
     };
   }, [debouncedFetchProducts]);
 
+  
   // Category selection handler
   const handleCheckboxChange = useCallback((category) => {
     setSelectedCategories((prevSelected) =>

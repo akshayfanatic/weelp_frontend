@@ -798,6 +798,7 @@ const CreateActivityPage = () => {
             {/* Switch */}
             <div className="flex items-center gap-4">
               <Switch
+                className={isSeasonPricing ? "stroke-secondaryDark fill-secondaryDark" : ""}
                 checked={isSeasonPricing}
                 onCheckedChange={() => {
                   setSeasonPricing(!isSeasonPricing);

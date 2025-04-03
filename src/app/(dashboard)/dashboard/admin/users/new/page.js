@@ -78,18 +78,6 @@ const defaultValues = {
 export default function NewUserPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const session = useSession();
-  const [role, setRole] = useState(null);
-
-  // get role
-  useEffect(() => {
-    if (session?.data && session?.status === "authenticated") {
-      const userRole = session.data.user.role;
-      if (userRole && role !== userRole) {
-        setRole(userRole);
-      }
-    }
-  }, [session]);
 
   // Initialize form with proper resolver and defaultValues
   const form = useForm({
@@ -179,7 +167,7 @@ export default function NewUserPage() {
                           <Input placeholder="johndoe" {...field} />
                         </FormControl>
                         <FormDescription>
-                          This will be the user's login name
+                          This will be the user&apos;s login name
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -263,13 +251,13 @@ export default function NewUserPage() {
                           </FormControl>
                           <SelectContent>
                             <SelectItem value="customer">Customer</SelectItem>
-                            {role === "super_admin" && (
+                            
                               <SelectItem value="admin">Admin</SelectItem>
-                            )}
+                            
                           </SelectContent>
                         </Select>
                         <FormDescription>
-                          User's role and permissions
+                          User&apos;s role and permissions
                         </FormDescription>
                         <FormMessage />
                       </FormItem>

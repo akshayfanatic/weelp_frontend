@@ -30,7 +30,7 @@ async function getCityData(city) {
 }
 
 // fetch Activities Data
-export async function getActivitisDataByCity(city) {
+async function getActivitisDataByCity(city) {
   try {
     const response = await publicApi.get(`/api/${city}/activities`, {
       headers: { Accept: "application/json" },

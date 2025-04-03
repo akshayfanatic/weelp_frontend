@@ -1,7 +1,7 @@
 "use client"
 
 // Destination Slider
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -11,11 +11,14 @@ import { DestinationCarouselAnimation } from '../Animation/ProductAnimation';
 
 const DestinationSlider = ({ data }) => {
     const [initialize, setInitialize] = useState(null);
-    const [postData, setPostData] = useState()
+    // const [postData, setPostData] = useState()
+    
+    const postData = useMemo(() => data || [], [data]);
+
     useEffect(() => {
-        setPostData(data)
+        // setPostData(data)
         setInitialize(true)
-    }, [])
+    }, [data])
     if (initialize) {
 
         return (

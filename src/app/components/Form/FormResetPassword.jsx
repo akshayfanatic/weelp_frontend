@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import Loading from "@/app/(frontend)/loading";
 import axios from "axios";
+import Image from "next/image";
 
 // Zod schema for validation
 const schema = z
@@ -50,6 +51,16 @@ export const FormResetPassword = () => {
   const [error, setError] = useState("");
   const token = searchParams.get("token");
 
+  //Create Form
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting, errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
+
   //check first token
   useEffect(() => {
     // check token
@@ -65,16 +76,6 @@ export const FormResetPassword = () => {
   if (!token) {
     return <Loading />;
   }
-
-  //Create Form
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { isSubmitting, errors },
-  } = useForm({
-    resolver: zodResolver(schema),
-  });
 
   const onSubmit = async (data) => {
     // setError("");
@@ -127,7 +128,7 @@ export const FormResetPassword = () => {
         }`}
       >
         <div className="bg-white rounded-t-xl border-b py-4 px-8">
-          <img src="/assets/images/SiteLogo.png" alt="Site Logo" />
+          <Image src="/assets/images/SiteLogo.png" alt="Site Logo" width={122} height={42} />
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}

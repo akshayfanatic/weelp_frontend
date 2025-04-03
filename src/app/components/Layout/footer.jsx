@@ -13,7 +13,7 @@ const Footer = () => {
         <div>
           <h3 className="font-semibold text-gray-800 mb-4">Features</h3>
           <ul className="space-y-2">
-            <li><a href="/whats-new" className="hover:text-gray-800">What's New</a></li>
+            <li><a href="/whats-new" className="hover:text-gray-800">What&apos;s New</a></li>
             <li><a href="/curator" className="hover:text-gray-800">Curator</a></li>
             <li><a href="/planner" className="hover:text-gray-800">Planner</a></li>
             <li><a href="/ai-buddy" className="hover:text-gray-800">AI Buddy</a></li>

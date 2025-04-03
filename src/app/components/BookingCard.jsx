@@ -3,6 +3,7 @@ import BuyNow from "./BuyNow";
 import { Star } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const BookingCard = ({ destination, date, city, bookingId, ratings }) => {
   return (
@@ -34,7 +35,7 @@ const BookingCard = ({ destination, date, city, bookingId, ratings }) => {
         </ul>
       </CardContent>
       <Card className="flex justify-between items-center shadow-none border-none px-4 dark:bg-black">
-        <img src={"/assets/Review.png"} className="w-12" />
+        <Image src={"/assets/Review.png"} width={48} height={100} alt="booking_image"  />
         <Button
           className={
             "bg-secondaryDark text-base font-normal hover:bg-secondaryDark dark:hover:bg-secondaryDark dark:hover:text-white"

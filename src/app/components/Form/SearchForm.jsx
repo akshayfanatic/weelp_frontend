@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Crosshair, Frown, LoaderCircle, Search } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { delay } from '@/lib/utils';
+import Image from 'next/image';
 
 export const SearchFormCreator=()=> {
 
@@ -99,7 +100,7 @@ export const SearchFormCreator=()=> {
                                     {response.data.map((val, index) => (
                                         <li key={index} className='hover:bg-grayDark flex justify-between items-center py-2 px-6 hover:text-white hover:cursor-pointer'>
                                             {val?.name}
-                                            <img src={val?.image} className='size-9 rounded-full' />
+                                            <Image src={val?.image} className='size-9 rounded-full' alt='search_images' width={36} height={36}  />
                                         </li>
                                     ))}
                                 </ul>
@@ -219,7 +220,7 @@ export const SearchFormBlogs=()=> {
                                     {response.data.map((val, index) => (
                                         <li key={index} className='hover:bg-grayDark flex justify-between items-center py-2 px-6 hover:text-white hover:cursor-pointer'>
                                             {val?.name}
-                                            <img src={val?.image} className='size-9 rounded-full' />
+                                            <img alt='logo' src={val?.image} className='size-9 rounded-full' />
                                         </li>
                                     ))}
                                 </ul>

@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { AtSign, Eye, EyeOff, KeyRound } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
+import Image from "next/image";
 
 // Zod schema for validation
 const schema = z.object({
@@ -91,7 +92,7 @@ export function LoginForm({ customUrl }) {
         }`}
       >
         <div className="bg-white  rounded-t-xl border-b py-4 px-8">
-          <img src="/assets/images/SiteLogo.png" />
+          <Image width={122} height={42} alt="form_logo" src="/assets/images/SiteLogo.png" />
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -199,11 +200,11 @@ export function LoginForm({ customUrl }) {
               onClick={() => signIn("google")}
               className="flex w-fit items-center rounded-md p-2 gap-4 shadow border px-8 text-Nileblue"
             >
-              <img src="/assets/images/google.png" className="size-4" />
+              <Image src="/assets/images/google.png" className="size-4" alt="google_logo" width={100} height={100} />
               Google
             </button>
             <button className="flex w-fit items-center rounded-md p-2 gap-4 shadow border px-8 text-Nileblue">
-              <img src="/assets/images/facebook.png" className="size-4" />
+              <Image src="/assets/images/facebook.png" className="size-4" alt="facebook_logo" width={100} height={100} />
               Facebook
             </button>
           </div>

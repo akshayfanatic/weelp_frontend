@@ -19,7 +19,7 @@ const BannerSectionSearchForm = ({ title, description }) => {
                             <SearchFormCreator />
                         }
                     </div>
-                    <img className='hidden 2xl:block absolute -top-8 right-0 scale-90' src="/assets/Group5.png" />
+                    <img alt='logo' className='hidden 2xl:block absolute -top-8 right-0 scale-90' src="/assets/Group5.png" />
                 </div>
             </section>
         )

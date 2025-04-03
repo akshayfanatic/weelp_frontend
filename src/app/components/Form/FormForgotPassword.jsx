@@ -10,6 +10,7 @@ import { AtSign } from "lucide-react";
 import Link from "next/link";
 import axios from "axios";
 import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
 
 // Zod schema for validation
 const schema = z.object({
@@ -82,7 +83,7 @@ export function FormForgotPassword() {
       }`}
     >
       <div className="bg-white rounded-t-xl border-b py-4 px-8">
-        <img src="/assets/images/SiteLogo.png" alt="Site Logo" />
+        <Image src="/assets/images/SiteLogo.png" alt="Site Logo" width={122} height={42}/>
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}

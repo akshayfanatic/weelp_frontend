@@ -8,6 +8,7 @@ import {
   User,
 } from "lucide-react";
 import { actualDate } from "@/lib/utils";
+import Image from "next/image";
 
 export const CheckoutUserDetailCard = ({
   userImagesrc,
@@ -17,10 +18,12 @@ export const CheckoutUserDetailCard = ({
 }) => {
   return (
     <div className="flex gap-4 p-4 items-center hover:bg-[#e9f3ee] cursor-pointer">
-      <img
+      <Image
         src={userImagesrc || "/assets/testimonial.png"}
         alt="userlogo"
-        className="size-12 rounded-full"
+        width={48}
+        height={48}
+        className="rounded-full"
       />
       <div className="flex flex-col">
         <h3 className="text-[#4D4D4D] font-bold text-sm capitalize">

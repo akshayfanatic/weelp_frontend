@@ -29,7 +29,7 @@ import { log } from "@/lib/utils";
  * Returns all Featured Activities 
  * @returns []
  */
-export async function getAllFeaturedActivities() {
+async function getAllFeaturedActivities() {
   try {
     const response = await publicApi.get(
       `/api/activities/featured-activities`,
@@ -51,7 +51,7 @@ export async function getAllFeaturedActivities() {
  * Get All Featured Cities
  * @returns []
  */
-export async function getAllFeaturedCities() {
+async function getAllFeaturedCities() {
   try {
     const response = await publicApi.get(`/api/featured-cities`, {
       headers: { Accept: "application/json" },

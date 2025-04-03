@@ -10,7 +10,7 @@ const Singleproductguide = ({ imageSrc, postTitle, subtitle }) => {
       <Link href={"/blogs/blog"} >
       <img
         src={imageSrc || "/assets/images/8597548-ai 1.jpg"}
-        alt="China"
+        alt={"China"}
         className="object-cover w-full rounded-lg h-60"
       />
       <div className="text-white bg-white p-4 rounded-md">
@@ -30,7 +30,7 @@ export const BlogCard = ({ imageSrc, blogTitle, blogDate }) => {
   return (
     <div className='"max-w-full sm:max-w-sm w-full flex flex-col'>
       <Link href={"/blogs/blog"}>
-        <img src={imageSrc ? imageSrc : "/assets/images/8597548-ai 1.jpg"} className='object-cover w-full rounded-lg h-60' />
+        <img alt='blog_logo' src={imageSrc ? imageSrc : "/assets/images/8597548-ai 1.jpg"} className='object-cover w-full rounded-lg h-60' />
         <div className="text-white py-4 rounded-md">
           <h2 className="text-[20px] font-semibold text-black">{blogTitle ? blogTitle : "Spend the night on the set of SEVENTEEN's latest music video"}</h2>
           <span className="text-sm uppercase tracking-widest text-blackish">{blogDate ? blogDate : "October 14, 2024"}</span>
@@ -47,7 +47,7 @@ export const BlogAuthorInfo = ({ authorName, authorImage, views, rating }) => {
     <div className='max-w-4xl mx-auto p-6 lg:px-6 '>
       <div className='flex justify-between flex-wrap gap-2'>
         <div className='flex gap-4'>
-          <img src={authorImage ? authorImage : "/assets/Card.png"} alt="sitelogo" className=' size-12 rounded-full' />
+          <img alt="sitelogo" src={authorImage ? authorImage : "/assets/Card.png"}  className=' size-12 rounded-full' />
           <h3 className='capitalize text-base text-[#143042] font-bold'>{authorName ? authorName : "Jessica Jone"} <span className='flex flex-col font-medium text-[#5A5A5A] text-sm first-letter:capitalize'>Updated at 16 Oct</span></h3>
         </div>
         <div className='flex gap-4 '>

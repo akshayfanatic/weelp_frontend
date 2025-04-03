@@ -21,7 +21,7 @@ const ProductSlider = ({ data }) => {
   useEffect(() => {
     setProductData(data); // get array data from Api
     setInitialize(true);
-  }, []);
+  }, [data]);
 
   if (initialize) {
     return (
