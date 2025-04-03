@@ -1,28 +1,45 @@
 /** This File will handle Region Page */
 import BannerSection from "@/app/components/Pages/FRONT_END/region/BannerSection";
 import CitySection from "@/app/components/Pages/FRONT_END/Global/CitySection";
-import ReviewSection from "@/app/components/Pages/FRONT_END/Global/ReviewSection";
+import { ReviewSectionRegion } from "@/app/components/Pages/FRONT_END/Global/ReviewSection";
 import ShopSection from "@/app/components/Pages/FRONT_END/Global/ShopSection";
 import DestinationSliderSection from "@/app/components/Pages/FRONT_END/Global/DestinationSection";
 import { whiteCardData, fakeData } from "@/app/Data/ShopData";
 import BreakSection from "@/app/components/BreakSection";
-import TourSection from "@/app/components/Pages/FRONT_END/Global/TourSection";
+import { TourSection } from "@/app/components/Pages/FRONT_END/Global/TourSection";
 import GuideSection from "@/app/components/Pages/FRONT_END/Global/GuideSection";
 import { publicApi } from "@/lib/axiosInstance";
 import { notFound } from "next/navigation";
-import { log } from "@/lib/utils";
+import { log } from "console";
+import { RegionFilter } from "@/app/components/Pages/FRONT_END/region/region_filter";
 
 // Fetch Data Before Rendering Component
-async function getCities(region) {
+async function getCitiesByRegion(region) {
   try {
-    const response = await publicApi.get(`/api/${region}/`, {
+    const response = await publicApi.get(`/api/region/${region}/cities/`, {
       headers: { "Content-Type": "application/json" },
     });
     return response.data;
   } catch (error) {
-    console.log("Error fetching city data:" );
-    
+    console.log("Error fetching city data:");
+
     return [];
+  }
+}
+
+// getPackageDataByRegion
+async function getPackageDataByRegion(region) {
+  try {
+    const response = await publicApi.get(`/api/region/${region}/region-packages`,
+      {
+        headers: { Accept: "application/json" },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log("Error fetching city data:packages_city", error);
+    return []; // Return null to trigger 404
   }
 }
 
@@ -31,14 +48,17 @@ export default async function Region({ params }) {
   const { region } = await params;
 
   // Fetch data before rendering
-  const cityData = await getCities(region);
+  const { data: cityData = [] } = await getCitiesByRegion(region);
+
+  const { data: packageData = [], tag_list = [] } =
+    await getPackageDataByRegion(region);
 
   // Handle 404 Not Found (Prevent Rendering)
   if (!cityData || cityData.length === 0) {
     return notFound();
   }
 
-  // testing schema 
+  // testing schema
   function schemaJsonSample() {
     return {
       __html: `{
@@ -90,8 +110,8 @@ export default async function Region({ params }) {
 
   return (
     <>
-      <BannerSection title={region} />
-      <CitySection data={whiteCardData} />
+      <BannerSection  />
+      {/* <CitySection data={whiteCardData} /> */}
 
       {/* Show Section Only If Data Exists */}
       {cityData.length > 0 && (
@@ -102,10 +122,18 @@ export default async function Region({ params }) {
       )}
 
       <BreakSection />
-      <TourSection />
+
+      {packageData?.length > 0 && (
+        <TourSection items={packageData} taglist={tag_list} />
+      )}
+
       <BreakSection />
-      <ShopSection />
-      <ReviewSection />
+      
+      {/* <ShopSection /> */}
+      {/* Region Based Filter */}
+      <RegionFilter/>
+
+      <ReviewSectionRegion />
       <GuideSection sectionTitle="Blogs" data={fakeData} />
 
       <script

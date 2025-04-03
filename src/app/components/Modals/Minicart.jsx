@@ -1,18 +1,21 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { PlusIcon, Trash2, Heart, MapPin, SquarePen, X } from "lucide-react";
+import React from "react";
+import { PlusIcon, Heart, X } from "lucide-react";
 import BreakSection from "../BreakSection";
 import TabButton from "../TabButton";
-import MiniCartProductCard from "../MiniCartProductCard";
+import MiniCartProductCard  from "../MiniCartProductCard";
 import { MinicartReviewcontent } from "../MiniCartReviewCard";
-import useProductFormStore from "@/lib/store/productStore";
+import useMiniCartStore from "@/lib/store/useMiniCartStore";
+
 import { buttonVariants } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
 const Minicart = ({ showCart, setShowCart }) => {
   const router = useRouter();
-  const { formData, setFormData } = useProductFormStore();
+
+  const { cartItems, removeItem, totalPrice, clearCart } = useMiniCartStore();
+
   return (
     <div
       id="portal_minicart"
@@ -23,12 +26,12 @@ const Minicart = ({ showCart, setShowCart }) => {
       }`}
     >
       <div
-        className={`relative transition-transform ease-in-out duration-300 max-w-[485px] bg-mainBackground h-full w-full shadow-2xl ${
+        className={`relative transition-transform ease-in-out duration-300 max-w-[485px] bg-[#F3F5F6] h-full w-full shadow-2xl ${
           showCart ? "translate-x-0" : "translate-x-full"
         }`}
         style={{ willChange: "transform" }}
       >
-        {formData ? (
+        {cartItems && cartItems.length > 0 ? (
           // if data exist
           <div className="px-8 py-8 flex flex-col gap-2 h-full min-h-full tfc_scroll overflow-y-scroll group">
             <X
@@ -43,44 +46,22 @@ const Minicart = ({ showCart, setShowCart }) => {
               </div>
             </div>
 
-            <BreakSection marginTop={"mt-2"} />
-            <div className="flex gap-2 py-4 items-center">
-              <TabButton text={"Itinerary Name"} />
-              <TabButton text={"birthday bash"} />
-              <PlusIcon size={20} className="text-grayDark  flex-[2]" />
-            </div>
+            <BreakSection marginTop={"my-4"} />
+
             {/* From  ->  To */}
-            <div className="bg-white p-6 rounded-xl shadow-sm flex flex-col gap-4">
-              {/* Transfer component */}
-              <div className="flex justify-between">
-                <h3 className="text-Blueish font-semibold text-lg">Transfer</h3>
-                <div className="flex gap-4">
-                  <Trash2
-                    size={18}
-                    className="text-[#5a5a5a]"
-                    onClick={() => {
-                      setFormData(null);
-                    }}
+            <div className="bg6 rounded-xl shadow-sm flex flex-col gap-4">
+              {cartItems.map((val, index) => {
+                return (
+                  <MiniCartProductCard
+                    key={index}
+                    itemId={val?.id}
+                    itemType={val?.type}
+                    productName={val?.name}
+                    howMany={val?.howMany}
+                    dateRange={val?.dateRange}
                   />
-                  {/** Null data on trash click */}
-                  <SquarePen size={18} className="text-[#5a5a5a]" />
-                </div>
-              </div>
-              <div className="flex justify-evenly items-center gap-1 py-4">
-                <button className="flex items-center gap-2 w-fit  py-3 px-6 border rounded-md border-[#cccccc] text-gray-500">
-                  <MapPin size={18} className="text-secondaryDark" />
-                  <span className="text-sm">Airport</span>
-                </button>
-                <hr className="border border-dashed w-2/5" />
-                <button className="flex items-center gap-2 w-fit  py-3 px-6 border rounded-md border-[#cccccc] text-gray-500">
-                  <MapPin size={18} className="text-secondaryDark" />
-                  <span className="text-sm">Melaka</span>
-                </button>
-              </div>
-              <h3 className="text-Blueish font-semibold text-lg">
-                Activity in Melaka 1.5 Hrs
-              </h3>
-              <MiniCartProductCard />
+                );
+              })}
             </div>
             <MinicartReviewcontent />
 
@@ -109,17 +90,21 @@ const Minicart = ({ showCart, setShowCart }) => {
               <div className="flex justify-between">
                 <div className="flex flex-col gap-1 w-full">
                   <h3 className="capitalize text-lg font-semibold text-Blueish">
-                    $6,790.18
+                    $ {totalPrice ?? 0}
                   </h3>
                   <span className="capitalize underline text-[#5a5a5a]">
                     Detailed Breakdown
                   </span>
                 </div>
-                <button onClick={()=>{router.push('/checkout') ,setShowCart(false)}} className="w-full capitalize rounded-md bg-secondaryDark text-[#ffffff] text-base font-medium">
+                <button
+                  onClick={() => {
+                    router.push("/checkout"), setShowCart(false);
+                  }}
+                  className="w-full capitalize rounded-md bg-secondaryDark text-[#ffffff] text-base font-medium"
+                >
                   Make Payment
                 </button>
               </div>
-              <pre>{JSON.stringify(formData, null, 2)}</pre>
             </div>
           </div>
         ) : (
@@ -130,12 +115,12 @@ const Minicart = ({ showCart, setShowCart }) => {
             />
             <div className="h-full flex items-center justify-center">
               <span
-                className={`${buttonVariants()} bg-secondaryDark`}
+                className={`${buttonVariants()} bg-secondaryDark py-6`}
                 onClick={() => {
                   setShowCart(false);
                 }}
               >
-                Sorry No Product Found
+                Sorry Not Item In Cart
               </span>
             </div>
           </div>

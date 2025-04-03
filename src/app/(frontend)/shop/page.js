@@ -1,15 +1,22 @@
-import React from 'react'
-import BannerSection from '@/app/components/Pages/FRONT_END/shop/BannerSection'
-import ShopSection from '@/app/components/Pages/FRONT_END/shop/ShopSection'
+"use client";
+
+import React from "react";
+import BannerSection from "@/app/components/Pages/FRONT_END/shop/BannerSection";
+import { ShopPageSearch, ShopPageSearchResult } from "@/app/components/Pages/FRONT_END/shop/SearchPage";
+import Shoppage from "@/app/components/Pages/FRONT_END/shop/shoppagefilter/Shoppage";
+import { useSearchParams } from "next/navigation";
+import { log } from "@/lib/utils";
+import ShopFilter from "@/app/components/Pages/FRONT_END/shop/ShopPage";
+import { ShopAllProduct } from "@/app/components/Pages/FRONT_END/shop/ShopAll";
 
 const ShopPage = () => {
-    
-    return (
-        <>
-            <BannerSection />
-            <ShopSection/>
-        </>
-    )
-}
 
-export default ShopPage
+  return (
+    <>
+      {/* <BannerSection /> */}
+      <ShopAllProduct />
+    </>
+  );
+};
+
+export default ShopPage;

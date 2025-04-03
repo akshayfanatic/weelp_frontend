@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { buttonVariants } from "@/components/ui/button";
+import { TransfertCard } from "@/app/components/TransfertCard";
 
 // Zod Schema
 const bookingSchema = z.object({
@@ -37,9 +38,7 @@ export default function TransferForm() {
   const [showLocation, setShowLocation] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showHowMany, setShowHowMany] = useState(false);
-
-  const [selectedLocation, setSelectedLocation] = useState("");
-  const [isOpen, setIsOpen] = useState();
+  const [response, setResponse] = useState(false);
 
   const [howMany, setHowMany] = useState({
     adults: 1,
@@ -67,6 +66,7 @@ export default function TransferForm() {
     setShowCalendar(false);
     setShowLocation(false);
     setShowHowMany(false);
+    setResponse(true);
   };
 
   // Increment/Decrement Handlers
@@ -315,16 +315,21 @@ export default function TransferForm() {
 
         {/* submit action */}
         <div className="flex flex-col items-center justify-center ">
-          {!showCalendar && !showHowMany && !showLocation && (
-            <div className="w-full flex items-center">
-              <button
-                type="submit"
-                className={`${buttonVariants()} bg-secondaryDark px-16 py-6 `}
-              >
-                Book Your Ride
-              </button>
-            </div>
-          )}
+          {!showCalendar &&
+            !showHowMany &&
+            !showLocation &&
+            (response ? (
+              <TransfertCard />
+            ) : (
+              <div className="w-full flex items-center">
+                <button
+                  type="submit"
+                  className={`${buttonVariants()} bg-secondaryDark px-16 py-6 `}
+                >
+                  Book Your Ride
+                </button>
+              </div>
+            ))}
 
           {/* {showResponse && formData && Object.keys(formData).length > 0 ? (
               <div className="text-nowrap flex flex-col gap-4  w-full items-center border shadow-lg rounded-xl">

@@ -16,12 +16,11 @@ import {
 import { LoginForm } from "../Form/LoginForm";
 
 const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
-  
   // pathname
   const pathname = usePathname();
-  
-  const dynamicPaths=pathname
-  
+
+  const dynamicPaths = pathname;
+
   const { data: session, status } = useSession();
 
   // If session is loading, don't render anything yet to avoid flickering
@@ -127,8 +126,9 @@ const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
               </>
             ) : (
               <>
+                {/** For customer link */}
                 <li className="p-4 px-8 border-b text-[#5A5A5A]">
-                  <Link href={"/dashboard/user"}>
+                  <Link href={"/dashboard/customer"}>
                     <button className="text-md leading-5 flex gap-x-2">
                       <House className="size-5" />
                       Dashboard
@@ -136,7 +136,7 @@ const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
                   </Link>
                 </li>
                 <li className="p-4 px-8 border-b text-[#5A5A5A]">
-                  <Link href={"/dashboard/user"}>
+                  <Link href={"/dashboard/cusomter"}>
                     <button className="text-md leading-5 flex gap-x-2">
                       <Heart className="size-5" />
                       Wishlist

@@ -1,11 +1,11 @@
 "use client";
-
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { useSidebar } from "@/components/ui/sidebar";
+import { log } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -15,12 +15,13 @@ export function NavMain({ items }) {
   const { state, open } = useSidebar();
   const [showchildLink, setShowChildLink] = useState(false);
 
+
   const pathname=usePathname()
   const splitPathname=pathname.split('/')
   
   // handleChild Links
-  const handleChildLinks = () => {
-    setShowChildLink(!showchildLink);
+  const handleChildLinks = (index) => {
+    setShowChildLink((prevIndex) => (prevIndex === index ? null : index));
   };
 
   return (
@@ -40,7 +41,7 @@ export function NavMain({ items }) {
                 className={`px-4 py-2 cursor-pointer font-medium text-sm leading-5 text-black ${
                   open ? "mx-4" : ""
                 }`}
-                onClick={handleChildLinks}
+                onClick={()=>handleChildLinks(index)}
               >
                 <p className="flex gap-4 items-center">
                   <item.icon />
@@ -48,12 +49,11 @@ export function NavMain({ items }) {
                   {item.title}
                   <ChevronDown
                     className={`ease duration-300 size-5 ${
-                      showchildLink ? "-rotate-180" : ""
-                    }`}
+                      showchildLink === index && "-rotate-180"}`}
                   />
                   </span>
                 </p>
-                {showchildLink && (
+                {showchildLink === index && (
                   <ul className="p-2">
                     {item.children.map((child, childIndex) => (
                       <li key={childIndex}>

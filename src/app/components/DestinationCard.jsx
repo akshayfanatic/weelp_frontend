@@ -13,14 +13,10 @@ const DestinationCard = ({
   description,
 }) => {
   const pathname = usePathname();
-  // console.log("this is pathname",pathname);
-
-  // url="/region/europe/city/london"
 
   return (
     <div className="relative w-full max-w-sm sm:w-fit mx-auto">
-      {/* Set relative position on the image container */}
-      <Link href={url === undefined ? "/" : `${pathname}/city/${url}`}>
+      <Link href={`/city/${url}`}>
         <img
           src={imgUrl || "/assets/images/china.jpg"}
           alt="image"
@@ -31,12 +27,11 @@ const DestinationCard = ({
 
         {/* Text Overlay */}
         <div className="absolute bottom-0 w-full p-6 rounded-b-lg">
-          <h2 className="text-[24px] font-semibold text-white">
-            {title || "3. China"}
-          </h2>
-          <p className="text-[16px] font-medium text-solitude">
-            {description || "140 Activities"}
-          </p>
+          <h2 className="text-[24px] font-semibold text-white">{title}</h2>
+
+          {description && (
+            <p className="text-[16px] font-medium text-white">{description}</p>
+          )}
         </div>
       </Link>
     </div>

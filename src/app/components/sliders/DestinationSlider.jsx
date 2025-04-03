@@ -52,7 +52,7 @@ const DestinationSlider = ({ data }) => {
                 >
                     {postData && postData.map((val, index) => (
                         <SwiperSlide key={index}>
-                            <DestinationCard imgUrl={val?.image} url={val?.slug} title={val?.name} description={String(val?.description).slice(0,20)} />
+                            <DestinationCard imgUrl={val?.image} url={val?.slug} title={val?.name} description={String(val?.description).slice(0,25)} />
                         </SwiperSlide>
                     ))}
                 </Swiper>

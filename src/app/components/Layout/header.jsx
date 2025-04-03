@@ -149,12 +149,16 @@ import Minicart from "../Modals/Minicart";
 import ModalForm from "../Modals/ModalForm";
 import SubmenuAccount from "../Modals/SubmenuAccount";
 import useMiniCartStore from "@/lib/store/useMiniCartStore";
+import { Badge } from "@/components/ui/badge";
+import { log } from "@/lib/utils";
+
 
 export const HeaderAccount = () => {
-  const { isMiniCartOpen, setMiniCartOpen } = useMiniCartStore();
+  const { isMiniCartOpen, setMiniCartOpen, cartItems } = useMiniCartStore(); //mini cart store
   const [showCart, setShowCart] = useState(false);
   const [showSubmenu, setShowSubmenu] = useState(null);
   const [showForm, setShowForm] = useState(null);
+
 
   // for handle Submenu
   const handleSubmenu = () => {
@@ -179,8 +183,11 @@ export const HeaderAccount = () => {
         <li className="appearance-none"></li>
 
         <li>
-          <button onClick={handleShowCart}>
+          <button className="relative" onClick={handleShowCart}>
             <ShoppingCart className="text-xs" size={20} />
+            {cartItems?.length>0 &&
+            <Badge className={"absolute bottom-1/4  left-1/2 scale-75 "} variant={""}>{cartItems?.length}</Badge>
+            }
           </button>
         </li>
         <li>

@@ -13,6 +13,8 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { ProductGalleryAnimation } from "../Animation/ProductAnimation";
 
+
+// Slider for City Page and 
 const GallerySlider = ({ data }) => {
     const [showGallery, setShowGallery] = useState(false);
     const [imageData, setImageData] = useState([]);

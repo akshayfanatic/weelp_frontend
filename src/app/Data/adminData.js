@@ -1,20 +1,24 @@
 import {
-    ArrowUpDown,
-    Bot,
-    ChartColumnIncreasing,
-    Compass,
-    Files,
-    FolderTree,
-    Home,
-    MailsIcon,
-    Map,
-    Settings,
-    Tag,
-    Tags,
-    UserCog2,
-    Users,
-    Wallet,
-  } from "lucide-react";
+  ChartColumnIncreasing,
+  Map,
+  Settings,
+  Tag,
+  Tags,
+  Users,
+  LayoutDashboard,
+  Globe,
+  MapPin,
+  ArrowRightLeft,
+  Box,
+  Route,
+  ShoppingCart,
+  FileText,
+  Gift,
+  SignalHigh,
+  Mail,
+  Percent,
+  BookImage,
+} from "lucide-react";
 
 export const DashboardAdminNav = {
   user: {
@@ -23,8 +27,8 @@ export const DashboardAdminNav = {
     avatar: "/assets/images/user.png",
   },
   adminRoutes: [
-    { title: "Dashboard", icon: Home, url: "/dashboard/admin/" },  
-    { title: "Activities", icon: Bot, url: "/dashboard/admin/activities" },
+    { title: "Dashboard", icon: LayoutDashboard, url: "/dashboard/admin/" },
+    { title: "Activities", icon: Map, url: "/dashboard/admin/activities" },
     {
       title: "Taxonomies",
       icon: Tags,
@@ -43,27 +47,86 @@ export const DashboardAdminNav = {
         },
       ],
     },
-    { title: "Itineraries", icon: Map, url: "/dashboard/admin/itineraries" },
+    {
+      title: "Destinations",
+      icon: Globe,
+      url: "/dashboard/admin/destinations",
+      children: [
+        {
+          title: "All Destination",
+          icon: MapPin,
+          url: "/dashboard/admin/destinations",
+        },
+        {
+          title: "Regions",
+          icon: MapPin,
+          url: "/dashboard/admin/destinations/regions",
+        },
+      ],
+    },
+
+    { title: "Itineraries", icon: Route, url: "/dashboard/admin/itineraries" },
     {
       title: "Transfers",
-      icon: ArrowUpDown,
+      icon: ArrowRightLeft,
       url: "/dashboard/admin/transfers",
+      children: [
+        {
+          title: "All Transfers",
+          icon: ArrowRightLeft,
+          url: "/dashboard/admin/transfers",
+        },
+        {
+          title: "Regions",
+          icon: Box,
+          url: "/dashboard/admin/transfers/vendors",
+        },
+      ],
     },
     {
       title: "Package Builder",
-      icon: Compass,
+      icon: Box,
       url: "/dashboard/admin/package-builder",
     },
-    { title: "Orders", icon: Wallet, url: "/dashboard/admin/orders" },
-    { title: "Media", icon: Files, url: "/dashboard/admin/media" },
-    { title: "Emails", icon: MailsIcon, url: "/dashboard/admin/emails" },
+    { title: "Orders", icon: ShoppingCart, url: "/dashboard/admin/orders" },
+    { title: "Pages", icon: FileText, url: "/dashboard/admin/pages" },
+    { title: "Blogs", icon: FileText, url: "/dashboard/admin/blogs" },
+    {
+      title: "Marketing",
+      icon: Gift,
+      url: "/dashboard/admin/marketing/promo-codes",
+      children: [
+        {
+          title: "Promo Codes",
+          icon: Tag,
+          url: "/dashboard/admin/marketing/promo-codes",
+        },
+        {
+          title: "Analytics",
+          icon: SignalHigh,
+          url: "/dashboard/admin/marketing/analytics",
+        },
+        {
+          title: "Email",
+          icon: Mail,
+          url: "/dashboard/admin/marketing/emails",
+        },
+        {
+          title: "Affiliates",
+          icon: Percent,
+          url: "/dashboard/admin/marketing/affiliates",
+        },
+        
+      ],
+    },
+    { title: "Media", icon: BookImage, url: "/dashboard/admin/media" },
+
     {
       title: "Reports",
       icon: ChartColumnIncreasing,
       url: "/dashboard/admin/reports",
     },
     { title: "Users", icon: Users, url: "/dashboard/admin/users" },
-    { title: "Roles", icon: UserCog2, url: "/dashboard/admin/roles" },
     { title: "Settings", icon: Settings, url: "/dashboard/admin/settings" },
   ],
 };

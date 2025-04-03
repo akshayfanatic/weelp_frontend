@@ -1,4 +1,4 @@
-// "use client"  // my all cities
+//  all cities
 import React from 'react'
 import DestinationSlider from '../../../sliders/DestinationSlider'
 

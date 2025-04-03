@@ -29,15 +29,7 @@ const BookYourTaxi = () => {
           />
         </div>
       </section>
-      <BreakSection />
-      <section className="relative">
-        {<TransfertCard/>}
-        <div className="max-w-screen-xl w-full mx-auto  productSlider space-y-8 p-4">
-            <h2 className="text-3xl font-semibold text-Nileblue">Featured Review</h2>
-            <ReviewSlider />
-            <Accordion items={faqItems} />
-        </div>
-      </section>
+      
     </>
   );
 };

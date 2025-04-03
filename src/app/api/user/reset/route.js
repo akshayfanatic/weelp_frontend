@@ -5,8 +5,7 @@ export async function POST(req) {
   try {
     const { token, password, password_confirmation } = await req.json();
 
-    const response = await axios.post(
-      process.env.NEXT_PUBLIC_USER_RESETPASS_API,
+    const response = await axios.post(`${process.env.API_BASE_URL}api/password/reset`,
       { password, token, password_confirmation }
     );
 

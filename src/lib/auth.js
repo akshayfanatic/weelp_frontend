@@ -17,7 +17,7 @@ export const {
       },
       async authorize(credentials) {
         try {
-          const loginAPI = process.env.NEXT_PUBLIC_LOGIN_API;
+          const loginAPI = `${process.env.API_BASE_URL}api/login`;
 
           const loginRes = await fetch(loginAPI, {
             method: "POST",

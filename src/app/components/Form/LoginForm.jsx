@@ -7,10 +7,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-
-import { AtSign, KeyRound } from "lucide-react";
+import { AtSign, Eye, EyeOff, KeyRound } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-
 import Link from "next/link";
 
 // Zod schema for validation
@@ -28,6 +26,7 @@ const schema = z.object({
 export function LoginForm({ customUrl }) {
   const { toast } = useToast();
   const [intialize, setInitialize] = useState(false);
+  const [isHide, setHide] = useState(false);
 
   // initialize form
   useEffect(() => {
@@ -122,7 +121,7 @@ export function LoginForm({ customUrl }) {
                 id="email"
                 {...register("email")}
                 autoComplete="off"
-                className="mt-1  py-2 px-3 focus:outline-none bg-white placeholder:bg-white text-base"
+                className="mt-1  py-2 px-3 focus:outline-none bg-white placeholder:bg-white text-base w-full"
               />
             </label>
             {errors.email && (
@@ -136,17 +135,34 @@ export function LoginForm({ customUrl }) {
           <div>
             <label
               htmlFor="password"
-              className="flex items-center bg-white shadow-md border p-1 px-2 rounded-md"
+              className="flex items-center bg-white shadow-md border p-1 px-2 rounded-md relative"
             >
               <KeyRound className="text-[#5A5A5A] size-4" />
               <input
-                type="password"
+                type={isHide ? "password" : "text"}
                 id="password"
                 placeholder="Password"
                 {...register("password")}
                 autoComplete="off"
-                className="mt-1  py-2 px-3 focus:outline-none bg-white placeholder:bg-white text-base"
+                className="mt-1  py-2 px-3 focus:outline-none bg-white placeholder:bg-white text-base w-full"
               />
+              
+              {isHide ? (
+                
+                <Eye
+                  onClick={() => {
+                    setHide(!isHide);
+                  }}
+                  className="text-[#5A5A5A] size-5 absolute right-6 cursor-pointer"
+                />
+              ) : (
+                <EyeOff
+                  onClick={() => {
+                    setHide(!isHide);
+                  }}
+                  className="text-[#5A5A5A] size-5 absolute right-6 cursor-pointer"
+                />
+              )}
             </label>
             {errors.password && (
               <p className="text-sm text-red-600 p-2">

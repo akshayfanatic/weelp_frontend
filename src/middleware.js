@@ -13,13 +13,11 @@ export async function middleware(req) {
   const path = req.nextUrl.pathname;
 
   // Role-based redirection
-  if (
-    (role === "super_admin" || role === "admin") &&
-    !path.startsWith("/dashboard/admin")
-  ) {
+  if ((role === "super_admin" || role === "admin") && !path.startsWith("/dashboard/admin")) {
     return NextResponse.redirect(new URL("/dashboard/admin", req.url));
   }
 
+  
   if (role === "customer" && !path.startsWith("/dashboard/customer")) {
     return NextResponse.redirect(new URL("/dashboard/customer", req.url));
   }

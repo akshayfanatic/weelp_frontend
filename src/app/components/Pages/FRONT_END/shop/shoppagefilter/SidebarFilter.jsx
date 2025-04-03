@@ -1,9 +1,10 @@
 "use client";
 import React from 'react';
 import { Star } from 'lucide-react';
+import { log } from '@/lib/utils';
 
-const SideBarFilter = ({ filters, dispatch }) => {
-
+const SideBarFilter = ({ filters, dispatch , categories_list}) => {
+    
     const handleCategoryChange = (event) => {
         dispatch({ type: 'UPDATE_CATEGORY', payload: event.target.value });
     }
@@ -28,16 +29,16 @@ const SideBarFilter = ({ filters, dispatch }) => {
             <div>
                 <h3 className='text-lg font-medium text-#143042 mt-6 mb-2'>Category</h3>
                 <div className='space-y-2'>
-                    {['ThemePark', 'Water Park', 'Cable Car', 'PlayGround'].map(category => (
-                        <label htmlFor={category} key={category} className='pt-2 flex items-center gap-2 cursor-pointer text-[#435A67]'>
+                    {categories_list && categories_list.map(category => (
+                        <label htmlFor={category.name} key={category.id} className='pt-2 flex items-center gap-2 cursor-pointer text-[#435A67]'>
                             <input
                                 type="checkbox"
-                                id={category}
-                                value={category}
+                                id={category.id}
+                                value={category.name}
                                 className='form-checkbox size-5 accent-secondaryDark border  border-[#435A67] cursor-pointer'
                                 onChange={handleCategoryChange}
                             />
-                            {category}
+                            {category?.name}
                         </label>
                     ))}
                 </div>

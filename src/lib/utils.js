@@ -31,3 +31,18 @@ export const generateSlug = (value) => {
     .replace(/\s+/g, "-") // Replace spaces with hyphens
     .replace(/[^a-z0-9-]/g, ""); // Remove special characters
 };
+
+
+
+// date string  function
+export const  actualDate=(str)=>{
+  return (
+    String(str).split('T').at(0)
+  )
+}
+
+
+// String sign Remover
+export const stringSignRemover = (string) => {
+  return String(string).replace(/[^a-zA-Z0-9 ]/g, ' ');
+};

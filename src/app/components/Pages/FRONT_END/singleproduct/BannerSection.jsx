@@ -4,14 +4,15 @@ import { fakeData } from "@/app/Data/ShopData";
 import { CircleCheckBig, Clock4, MapPin, Star } from "lucide-react";
 import React from "react";
 
-const BannerSection = () => {
+const BannerSection = ({ activityName }) => {
   return (
     <section className="flex items-center justify-center lg:h-full p-6 sm:p-0 sm:py-4 bg-[#FFFFFF] page_destination_banner ">
       <div className="container md:max-w-[80%] mx-auto">
         <div className="flex flex-col gap-2 mb-6 pb-4 border-b-2">
           <BreadCrumb className={"mb-6"} />
+
           <h1 className="text-Blueish font-semibold text-xl sm:text-4xl capitalize">
-            Melaka Wonderland Water Theme Park Ticket
+            {activityName ?? "Melaka Wonderland Water Theme Park Ticket"}
           </h1>
 
           <ul className="flex flex-wrap gap-4 pb-4">
