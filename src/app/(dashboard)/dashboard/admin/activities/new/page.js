@@ -53,7 +53,6 @@ import {
 import { Combobox } from "@/components/ui/combobox";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import Multiselect from "multiselect-react-dropdown";
 import {
   ComboboxMultiple,
   ComboboxMultipleAttribute,
@@ -719,15 +718,20 @@ const CreateActivityPage = () => {
     );
   };
 
+  // Pricing Tab
   const PricingTab = () => {
+    const [isSeasonPricing, setSeasonPricing] = useState(false);
+
     // setup price
     const {
       register,
       formState: { errors },
     } = methods;
+
     return (
       <div className="space-y-6">
-        <div className="flex flex-col justify-between gap-4 p-8 shadow-md">
+        {/* Base Pricing */}
+        <div className="flex flex-col justify-between gap-4 p-8 shadow-md bg-white rounded-md">
           <h3 className="text-lg font-medium text-gray-900">$ Base Pricing</h3>
           <div className="w-full flex gap-4">
             <div className="w-full space-y-2">
@@ -760,7 +764,7 @@ const CreateActivityPage = () => {
             </div>
 
             <div className="w-full space-y-2">
-            <Label htmlFor="currency" className="w-full">
+              <Label htmlFor="currency" className="w-full">
                 Currency
               </Label>
               <Controller
@@ -788,6 +792,22 @@ const CreateActivityPage = () => {
                 )}
               />
             </div>
+          </div>
+
+          <div>
+            {/* Switch */}
+            <div className="flex items-center gap-4">
+              <Switch
+                checked={isSeasonPricing}
+                onCheckedChange={() => {
+                  setSeasonPricing(!isSeasonPricing);
+                }}
+              />
+              <Label className="text-sm font-medium text-gray-900">
+                Enable Seasonal Pricing
+              </Label>
+            </div>
+            {isSeasonPricing &&<span>ys</span>}
           </div>
         </div>
       </div>
