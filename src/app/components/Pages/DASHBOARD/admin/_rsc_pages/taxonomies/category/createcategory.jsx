@@ -7,19 +7,12 @@ import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { generateSlug } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { createCategory } from "@/lib/actions/categories";
 
 const formSchema = z.object({
   name: z.string().min(3, {
@@ -45,47 +38,61 @@ export const CreateCategoryPageForm = () => {
     },
   });
 
+  const {
+    formState: { isSubmitting },
+  } = form; // checking form state
+
   const nameValue = useWatch({ control: form.control, name: "name" });
 
-  useEffect(() => {
-    if (nameValue) {
-      form.setValue("slug", generateSlug(nameValue), { shouldValidate: true });
+  // on submit handle
+  const onSubmit = async (data) => {
+    try {
+      const res = await createCategory(data); // create category
+
+      if (res.success) {
+        // Reset form only if success
+        form.reset();
+
+
+        // Display success notification
+        toast({
+          title: res.message || "Category Created Successfully",
+        });
+
+        // back to category
+        router.back()
+      } else {
+        // Display error notification
+        toast({
+          variant: "destructive",
+          title: "Failed to create category",
+          description: res.message,
+        });
+
+        // Optional: Show validation errors if needed
+        if (res.errors) {
+          console.log("Validation Errors:", res.errors);
+        }
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "An unexpected error occurred",
+        description: "Please try again later.",
+      });
     }
-  }, [nameValue, form]);
-
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
-
-    // resetting form
-    form.reset();
-
-    // display notification
-    toast({
-      title: "Category Created Successfully",
-    });
   };
 
   return (
     <div>
-      <TaxonomyFormNavigation
-        title="New Category"
-        description="Create a new category for organizing activities."
-        url="/dashboard/admin/taxonomies/categories/"
-      />
+      <TaxonomyFormNavigation title="New Category" description="Create a new category for organizing activities." url="/dashboard/admin/taxonomies/categories/" />
 
       <div className="px-6">
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-4 bg-white border p-6 shadow-sm rounded-lg"
-          >
-            <fieldset className="flex flex-col gap-4">
-              <FormLabel className="font-semibold text-lg">
-                Category Details
-              </FormLabel>
-              <FormDescription>
-                Enter the details for the new category.
-              </FormDescription>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 bg-white border p-6 shadow-sm rounded-lg">
+          <fieldset className={`flex flex-col gap-4 ${isSubmitting && "cursor-wait"}`} disabled={isSubmitting}>
+              <FormLabel className="font-semibold text-lg">Category Details</FormLabel>
+              <FormDescription>Enter the details for the new category.</FormDescription>
 
               {/* Category Name */}
               <FormField
@@ -95,7 +102,13 @@ export const CreateCategoryPageForm = () => {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter category name" {...field} />
+                      <Input
+                        placeholder="Enter category name"
+                        {...field}
+                        onBlur={() => {
+                          form.setValue("slug", generateSlug(nameValue), { shouldValidate: true });
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -112,10 +125,7 @@ export const CreateCategoryPageForm = () => {
                     <FormControl>
                       <Input placeholder="category-slug" {...field} readOnly />
                     </FormControl>
-                    <FormDescription>
-                      This is the URL-friendly version of the name. It should be
-                      lowercase and contain only letters, numbers, and hyphens.
-                    </FormDescription>
+                    <FormDescription>This is the URL-friendly version of the name. It should be lowercase and contain only letters, numbers, and hyphens.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -129,10 +139,7 @@ export const CreateCategoryPageForm = () => {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder="Enter category description"
-                        {...field}
-                      />
+                      <Textarea placeholder="Enter category description" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -140,17 +147,14 @@ export const CreateCategoryPageForm = () => {
               />
 
               <p className="flex gap-2">
-                <Button
-                  className="w-fit bg-secondaryDark hover:bg-secondaryDark"
-                  type="submit"
-                >
-                  Create Category
+                <Button className="w-fit bg-secondaryDark hover:bg-secondaryDark" type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Creating Category" : "Create Category"}
                 </Button>
                 <Button
                   className="w-fit bg-inherit hover:bg-inherit text-black border"
                   type="button"
                   onClick={() => {
-                    router.push("/dashboard/admin/taxonomies/categories/");
+                    router.back();
                   }}
                 >
                   Cancel

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import BreakSection from "@/app/components/BreakSection";
 import { EditProfile } from "@/app/components/Pages/DASHBOARD/user/_rsc_pages/settings/EditProfile";
 import { authApi } from "@/lib/axiosInstance";

@@ -1,31 +1,38 @@
-/** This File Will Handle Destination Page (Single Product) */
 import BannerSection from "@/app/components/Pages/FRONT_END/singleproduct/BannerSection";
-import TabSection, {
-  TabSectionIterenary,
-} from "@/app/components/Pages/FRONT_END/singleproduct/TabSection";
-import { publicApi } from "@/lib/axiosInstance";
-import { log } from "@/lib/utils";
+import { TabSectionIterenary } from "@/app/components/Pages/FRONT_END/singleproduct/TabSection";
 import { notFound } from "next/navigation";
+import { getSingleItinerary } from "@/lib/services/itineraries";
 
+//  Dynamic SEO Itinerary
+export async function generateMetadata({ params }) {
+  const { itinerary } = await params;
 
+  const iterenaryData = await getSingleItinerary(itinerary);
 
-// fetch City Data
-async function getIterenaryData(iterenary) {
-  try {
-    const response = await publicApi.get(`/api/itineraries/${iterenary}`, {
-      headers: { Accept: "application/json" },
-    });
-    return response.data;
-  } catch (error) {
-    return []; // Return null to trigger 404
+  // itinerary data check
+  if (!iterenaryData || iterenaryData.length === 0) {
+    return {
+      title: "Itinerary Not Found",
+    };
   }
+
+  const { data } = iterenaryData;
+
+  // Destructure SEO fields from your SEO object structure
+  const { meta_title, meta_description, keywords, schema_type, schema_data } = data.seo || {};
+
+  return {
+    title: meta_title || data.name || "Default Title",
+    description: meta_description || "Default description for itinerary page",
+    keywords: keywords || undefined,
+  };
 }
 
-
+/** This File Will Handle Itinerary Page (Single Product) */
 export default async function IterenaryPage({ params }) {
   const { itinerary } = await params;
 
-  const iterenaryData = await getIterenaryData(itinerary);
+  const iterenaryData = await getSingleItinerary(itinerary);
 
   // if activity not found
   if (iterenaryData.length === 0) {
@@ -33,12 +40,23 @@ export default async function IterenaryPage({ params }) {
   }
 
   const { data, id } = iterenaryData;
-  const { name , seo } = data; //data 
+  const { name, seo } = data; //data
+
+  // Parse schema_data safely
+  let schemaJson = {};
+  try {
+    schemaJson = seo?.schema_data ? JSON.parse(seo.schema_data) : {};
+  } catch (error) {
+    console.log("Invalid JSON schema_data:", error);
+  }
 
   return (
     <>
       <BannerSection activityName={name} />
       <TabSectionIterenary productData={data} />
+      
+      {/* Inject JSON-LD schema */}
+      {schemaJson && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJson) }} />}
     </>
   );
 }

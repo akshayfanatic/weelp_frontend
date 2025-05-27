@@ -5,14 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { User, House, Heart, Settings, Tags, LogOut } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { LoginForm } from "../Form/LoginForm";
 
 const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
@@ -67,14 +60,9 @@ const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
                   </button>
                 </DialogTrigger>
               </li>
-              <DialogContent
-                className={"bg-transparent border-none"}
-                aria-describedby={undefined}
-              >
+              <DialogContent className={"bg-transparent border-none"} aria-describedby={undefined}>
                 <DialogHeader>
-                  <DialogTitle className={"hidden"}>
-                    Are you absolutely sure?
-                  </DialogTitle>
+                  <DialogTitle className={"hidden"}>Are you absolutely sure?</DialogTitle>
                   <DialogDescription className={"sr-only"} asChild>
                     <LoginForm customUrl={dynamicPaths || "/"} />
                     {/** Display Login Form */}

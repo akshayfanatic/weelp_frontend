@@ -11,7 +11,7 @@ import { fetchRegionDetails } from "@/lib/services/region";
 
 // get region details
 const BannerSection = () => {
-  const { region } = useParams();
+    const { region } = useParams();
   const [regionDetails, setRegionDetails] = useState({});
 
   // fetch dynamic region

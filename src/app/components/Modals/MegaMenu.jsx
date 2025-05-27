@@ -6,12 +6,7 @@ import Link from "next/link";
 
 const MegaMenu = ({ setShowMegaMenu, showmegaMenu }) => {
   const [selectedContinent, setSelectedContinent] = useState(null);
-  const allContinents = [
-    "East Asia",
-    "South East Asia",
-    "Europe",
-    "North America",
-  ];
+  const allContinents = ["East Asia", "South East Asia", "Europe", "North America"];
 
   // Handle continent selection
   const handleContinent = (e) => {
@@ -34,15 +29,7 @@ const MegaMenu = ({ setShowMegaMenu, showmegaMenu }) => {
           Trending Destination <ChevronRight size={18} />
         </li>
         {allContinents.map((continent, index) => (
-          <li
-            key={index}
-            className={`hover:bg-secondaryLight2 text-grayDark hover:text-secondaryDark p-4 capitalize flex items-center gap-2 ${
-              selectedContinent === continent
-                ? "bg-secondaryLight2 text-secondaryDark"
-                : ""
-            }`}
-            onClick={handleContinent}
-          >
+          <li key={index} className={`hover:bg-secondaryLight2 text-grayDark hover:text-secondaryDark p-4 capitalize flex items-center gap-2 ${selectedContinent === continent ? "bg-secondaryLight2 text-secondaryDark" : ""}`} onClick={handleContinent}>
             {continent}
           </li>
         ))}
@@ -63,7 +50,6 @@ const MegaMenuContent = ({ selectedContinent }) => {
   useEffect(() => {
     console.log("content fetch with fetch api");
   }, [selectedContinent]);
-
 
   return (
     <div className="flex flex-col h-full">

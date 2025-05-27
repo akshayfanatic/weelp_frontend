@@ -1,9 +1,5 @@
-import React from 'react'
+import { Medialibrary } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/media/MediaLibrary";
 
-const MediaPage = () => {
-  return (
-    <div>MediaPage</div>
-  )
+export default function MediaPage() {
+  return <Medialibrary />;
 }
-
-export default MediaPage

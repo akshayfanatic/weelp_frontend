@@ -116,7 +116,6 @@ export const DashboardAdminNav = {
           icon: Percent,
           url: "/dashboard/admin/marketing/affiliates",
         },
-        
       ],
     },
     { title: "Media", icon: BookImage, url: "/dashboard/admin/media" },

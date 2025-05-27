@@ -1,9 +1,18 @@
-import { AttributePage } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/taxonomies/attributes/attributes'
+export const dynamic = 'force-dynamic';
 
-const AttributesPage = () => {
-  return (
-    <AttributePage />
-  )
-}
+import { AttributePage } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/taxonomies/attributes/attributes";
+import { getAllAttributesAdmin } from "@/lib/services/global";
+import { isEmpty } from "lodash";
+import { notFound } from "next/navigation";
 
-export default AttributesPage
+const AttributesPage = async () => {
+  const attributes = await getAllAttributesAdmin();
+
+
+  if (isEmpty(attributes)) {
+    notFound()
+  }
+  return <AttributePage attributes={attributes} />;
+};
+
+export default AttributesPage;

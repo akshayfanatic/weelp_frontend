@@ -8,6 +8,7 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
+  trustHost: true,
   providers: [
     CredentialsProvider({
       // Add credentials configuration
@@ -52,7 +53,7 @@ export const {
             expiresAt: decodedToken.exp * 1000,
           };
         } catch (error) {
-          console.error("Authorization error:", error);
+          console.log("Authorization error:", error);
           return null;
         }
       },
@@ -80,7 +81,6 @@ export const {
     async session({ session, token }) {
       // Ensure session.user exists
       if (!session.user) {
-        // session.user = {};
         return null;
       }
 

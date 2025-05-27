@@ -2,12 +2,7 @@
 
 // This Form Is Used in Single Product Page
 import React, { useEffect, useState } from "react";
-import {
-  Calendar,
-  Users,
-  Minus,
-  Plus,
-} from "lucide-react";
+import { Calendar, Users, Minus, Plus } from "lucide-react";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,15 +22,9 @@ const bookingSchema = z.object({
       from: z.date().refine(Boolean, "Start date is required"),
       to: z.date().refine(Boolean, "End date is required"),
     })
-    .refine(
-      (data) => data.from && data.to && data.from <= data.to,
-      "Please Select Date"
-    ),
+    .refine((data) => data.from && data.to && data.from <= data.to, "Please Select Date"),
   howMany: z.object({
-    adults: z
-      .number()
-      .min(1, "At least 1 adult is required")
-      .max(10, "Maximum 10 adults allowed"),
+    adults: z.number().min(1, "At least 1 adult is required").max(10, "Maximum 10 adults allowed"),
     children: z.number().min(0).max(10, "Maximum 10 children allowed"),
     infants: z.number().min(0).max(5, "Maximum 5 infants allowed"),
   }),
@@ -48,7 +37,7 @@ export default function SingleProductForm({ productId, productData }) {
   const [showHowMany, setShowHowMany] = useState(false); // date & howmany
   const [showResponse, setShowResponse] = useState(false);
   const { setMiniCartOpen, addItem, clearCart, cartItems } = useMiniCartStore();
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const [showScuvadiving, setShowScuvadiving] = useState(null); // show scuvadiving content
   const router = useRouter(); // intialize router
@@ -71,8 +60,6 @@ export default function SingleProductForm({ productId, productData }) {
     },
   });
 
-
-
   useEffect(() => {
     setInitForm(true);
   }, []);
@@ -85,9 +72,9 @@ export default function SingleProductForm({ productId, productData }) {
 
   // Handle form submission
   const onSubmit = async (data) => {
-    setMiniCartOpen(true); 
+    setMiniCartOpen(true);
 
-    log(data)
+    log(data);
 
     addItem({
       id: productData?.id,
@@ -102,7 +89,7 @@ export default function SingleProductForm({ productId, productData }) {
     toast({
       title: "Item Added to Card",
       // description: "Friday, February 10, 2023 at 5:57 PM",
-    })
+    });
     // clearCart()
 
     setMiniCartOpen(true);
@@ -160,59 +147,37 @@ export default function SingleProductForm({ productId, productData }) {
         {isInCart ? (
           <h2 className="text-lg font-medium flex gap-4 items-center">
             Item already in cart{" "}
-            <span
-              className={`${buttonVariants()} bg-secondaryDark cursor-pointer`}
-              onClick={() => setMiniCartOpen(true)}
-            >
+            <span className={`${buttonVariants()} bg-secondaryDark cursor-pointer`} onClick={() => setMiniCartOpen(true)}>
               Show Cart
             </span>
           </h2>
         ) : (
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col justify-around items-center gap-4 w-full"
-          >
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-around items-center gap-4 w-full">
             <span className="hidden" id={productId} />
             {/* For Date & Total */}
             <div className=" w-full flex flex-col gap-4">
-              <h5 className="self-start text-[#5A5A5A]">
-                Select Date & Travelers
-              </h5>
+              <h5 className="self-start text-[#5A5A5A]">Select Date & Travelers</h5>
               <div className="flex border-y-[1px]  shadow-sm border w-full bg-white rounded-l-xl rounded-r-xl">
                 {/* When? */}
                 <div className="flex flex-col items-center border-x border-l-0 w-full justify-center">
                   <div className="p-2 sm:p-4">
-                    <label
-                      className="flex cursor-pointer flex-wrap justify-center items-center gap-2 text-[#5A5A5A] text-[12px] sm:text-base"
-                      onClick={toggleCalendar}
-                    >
+                    <label className="flex cursor-pointer flex-wrap justify-center items-center gap-2 text-[#5A5A5A] text-[12px] sm:text-base" onClick={toggleCalendar}>
                       <Calendar size={20} />
                       <span>When?</span>
                     </label>
-                    {errors.dateRange && (
-                      <p className="text-red-500 text-sm text-center">
-                        {errors.dateRange.message}
-                      </p>
-                    )}
+                    {errors.dateRange && <p className="text-red-500 text-sm text-center">{errors.dateRange.message}</p>}
                   </div>
                 </div>
 
                 {/* How Many? */}
                 <div className="flex flex-col items-center border-x border-r-0 w-full  justify-center">
                   <div className="p-2 sm:p-4">
-                    <label
-                      className="flex cursor-pointer flex-wrap justify-center items-center gap-2 text-[#5A5A5A] text-[12px] sm:text-base"
-                      onClick={toggleHowMany}
-                    >
+                    <label className="flex cursor-pointer flex-wrap justify-center items-center gap-2 text-[#5A5A5A] text-[12px] sm:text-base" onClick={toggleHowMany}>
                       <Users size={20} />
 
                       {howMany?.adults + howMany?.children}
                     </label>
-                    {errors.howMany && (
-                      <p className="text-red-500 text-sm text-center">
-                        {errors.howMany?.adults?.message || ""}
-                      </p>
-                    )}
+                    {errors.howMany && <p className="text-red-500 text-sm text-center">{errors.howMany?.adults?.message || ""}</p>}
                   </div>
                 </div>
               </div>
@@ -253,38 +218,17 @@ export default function SingleProductForm({ productId, productData }) {
                       className="bg-white w-fit p-4 px-6 rounded-lg flex flex-col gap-4 border"
                     >
                       {["adults", "children", "infants"].map((type, index) => (
-                        <div
-                          key={index}
-                          className="flex justify-between items-center w-full gap-6"
-                        >
+                        <div key={index} className="flex justify-between items-center w-full gap-6">
                           <div>
                             <h3 className="font-semibold capitalize">{type}</h3>
-                            <span className="text-sm">
-                              {type == "adults"
-                                ? "Above 13 or above"
-                                : type == "children"
-                                ? "Age 2-12"
-                                : type == "infants"
-                                ? "Under 2"
-                                : null}
-                            </span>
+                            <span className="text-sm">{type == "adults" ? "Above 13 or above" : type == "children" ? "Age 2-12" : type == "infants" ? "Under 2" : null}</span>
                           </div>
                           <div className="flex items-center gap-4">
-                            <button
-                              type="button"
-                              onClick={() => handleDecrement(type)}
-                              className="w-8 h-8 rounded-full border text-lg flex items-center justify-center text-gray-700 bg-graycolor hover:bg-[#e9f5ed] hover:opacity-80"
-                            >
+                            <button type="button" onClick={() => handleDecrement(type)} className="w-8 h-8 rounded-full border text-lg flex items-center justify-center text-gray-700 bg-graycolor hover:bg-[#e9f5ed] hover:opacity-80">
                               <Minus size={14} />
                             </button>
-                            <span className="font-semibold">
-                              {howMany[type]}
-                            </span>
-                            <button
-                              type="button"
-                              onClick={() => handleIncrement(type)}
-                              className="w-8 h-8 rounded-full border border-secondarylight text-lg flex items-center justify-center text-secondaryDark hover:bg-[#e9f5ed] hover:opacity-80 "
-                            >
+                            <span className="font-semibold">{howMany[type]}</span>
+                            <button type="button" onClick={() => handleIncrement(type)} className="w-8 h-8 rounded-full border border-secondarylight text-lg flex items-center justify-center text-secondaryDark hover:bg-[#e9f5ed] hover:opacity-80 ">
                               <Plus size={14} />
                             </button>
                           </div>
@@ -296,14 +240,8 @@ export default function SingleProductForm({ productId, productData }) {
               </div>
             </div>
 
-           
-
             {/* For Submit */}
-            <button
-              type="submit"
-              disabled={!isValid}
-              className="disabled:bg-gray-400 disabled:cursor-not-allowed w-fit p-4 px-10 text-base font-medium bg-secondaryDark text-white rounded-md shadow"
-            >
+            <button type="submit" disabled={!isValid} className="disabled:bg-gray-400 disabled:cursor-not-allowed w-fit p-4 px-10 text-base font-medium bg-secondaryDark text-white rounded-md shadow">
               Select
             </button>
           </form>

@@ -88,6 +88,7 @@ body {
   }
 }
 
+
 @layer base {
   * {
     @apply border-border;
@@ -178,7 +179,39 @@ body {
 }
 
 /* Form CSS*/
-/* Calendar */
+/* day picker  Latest Version 8.0+ */
+.bannerForm .rdp-day_selected,
+.singleProducform .rdp-day_selected {
+  @apply bg-secondaryLight2 text-inherit;
+}
+.bannerForm .rdp-day_selected:hover,
+.singleProducform .rdp-day_selected:hover {
+  @apply bg-secondarylight text-black;
+}
+
+.bannerForm .rdp-day_range_start,
+.bannerForm .rdp-day_range_end,
+.singleProducform .rdp-day_range_start,
+.singleProducform .rdp-day_range_end {
+  @apply bg-[#51927a] border-none rounded-lg text-white;
+}
+
+.bannerForm .rdp-nav_button_previous,
+.bannerForm .rdp-nav_button_next,
+.singleProducform .rdp-nav_button_previous,
+.singleProducform .rdp-nav_button_next {
+  @apply bg-secondaryDark text-white rounded-lg mx-1;
+}
+
+.bannerForm .rdp-nav_button_previous:hover,
+.bannerForm .rdp-nav_button_next:hover,
+.singleProducform .rdp-nav_button_previous:hover,
+.singleProducform .rdp-nav_button_next:hover {
+  background-color: #56947d !important;
+  color: white !important;
+}
+
+/* Day Picker 9.0+ Version Latest*/
 .bannerForm .rdp-range_start .rdp-day_button,
 .bannerForm .rdp-range_end .rdp-day_button,
 .singleProducform .rdp-range_start .rdp-day_button,
@@ -304,7 +337,6 @@ main,
   @apply dark:bg-black;
 } */
 
-
 h1,
 h2,
 h3,
@@ -315,40 +347,44 @@ a,
 div,
 li,
 button {
-  @apply dark:text-white dark:bg-black hover:dark:bg-black hover:dark:text-secondaryDark ;
+  @apply dark:text-white dark:bg-black hover:dark:bg-black hover:dark:text-secondaryDark;
 }
-
 
 p,
 span {
   @apply dark:text-slate-50;
 }
 
-
 /* Additional custmization */
-.tfc_adminSetting_nav nav div:first-child{
+.tfc_adminSetting_nav nav div:first-child {
   width: 100%;
   height: 100%;
 }
 
 /* Customize Range Slider */
-.range-slider__thumb{
-  background-color: #56947d!important;
+.range-slider__thumb {
+  background-color: #56947d !important;
 }
-.range-slider__range{
-  background-color: rgb(229 231 235)!important;
+.range-slider__range {
+  background-color: rgb(229 231 235) !important;
 }
-
-
-.tfc_admin_activitiesmultiselect .optionContainer > li.highlightOption{
+.tfc_admin_activitiesmultiselect .optionContainer > li.highlightOption {
   background-color: inherit;
-  color:black ;
+  color: black;
 }
 
-.tfc_admin_activitiesmultiselect .optionContainer > li:hover{
+.tfc_admin_activitiesmultiselect .optionContainer > li:hover {
   background-color: #000;
   color: #fafafa;
 }
-.tfc_admin_activitiesmultiselect .optionContainer > li input:checked{
+.tfc_admin_activitiesmultiselect .optionContainer > li input:checked {
   background-color: #56947d;
+}
+
+/* Calendar */
+.tfc_calendar .rdp-day_range_start,
+.tfc_calendar .rdp-day_range_start:focus,
+.tfc_calendar .day-range-end,
+.tfc_calendar .day-range-end:focus {
+  @apply bg-secondaryDark text-white;
 }

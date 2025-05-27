@@ -60,7 +60,7 @@ export function ComboboxMultipleAttribute({
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[250px] p-0">
+      <PopoverContent className="w-[250px] p-0 h-[150px]">
         <Command>
           <CommandInput placeholder="Search attributes..." className="h-9" />
           <CommandList>
@@ -117,6 +117,7 @@ export function ComboboxMultiple({ items,type, value = [], onChange }) {
     onChange(newValue);
   };
 
+  
   const handleRemove = (id) => {
     onChange(value.filter((selectedId) => selectedId !== id));
   };
@@ -135,7 +136,7 @@ export function ComboboxMultiple({ items,type, value = [], onChange }) {
             {value.length ? (
               <span className="flex items-center text-sm text-black gap-2">
                 <Tags size={14} />
-                {`${value.length} Tags Selected`}
+                {`${value.length} ${type} Selected`}
               </span>
             ) : (
               `Select ${type}`
@@ -143,9 +144,9 @@ export function ComboboxMultiple({ items,type, value = [], onChange }) {
             <ChevronsUpDown className="opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[250px] p-0">
+        <PopoverContent className="w-[250px] p-0 h-[150px]">
           <Command>
-            <CommandInput placeholder="Search tags..." className="h-9" />
+            <CommandInput placeholder={`Search ${type}... `} className="h-9" />
             <CommandList>
               <CommandEmpty>No tags found.</CommandEmpty>
               <CommandGroup>

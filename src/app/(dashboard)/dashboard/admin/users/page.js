@@ -1,20 +1,12 @@
-import React from "react";
-import { authApi } from "@/lib/axiosInstance";
-import UsersPageComponent from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/Users";
+export const dynamic = 'force-dynamic';
 
-// Server-side function to fetch users
-async function fetchUsers() {
-  try {
-    const response = await authApi.get("/api/users");
-    return response.data;
-  } catch (error) {
-    console.warn("Error fetching users:", error);
-    return [];
-  }
-}
+import React from "react";
+import UsersPageComponent from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/Users";
+import { getAllUsersAdmin } from "@/lib/services/global";
+
 
 const UsersPage = async () => {
-  const { active_users, inactive_users, pending_users, total_users, users } = await fetchUsers();
+  const { active_users, inactive_users, pending_users, total_users, users } = await getAllUsersAdmin();
 
   return (
     <UsersPageComponent

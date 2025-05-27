@@ -3,7 +3,7 @@ import { publicApi } from "../axiosInstance";
 
 
 /**
- *
+ * Get Region Details Frontend
  * @param {*} region
  * @returns []
  */

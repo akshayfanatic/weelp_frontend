@@ -20,7 +20,7 @@ const { user, adminRoutes } = DashboardAdminNav;
 
 export function AppSidebar({ ...props }) {
   const { state, open, toggleSidebar, isMobile } = useSidebar();
-  const { data: session } = useSession()//getsssion
+  const { data: session } = useSession() //getsssion
   return (
     <>
       {!isMobile ? (

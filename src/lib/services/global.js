@@ -1,6 +1,7 @@
 "use server";
 import { authApi, publicApi } from "../axiosInstance";
 
+
 /**
  * Get All Cities and Region
  * @returns []
@@ -15,6 +16,8 @@ export const getCitiesRegions = async () => {
     return []; // return empty array
   }
 };
+
+
 
 /**
  * Get All Categories
@@ -72,7 +75,7 @@ export const getAllAttributesAdmin = async () => {
 
 
 /**
- * Get All Attributes
+ * Get All TagsAdmin
  * @returns []
  */
 export const getAllTagsAdmin = async () => {
@@ -83,3 +86,19 @@ export const getAllTagsAdmin = async () => {
     return [];
   }
 };
+
+
+
+/**
+ * Get All Users
+ * @returns []
+ */
+export async function getAllUsersAdmin() {
+  try {
+    const response = await authApi.get("/api/admin/users");
+    return response.data;
+  } catch (error) {
+    console.log("Error fetching users:", error);
+    return [];
+  }
+}

@@ -54,6 +54,7 @@ export function Combobox({
                     onChange(item.id); // Now storing city ID
                     setOpen(false);
                   }}
+                  
                 >
                   {item.name}
                   <Check

@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { auth } from "./lib/auth";
-import { log } from "./lib/utils";
+
 
 export async function middleware(req) {
   const session = await auth();
+  
   // Redirect unauthenticated users to login
   if (!session) {
     return NextResponse.redirect(new URL("/user/login", req.url));
@@ -17,7 +18,6 @@ export async function middleware(req) {
     return NextResponse.redirect(new URL("/dashboard/admin", req.url));
   }
 
-  
   if (role === "customer" && !path.startsWith("/dashboard/customer")) {
     return NextResponse.redirect(new URL("/dashboard/customer", req.url));
   }
