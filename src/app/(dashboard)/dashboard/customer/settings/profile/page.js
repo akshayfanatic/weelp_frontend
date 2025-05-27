@@ -20,6 +20,7 @@ async function getUser() {
 const ProfilePage = async () => {
   const { user } = await getUser();  
 
+  console.log(user)
   return (
     <div className="w-full">
       <h2 className="font-bold text-lg">Profile</h2>
