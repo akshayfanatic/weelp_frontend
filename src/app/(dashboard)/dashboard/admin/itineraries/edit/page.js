@@ -20,7 +20,7 @@ const EditItinerary = async () => {
         getAllActivitesAdmin()
       ]);
 
-  const itinerarydata = await getSingleItineraryAdmin(9); //dyanmic id
+  const itinerarydata = await getSingleItineraryAdmin(5); //dyanmic id
 
   // check if not found
   if (isEmpty(itinerarydata)) {

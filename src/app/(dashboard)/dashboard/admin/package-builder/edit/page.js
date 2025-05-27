@@ -22,7 +22,7 @@ const EditPackage = async () => {
     getAllItinerariesAdmin(),
   ]);
 
-  const packagedata = await getSinglePackageAdmin(9); //dyanmic id
+  const packagedata = await getSinglePackageAdmin(5); //dyanmic id
 
   // check if not found
   if (isEmpty(packagedata)) {

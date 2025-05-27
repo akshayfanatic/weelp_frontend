@@ -12,7 +12,7 @@ import { log } from "@/lib/utils";
 const EditActivity = async () => {
   const [tags, locations, attributes, categories] = await Promise.all([getAllTagsAdmin(), getAllCitiesAdmin(), getAllAttributesAdmin(), getCategoriesAdmin()]);
 
-  const activitydata = await getSingleActivityAdmin(9); //dyanmic id
+  const activitydata = await getSingleActivityAdmin(5); //dyanmic id
 
   if (isEmpty(activitydata)) {
     return notFound();
