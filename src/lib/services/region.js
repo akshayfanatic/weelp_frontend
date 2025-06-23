@@ -1,6 +1,5 @@
-"use server"
+"use server";
 import { publicApi } from "../axiosInstance";
-
 
 /**
  * Get Region Details Frontend

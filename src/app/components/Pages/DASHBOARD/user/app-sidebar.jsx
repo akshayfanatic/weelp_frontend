@@ -16,29 +16,31 @@ import UserMenu from "../UserMenu";
 import { DashboardUserNav } from "@/app/Data/userData";
 import Link from "next/link";
 import { Description, DialogTitle } from "@radix-ui/react-dialog";
+import { usePathname } from "next/navigation";
 
 const { userRoutes } = DashboardUserNav;
 
 export function AppSidebar() {
   const { state, open, toggleSidebar, isMobile } = useSidebar();
+  const pathname = usePathname(); // pathname
 
   return (
     <>
       {!isMobile ? (
-        <Sidebar variant={"inset"} collapsible="icon" className={"border border-x-1"} >
+        <Sidebar variant={"inset"} collapsible="icon" className={"border border-x-1"}>
           <SidebarInset>
             <SidebarContent>
               <SidebarGroup className={"h-full justify-between"}>
-                <SidebarGroupLabel className={"hidden"}>
-                  Application
-                </SidebarGroupLabel>
+                <SidebarGroupLabel className={"hidden"}>Application</SidebarGroupLabel>
                 <SidebarGroupContent>
-                  <SidebarMenu className={" space-y-4"}>
+                  <SidebarMenu className={"space-y-4"}>
                     {userRoutes.map((item) => (
                       <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton
                           asChild
-                          className=" text-black hover:bg-secondaryDark hover:text-white text-xl dark:hover:bg-secondaryDark "
+                          className={`flex items-center gap-2 px-4 py-2 text-xl transition-colors text-black hover:bg-secondaryDark hover:text-white dark:hover:bg-white dark:hover:text-black
+    ${pathname === item.url && "bg-secondaryDark text-white dark:bg-white dark:text-black"}
+  `}
                         >
                           <Link href={item.url}>
                             <item.icon />
@@ -67,17 +69,12 @@ export function AppSidebar() {
           <SidebarInset>
             <SidebarContent>
               <SidebarGroup className={"h-full justify-between"}>
-                <SidebarGroupLabel className={"hidden"}>
-                  Application
-                </SidebarGroupLabel>
+                <SidebarGroupLabel className={"hidden"}>Application</SidebarGroupLabel>
                 <SidebarGroupContent>
                   <SidebarMenu className={"space-y-2"}>
                     {userRoutes.map((item) => (
                       <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton
-                          asChild
-                          className="font-medium hover:bg-secondaryDark hover:text-white text-sm"
-                        >
+                        <SidebarMenuButton asChild className={`font-medium hover:bg-secondaryDark hover:text-white text-sm ${pathname === item.url && "bg-secondaryDark text-white dark:bg-white"}`}>
                           <Link href={item.url}>
                             <item.icon />
                             <span>{item.title}</span>

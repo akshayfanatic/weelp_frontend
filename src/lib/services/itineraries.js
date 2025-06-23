@@ -17,8 +17,6 @@ export const getSingleItinerary = async (slug) => {
   }
 };
 
-
-
 /**
  * Get Single Itinerary on Admin side
  * @param {Number} id
@@ -36,19 +34,19 @@ export const getSingleItineraryAdmin = async (id) => {
 };
 
 
-
 /**
  * Get All Itineraries Admin
- * @param ##
+ * @param {string} search
  * @returns {}
  */
-export async function getAllItinerariesAdmin() {
+export async function getAllItinerariesAdmin(search = "") {
   try {
-    const response = await authApi.get(`/api/admin/itineraries/`, {
+    const response = await authApi.get(`/api/admin/itineraries/${search ? search : ""}`, {
       headers: { Accept: "application/json" },
     });
-    return response?.data?.data;
+    return response?.data;
   } catch (error) {
-    return [];
+    return { success: false, data: [], message: "Failed to fetch itineraries" };
   }
 }
+

@@ -41,12 +41,12 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
     name,
     slug,
     description,
-    locations: presetLocation=[],
+    locations: presetLocation = [],
     featured_itinerary,
     private_itinerary,
     schedules = [],
-    activities =[],
-    transfers =[],
+    activities = [],
+    transfers = [],
     base_pricing,
     price_variations = [],
     blackout_dates = [],
@@ -58,11 +58,8 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
     attributes: presetAttributes = [],
   } = itineraryData;
 
-
   // destructure schema
   const { schema_data } = seo;
-
-
 
   // set attributes preselected
   const initialAttributes = presetAttributes?.length
@@ -71,7 +68,7 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
         attribute_value,
       }))
     : [];
-    
+
   // intial states
   const methods = useForm({
     shouldUnregister: false,
@@ -132,7 +129,6 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
   useEffect(() => {
     methods.setValue("inclusions_exclusions", [...inclusions_exclusions]); // update side effect for inclusions_exclusions
   }, [toggleUpdate, inclusions_exclusions]);
-  
 
   //  Main Steps
   const steps = [
@@ -479,7 +475,7 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
     const removeTransferHandle = async (filteredTransfer, itineraryId) => {
       const { id } = filteredTransfer;
 
-      // Case: Local-only transfer 
+      // Case: Local-only transfer
       if (!id) {
         const updatedTransfers = transferss.filter((transfer) => !(transfer?.id === filteredTransfer?.id && transfer?.day === filteredTransfer?.day));
         setValue("transfers", updatedTransfers);
@@ -809,7 +805,7 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
       }
     };
 
-    console.log(getValues('pricing'))
+    console.log(getValues("pricing"));
     return (
       <div className="flex flex-col justify-between py-2  rounded-md space-y-8">
         {/* Base Pricing */}
@@ -1584,13 +1580,18 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
 
             <div className="space-y-2">
               <Label className={`${errors?.seo?.og_image_url?.message && "text-red-400"}`}>OG Image Url</Label>
-              <Input type="text" placeholder="Enter OG Image Url" className="focus-visible:ring-secondaryDark" {...register("seo.og_image_url", { required: "og_image_url Required" })} />
+              <Input
+                type="url"
+                placeholder="e.g: https://example.com/sample-og.jpg"
+                className="focus-visible:ring-secondaryDark"
+                {...register("seo.og_image_url", { required: "og_image_url Required" })}
+              />
               {errors?.seo?.og_image_url && <p className="text-red-400 text-sm">{errors?.seo?.og_image_url?.message}</p>}
             </div>
 
             <div className="space-y-2">
               <Label className={`${errors?.seo?.canonical_url?.message && "text-red-400"}`}>Canonical Url</Label>
-              <Input type="text" placeholder="Enter canonical URL" className="focus-visible:ring-secondaryDark" {...register("seo.canonical_url", { required: "canonical_url Required" })} />
+              <Input type="url" placeholder="e.g: https://example.com/" className="focus-visible:ring-secondaryDark" {...register("seo.canonical_url", { required: "canonical_url Required" })} />
               {errors?.seo?.canonical_url && <p className="text-red-400 text-sm">{errors?.seo?.canonical_url?.message}</p>}
             </div>
           </AccordionContent>

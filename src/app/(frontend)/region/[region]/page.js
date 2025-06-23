@@ -30,11 +30,9 @@ async function getCitiesByRegion(region) {
 // getPackageDataByRegion
 async function getPackageDataByRegion(region) {
   try {
-    const response = await publicApi.get(`/api/region/${region}/region-packages`,
-      {
-        headers: { Accept: "application/json" },
-      }
-    );
+    const response = await publicApi.get(`/api/region/${region}/region-packages`, {
+      headers: { Accept: "application/json" },
+    });
 
     return response.data;
   } catch (error) {
@@ -50,8 +48,7 @@ export default async function Region({ params }) {
   // Fetch data before rendering
   const { data: cityData = [] } = await getCitiesByRegion(region);
 
-  const { data: packageData = [], tag_list = [] } =
-    await getPackageDataByRegion(region);
+  const { data: packageData = [], tag_list = [] } = await getPackageDataByRegion(region);
 
   // Handle 404 Not Found (Prevent Rendering)
   if (!cityData || cityData.length === 0) {
@@ -110,37 +107,25 @@ export default async function Region({ params }) {
 
   return (
     <>
-      <BannerSection  />
+      <BannerSection />
       {/* <CitySection data={whiteCardData} /> */}
 
       {/* Show Section Only If Data Exists */}
-      {cityData.length > 0 && (
-        <DestinationSliderSection
-          sliderTitle="Must Visit Cities"
-          data={cityData}
-        />
-      )}
+      {cityData.length > 0 && <DestinationSliderSection sliderTitle="Must Visit Cities" data={cityData} />}
 
       <BreakSection />
 
-      {packageData?.length > 0 && (
-        <TourSection items={packageData} taglist={tag_list} />
-      )}
+      {packageData?.length > 0 && <TourSection items={packageData} taglist={tag_list} />}
 
       <BreakSection />
-      
-      {/* <ShopSection /> */}
+
       {/* Region Based Filter */}
-      <RegionFilter/>
+      <RegionFilter />
 
       <ReviewSectionRegion />
       <GuideSection sectionTitle="Blogs" data={fakeData} />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={schemaJsonSample()}
-        key="product-jsonld"
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={schemaJsonSample()} key="product-jsonld" />
     </>
   );
 }

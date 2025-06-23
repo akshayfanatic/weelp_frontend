@@ -1,11 +1,10 @@
 import React, { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { useDropzone } from "react-dropzone";
-import { ImageOff } from "lucide-react";
 import { uploadMedia } from "@/lib/actions/media";
 import { useToast } from "@/hooks/use-toast";
 
-export const UploadImagesForm = ({ uploadImagePop, setUploadImagePopUp, toggleUpdateSucess, setToggleSuccess }) => {
+export const UploadImagesForm = ({ uploadImagePop, setUploadImagePopUp, mutateMedia }) => {
   const [files, setFiles] = useState([]); // For TotalFiles
   const [isloading, setLoading] = useState(false); // Any Error
   const { toast } = useToast(); // intialize toast
@@ -43,14 +42,11 @@ export const UploadImagesForm = ({ uploadImagePop, setUploadImagePopUp, toggleUp
 
     try {
       const res = await uploadMedia(formData); // uploading files
-
       if (res.success) {
         toast({
           title: "Image Uploaded Successfully",
         });
-
-        // make lifting up
-        setToggleSuccess(!toggleUpdateSucess);
+        mutateMedia(); // trigger fetch
       } else {
         toast({
           title: "Upload Failed",
@@ -61,7 +57,6 @@ export const UploadImagesForm = ({ uploadImagePop, setUploadImagePopUp, toggleUp
 
       // close popup on success
       setUploadImagePopUp(!uploadImagePop);
-
       //setloading
       setLoading(false);
     } catch (error) {

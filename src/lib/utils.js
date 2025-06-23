@@ -2,18 +2,15 @@ import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import _ from "lodash";
 
-
-
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
 /**
  * Create Method for  Delay Execution Promise
- * @param {*} ms
+ * @param {Number} ms pass number
  */
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 
 /**
  * Create Log method for checking where it come file
@@ -28,8 +25,6 @@ export const log = (...args) => {
   console.log(`🚀 [${filePath}] `, ...args); // Log with file info
 };
 
-
-
 /**
  * Create Slug of Product Based on Name
  * @param {*} value
@@ -42,7 +37,6 @@ export const generateSlug = (value) => {
     .replace(/\s+/g, "-") // Replace spaces with hyphens
     .replace(/[^a-z0-9-]/g, ""); // Remove special characters
 };
-
 
 /**
  * Get Actual date from Date Instances
@@ -79,8 +73,6 @@ export function removeNestedKey(arr, keyToRemove) {
   });
 }
 
-
-
 /**
  * Format String Space to Comma "word1 word2" =>"word1 ,word2"
  * @param {String} string
@@ -93,4 +85,26 @@ export const addCommabetweenString = (string) => {
     .join(" , ");
 };
 
+/**
+ * Formats amount into a currency string.
+ *
+ * @param {number} amount - Amount of currency in major units.
+ * @param {string} currency - Currency code (ISO 4217), e.g. "USD", "INR", "EUR".
+ * @param {string} [locale="en-US"] - Optional locale for formatting, defaults to "en-US".
+ * @returns {string} - Formatted currency string.
+ *
+ * @example
+ * formatCurrency(60, "USD") // "$60.00"
+ * formatCurrency(2500, "INR", "en-IN") // "₹2,500.00"
+ * formatCurrency(1200, "JPY", "ja-JP") // "￥1,200"
+ */
+export function formatCurrency(amount, currency, locale = "en-US") {
+  if (amount === null && amount === undefined && currency === null) {
+    return "";
+  }
 
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency,
+  }).format(amount);
+}

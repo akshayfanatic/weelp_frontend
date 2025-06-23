@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductCardSkelton, DestinationCardSkelton, TestimonialCardSkelton, ReviewCardSkelton, ImageSkeltonCard } from './Cards';
+import { ProductCardSkelton, DestinationCardSkelton, TestimonialCardSkelton, ReviewCardSkelton, ImageSkeltonCard, DashboardSkeltonCard, DashboardCardSkelton } from './Cards';
 
 export const ProductCarouselAnimation = () => {
   return (
@@ -57,3 +57,15 @@ export const ProductGalleryAnimation = () => {
   )
 }
 
+
+
+
+export const DashboardCardAnimation =()=>{
+  return(
+    <div className='w-full p-4 bg-gray-100 rounded-md shadow-md grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4'>
+      <DashboardCardSkelton />
+      <DashboardCardSkelton className="hidden sm:block" />
+      <DashboardCardSkelton className="hidden md:block" />
+    </div>
+  )
+}

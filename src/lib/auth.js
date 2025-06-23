@@ -42,7 +42,7 @@ export const {
 
           const data = await loginRes.json();
 
-          const decodedToken = jwtDecode(data.accessToken);
+          const decodedToken = jwtDecode(data.accessToken); // decode token
 
           return {
             id: data.id,
@@ -78,6 +78,7 @@ export const {
       }
       return token;
     },
+
     async session({ session, token }) {
       // Ensure session.user exists
       if (!session.user) {

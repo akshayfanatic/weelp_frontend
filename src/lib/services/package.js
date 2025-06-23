@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import { authApi } from "../axiosInstance";
 
 /**
@@ -16,3 +16,21 @@ export const getSinglePackageAdmin = async (id) => {
     return {};
   }
 };
+
+
+
+/**
+ * Get All Packages Admin
+ * @param {string} search
+ * @returns {}
+ */
+export async function getAllPackagesAdmin(search = "") {
+  try {
+    const response = await authApi.get(`/api/admin/packages/${search ? search : ""}`, {
+      headers: { Accept: "application/json" },
+    });
+    return response?.data;
+  } catch (error) {
+    return { success: false, data: [], message: "Failed to fetch Packages" };
+  }
+}

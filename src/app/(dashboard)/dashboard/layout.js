@@ -27,6 +27,7 @@ export default function RootLayout({ children }) {
       className={`${theme === "dark" && "dark"} ${
         fontMap[font] || inter.className
       }`}
+      
     >
       <body className="flex flex-col">
         <SessionProvider>{children}</SessionProvider>

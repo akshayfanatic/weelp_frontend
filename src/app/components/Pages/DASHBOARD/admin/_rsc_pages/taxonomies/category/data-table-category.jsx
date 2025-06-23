@@ -6,13 +6,13 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Edit, Trash, ChevronLeft, ChevronRight } from "lucide-react";
+import { MoreHorizontal, Edit, Trash } from "lucide-react";
 import Link from "next/link";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
 import { deleteCategory } from "@/lib/actions/categories";
 
-export function DataTableCategory({ categories = [] }) {
+export function DataTableCategory({ categories = [], mutate }) {
   const { toast } = useToast();
   const [selectedId, setSelectedId] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -36,6 +36,8 @@ export function DataTableCategory({ categories = [] }) {
         toast({
           title: "Category Deleted Successfully",
         });
+
+        mutate();
       }
     } catch (error) {
       toast({
@@ -144,23 +146,6 @@ export function DataTableCategory({ categories = [] }) {
               )}
             </TableBody>
           </Table>
-
-          {/* Pagination Controls */}
-          <div className="flex items-center justify-between pt-4">
-            <div className="text-sm text-muted-foreground">
-              Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-            </div>
-            <div className="space-x-2">
-              <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-                <ChevronLeft className="w-4 h-4 mr-2" />
-                Previous
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-                Next
-                <ChevronRight className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
-          </div>
         </CardContent>
       </Card>
 

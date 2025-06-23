@@ -1,18 +1,20 @@
 export const dynamic = 'force-dynamic';
+
 import { isEmpty } from "lodash";
 import { notFound } from "next/navigation";
-import { CategoryPage } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/taxonomies/category/category";
 import { getCategoriesAdmin } from "@/lib/services/global";
+import { CategoryPageClient } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/taxonomies/category/category";
 
 const CategoriesPage = async () => {
-  const data = await getCategoriesAdmin();
-  let categories = data ?? [];
+  const { data: categoriesData = {} } = await getCategoriesAdmin();
+
+  const { data: categories = [] } = categoriesData; // categories
 
   // 404 if api not working
   if (isEmpty(categories)) {
     notFound();
   }
-  return <CategoryPage categories={categories} />;
+  return <CategoryPageClient />;
 };
 
 export default CategoriesPage;

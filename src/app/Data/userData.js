@@ -1,24 +1,7 @@
-import {
-  ArrowUpDown,
-  Bot,
-  ChartColumnIncreasing,
-  Compass,
-  Files,
-  FolderTree,
-  HelpCircle,
-  Home,
-  MailsIcon,
-  Map,
-  Search,
-  Settings,
-  Star,
-  Tag,
-  Tags,
-  UserCog2,
-  Users,
-  Wallet,
-} from "lucide-react";
+import { ArrowUpDown, Bot, ChartColumnIncreasing, Compass, Files, FolderTree, HelpCircle, Home, MailsIcon, Map, Search, Settings, Star, Tag, Tags, UserCog2, Users, Wallet } from "lucide-react";
 
+
+// User Navigation
 export const DashboardUserNav = {
   user: {
     name: "shadcn",
@@ -26,7 +9,7 @@ export const DashboardUserNav = {
     avatar: "/assets/images/user.png",
   },
   userRoutes: [
-    { title: "Bookings", icon: Tag, url: "/dashboard/customer/" },
+    { title: "Bookings", icon: Tag, url: "/dashboard/customer" },
     { title: "Reviews", icon: Star, url: "/dashboard/customer/reviews" },
     {
       title: "Help Center",

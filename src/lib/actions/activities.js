@@ -104,7 +104,6 @@ export const editActivity = async (id, data) => {
   }
 };
 
-
 /**
  * Action to delete Activity
  * @param {number} activityId
@@ -114,6 +113,65 @@ export async function deleteActivity(activityId) {
   try {
     const res = await authApi.delete(`/api/admin/activities/${activityId}/`);
 
+    // revalidate path
+    revalidatePath("/dashboard/admin/activities"); //revalidating path
+    return { success: true, data: res.data };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * Server action to delete activity context
+ * @param {number} activityId  - activity ID
+ * @param {Array} delete_type - deleted_location_ids deleted_seasonal_pricing_ids  deleted_group_discounts_ids deleted_promo_codes_ids
+ * @returns
+ */
+export async function deleteActivityItems({ 
+  activityId, 
+  deleted_location_ids = [], 
+  deleted_seasonal_pricing_ids = [], 
+  deleted_group_discounts_ids = [], 
+  deleted_promo_codes_ids = [] 
+}) {
+  try {
+    // delete data
+    const res = await authApi.delete(`/api/admin/activities/${activityId}/partial-delete`, {
+      data: {
+        deleted_location_ids,
+        deleted_seasonal_pricing_ids,
+        deleted_group_discounts_ids,
+        deleted_promo_codes_ids,
+      },
+    });
+
+    // revalidate data
+    revalidatePath(`/dashboard/admin/activities/${activityId}`); // revalidate paths
+    return { success: true, data: "Deleted Successfully" };
+
+  } catch (error) {
+    const status = error?.response?.status;
+    const serverMessage = error?.response?.data?.message || "Something went wrong";
+    return {
+      success: false,
+      error: serverMessage,
+    };
+  }
+}
+
+/**
+ * Action to delete multiple Activity
+ * @param {[]} activity_ids
+ * @returns [{}]
+ */
+export async function deleteMultipleActivities(activity_ids = []) {
+  try {
+    const res = await authApi.post(`/api/admin/activities/bulk-delete`, {
+      activity_ids,
+    });
+
+    // revalidate path
+    revalidatePath("/dashboard/admin/activities"); //revalidating path
     return { success: true, data: res.data };
   } catch (error) {
     return { success: false, error: error.message };

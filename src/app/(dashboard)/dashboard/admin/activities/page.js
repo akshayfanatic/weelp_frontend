@@ -1,13 +1,17 @@
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import React from 'react'
+export const dynamic = 'force-dynamic';
+import React from "react";
+import { getCategoriesAdmin } from "@/lib/services/global";
+import FilterActivity from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/activities/FilterActivityPage";
+import { getAttributeBySlugAdmin } from "@/lib/services/attributes";
 
-const ActivityPage = () => {
-  return (
-    <div>ActivityPage
-      <Button asChild><Link className=''  href={'/dashboard/admin/activities/new'}>Create Activity</Link></Button>
-    </div>
-  )
-}
+const ActivityPage = async () => {
+  const { data: allCategories = {} } = await getCategoriesAdmin();
+  const { data: categories = [] } = allCategories; // categories
 
-export default ActivityPage
+  const difficulty = await getAttributeBySlugAdmin("difficulty-level"); // slug required
+  const duration = await getAttributeBySlugAdmin("duration"); // slug required
+
+  return <FilterActivity categories={categories} difficulties={difficulty} durations={duration} />;
+};
+
+export default ActivityPage;

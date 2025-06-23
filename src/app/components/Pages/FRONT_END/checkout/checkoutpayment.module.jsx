@@ -4,18 +4,15 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { CheckoutUserDetailCard } from "@/app/components/CheckoutCards";
-import BreakSection from "@/app/components/BreakSection";
+import { CheckoutUserDetailCard } from "@/app/components/Pages/FRONT_END/checkout/CheckoutCards";
 import { useSession } from "next-auth/react";
 
 // Define Zod schema using union for mutually exclusive payment methods
 const cardDetailsSchema = z.object({
   paymentMethod: z.literal("cards"),
-  cardDetails: z
-    .string({ message: "Field Required" })
-    .refine((value) => /^[0-9]{13,19}$/.test(value), {
-      message: "Invalid card number",
-    }),
+  cardDetails: z.string({ message: "Field Required" }).refine((value) => /^[0-9]{13,19}$/.test(value), {
+    message: "Invalid card number",
+  }),
   cvvDetails: z.string().regex(/^\d{3,4}$/, { message: "CVV must be 3 or 4 digits" }),
 });
 
@@ -69,14 +66,7 @@ export const CheckoutPaymentForm = () => {
       <div className="flex flex-col border rounded-xl">
         <h2 className="font-semibold text-lg text-Blueish p-4 border-b">Contact Details</h2>
 
-        {session?.user ? (
-          <CheckoutUserDetailCard
-            userEmail={session.user.email}
-            userName={session.user.name}
-          />
-        ) : (
-          <div className="p-4 text-gray-500">No user logged in</div>
-        )}
+        {session?.user ? <CheckoutUserDetailCard userEmail={session.user.email} userName={session.user.name} /> : <div className="p-4 text-gray-500">No user logged in</div>}
       </div>
 
       {/* Payment Form Section */}

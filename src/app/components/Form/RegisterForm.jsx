@@ -42,7 +42,7 @@ export function RegisterForm() {
     const { name, email, password } = data;
 
     try {
-      const response = await axios.post("/api/user/register", {
+      const response = await axios.post("/api/public/user/register", {
         name,
         email,
         password,

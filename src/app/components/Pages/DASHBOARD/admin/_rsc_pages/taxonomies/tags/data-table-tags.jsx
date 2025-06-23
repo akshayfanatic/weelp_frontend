@@ -12,8 +12,9 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { useToast } from "@/hooks/use-toast";
 import { deleteTag } from "@/lib/actions/tags";
 
-export function DataTableTags({ tags = [] }) {
- const { toast } = useToast();
+
+export function DataTableTags({ tags = [], mutate }) {
+  const { toast } = useToast();
   const [selectedId, setSelectedId] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -30,13 +31,15 @@ export function DataTableTags({ tags = [] }) {
     // API call here
     try {
       const res = await deleteTag(selectedId);
-    
+
       //  delete sucess fully
       if (res.success) {
         toast({
-          title: "Category Deleted Successfully",
+          title: "Updated Successfully",
         });
       }
+
+      mutate();
     } catch (error) {
       toast({
         title: "Something went Wrong",
@@ -99,13 +102,6 @@ export function DataTableTags({ tags = [] }) {
     data: tags,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    initialState: {
-      pagination: {
-        pageIndex: 0,
-        pageSize: 10,
-      },
-    },
   });
 
   return (
@@ -146,21 +142,6 @@ export function DataTableTags({ tags = [] }) {
           </Table>
 
           {/* Pagination Controls */}
-          <div className="flex items-center justify-between pt-4">
-            <div className="text-sm text-muted-foreground">
-              Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-            </div>
-            <div className="space-x-2">
-              <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-                <ChevronLeft className="w-4 h-4 mr-2" />
-                Previous
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-                Next
-                <ChevronRight className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
-          </div>
         </CardContent>
       </Card>
 

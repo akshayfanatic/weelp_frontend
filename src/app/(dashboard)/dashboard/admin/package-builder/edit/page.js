@@ -12,7 +12,7 @@ import { getAllItinerariesAdmin } from "@/lib/services/itineraries";
 import { log } from "@/lib/utils";
 
 const EditPackage = async () => {
-  const [tags, locations, attributes, categories, activites, transfers, itineraries] = await Promise.all([
+  const [{ data: tagsData }, { data: locationsData = {} }, {  data: attributesData = {} },  { data: categoriesData = {}  }, activites, transfers, itineraries] = await Promise.all([
     getAllTagsAdmin(),
     getAllCitiesAdmin(),
     getAllAttributesAdmin(),
@@ -22,6 +22,10 @@ const EditPackage = async () => {
     getAllItinerariesAdmin(),
   ]);
 
+  const { data: categories = [] } = categoriesData; // categories
+  const { data: locations = [] } = locationsData; // get cities
+  const { data: attributes = [] } = attributesData; // for attributes
+  
   const packagedata = await getSinglePackageAdmin(5); //dyanmic id
 
   // check if not found
@@ -29,6 +33,8 @@ const EditPackage = async () => {
     return notFound();
   }
 
+  const { data:tags = [] } = tagsData; // for tags
+  
   return (
     <EditPackageForm
       tags={tags}

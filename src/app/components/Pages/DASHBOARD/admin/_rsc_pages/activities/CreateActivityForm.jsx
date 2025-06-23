@@ -23,7 +23,6 @@ import { useToast } from "@/hooks/use-toast";
 import { createActivity } from "@/lib/actions/activities";
 import { useRouter } from "next/navigation";
 import { NavigationActivity } from "./activity_shared";
-
 import { useMediaStore } from "@/lib/store/useMediaStore"; // For Handling Media Store
 import { Medialibrary } from "../media/MediaLibrary"; // Handling Media Library
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -418,20 +417,20 @@ export const CreateActivityForm = ({ categories, attributes, tags, locations = [
         </div>
 
         <div className="w-full py-2">
-          <Label htmlFor={"difficulty"} className="block text-sm font-medium text-gray-700">
+          <Label htmlFor={"difficulty_level"} className="block text-sm font-medium text-gray-700">
             Difficulty Level
           </Label>
           <Controller
-            name="difficulty"
+            name="difficulty_level"
             control={methods.control}
             defaultValue="easy"
             render={({ field }) => (
-              <Select id={"difficulty"} onValueChange={field.onChange} defaultValue={field.value}>
+              <Select id={"difficulty_level"} onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger className="mt-1 w-full capitalize rounded-md p-2 focus:outline-secondaryDark">
                   <SelectValue placeholder="Select a unit" />
                 </SelectTrigger>
                 <SelectContent>
-                  {["easy", "moderate", "challenging", "experts"].map((val, index) => (
+                  {["easy", "moderate", "hard"].map((val, index) => (
                     <SelectItem key={index} value={val} className="capitalize">
                       {val}
                     </SelectItem>
@@ -593,6 +592,14 @@ export const CreateActivityForm = ({ categories, attributes, tags, locations = [
 
     // date range error
     const isDateError = errors?.seasonal_pricing;
+
+    // allseasons
+    const seasons = [
+      { name: "Spring Season", value: "spring" },
+      { name: "Summer Season", value: "summer" },
+      { name: "Autumn Season", value: "autumn" },
+      { name: "Winter Season", value: "winter" },
+    ];
 
     return (
       <div className="space-y-6">
@@ -759,12 +766,28 @@ export const CreateActivityForm = ({ categories, attributes, tags, locations = [
                         <div className="w-full space-y-2">
                           <Label htmlFor={`season_name_${index}`}>Season Name</Label>
                           <Controller
-                            defaultValue={""}
                             name={`seasonal_pricing.${index}.season_name`}
                             control={methods.control}
                             rules={{ required: "Season name is required" }}
-                            render={({ field }) => <Input {...field} id={`season_name_${index}`} type="text" required placeholder="e.g: Peak Season" />}
+                            render={({ field }) => (
+                              <Select onValueChange={field.onChange} value={field.value}>
+                                <SelectTrigger id={`season_name_${index}`} className="w-full">
+                                  <SelectValue placeholder="Please Select Season" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {seasons.map((season, index) => {
+                                    return (
+                                      <SelectItem key={index} value={season?.value}>
+                                        {season?.name}
+                                      </SelectItem>
+                                    );
+                                  })}
+                                </SelectContent>
+                              </Select>
+                            )}
                           />
+                          {/* Show error message */}
+                          {errors?.seasonal_pricing?.[index]?.season_name && <p className="text-red-600 text-sm mt-1">{errors?.seasonal_pricing[index]?.season_name?.message}</p>}
                         </div>
                       </div>
                       {/* Remove Button */}
@@ -924,6 +947,7 @@ export const CreateActivityForm = ({ categories, attributes, tags, locations = [
       return;
     }
 
+    // handle api for creating activity
     try {
       const res = await createActivity(mergedData);
 
@@ -1003,7 +1027,7 @@ export const CreateActivityForm = ({ categories, attributes, tags, locations = [
 
                 <div className="flex gap-4">
                   {/* Display Cancel Button */}
-                  {currentStep ===5 && (
+                  {currentStep === 5 && (
                     <Button
                       type="button"
                       onClick={() => {

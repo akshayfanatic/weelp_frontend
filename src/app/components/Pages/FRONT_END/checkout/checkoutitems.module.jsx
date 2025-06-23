@@ -2,14 +2,13 @@ import React from "react";
 import {
   CheckoutItemCard,
   CheckoutReview,
-} from "@/app/components/CheckoutCards";
+} from "@/app/components/Pages/FRONT_END/checkout/CheckoutCards";
 import useMiniCartStore from "@/lib/store/useMiniCartStore";
-import { log } from "@/lib/utils";
 
 // This Module Handle Checkout Items
 export const CheckoutItems = () => {
-  const { cartItems } = useMiniCartStore();
-  log(cartItems);
+  const { cartItems=[] } = useMiniCartStore();
+
   return (
     <div className="flex flex-col gap-4 justify-between">
       {cartItems && cartItems.length > 0 ? (

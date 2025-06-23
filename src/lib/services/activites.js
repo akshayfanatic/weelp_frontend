@@ -1,7 +1,6 @@
 import { publicApi, authApi } from "../axiosInstance";
 import { log } from "../utils";
 
-
 /**
  * Get Single Activity on Client side
  * @param {String} activitySlug
@@ -17,8 +16,6 @@ export async function getSingleActivity(activitySlug) {
     return [];
   }
 }
-
-
 
 /**
  * Get Single Activity on Admin side
@@ -36,19 +33,17 @@ export async function getSingleActivityAdmin(id) {
   }
 }
 
-
-
 /**
  * Get All Activities Admin
  * @param ##
  * @returns {}
  */
-export async function getAllActivitesAdmin() {
+export async function getAllActivitesAdmin(search = "") {
   try {
-    const response = await authApi.get(`/api/admin/activities/`, {
+    const response = await authApi.get(`/api/admin/activities/${search ? search : ""}`, {
       headers: { Accept: "application/json" },
     });
-    return response?.data?.data;
+    return response?.data;
   } catch (error) {
     return [];
   }

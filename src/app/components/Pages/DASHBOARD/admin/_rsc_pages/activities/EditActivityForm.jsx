@@ -17,12 +17,12 @@ import { Card } from "@/components/ui/card";
 import { cn, generateSlug, log } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { format } from "date-fns";
+import { constructNow, format } from "date-fns";
 import { DiscountBlock } from "@/app/components/Form/reusablecomponents/DiscountSettings";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { NavigationActivity } from "./activity_shared";
-import { editActivity } from "@/lib/actions/activities";
+import { deleteActivityItems, editActivity } from "@/lib/actions/activities";
 import { isEmpty, isArray } from "lodash";
 import { useMediaStore } from "@/lib/store/useMediaStore"; // For Handling Media Store
 import { Medialibrary } from "../media/MediaLibrary"; // Handling Media Library
@@ -30,6 +30,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } 
 
 export const EditActivityForm = ({ categories, attributes, tags, locations = [], activitydata }) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [toggleUpdate, setToggleUpdate] = useState(false);
   const [formData, setFormData] = useState({});
   const router = useRouter();
   const { toast } = useToast();
@@ -116,6 +117,19 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
   });
 
   const { errors, isValid, isSubmitting } = methods?.formState;
+
+  /** Inline Actions Side Effects */
+  useEffect(() => {
+    methods.setValue("locations", [...presetLocations]); // update side effect for location
+  }, [toggleUpdate, locations]);
+
+  useEffect(() => {
+    methods.setValue("seasonal_pricing", [...initialSeasonalPricing]); // update side effect for seasonal pricing
+  }, [toggleUpdate, seasonal_pricing]);
+
+  useEffect(() => {
+    methods.setValue("group_discounts", [...group_discounts]); // update side effect for group discount
+  }, [toggleUpdate, group_discounts]);
 
   //  Main Steps
   const steps = [
@@ -271,6 +285,46 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       name: "locations", // Field array for locations
     });
 
+    const predefinedLocations = useWatch({ control: control, name: "locations" }); // watches
+
+    // remove location handle
+    const handleRemoveLocation = async (item, activityId, index) => {
+      const { id } = item; // destructure data
+
+      // Remove Local Index
+      if (!id) {
+        removeLocation(index);
+        return;
+      }
+
+      // Remove With Api
+      let deleted_location_ids = [];
+      deleted_location_ids.push(id);
+
+      try {
+        const res = await deleteActivityItems({ activityId, deleted_location_ids });
+
+        console.log(res);
+        if (res.success) {
+          toast({ title: "Activity Updated successfully!" });
+
+          setToggleUpdate((prev) => !prev); // update toggle listner
+        } else {
+          toast({
+            title: "Error",
+            description: res.error || "Please Try Again",
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
+        toast({
+          title: "Unexpected Error",
+          description: "Please try again later.",
+          variant: "destructive",
+        });
+      }
+    };
+
     return (
       <div className="space-y-4">
         {/* Min Group Size */}
@@ -376,11 +430,11 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
 
           {/* Additional Locations */}
           <div className="flex flex-col w-full">
-            {locationFields.map((item, index) => {
+            {predefinedLocations.map((item, index) => {
               if (index === 0) return null;
 
               return (
-                <div key={item.id} className="mt-4 py-4 px-8 space-y-4 bg-white">
+                <div key={index} className="mt-4 py-4 px-8 space-y-4 bg-white">
                   <span className="block text-sm font-medium text-gray-700">Additional Location {index}</span>
 
                   <Controller name={`locations[${index}].city_id`} control={methods.control} render={({ field }) => <Combobox data={locations} value={field.value} onChange={field.onChange} />} />
@@ -424,7 +478,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
 
                     <Input type="hidden" {...methods.register(`locations[${index}].location_type`)} value="additional" />
 
-                    <X onClick={() => removeLocation(index)} className="hover:cursor-pointer" />
+                    <X onClick={() => handleRemoveLocation(item, id, index)} className="hover:cursor-pointer" />
                   </div>
                 </div>
               );
@@ -515,7 +569,6 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
           </Label>
           <Controller
             name="attributes"
-            // defaultValue={[]}
             control={methods?.control}
             rules={{ required: "Please Select Attributes" }}
             render={({ field: { onChange, value } }) => <ComboboxMultipleAttribute id={"attributes"} attributes={attributes} value={value} onChange={onChange} />}
@@ -523,21 +576,21 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
           {errors?.attributes && <span className="text-red-400">{errors?.attributes?.message}</span>}
         </div>
 
-        <div className="hidden w-full py-2">
-          <Label htmlFor={"difficulty"} className="block text-sm font-medium text-gray-700">
+        <div className="w-full py-2">
+          <Label htmlFor={"difficulty_level"} className="block text-sm font-medium text-gray-700">
             Difficulty Level
           </Label>
           <Controller
-            name="difficulty"
+            name="difficulty_level"
             control={methods.control}
             defaultValue="easy"
             render={({ field }) => (
-              <Select id={"difficulty"} onValueChange={field.onChange} defaultValue={field.value}>
+              <Select id={"difficulty_level"} onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger className="mt-1 w-full capitalize rounded-md p-2 focus:outline-secondaryDark">
                   <SelectValue placeholder="Select a unit" />
                 </SelectTrigger>
                 <SelectContent>
-                  {["easy", "moderate", "challenging", "experts"].map((val, index) => (
+                  {["easy", "moderate", "hard"].map((val, index) => (
                     <SelectItem key={index} value={val} className="capitalize">
                       {val}
                     </SelectItem>
@@ -705,6 +758,88 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
     // date range error
     const isDateError = errors?.seasonal_pricing;
 
+    const seasonFieldsWatched = useWatch({ name: "seasonal_pricing" });
+    const discountFieldsWatched = useWatch({ name: "group_discounts" });
+
+    const handleRemoveSeason = async (seasonfield, activityId, index) => {
+      const { id } = seasonfield;
+
+      // check season have id or not
+      if (!id) {
+        removeSeason(index);
+        return;
+      }
+
+      let deleted_seasonal_pricing_ids = [];
+      deleted_seasonal_pricing_ids.push(id);
+
+      try {
+        const res = await deleteActivityItems({ activityId, deleted_seasonal_pricing_ids });
+
+        if (res.success) {
+          toast({ title: "Activity Updated successfully!" });
+
+          setToggleUpdate((prev) => !prev); // update toggle listner
+        } else {
+          toast({
+            title: "Error",
+            description: res.error || "Please Try Again",
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
+        toast({
+          title: "Unexpected Error",
+          description: "Please try again later.",
+          variant: "destructive",
+        });
+      }
+    };
+
+    const handleRemoveDiscount = async (discountField, activityId, index) => {
+      const { id } = discountField; // destructure data
+
+      // check whether it is local or come from api
+      if (!id) {
+        removeDiscountField(index);
+        return;
+      }
+
+      // remove from api
+      let deleted_group_discounts_ids = [];
+      deleted_group_discounts_ids.push(id);
+
+      try {
+        const res = await deleteActivityItems({ activityId, deleted_group_discounts_ids }); // delete through action
+
+        if (res.success) {
+          toast({ title: "Activity Updated successfully!" });
+
+          setToggleUpdate((prev) => !prev); // update toggle listner
+        } else {
+          toast({
+            title: "Error",
+            description: res.error || "Please Try Again",
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
+        toast({
+          title: "Unexpected Error",
+          description: "Please try again later.",
+          variant: "destructive",
+        });
+      }
+    };
+
+    // allseasons
+    const seasons = [
+      { name: "Spring Season", value: "spring" },
+      { name: "Summer Season", value: "summer" },
+      { name: "Autumn Season", value: "autumn" },
+      { name: "Winter Season", value: "winter" },
+    ];
+
     return (
       <div className="space-y-6">
         {/* Base Pricing */}
@@ -813,10 +948,10 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                   </p>
                 )}
 
-                {seasonFields.map((season, index) => {
+                {seasonFieldsWatched.map((season, index) => {
                   const dateRange = watchedSeasons?.[index]?.dateRange || null;
                   return (
-                    <div key={season.id} className="w-full flex gap-4 items-center">
+                    <div key={index} className="w-full flex gap-4 items-center">
                       <div className="grid gap-4 grid-cols-1 sm:grid-cols-3 flex-[2]">
                         {/* Season Date Range Picker */}
                         <div className="w-full">
@@ -890,17 +1025,31 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                         <div className="w-full space-y-2">
                           <Label htmlFor={`season_name_${index}`}>Season Name</Label>
                           <Controller
-                            defaultValue={""}
                             name={`seasonal_pricing.${index}.season_name`}
                             control={methods.control}
                             rules={{ required: "Season name is required" }}
-                            render={({ field }) => <Input {...field} id={`season_name_${index}`} type="text" required placeholder="e.g: Peak Season" />}
+                            render={({ field }) => (
+                              <Select onValueChange={field.onChange} value={field.value}>
+                                <SelectTrigger id={`season_name_${index}`} className="w-full">
+                                  <SelectValue placeholder="Please Select Season" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {seasons.map((season, index) => {
+                                    return (
+                                      <SelectItem key={index} value={season?.value}>
+                                        {season?.name}
+                                      </SelectItem>
+                                    );
+                                  })}
+                                </SelectContent>
+                              </Select>
+                            )}
                           />
                         </div>
                       </div>
                       {/* Remove Button */}
                       <div className="w-fit">
-                        <Trash2 type="button" variant="destructive" className="mt-4 text-red-600  rounded-full cursor-pointer" onClick={() => removeSeason(index)} />
+                        <Trash2 type="button" variant="destructive" className="mt-4 text-red-600  rounded-full cursor-pointer" onClick={() => handleRemoveSeason(season, id, index)} />
                       </div>
                     </div>
                   );
@@ -952,10 +1101,10 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                 Add Discount
               </button>
             </div>
-            {discountFields.length > 0 &&
-              discountFields.map((item, index) => {
+            {discountFieldsWatched.length > 0 &&
+              discountFieldsWatched.map((item, index) => {
                 return (
-                  <div key={item?.id} className="flex gap-4 items-center">
+                  <div key={index} className="flex gap-4 items-center">
                     <Controller
                       name={`group_discounts.${index}.min_people`}
                       control={methods?.control}
@@ -1009,7 +1158,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
 
                     {/* Remove Button */}
                     <div className="w-fit">
-                      <Trash2 type="button" variant="destructive" className="text-red-600  rounded-full cursor-pointer" onClick={() => removeDiscountField(index)} />
+                      <Trash2 type="button" variant="destructive" className="text-red-600  rounded-full cursor-pointer" onClick={() => handleRemoveDiscount(item, id, index)} />
                     </div>
                   </div>
                 );

@@ -1,4 +1,5 @@
 /** This File Will Handle Destination Page (Single Product) */
+
 import BannerSection from "@/app/components/Pages/FRONT_END/singleproduct/BannerSection";
 import { TabSectionActivity } from "@/app/components/Pages/FRONT_END/singleproduct/TabSection";
 import { publicApi } from "@/lib/axiosInstance";

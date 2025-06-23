@@ -4,9 +4,10 @@ import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategorie
 import { getAllActivitesAdmin } from "@/lib/services/activites";
 import { CreateItineraryForm } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/itineraries/CreateItineraryForm";
 import { getAllTransfersAdmin } from "@/lib/services/transfers";
+import { log } from "@/lib/utils";
 
 const CreateItineriary = async () => {
-  const [tags, locations, attributes, categories, activites, transfers] = await Promise.all([
+  const [{ data: tagsData }, { data: locationsData = {} }, {  data: attributesData = {} }, {data: categoriesData = {}  }, {data:activitiesData=[]}, transfers] = await Promise.all([
     getAllTagsAdmin(),
     getAllCitiesAdmin(),
     getAllAttributesAdmin(),
@@ -15,7 +16,16 @@ const CreateItineriary = async () => {
     getAllTransfersAdmin(),
   ]);
 
-  return <CreateItineraryForm tags={tags} locations={locations} attributes={attributes} categories={categories} allactivities={activites} alltransfers={transfers} />;
+
+
+  const { data:tags = [] } = tagsData; // for tags
+  const { data: locations = [] } = locationsData; // get cities
+  const { data: categories = [] } = categoriesData; // categories
+  const { data: attributes = [] } = attributesData; // for attributes
+
+
+
+  return <CreateItineraryForm tags={tags} locations={locations} attributes={attributes} categories={categories} allactivities={activitiesData} alltransfers={transfers} />;
 };
 
 export default CreateItineriary;

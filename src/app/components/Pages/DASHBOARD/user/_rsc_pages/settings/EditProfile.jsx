@@ -5,68 +5,41 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { editUserProfileAction } from "@/lib/actions/userActions";
 import { Trash2 } from "lucide-react";
+import { Label } from "@/components/ui/label";
 
-// Validation schema
-const formSchema = z
-  .object({
-    username: z.string().transform((val) => val),
-    email: z.string().transform((val) => val),
-    bio: z.string().optional(),
-    urls: z
-      .array(
-        z
-          .string()
-          .url({ message: "Invalid URL format" })
-          .min(1, { message: "URL cannot be empty" }) // Prevent empty strings
-      )
-      .optional(), // Makes `urls` optional
-  })
-  .refine((data) => data.bio?.trim() || (data.urls && data.urls.length > 0), {
-    message: "Either bio or at least one URL is required",
-    path: ["bio"], // Shows the error under `bio`
-  })
-  .refine((data) => data.bio?.trim() || (data.urls && data.urls.length > 0), {
-    message: "Either bio or at least one URL is required",
-    path: ["urls"], // Shows the error under `urls`
-  });
+
 
 export function EditProfile({ user }) {
   const { toast } = useToast();
   const { name, email, meta, profile } = user;
+  console.log(profile)
 
   // Then use optional chaining and default values
   const bio = meta?.bio || "";
   const urls = profile?.urls || [];
+
   const form = useForm({
-    resolver: zodResolver(formSchema),
     defaultValues: {
       username: name,
       email: email,
       bio: bio ?? " ",
-      urls:
-        user?.profile?.urls?.length > 0
-          ? user.profile.urls.map(({ url }) => url) // Extract URLs as strings
-          : [""], // Default empty string for an input field
+      urls: [
+        { label: "", url: "" }, // At least one item to start
+      ],
     },
   });
+
   const {
     control,
     handleSubmit,
-    formState: { isValid, isSubmitting },
+    formState: { isValid, isSubmitting, errors },
   } = form;
+
   // Handling dynamic fields
   const { fields, append, remove } = useFieldArray({
     control,
@@ -75,13 +48,9 @@ export function EditProfile({ user }) {
   // handle Submission
   const onSubmit = async (data) => {
     try {
-      const formData = new FormData();
-      // Append fields only if they exist
-      formData.append("bio", data.bio);
-      formData.append("urls", JSON.stringify(data.urls));
+      // console.log(data);
       // Send to server action
-      const result = await editUserProfileAction(formData);
-      // await editUserProfileAction(data);
+      await editUserProfileAction(data);
       const { success, message } = result;
       // sucesss
       if (success) {
@@ -107,10 +76,7 @@ export function EditProfile({ user }) {
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        <fieldset
-          disabled={isSubmitting}
-          className={`${isSubmitting ? "cursor-wait" : "cursor-pointer"}`}
-        >
+        <fieldset disabled={isSubmitting} className={`${isSubmitting ? "cursor-wait" : "cursor-pointer"}`}>
           {/* Username */}
           <FormField
             control={control}
@@ -121,9 +87,7 @@ export function EditProfile({ user }) {
                 <FormControl>
                   <Input placeholder="shadcn" {...field} disabled />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
+                <FormDescription>This is your public display name.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -139,10 +103,7 @@ export function EditProfile({ user }) {
                 <FormControl>
                   <Input placeholder="shadcn" {...field} disabled />
                 </FormControl>
-                <FormDescription>
-                  You can manage verified email addresses in your email
-                  settings.
-                </FormDescription>
+                <FormDescription>You can manage verified email addresses in your email settings.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -156,16 +117,9 @@ export function EditProfile({ user }) {
               <FormItem>
                 <FormLabel>Bio</FormLabel>
                 <FormControl>
-                  <Textarea
-                    className="resize-none"
-                    placeholder="Write something about yourself"
-                    {...field}
-                  />
+                  <Textarea className="resize-none" placeholder="Write something about yourself" {...field} />
                 </FormControl>
-                <FormDescription>
-                  You can @mention other users and organizations to link to
-                  them.
-                </FormDescription>
+                <FormDescription>You can @mention other users and organizations to link to them.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -173,56 +127,55 @@ export function EditProfile({ user }) {
 
           {/* URLs (Dynamic Array of Fields) */}
           <div className="space-y-2">
-            <FormLabel>URLs</FormLabel>
-            <FormDescription>
-              Add links to your website, blog, or social media profiles.
-            </FormDescription>
+            <FormLabel className="font-semibold">URLs</FormLabel>
+            <FormDescription>Add links to your website, blog, or social media profiles.</FormDescription>
 
             {fields.map((field, index) => (
-              <FormField
-                key={field.id}
-                control={control}
-                name={`urls.${index}`} // Access `urls[index]` directly as a string
-                render={({ field }) => (
-                  <FormItem className="flex flex-col sm:flex-row items-center gap-2">
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="http://twitter.com"
-                        className="resize-none"
-                      />
-                    </FormControl>
-                    <Button
-                      type="button"
-                      onClick={() => remove(index)}
-                      variant="destructive"
-                      className="self-start"
-                    >
-                      <Trash2 />
-                    </Button>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div key={field.id} className="flex flex-col gap-2 md:flex-row items-center">
+                {/* Label Field */}
+                <FormField
+                  control={control}
+                  name={`urls.${index}.label`} // Label input
+                  render={({ field }) => (
+                    <FormItem className="w-full sm:w-1/3">
+                      <Label>Label</Label>
+                      <FormControl>
+                        <Input {...field} placeholder="e.g., Twitter" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* URL Field */}
+                <FormField
+                  control={control}
+                  name={`urls.${index}.url`} // URL input
+                  render={({ field }) => (
+                    <FormItem className="w-full sm:w-2/3">
+                      <Label>Url Link</Label>
+                      <FormControl>
+                        <Input {...field} type="url" placeholder="http://twitter.com" />
+                      </FormControl>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <Button type="button" onClick={() => remove(index)} variant="destructive" className="self-end">
+                  <Trash2 />
+                </Button>
+              </div>
             ))}
 
-            <Button
-              type="button"
-              className={
-                "bg-white text-black border hover:bg-black hover:text-white"
-              }
-              onClick={() => append("")}
-            >
+            <Button type="button" className={"bg-white text-black border hover:bg-black hover:text-white"} onClick={() => append("")}>
               + Add URL
             </Button>
           </div>
 
           {/* Submit Button */}
-          <Button
-            type="submit"
-            disabled={!isValid}
-            className={"bg-secondaryDark mt-4"}
-          >
+          <Button type="submit" disabled={!isValid} className={"bg-secondaryDark mt-4"}>
             {isSubmitting ? "Updating Profile" : "Update Profile"}
           </Button>
         </fieldset>

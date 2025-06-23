@@ -1,9 +1,17 @@
-import React from 'react'
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const TransfersPage = () => {
   return (
-    <div>TransfersPage</div>
-  )
-}
+    <div>
+      Transfer Page
+      <Button asChild>
+        <Link className="" href={"/dashboard/admin/transfers/new"}>
+          Create Transfer
+        </Link>
+      </Button>
+    </div>
+  );
+};
 
-export default TransfersPage
+export default TransfersPage;

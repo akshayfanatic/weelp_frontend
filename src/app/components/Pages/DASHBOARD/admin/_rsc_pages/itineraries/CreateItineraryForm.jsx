@@ -1349,13 +1349,13 @@ export const CreateItineraryForm = ({ categories, attributes, tags, locations = 
 
             <div className="space-y-2">
               <Label className={`${errors?.seo?.og_image_url?.message && "text-red-400"}`}>OG Image Url</Label>
-              <Input type="text" placeholder="Enter OG Image Url" className="focus-visible:ring-secondaryDark" {...register("seo.og_image_url", { required: "og_image_url Required" })} />
+              <Input type="url" placeholder=" e.g: https://example.com/sample-og.jpg" className="focus-visible:ring-secondaryDark" {...register("seo.og_image_url", { required: "og_image_url Required" })} />
               {errors?.seo?.og_image_url && <p className="text-red-400 text-sm">{errors?.seo?.og_image_url?.message}</p>}
             </div>
 
             <div className="space-y-2">
               <Label className={`${errors?.seo?.canonical_url?.message && "text-red-400"}`}>Canonical Url</Label>
-              <Input type="text" placeholder="Enter canonical URL" className="focus-visible:ring-secondaryDark" {...register("seo.canonical_url", { required: "canonical_url Required" })} />
+              <Input type="url" placeholder="e.g: https://example.com/" className="focus-visible:ring-secondaryDark" {...register("seo.canonical_url", { required: "canonical_url Required" })} />
               {errors?.seo?.canonical_url && <p className="text-red-400 text-sm">{errors?.seo?.canonical_url?.message}</p>}
             </div>
           </AccordionContent>

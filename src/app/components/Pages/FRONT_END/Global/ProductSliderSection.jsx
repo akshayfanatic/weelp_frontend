@@ -1,23 +1,16 @@
 import React from "react";
-import ProductSlider, {
-  ProductSliderItinerary,
-  ProductSliderPackage,
-} from "../../../sliders/ProductSlider";
-import { fakeData } from "@/app/Data/ShopData";
+import ProductSlider from "../../../sliders/ProductSlider";
 
-// activity slider
-const ProductSliderSection = ({ sliderTitle, destinations }) => {
+// sliders
+const ProductSliderSection = ({ sliderTitle, destinations = [] }) => {
   return (
     <section className="container mx-auto flex flex-col gap-3 p-4 sm:my-8 productSlider">
-      <h2 className="text-lg sm:text-[28px] font-medium text-Nileblue top-4 capitalize">
-        {sliderTitle || "Top activities"}
-      </h2>
-      <ProductSlider data={destinations ?? fakeData} />
+      <h2 className="text-lg sm:text-[28px] font-medium text-Nileblue top-4 capitalize">{sliderTitle || "Top activities"}</h2>
+
+      {/* Check Items */}
+      {destinations && destinations.length > 0 && <ProductSlider data={destinations } />}
     </section>
   );
 };
 
 export default ProductSliderSection;
-
-
-

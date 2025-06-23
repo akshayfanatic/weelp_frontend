@@ -18,6 +18,7 @@ import AiSection from "../components/Pages/FRONT_END/home/AiSection";
 import { publicApi } from "@/lib/axiosInstance";
 import { log } from "@/lib/utils";
 
+
 /**
  * Returns all Featured Activities
  * @returns []
@@ -35,6 +36,7 @@ async function getAllFeaturedActivities() {
   }
 }
 
+
 /**
  * Get All Featured Cities
  * @returns []
@@ -50,6 +52,7 @@ async function getAllFeaturedCities() {
     return [];
   }
 }
+
 
 const HomePage = async () => {
   const { data: featuredActivities = [], success } = await getAllFeaturedActivities(); // featured Activities
@@ -69,6 +72,7 @@ const HomePage = async () => {
         <TabButton text={"For you"} />
         <BuyNow text={"Buy now"} />
         <BookingCard destination={"Desert Place"} />
+
         {/* <Testimonial
           username={""}
           email={""}

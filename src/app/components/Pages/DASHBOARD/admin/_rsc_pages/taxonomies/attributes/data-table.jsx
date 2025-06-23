@@ -12,7 +12,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { deleteAttribute } from "@/lib/actions/attributes";
 import { useToast } from "@/hooks/use-toast";
 
-export function DataTableAttributes({ attributes = [] }) {
+export function DataTableAttributes({ attributes = [], mutate }) {
   const [selectedId, setSelectedId] = useState(""); // selected id for deletion
   const [isDialogOpen, setIsDialogOpen] = useState(false); // modal open for delete action
   const { toast } = useToast();
@@ -36,6 +36,9 @@ export function DataTableAttributes({ attributes = [] }) {
         toast({
           title: "Category Deleted Successfully",
         });
+
+        // trigger api
+        mutate();
       }
     } catch (error) {
       toast({
@@ -150,23 +153,6 @@ export function DataTableAttributes({ attributes = [] }) {
               )}
             </TableBody>
           </Table>
-
-          {/* Pagination Controls */}
-          <div className="flex items-center justify-between pt-4">
-            <div className="text-sm text-muted-foreground">
-              Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-            </div>
-            <div className="space-x-2">
-              <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-                <ChevronLeft className="w-4 h-4 mr-2" />
-                Previous
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-                Next
-                <ChevronRight className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
-          </div>
         </CardContent>
       </Card>
 

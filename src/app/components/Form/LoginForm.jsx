@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -11,6 +11,7 @@ import { AtSign, Eye, EyeOff, KeyRound } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import Image from "next/image";
+import { useIsClient } from "@/hooks/useIsClient";
 
 // Zod schema for validation
 const schema = z.object({
@@ -20,7 +21,7 @@ const schema = z.object({
 
 export function LoginForm({ customUrl }) {
   const { toast } = useToast();
-  const [intialize, setInitialize] = useState(false);
+  const isClient = useIsClient(); // custom hook for hydration
   const [isHide, setHide] = useState(false);
 
   const {
@@ -30,11 +31,6 @@ export function LoginForm({ customUrl }) {
   } = useForm({
     resolver: zodResolver(schema),
   });
-
-  // initialize form
-  useEffect(() => {
-    setInitialize(true);
-  }, []);
 
   // const [error, setError] = useState("");
   const router = useRouter();
@@ -74,7 +70,7 @@ export function LoginForm({ customUrl }) {
       console.log(error);
     }
   };
-  if (intialize) {
+  if (isClient) {
     return (
       <div className={`space-y-4 bg-white border rounded-xl shadow-md w-full max-w-fit sm:max-w-md pb-8 ${isSubmitting && "cursor-wait"}`}>
         <div className="bg-white  rounded-t-xl border-b py-4 px-8">
@@ -94,7 +90,14 @@ export function LoginForm({ customUrl }) {
           <div>
             <label htmlFor="email" className=" flex items-center bg-white shadow-md border p-1 px-2 rounded-md">
               <AtSign className="text-[#5A5A5A] size-4" />
-              <input placeholder={"Email ID"} type="email" id="email" {...register("email")} autoComplete="off" className="mt-1  py-2 px-3 focus:outline-none bg-white placeholder:bg-white text-base w-full" />
+              <input
+                placeholder={"Email ID"}
+                type="email"
+                id="email"
+                {...register("email")}
+                autoComplete="off"
+                className="mt-1  py-2 px-3 focus:outline-none bg-white placeholder:bg-white text-base w-full"
+              />
             </label>
             {errors.email && <p className="text-sm text-red-600 pt-2">{errors.email.message}</p>}
           </div>
@@ -103,7 +106,14 @@ export function LoginForm({ customUrl }) {
           <div>
             <label htmlFor="password" className="flex items-center bg-white shadow-md border p-1 px-2 rounded-md relative">
               <KeyRound className="text-[#5A5A5A] size-4" />
-              <input type={isHide ? "password" : "text"} id="password" placeholder="Password" {...register("password")} autoComplete="off" className="mt-1  py-2 px-3 focus:outline-none bg-white placeholder:bg-white text-base w-full" />
+              <input
+                type={isHide ? "password" : "text"}
+                id="password"
+                placeholder="Password"
+                {...register("password")}
+                autoComplete="off"
+                className="mt-1  py-2 px-3 focus:outline-none bg-white placeholder:bg-white text-base w-full"
+              />
 
               {isHide ? (
                 <Eye

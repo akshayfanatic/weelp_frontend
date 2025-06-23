@@ -77,7 +77,7 @@ export const FormResetPassword = () => {
     try {
       const { password, password_confirmation } = data;
 
-      const response = await axios.post("/api/user/reset", {
+      const response = await axios.post("/api/public/user/reset", {
         password,
         password_confirmation,
         token,

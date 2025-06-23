@@ -1,10 +1,6 @@
-"use client";
-import Header from "../components/Layout/header";
-import Footer from "../components/Layout/footer";
 import { Inter_Tight } from "next/font/google";
 import "../globals.css";
-import { Toaster } from "@/components/ui/toaster";
-import { SessionProvider } from "next-auth/react";
+import AppProviders from "../components/Layout/ProviderWrapper";
 
 const interTight = Inter_Tight({
   subsets: ["latin"],
@@ -14,20 +10,9 @@ const interTight = Inter_Tight({
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${interTight.className} antialiased tfc_scroll`}
-        suppressHydrationWarning={true}
-        suppressContentEditableWarning={true}
-      >
-        <SessionProvider>
-          <Header />
-          <main className="bg-mainBackground">
-            {children}
-            <Toaster />
-          </main>
-          <Footer />
-        </SessionProvider>
+    <html>
+      <body className={`${interTight.className} antialiased tfc_scroll`} suppressHydrationWarning={true} suppressContentEditableWarning={true}>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

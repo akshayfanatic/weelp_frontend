@@ -8,7 +8,7 @@ import { getAllTransfersAdmin } from "@/lib/services/transfers";
 import { getAllItinerariesAdmin } from "@/lib/services/itineraries";
 
 const CreatePackage = async () => {
-  const [tags, locations, attributes, categories, activites, transfers ,itineraries ] = await Promise.all([
+  const [{ data: tagsData }, { data: locationsData = {} }, {  data: attributesData = {} }, {data: categoriesData = {}  }, {data:activitiesData=[]}, transfers ,itineraries ] = await Promise.all([
     getAllTagsAdmin(),
     getAllCitiesAdmin(),
     getAllAttributesAdmin(),
@@ -17,7 +17,14 @@ const CreatePackage = async () => {
     getAllTransfersAdmin(),
     getAllItinerariesAdmin()
   ]);
-  return <CreatePackageForm tags={tags} locations={locations} attributes={attributes} categories={categories} allactivities={activites} alltransfers={transfers} itineraries={itineraries} />;
+
+  const { data:tags = [] } = tagsData; // for tags
+  const { data: locations = [] } = locationsData; // get cities
+  const { data: categories = [] } = categoriesData; // categories
+  const { data: attributes = [] } = attributesData; // for attributes
+
+  
+  return <CreatePackageForm tags={tags} locations={locations} attributes={attributes} categories={categories} allactivities={activitiesData} alltransfers={transfers} itineraries={itineraries} />;
 };
 
 export default CreatePackage;

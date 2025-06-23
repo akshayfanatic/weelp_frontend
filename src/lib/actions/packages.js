@@ -154,8 +154,6 @@ export async function deletePackageItems({
   }
 }
 
-
-
 /**
  * Action to delete package
  * @param {number} packageId
@@ -163,8 +161,29 @@ export async function deletePackageItems({
  */
 export async function deletePackage(packageId) {
   try {
-    const res = await authApi.delete(`/api/admin/itineraries/${packageId}/`);
+    const res = await authApi.delete(`/api/admin/packages/${packageId}/`);
+    revalidatePath("/dashboard/admin/package-builder"); //revalidating path
+    return { success: true, data: res.data };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+}
 
+
+
+/**
+ * Action to delete multiple Package
+ * @param {[]} package_ids
+ * @returns [{}]
+ */
+export async function deleteMultiplePackages(package_ids = []) {
+  try {
+    const res = await authApi.post(`/api/admin/packages/bulk-delete`, {
+      package_ids,
+    });
+
+    // revalidate path
+    revalidatePath("/dashboard/admin/package-builder"); //revalidating path
     return { success: true, data: res.data };
   } catch (error) {
     return { success: false, error: error.message };

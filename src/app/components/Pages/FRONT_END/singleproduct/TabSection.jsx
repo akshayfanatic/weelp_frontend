@@ -62,11 +62,7 @@ export const TabSectionActivity = ({ productId, base_price, productData }) => {
     setActiveTab(tab);
     const element = sectionRefs.current[tab];
     if (element) {
-      const offsetTop =
-        element.getBoundingClientRect().top +
-        window.scrollY -
-        tabBarHeight -
-        16; // Offset to account for the sticky tab bar and some margin
+      const offsetTop = element.getBoundingClientRect().top + window.scrollY - tabBarHeight - 16; // Offset to account for the sticky tab bar and some margin
       window.scrollTo({ top: offsetTop, behavior: "smooth" });
     }
   };
@@ -74,11 +70,7 @@ export const TabSectionActivity = ({ productId, base_price, productData }) => {
   return (
     <section className="w-full border-2 bg-mainBackground singleProduct_tabSection">
       {/* Sticky Tab Bar */}
-      <div
-        className={`${
-          fixedTab ? "fixed top-0 z-20" : ""
-        } flex flex-col w-full  shadow-md bg-mainBackground`}
-      >
+      <div className={`${fixedTab ? "fixed top-0 z-20" : ""} flex flex-col w-full  shadow-md bg-mainBackground`}>
         <ul className="flex items-center justify-center sm:gap-x-12 container mx-auto ">
           {[
             { id: "tab_1", label: "Overview" },
@@ -89,11 +81,7 @@ export const TabSectionActivity = ({ productId, base_price, productData }) => {
             <li
               key={tab.id}
               onClick={() => toggleTab(tab.id)}
-              className={`${
-                activeTab === tab.id
-                  ? "font-semibold border-b-2 border-black "
-                  : ""
-              } sm:text-base text-black cursor-pointer p-2 py-4 sm:px-6 sm:py-6  capitalize`}
+              className={`${activeTab === tab.id ? "font-semibold border-b-2 border-black " : ""} sm:text-base text-black cursor-pointer p-2 py-4 sm:px-6 sm:py-6  capitalize`}
             >
               {tab.label}
             </li>
@@ -102,13 +90,9 @@ export const TabSectionActivity = ({ productId, base_price, productData }) => {
       </div>
 
       {/* Content */}
-      <div
-        className={`flex flex-col  xl:flex-row justify-between pt-4   mx-auto`}
-      >
+      <div className={`flex flex-col  xl:flex-row justify-between pt-4   mx-auto`}>
         <div className={`w-full xl:w-3/5  flex ${fixedTab ? "mt-12" : ""}`}>
-          <div
-            className={`flex flex-col gap-8 p-6 lg:p-12 max-w-fit w-full xl:w-4/5  ml-auto `}
-          >
+          <div className={`flex flex-col gap-8 p-6 lg:p-12 max-w-fit w-full xl:w-4/5  ml-auto `}>
             <div id="tab_1" ref={(el) => (sectionRefs.current["tab_1"] = el)}>
               <OverViewPanel description={productData?.description} />
             </div>
@@ -125,15 +109,8 @@ export const TabSectionActivity = ({ productId, base_price, productData }) => {
         </div>
 
         {/* Cart Functionality */}
-        <div
-          className={`${
-            fixedTab ? "mt-12   " : ""
-          } relative h-auto bg-[#f4f5f7]  w-full xl:w-2/5`}
-        >
-          <ProductForm
-            productId={productId}
-            productData={productData}
-          />
+        <div className={`${fixedTab ? "mt-12   " : ""} relative h-auto bg-[#f4f5f7]  w-full xl:w-2/5`}>
+          <ProductForm productId={productId} productData={productData} />
         </div>
       </div>
     </section>
@@ -147,8 +124,6 @@ export const TabSectionIterenary = ({ productData }) => {
   const [fixedTab, setFixedTab] = useState(false);
   const tabBarHeight = 68;
 
-  
-
   useEffect(() => {
     const checkScrollY = () => {
       if (window.scrollY > 700) {
@@ -189,11 +164,7 @@ export const TabSectionIterenary = ({ productData }) => {
     setActiveTab(tab);
     const element = sectionRefs.current[tab];
     if (element) {
-      const offsetTop =
-        element.getBoundingClientRect().top +
-        window.scrollY -
-        tabBarHeight -
-        16; // Offset to account for the sticky tab bar and some margin
+      const offsetTop = element.getBoundingClientRect().top + window.scrollY - tabBarHeight - 16; // Offset to account for the sticky tab bar and some margin
       window.scrollTo({ top: offsetTop, behavior: "smooth" });
     }
   };
@@ -201,11 +172,7 @@ export const TabSectionIterenary = ({ productData }) => {
   return (
     <section className="w-full border-2 bg-mainBackground singleProduct_tabSection">
       {/* Sticky Tab Bar */}
-      <div
-        className={`${
-          fixedTab ? "fixed top-0 z-20" : ""
-        } flex flex-col w-full  shadow-md bg-mainBackground`}
-      >
+      <div className={`${fixedTab ? "fixed top-0 z-20" : ""} flex flex-col w-full  shadow-md bg-mainBackground`}>
         <ul className="flex items-center justify-center sm:gap-x-12 container mx-auto ">
           {[
             { id: "tab_1", label: "Itirenary" },
@@ -216,11 +183,7 @@ export const TabSectionIterenary = ({ productData }) => {
             <li
               key={tab.id}
               onClick={() => toggleTab(tab.id)}
-              className={`${
-                activeTab === tab.id
-                  ? "font-semibold border-b-2 border-black "
-                  : ""
-              } sm:text-base text-black cursor-pointer p-2 py-4 sm:px-6 sm:py-6  capitalize`}
+              className={`${activeTab === tab.id ? "font-semibold border-b-2 border-black " : ""} sm:text-base text-black cursor-pointer p-2 py-4 sm:px-6 sm:py-6  capitalize`}
             >
               {tab.label}
             </li>
@@ -229,16 +192,12 @@ export const TabSectionIterenary = ({ productData }) => {
       </div>
 
       {/* Content */}
-      <div
-        className={`flex flex-col  xl:flex-row justify-between pt-4   mx-auto`}
-      >
+      <div className={`flex flex-col  xl:flex-row justify-between pt-4   mx-auto`}>
         <div className={`w-full xl:w-3/5  flex ${fixedTab ? "mt-12" : ""}`}>
-          <div
-            className={`flex flex-col gap-8 p-6 lg:p-12 max-w-fit w-full xl:w-4/5  ml-auto `}
-          >
+          <div className={`flex flex-col gap-8 p-6 lg:p-12 max-w-fit w-full xl:w-4/5  ml-auto `}>
             {productData?.schedules.length > 0 && (
               <div id="tab_1" ref={(el) => (sectionRefs.current["tab_1"] = el)}>
-                   <ItineraryPanel schedules={productData?.schedules}  />;
+                <ItineraryPanel schedules={productData?.schedules} />;
               </div>
             )}
             <div id="tab_2" ref={(el) => (sectionRefs.current["tab_2"] = el)}>
@@ -254,11 +213,7 @@ export const TabSectionIterenary = ({ productData }) => {
         </div>
 
         {/* Cart Functionality */}
-        <div
-          className={`${
-            fixedTab ? "mt-12   " : ""
-          } relative h-auto bg-[#f4f5f7]  w-full xl:w-2/5`}
-        >
+        <div className={`${fixedTab ? "mt-12   " : ""} relative h-auto bg-[#f4f5f7]  w-full xl:w-2/5`}>
           <ProductFormItinerary productData={productData} />
         </div>
       </div>
@@ -266,16 +221,12 @@ export const TabSectionIterenary = ({ productData }) => {
   );
 };
 
-
-
 // Separate for Iterinary Page
 export const TabSectionPackage = ({ productData }) => {
   const [activeTab, setActiveTab] = useState("tab_1");
   const sectionRefs = useRef({});
   const [fixedTab, setFixedTab] = useState(false);
   const tabBarHeight = 68;
-
-  
 
   useEffect(() => {
     const checkScrollY = () => {
@@ -317,11 +268,7 @@ export const TabSectionPackage = ({ productData }) => {
     setActiveTab(tab);
     const element = sectionRefs.current[tab];
     if (element) {
-      const offsetTop =
-        element.getBoundingClientRect().top +
-        window.scrollY -
-        tabBarHeight -
-        16; // Offset to account for the sticky tab bar and some margin
+      const offsetTop = element.getBoundingClientRect().top + window.scrollY - tabBarHeight - 16; // Offset to account for the sticky tab bar and some margin
       window.scrollTo({ top: offsetTop, behavior: "smooth" });
     }
   };
@@ -329,11 +276,7 @@ export const TabSectionPackage = ({ productData }) => {
   return (
     <section className="w-full border-2 bg-mainBackground singleProduct_tabSection">
       {/* Sticky Tab Bar */}
-      <div
-        className={`${
-          fixedTab ? "fixed top-0 z-20" : ""
-        } flex flex-col w-full  shadow-md bg-mainBackground`}
-      >
+      <div className={`${fixedTab ? "fixed top-0 z-20" : ""} flex flex-col w-full  shadow-md bg-mainBackground`}>
         <ul className="flex items-center justify-center sm:gap-x-12 container mx-auto ">
           {[
             { id: "tab_1", label: "Package" },
@@ -344,11 +287,7 @@ export const TabSectionPackage = ({ productData }) => {
             <li
               key={tab.id}
               onClick={() => toggleTab(tab.id)}
-              className={`${
-                activeTab === tab.id
-                  ? "font-semibold border-b-2 border-black "
-                  : ""
-              } sm:text-base text-black cursor-pointer p-2 py-4 sm:px-6 sm:py-6  capitalize`}
+              className={`${activeTab === tab.id ? "font-semibold border-b-2 border-black " : ""} sm:text-base text-black cursor-pointer p-2 py-4 sm:px-6 sm:py-6  capitalize`}
             >
               {tab.label}
             </li>
@@ -357,16 +296,12 @@ export const TabSectionPackage = ({ productData }) => {
       </div>
 
       {/* Content */}
-      <div
-        className={`flex flex-col  xl:flex-row justify-between pt-4   mx-auto`}
-      >
+      <div className={`flex flex-col  xl:flex-row justify-between pt-4   mx-auto`}>
         <div className={`w-full xl:w-3/5  flex ${fixedTab ? "mt-12" : ""}`}>
-          <div
-            className={`flex flex-col gap-8 p-6 lg:p-12 max-w-fit w-full xl:w-4/5  ml-auto `}
-          >
+          <div className={`flex flex-col gap-8 p-6 lg:p-12 max-w-fit w-full xl:w-4/5  ml-auto `}>
             {productData?.schedules.length > 0 && (
               <div id="tab_1" ref={(el) => (sectionRefs.current["tab_1"] = el)}>
-                   <ItineraryPanel schedules={productData?.schedules}  />;
+                <ItineraryPanel schedules={productData?.schedules} />;
               </div>
             )}
             <div id="tab_2" ref={(el) => (sectionRefs.current["tab_2"] = el)}>
@@ -382,11 +317,7 @@ export const TabSectionPackage = ({ productData }) => {
         </div>
 
         {/* Cart Functionality */}
-        <div
-          className={`${
-            fixedTab ? "mt-12   " : ""
-          } relative h-auto bg-[#f4f5f7]  w-full xl:w-2/5`}
-        >
+        <div className={`${fixedTab ? "mt-12   " : ""} relative h-auto bg-[#f4f5f7]  w-full xl:w-2/5`}>
           <ProductFormPackage productData={productData} />
         </div>
       </div>

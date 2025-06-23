@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useRouter } from "next/navigation";
-import useProductFormStore from "@/lib/store/productStore";
 import useMiniCartStore from "@/lib/store/useMiniCartStore";
 import { log } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -252,11 +251,19 @@ export default function SingleProductFormItinerary({ productData }) {
                             <span className="text-sm">{type == "adults" ? "Above 13 or above" : type == "children" ? "Age 2-12" : type == "infants" ? "Under 2" : null}</span>
                           </div>
                           <div className="flex items-center gap-4">
-                            <button type="button" onClick={() => handleDecrement(type)} className="w-8 h-8 rounded-full border text-lg flex items-center justify-center text-gray-700 bg-graycolor hover:bg-[#e9f5ed] hover:opacity-80">
+                            <button
+                              type="button"
+                              onClick={() => handleDecrement(type)}
+                              className="w-8 h-8 rounded-full border text-lg flex items-center justify-center text-gray-700 bg-graycolor hover:bg-[#e9f5ed] hover:opacity-80"
+                            >
                               <Minus size={14} />
                             </button>
                             <span className="font-semibold">{howMany[type]}</span>
-                            <button type="button" onClick={() => handleIncrement(type)} className="w-8 h-8 rounded-full border border-secondarylight text-lg flex items-center justify-center text-secondaryDark hover:bg-[#e9f5ed] hover:opacity-80 ">
+                            <button
+                              type="button"
+                              onClick={() => handleIncrement(type)}
+                              className="w-8 h-8 rounded-full border border-secondarylight text-lg flex items-center justify-center text-secondaryDark hover:bg-[#e9f5ed] hover:opacity-80 "
+                            >
                               <Plus size={14} />
                             </button>
                           </div>
@@ -354,7 +361,11 @@ export default function SingleProductFormItinerary({ productData }) {
                         </h3>
                         <span className="text-sm text-[#5A5A5A] underline">Detailed Breakdown</span>
                       </div>
-                      <button type="submit" disabled={!isValid} className="disabled:bg-gray-400 disabled:cursor-not-allowed w-fit p-4 px-10 text-base font-medium bg-secondaryDark text-white rounded-md shadow">
+                      <button
+                        type="submit"
+                        disabled={!isValid}
+                        className="disabled:bg-gray-400 disabled:cursor-not-allowed w-fit p-4 px-10 text-base font-medium bg-secondaryDark text-white rounded-md shadow"
+                      >
                         Select
                       </button>
                     </div>
@@ -368,7 +379,15 @@ export default function SingleProductFormItinerary({ productData }) {
               {/* Without Scuba Diving Option */}
               <label htmlFor="without-scuba-diving" className="relative flex flex-col gap-4 bg-white py-4 rounded-xl text-Blueish font-semibold sm:text-lg cursor-pointer">
                 <div className="flex items-center gap-4 px-6">
-                  <input type="radio" name="package" id="without-scuba-diving" value="without-scuba-diving" className="checked:accent-secondaryDark" onClick={handlePackageSelection} {...control.register("package")} />
+                  <input
+                    type="radio"
+                    name="package"
+                    id="without-scuba-diving"
+                    value="without-scuba-diving"
+                    className="checked:accent-secondaryDark"
+                    onClick={handlePackageSelection}
+                    {...control.register("package")}
+                  />
                   <span>Without Scuba Diving</span>
                 </div>
                 {showScuvadiving === false && (
@@ -429,7 +448,11 @@ export default function SingleProductFormItinerary({ productData }) {
                         <h3 className="font-semibold text-lg text-Nileblue">$6,790</h3>
                         <span className="text-sm text-[#5A5A5A] underline">Detailed Breakdown</span>
                       </div>
-                      <button type="submit" disabled={!isValid} className="disabled:bg-gray-400 disabled:cursor-not-allowed w-fit p-4 px-10 text-base font-medium bg-secondaryDark text-white rounded-md shadow">
+                      <button
+                        type="submit"
+                        disabled={!isValid}
+                        className="disabled:bg-gray-400 disabled:cursor-not-allowed w-fit p-4 px-10 text-base font-medium bg-secondaryDark text-white rounded-md shadow"
+                      >
                         Select
                       </button>
                     </div>

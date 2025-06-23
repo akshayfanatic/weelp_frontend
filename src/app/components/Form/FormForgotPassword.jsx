@@ -35,7 +35,7 @@ export function FormForgotPassword() {
     const { email } = data;
     setError(""); // Clear any previous errors
     try {
-      const response = await axios.post("/api/user/forgot", {
+      const response = await axios.post("/api/public/user/forgot", {
         email,
       });
 

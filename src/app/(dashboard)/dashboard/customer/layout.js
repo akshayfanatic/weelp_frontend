@@ -4,10 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 export default function UserLayout({ children }) {
   return (
-    <SidebarProvider style={{
-      // "--sidebar-width": "20rem",
-    // "--sidebar-width-mobile": "20rem",
-    }}>
+    <SidebarProvider>
       <AppSidebar />
       <main className="w-full dark:bg-black">
         <SidebarTrigger />

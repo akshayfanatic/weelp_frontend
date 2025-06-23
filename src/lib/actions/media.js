@@ -27,7 +27,7 @@ export async function uploadMedia(formData) {
         "Content-Type": "multipart/form-data", // Ensure this header is set for file uploads
       },
     });
-
+   
     // Returning response success
     return {
       success: true,
@@ -44,7 +44,7 @@ export async function uploadMedia(formData) {
 
 /**
  * Handles the update media image in media library files using FormData and Axios.
- * @param {*} formData
+ * @param {object} formData data of the image 
  * @returns []
  */
 export async function updateMediaImage(formData) {
@@ -80,14 +80,14 @@ export async function updateMediaImage(formData) {
 }
 
 /**
- *
+ * Delete Media Image By Id 
+ * @param {number} imageId Id of the image to delete
  * @returns []
  */
 export async function deleteMediaImageById(imageId) {
   try {
     await delay(500);
 
-    log(imageId);
     // Use axios to post FormData
     if (imageId) {
       const res = await authApi.delete(`api/admin/media/delete/${imageId}`);
@@ -95,10 +95,9 @@ export async function deleteMediaImageById(imageId) {
       // path refresh
       revalidatePath("/dashboard/admin/media");
 
-      //   // Returning response success
+      // Returning response success
       return {
         success: true,
-        data: res.data,
       };
     }
     return { success: false, data: "Something Went Wrong" };

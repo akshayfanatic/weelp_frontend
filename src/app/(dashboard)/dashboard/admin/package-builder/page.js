@@ -1,17 +1,21 @@
+export const dynamic = 'force-dynamic';
+
 import React from "react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-const Packagebuilder = () => {
+import { getCategoriesAdmin } from "@/lib/services/global";
+import { getAttributeBySlugAdmin } from "@/lib/services/attributes";
+import FilterPacakge from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/packages/FilteredPackagePage";
+
+const PackagebuilderPage = async () => {
+  const {data: categoriesData = {}  } = await getCategoriesAdmin();
+  const difficulty = await getAttributeBySlugAdmin("difficulty-level"); // slug required
+  const duration = await getAttributeBySlugAdmin("duration") // slug required
+
+
+  const { data: categories = [] } = categoriesData; // categories
   return (
-    <div className="flex justify-between">
-      Package Page
-      <Button asChild>
-        <Link className="" href="/dashboard/admin/package-builder/new">
-          Create Package
-        </Link>
-      </Button>
-    </div>
+      <FilterPacakge categories={categories} difficulties={difficulty} durations={duration} />
+    
   );
 };
 
-export default Packagebuilder;
+export default PackagebuilderPage;

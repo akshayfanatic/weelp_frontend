@@ -1,15 +1,11 @@
-"use client"
+"use client";
 
-// import { useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Overview } from "./overview"
-import { Button } from "@/components/ui/button"
-import { QuickActions } from "./quick-actions"
-import { MetricCards } from "./metric-cards"
-import { RecentSales } from "./recent-sales"
-// import { CalendarDateRangePicker } from "@/components/dashboard/date-range-picker"
-// import { MetricsDisplay } from "@/components/dashboard/metrics-display"
-// import { QuickActions } from "@/components/dashboard/quick-actions"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Overview } from "./overview";
+import { Button } from "@/components/ui/button";
+import { QuickActions } from "./quick-actions";
+import { MetricCards } from "./metric-cards";
+import { RecentSales } from "./recent-sales";
 
 export function AdminDashboardPage() {
   return (
@@ -17,7 +13,6 @@ export function AdminDashboardPage() {
       <div className="flex items-center justify-between space-y-2">
         <h2 className="text-xl md:text-3xl font-bold tracking-tight">Super Admin Dashboard</h2>
         <div className="flex items-center space-x-2">
-          {/* <CalendarDateRangePicker /> */}
           <Button className="bg-secondaryDark">Download</Button>
         </div>
       </div>
@@ -31,7 +26,7 @@ export function AdminDashboardPage() {
         <QuickActions />
       </div>
 
-       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4">
           <CardHeader>
             <CardTitle>Overview</CardTitle>
@@ -43,15 +38,13 @@ export function AdminDashboardPage() {
         <Card className="col-span-3">
           <CardHeader>
             <CardTitle>Recent Sales</CardTitle>
-            <CardDescription>
-              You made 265 sales this month.
-            </CardDescription>
+            <CardDescription>You made 265 sales this month.</CardDescription>
           </CardHeader>
           <CardContent>
-            <RecentSales/>
+            <RecentSales />
           </CardContent>
         </Card>
-      </div>  
+      </div>
     </div>
-  )
+  );
 }

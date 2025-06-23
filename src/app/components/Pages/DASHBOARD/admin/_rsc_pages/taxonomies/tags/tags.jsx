@@ -1,54 +1,46 @@
 "use client";
-import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { TaxonomiesPageTitle } from "../taxonomies_shared";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useToast } from "@/hooks/use-toast";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { Edit, Trash, MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { deleteTag } from "@/lib/actions/tags";
+
+import useSWR from "swr";
+import { useForm } from "react-hook-form";
+import { fetcher } from "@/lib/fetchers"; // or use `fetcher`
+
 import { DataTableTags } from "./data-table-tags";
+import { CustomPagination } from "@/app/components/Pagination";
+import { TaxonomiesPageTitle } from "../taxonomies_shared";
 
-export const TagPage = ({ tags = [] }) => {
-  const { toast } = useToast();
-  const [selectedTagId, setSelectedtagId] = useState("");
+export function TagsPageClient() {
+  const { control, watch, setValue } = useForm({
+    defaultValues: {
+      page: 1,
+    },
+  });
 
-  const handleOnDelete = async () => {
-    if (!selectedTagId) return;
+  const page = watch("page"); // watch page value
 
-    // API call here
-    try {
-      const res = await deleteTag(selectedTagId);
+  const { data, error, isLoading, mutate } = useSWR(`/api/admin/taxonomies/tags?page=${page}`, fetcher); // fetch data
 
-      //  delete sucess fully
-      if (res.success) {
-        toast({
-          title: "Category Deleted Successfully",
-        });
-      }
-    } catch (error) {
-      toast({
-        title: "Seomthing went Wrong",
-        variant: "destructive",
-      });
-      setSelectedTagId(null);
-    }
+  if (error) return <p className="text-red-400">Failed to load tags.</p>;
+
+  const response = data?.data || {};
+  const { data: tagsData } = response || {};
+  const { data: items = [], current_page = "", per_page = "", total: totalItems = "" } = tagsData || {};
+
+  // Handle page change
+  const handlePageChange = (newPage) => {
+    setValue("page", newPage); // updates the form state and re-triggers SWR
   };
 
   return (
     <div className="space-y-4">
       <TaxonomiesPageTitle
-        title={"tags"}
+        title="tags"
         buttoninfo={{
           buttonName: "add tag",
           buttonurl: "/dashboard/admin/taxonomies/tags/new",
         }}
       />
-
-      <DataTableTags tags={tags} />
+      <DataTableTags tags={items} isloading={isLoading} mutate={mutate} />
+      <CustomPagination totalItems={totalItems} itemsPerPage={per_page} currentPage={current_page} onPageChange={handlePageChange} />
     </div>
   );
-};
+}

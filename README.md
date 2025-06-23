@@ -11,7 +11,7 @@ A modern booking application built with **Next.js 15**, leveraging powerful libr
 - **React 19** – Core UI library
 - **Next.js 15** – App router, server actions, SSR/SSG, and API handling
 - **Tailwind CSS 3** – Utility-first CSS for rapid UI development
-- **Shadcn Component Library** – Use ShadCN Components in Dashboard on the top of  **Radix UI**
+- **Shadcn Component Library** – Use ShadCN Components in Dashboard on the top of **Radix UI**
 - **Lucide Icons** – Beautiful, consistent icon set
 - **Swiper** – Mobile-friendly sliders and carousels
 - **Recharts** – Responsive charting library
@@ -23,6 +23,7 @@ A modern booking application built with **Next.js 15**, leveraging powerful libr
 - **Axios** – For Handling API's for interceptors and instances
 
 ### **Forms,Validation & Utilities**
+
 - **React Hook Form** – Performant, flexible form handling
 - **Zod** – Type-safe schema validation
 - **@hookform/resolvers** – Integration of Zod with React Hook Form
@@ -51,7 +52,6 @@ A modern booking application built with **Next.js 15**, leveraging powerful libr
 
 ## 🧪 Development & Tooling
 
-
 ### **ESLint & Prettier**
 
 - Code linting with Next.js ESLint config for best practices
@@ -73,6 +73,7 @@ We have **TWO** main route groups in this project, used to separate the **public
 ### 1. `(frontend)` – 🌐 Public Website Routes
 
 #### Located under `app/(frontend)`
+
 - Contains routes that are open to all users (no login required)
 - Examples:
   - `/blogs`, `/package`, `/holiday`, `/city`, `/search`, etc.
@@ -84,10 +85,14 @@ We have **TWO** main route groups in this project, used to separate the **public
 ### 2. `(dashboard)` – 🔒 Authenticated Dashboard Routes
 
 #### Located under `app/(dashboard)/dashboard`
+
 - Restricted to logged-in users
-- Subdivided into:
-  - `admin` – Admin-specific interfaces
-  - `customer` – End-user/customer-facing dashboard
+
+Organized by access layer:
+
+- `admin/` – Hooks for admin operations
+- `customer/` – Hooks for customer dashboard
+- `public/` – General data fetchers
 - Uses its own scoped `layout.js`, `error.js`, and `not-found.js` inside the dashboard folder
 
 ---
@@ -100,7 +105,7 @@ We have **TWO** main route groups in this project, used to separate the **public
 
 ```bash
 src                         # Entry Point to the Application
-├──app                     
+├──app
 │ ├── (dashboard)           # Dashboard grouped routes (authenticated area)
 │ │ └── dashboard
 │ │ ├── admin                # Admin-specific dashboard pages
@@ -136,7 +141,7 @@ src                         # Entry Point to the Application
 │ ├── hello
 │ ├── search
 │ └── user
-│ 
+│
 │ components
 │ ├── ui/
 │ │ ├── use-toast.js        # Custom toast hook
@@ -144,7 +149,7 @@ src                         # Entry Point to the Application
 │ Data/                     # Static data or mock JSONs
 │ globals.css
 │ manifest.js               # PWA manifest
-│ 
+│
 │ lib/
 │ ├── actions/              # Server actions (mutations: POST, PUT, DELETE)
 │ ├── services/             # Data fetching (GET only)
@@ -152,7 +157,7 @@ src                         # Entry Point to the Application
 │ ├── auth.js               # Authentication configurations
 │ ├── axiosInstance.js      # Axios global configurations
 │ └── utils.js              # Utility/helper functions
-│ 
+│
 │ middleware.js             # Middleware logic (handled routes and sessions)
 │ .env                      # Environment variables
 │ .env.local                # Local environment variables
@@ -161,9 +166,9 @@ src                         # Entry Point to the Application
 │ Dockerfile                # Docker setup
 │ components.json           # Handle ShadCN Based Component configuration
 │ tsconfig.json             # Typescript Based Configuration
-│ next-env.d.ts             
+│ next-env.d.ts
 │ next.config.mjs           # Next JS Based Configuration and Setup
-│ package-lock.json         
+│ package-lock.json
 │ package.json              # Detailed About Packeged Used
 
 
@@ -179,27 +184,82 @@ src                         # Entry Point to the Application
 
 ---
 
-## 🌐 API Data Fetching Technique 
+## 🌐 API Data Fetching Technique
 
-- The **Next.js frontend** communicates with the Laravel backend using `axios` via service files located in `lib/services/`.
+### Use Proxy API's For Client side Data Fetching
 
-### Use Proxy API's For Client side Data Fetching 
-- Server-side fetching is handled via service files located in `lib/services/` Working
-- Client-side fetching is handled through `api/public/` and `api/private/` stil in development. **(in development)**
+#### **Basically I made a Busineess Layer Trying to Implement SOC and SOLID Pattern**
 
-### Server Actions
-- Used Server Actions for Mutations `/lib/actions` 
-I use server actions mutations which also recommended by next js.
+**Facade Pattern + FSD + DDD + SOLID Principles**
 
+This project implements a scalable, modular architecture for managing API data and business logic using a combination of:
 
-## 👨‍💻 Frontend Development
+- ✅ **Facade Pattern**
+- 🧱 **Feature-Sliced Design (FSD)**
+- 🧠 **Domain-Driven Design (DDD)**
+- ⚙️ **Single Responsibility & Open/Closed Principles** from SOLID
 
-This frontend was built using **Next.js App Router** with:
+---
 
-- **Route grouping**
-- **Server and client components**
-- **Axios for API calls**
-- **Zustand for state management**
-- **Tailwind CSS** for styling
+## 📁 Folder Structure Overview
+
+### `lib/` — Core Logic & Integrations
+
+### LET TAKE A EXAMPLE OF (ACTIVITIES) MODEL
+
+| Folder/File                  | Purpose                                                      |
+| ---------------------------- | ------------------------------------------------------------ |
+| `lib/services/activities.js` | Handle all **GET** requests related to `activities` model    |
+| `lib/actions/activities.js`  | Handle **mutations** using Next.js **Server Actions**        |
+| `lib/store/`                 | Zustand-based **global state management**                    |
+| `lib/stripe/`                | Stripe **payment logic & helpers**                           |
+| `lib/axios/`                 | Global **Axios instance** with public/private interceptors   |
+| `lib/fetchers/`              | SWR-compatible **data fetchers**                             |
+| `lib/utils/`                 | General **utility functions** (formatters, validators, etc.) |
+
+---
+
+### `src/hooks/api/` — Role-Based API Hooks
+
+Benefits:
+
+- Centralized API gateway
+- Easier token handling & validation
+- Better separation of access levels
+
+---
+
+## 🧱 Architectural Principles
+
+### ✅ **Facade Pattern**
+
+Used in `lib/` to create simplified interfaces for:
+
+- Services
+- Mutations
+- External integrations (e.g., Stripe, Axios)
+
+### ✅ **Feature-Sliced Design (FSD)**
+
+Separation by **domain** and **business role** (admin, public, customer). Makes scaling easy and onboarding faster.
+
+### ✅ **Domain-Driven Design (DDD)**
+
+Each model (e.g., activities, orders) owns its **fetching** and **mutation logic**, keeping concerns domain-centric.
+
+### ✅ **SOLID Principles**
+
+- **Single Responsibility**: Each module/folder has one clear purpose.
+- **Open/Closed Principle**: Easy to extend new logic without changing existing code.
+
+---
+
+## 💡 Benefits
+
+- 🧩 Modular & composable
+- 📈 Highly scalable for growing codebases
+- 🔐 Secure with role-based API structure
+- 🧠 Easier to test and maintain
+- 🚀 Fast developer experience with clean boundaries
 
 ---

@@ -26,6 +26,7 @@ export const RegionFilter = () => {
     per_page: 10,
   });
   const [isLoading, setIsLoading] = useState(false);
+ 
 
   // Fetch Categories
   const fetchCategories = useCallback(() => {
@@ -61,6 +62,7 @@ export const RegionFilter = () => {
         )
         .then((response) => {
           setProducts(response.data.data);
+           console.log(response)
           setPagination({
             current_page: response?.data?.current_page ?? 0,
             last_page: response?.data?.last_page ?? 0,

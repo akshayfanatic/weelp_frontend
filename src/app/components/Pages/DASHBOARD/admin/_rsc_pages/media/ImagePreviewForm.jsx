@@ -30,8 +30,9 @@ const formSchema = z.object({
   id: z.number().optional(), // id is also optional and a string
 });
 
-export const ImagePreviewForm = ({ isDialogOpen, setIsDialogOpen, selectedImage = {}, toggleUpdateSucess, setToggleSuccess }) => {
+export const ImagePreviewForm = ({ isDialogOpen, setIsDialogOpen, selectedImage = {}, mutateMedia }) => {
   const { toast } = useToast();
+
   const { id = "", name = "", alt_text = "" } = selectedImage;
 
   // intialize form
@@ -59,9 +60,7 @@ export const ImagePreviewForm = ({ isDialogOpen, setIsDialogOpen, selectedImage 
 
         // close dialog
         setIsDialogOpen(!isDialogOpen);
-
-        // make lifting up
-        setToggleSuccess(!toggleUpdateSucess);
+        mutateMedia("/api/dashboard/media"); // trigger fetch
       } else {
         toast({
           title: "Updating Failed",
@@ -93,9 +92,7 @@ export const ImagePreviewForm = ({ isDialogOpen, setIsDialogOpen, selectedImage 
 
       // close dialog
       setIsDialogOpen(!isDialogOpen);
-
-      // make lifting up
-      setToggleSuccess(!toggleUpdateSucess);
+      mutateMedia("/api/dashboard/media"); // trigger fetch
     } catch (error) {
       console.log("Error during update:", error?.response || error);
       toast({

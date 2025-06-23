@@ -51,8 +51,6 @@ export const createItinerary = async (data) => {
   }
 };
 
-
-
 /**
  * Method for Edit  Itinerary
  * @param {number} id  - Id of the Itinerary
@@ -136,7 +134,6 @@ export async function deleteItineraryItems({
   }
 }
 
-
 /**
  * Action to delete itinerary
  * @param {number} itineraryId
@@ -145,6 +142,25 @@ export async function deleteItineraryItems({
 export async function deleteItinerary(itineraryId) {
   try {
     const res = await authApi.delete(`/api/admin/itineraries/${itineraryId}/`);
+    return { success: true, data: res.data };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * Action to delete multiple Itinerary
+ * @param {[]} itinerary_ids
+ * @returns [{}]
+ */
+export async function deleteMultipleItineraries(itinerary_ids = []) {
+  try {
+    const res = await authApi.post(`/api/admin/itineraries/bulk-delete`, {
+      itinerary_ids,
+    });
+
+    // revalidate path
+    revalidatePath("/dashboard/admin/itineraries"); //revalidating path
     return { success: true, data: res.data };
   } catch (error) {
     return { success: false, error: error.message };

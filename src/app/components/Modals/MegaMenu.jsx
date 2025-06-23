@@ -29,7 +29,13 @@ const MegaMenu = ({ setShowMegaMenu, showmegaMenu }) => {
           Trending Destination <ChevronRight size={18} />
         </li>
         {allContinents.map((continent, index) => (
-          <li key={index} className={`hover:bg-secondaryLight2 text-grayDark hover:text-secondaryDark p-4 capitalize flex items-center gap-2 ${selectedContinent === continent ? "bg-secondaryLight2 text-secondaryDark" : ""}`} onClick={handleContinent}>
+          <li
+            key={index}
+            className={`hover:bg-secondaryLight2 text-grayDark hover:text-secondaryDark p-4 capitalize flex items-center gap-2 ${
+              selectedContinent === continent ? "bg-secondaryLight2 text-secondaryDark" : ""
+            }`}
+            onClick={handleContinent}
+          >
             {continent}
           </li>
         ))}

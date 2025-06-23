@@ -3,10 +3,13 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import MegaMenu from "../Modals/MegaMenu";
 import { Globe, Headphones, DollarSign, MapPin, UserRound, ChevronRight, ShoppingCart, Search } from "lucide-react";
+import { useUIStore } from "@/lib/store/uiStore";
+import { useIsClient } from "@/hooks/useIsClient";
 
 const Header = () => {
+  const isClient = useIsClient(); // hydration
   const [showmegaMenu, setShowMegaMenu] = useState(false);
-  const [stickyHeader, setStickyHeader] = useState(false);
+  const { stickyHeader, setStickyHeader } = useUIStore();
 
   useEffect(() => {
     window.addEventListener("scroll", isSticky);
@@ -29,70 +32,72 @@ const Header = () => {
     setShowMegaMenu(!showmegaMenu);
   };
 
-  return (
-    <header className={`hidden md:block  w-full border-b-2 ${stickyHeader ? "fixed z-[12]" : ""}`}>
-      <div className="relative">
-        {/* Top Bar */}
-        <div className={`${stickyHeader ? "hidden" : "flex"} text-black bg-Brightgray px-12 py-4 w-full items-center justify-between `}>
-          <div className="topheader offer flex space-x-6">
-            <Link href={"/region/asia"}>Country</Link>
+  if (isClient) {
+    return (
+      <header className={`hidden md:block  w-full border-b-2 ${stickyHeader ? "fixed z-[12]" : ""}`}>
+        <div className="relative">
+          {/* Top Bar */}
+          <div className={`${stickyHeader ? "hidden" : "flex"} text-black bg-Brightgray px-12 py-4 w-full items-center justify-between `}>
+            <div className="topheader offer flex space-x-6">
+              <Link href={"/region/asia"}>Country</Link>
 
-            <a href="/Get Exclusive offer on the App" className="text-Nileblue text-sm">
-              Get Exclusive offer on the App
-            </a>
-            <a href="/Helpline" className="flex items-center text-Nileblue text-sm">
-              <Headphones className="mr-2" />
-              Helpline
-            </a>
+              <a href="/Get Exclusive offer on the App" className="text-Nileblue text-sm">
+                Get Exclusive offer on the App
+              </a>
+              <a href="/Helpline" className="flex items-center text-Nileblue text-sm">
+                <Headphones className="mr-2" />
+                Helpline
+              </a>
+            </div>
+
+            <div className="topheader-language flex space-x-6">
+              <a href="/Get Exclusive offer on the App" className="flex items-center text-Nileblue text-sm">
+                <Globe className="mr-2" />
+                English
+              </a>
+              <a href="/Helpline" className="flex items-center text-Nileblue text-sm">
+                <DollarSign className="mr-2" />
+                Helpline
+              </a>
+            </div>
           </div>
 
-          <div className="topheader-language flex space-x-6">
-            <a href="/Get Exclusive offer on the App" className="flex items-center text-Nileblue text-sm">
-              <Globe className="mr-2" />
-              English
-            </a>
-            <a href="/Helpline" className="flex items-center text-Nileblue text-sm">
-              <DollarSign className="mr-2" />
-              Helpline
-            </a>
+          {/* Menu Bar */}
+          <div className="flex text-black px-12 py-4 w-full items-center bg-white">
+            <div className="logo">
+              <Link href="/">
+                <img src="/assets/images/SiteLogo.png" alt="Logo" className="h-10" />
+              </Link>
+            </div>
+            <nav className=" menu flex flex-grow justify-center space-x-10 flex-wrap">
+              <button className="relative flex items-center text-Bluewhale font-medium" onClick={handleMegaMenu}>
+                {/* This is Mega Menu Handle */}
+                <MapPin className="mr-2" />
+                Explore Destinations
+                {/* Mega Menu Absolute */}
+                {showmegaMenu && <MegaMenu setShowMegaMenu={setShowMegaMenu} showmegaMenu={showmegaMenu} />}
+              </button>
+              <Link href="/" className="text-Bluewhale font-medium">
+                Tours & Experiences
+              </Link>
+              <Link href="/transfers" className="text-Bluewhale font-medium">
+                Transfers
+              </Link>
+              <Link href="/holiday" className="text-Bluewhale font-medium">
+                Trips
+              </Link>
+              <Link href="/explore" className="text-Bluewhale font-medium">
+                Explore
+              </Link>
+            </nav>
+
+            {/* Account  */}
+            <HeaderAccount />
           </div>
         </div>
-
-        {/* Menu Bar */}
-        <div className="flex text-black px-12 py-4 w-full items-center bg-white">
-          <div className="logo">
-            <Link href="/">
-              <img src="/assets/images/SiteLogo.png" alt="Logo" className="h-10" />
-            </Link>
-          </div>
-          <nav className=" menu flex flex-grow justify-center space-x-10 flex-wrap">
-            <button className="relative flex items-center text-Bluewhale font-medium" onClick={handleMegaMenu}>
-              {/* This is Mega Menu Handle */}
-              <MapPin className="mr-2" />
-              Explore Destinations
-              {/* Mega Menu Absolute */}
-              {showmegaMenu && <MegaMenu setShowMegaMenu={setShowMegaMenu} showmegaMenu={showmegaMenu} />}
-            </button>
-            <Link href="/" className="text-Bluewhale font-medium">
-              Tours & Experiences
-            </Link>
-            <Link href="/transfers" className="text-Bluewhale font-medium">
-              Transfers
-            </Link>
-            <Link href="/holiday" className="text-Bluewhale font-medium">
-              Trips
-            </Link>
-            <Link href="/explore" className="text-Bluewhale font-medium">
-              Explore
-            </Link>
-          </nav>
-
-          {/* Account  */}
-          <HeaderAccount />
-        </div>
-      </div>
-    </header>
-  );
+      </header>
+    );
+  }
 };
 
 export default Header;
