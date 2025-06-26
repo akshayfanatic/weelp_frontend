@@ -58,21 +58,28 @@ const CheckoutForm = ({ clientSecret = [""] }) => {
   // handlesubmit
   const handleFormSubmit = async (profileData) => {
     try {
-      // Check if stripe and elements are loaded
+      // Check if Stripe is ready
       if (!stripe || !elements) {
         toast({ title: "Payment system is not ready. Please try again later." });
         return;
       }
 
-      // Prepare data for order
+      // Create or update user profile
+      const profileResponse = await editUserProfileAction(profileData);
+      if (!profileResponse?.success) {
+        toast({ title: "Failed to update profile. Please try again.", variant: "destructive" });
+        return;
+      }
+
+      // Prepare order data
       const orderData = {
         order_type: type,
         orderable_id: orderable_id,
-        travel_date: "2025-07-10", // working
-        preferred_time: "15:00:00", // working
+        travel_date: "2025-07-10",
+        preferred_time: "15:00:00",
         number_of_adults: adults,
         number_of_children: children,
-        special_requirements: "Need vegetarian meals", // working
+        special_requirements: "Need vegetarian meals",
         user_id: user_id,
         amount: parseInt(price),
         currency: String(currency).toLowerCase(),
@@ -87,31 +94,13 @@ const CheckoutForm = ({ clientSecret = [""] }) => {
         },
       };
 
-      // Create Profile
-      let profileResponse;
-      try {
-        profileResponse = await editUserProfileAction(profileData);
-
-        console.log("Order created:", profileResponse.data);
-      } catch (profileError) {
-        console.log("Order creation failed:", profileError);
-        toast({ title: "Failed to udpate profile. Please try again.", variant: "destructive" });
-        return;
-      }
-
       // Create order
-      let orderResponse;
-      try {
-        orderResponse = await checkoutCreateOrder(orderData)
-
-        console.log("Order created:", orderResponse.data);
-      } catch (orderError) {
-        console.log("Order creation failed:", orderError);
+      const orderResponse = await checkoutCreateOrder(orderData);
+      if (!orderResponse?.success) {
         toast({ title: "Failed to create order. Please try again.", variant: "destructive" });
         return;
       }
 
-      // debugger
       // Confirm payment
       const result = await stripe.confirmPayment({
         elements,
@@ -120,15 +109,14 @@ const CheckoutForm = ({ clientSecret = [""] }) => {
         },
       });
 
-      // error return by default in inteface
+      // Error If then display
       if (result.error) {
         toast({ title: result?.error?.message || "Payment failed. Please try again.", variant: "destructive" });
       } else {
-        // The customer will be redirected to the `return_url`
         toast({ title: "Processing your payment..." });
       }
     } catch (error) {
-      console.log("Unexpected error:", error);
+      console.error("Unexpected error during checkout:", error);
       toast({ title: "An unexpected error occurred. Please try again.", variant: "destructive" });
     }
   };

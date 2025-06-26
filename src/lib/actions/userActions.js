@@ -30,26 +30,6 @@ export const createUserAction = async (formData) => {
 // Edit UserProfile {** PUT}
 export const editUserProfileAction = async (formData) => {
   try {
-  
-    
-    // Properly extract data from FormData
-    // const bio = formData.get("bio");
-    // const urlsArray = formData.getAll("urls"); // If urls is sent as multiple fields
-    
-    // let formattedUrls;
-    // if (urlsArray.length > 0) {
-    //   const arraydata = JSON.parse(urlsArray);
-    //   formattedUrls = {
-    //     urls: arraydata.map((url) => ({ url })),
-    //   };
-    // }
-    
-    
-    // const formattedData = {
-    //   bio: bio || "",
-    //   urls: formattedUrls?.urls,
-    // };
-
     
     const response = await authApi.put("/api/profile", formData, {
       headers: { "Content-Type": "application/json" },
@@ -58,8 +38,6 @@ export const editUserProfileAction = async (formData) => {
     await delay(2000);
     revalidatePath("/dashboard/customer/settings/profile");
 
-        
-    log(response)
     return { success: true, data: response?.data };
   } catch (error) {
     console.error("Error in editUserProfileAction:", error);
