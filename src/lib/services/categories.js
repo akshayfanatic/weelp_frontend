@@ -1,6 +1,5 @@
 import { authApi } from "../axiosInstance";
 
-
 /**
  * Get Single Category on Admin side
  * @param {Number} categoryId
@@ -16,4 +15,3 @@ export async function getSingleCategoryAdmin(categoryId) {
     return [];
   }
 }
-

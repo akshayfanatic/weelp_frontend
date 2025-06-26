@@ -2,11 +2,11 @@
 
 import BannerSection from "@/app/components/Pages/FRONT_END/singleproduct/BannerSection";
 import { TabSectionActivity } from "@/app/components/Pages/FRONT_END/singleproduct/TabSection";
-import { publicApi } from "@/lib/axiosInstance";
-import { log } from "@/lib/utils";
 import { notFound } from "next/navigation";
 import { getSingleActivity } from "@/lib/services/activites";
 import { isEmpty } from "lodash";
+import { publicApi } from "@/lib/axiosInstance";
+import { log } from "@/lib/utils";
 
 export default async function DestinationPage({ params }) {
   const { slug } = await params;
@@ -33,6 +33,7 @@ export default async function DestinationPage({ params }) {
     description: description,
   };
 
+  console.log(activityData);
   return (
     <>
       <BannerSection activityName={name} />

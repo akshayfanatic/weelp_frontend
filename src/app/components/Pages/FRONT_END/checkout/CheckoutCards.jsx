@@ -12,7 +12,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Country, State, City } from "country-state-city";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-
+import useMiniCartStore from "@/lib/store/useMiniCartStore";
 
 
 export const CheckoutUserDetailCard = ({ userImagesrc, userName, userEmail }) => {
@@ -23,6 +23,26 @@ export const CheckoutUserDetailCard = ({ userImagesrc, userName, userEmail }) =>
         <h3 className="text-[#4D4D4D] font-bold text-sm capitalize">{userName ? userName : "Maya"}</h3>
         <span className="text-[#4D4D4D] text-base leading-6">{userEmail || "Email: test@test.com"}</span>
       </div>
+    </div>
+  );
+};
+
+
+// This Module Handle Checkout Items
+export const CheckoutItems = () => {
+  const { cartItems = [] } = useMiniCartStore();
+
+  return (
+    <div className="flex flex-col gap-4 justify-between">
+      {cartItems && cartItems.length > 0 ? (
+        cartItems.map((val, index) => {
+          return <CheckoutItemCard key={index} itemName={val?.name} totalPassenger={val?.howMany} date={val?.dateRange} />;
+        })
+      ) : (
+        <p>Sorry No items in cart</p>
+      )}
+
+      <CheckoutReview />
     </div>
   );
 };
@@ -273,7 +293,6 @@ export const CheckoutItemCard = ({ itemName, totalPassenger, date }) => {
   );
 };
 
-
 export const CheckoutReview = () => {
   return (
     <div className="mt-6">
@@ -311,3 +330,4 @@ export const CheckoutReview = () => {
     </div>
   );
 };
+

@@ -9,7 +9,7 @@ import Footer from "./footer";
 // Files Handle All Provider which used across the app
 export default function AppProviders({ children }) {
   const isClient = useIsClient(); // hydration
-  const { stickyHeader } = useUIStore();
+  const { stickyHeader } = useUIStore(); // sticky header 
 
   if (isClient) {
     return (

@@ -32,7 +32,7 @@ const BannerSection = () => {
   // destructure data
   const { name, description } = regionDetails;
 
-  log(regionDetails);
+  // log(regionDetails);
   return (
     <section className="flex h-[60vh] page_country_banner" style={{ background: "linear-gradient(to bottom, #FFFFFF, #EAF1EE)" }}>
       <div className="flex mx-auto w-full h-full items-center relative">

@@ -14,7 +14,7 @@ export default function PaymentSuccess() {
   const searchParams = useSearchParams();
   const session_id = searchParams.get("session_id"); // retrieve session id
   const { clearCart } = useMiniCartStore(); // clear cart
-  const session = useSession();
+  const session = useSession(); // prevent user to page
 
   const { bookingData, loading, error } = useBookingData(session_id); // retrieve data
 

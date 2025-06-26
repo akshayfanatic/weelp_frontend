@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import axios from "axios";
 
-// fetcher function for SWR POST REQUEST FOR ONLY 
+// fetcher function for SWR POST REQUEST FOR ONLY AUTOMATE HOSTED CHECKOUT
 const fetcher = (session_id) => axios.post("/api/public/checkout/confirmation", { session_id }).then((res) => res.data);
 
 export function useBookingData(session_id) {
@@ -13,3 +13,4 @@ export function useBookingData(session_id) {
     error,
   };
 }
+

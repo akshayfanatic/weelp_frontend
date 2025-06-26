@@ -10,36 +10,14 @@ import { TourSection } from "@/app/components/Pages/FRONT_END/Global/TourSection
 import GuideSection from "@/app/components/Pages/FRONT_END/Global/GuideSection";
 import { publicApi } from "@/lib/axiosInstance";
 import { notFound } from "next/navigation";
-import { log } from "console";
 import { RegionFilter } from "@/app/components/Pages/FRONT_END/region/region_filter";
+import { getCitiesByRegion } from "@/lib/services/region";
+import { getPackageDataByRegion } from "@/lib/services/package";
+import { log } from "console";
+import { RegionFilterNew } from "@/app/components/Pages/FRONT_END/region/region_filter_rhf";
 
-// Fetch Data Before Rendering Component
-async function getCitiesByRegion(region) {
-  try {
-    const response = await publicApi.get(`/api/region/${region}/cities/`, {
-      headers: { "Content-Type": "application/json" },
-    });
-    return response.data;
-  } catch (error) {
-    console.log("Error fetching city data:");
 
-    return [];
-  }
-}
 
-// getPackageDataByRegion
-async function getPackageDataByRegion(region) {
-  try {
-    const response = await publicApi.get(`/api/region/${region}/region-packages`, {
-      headers: { Accept: "application/json" },
-    });
-
-    return response.data;
-  } catch (error) {
-    console.log("Error fetching city data:packages_city", error);
-    return []; // Return null to trigger 404
-  }
-}
 
 //  Region Page Component
 export default async function Region({ params }) {
@@ -54,6 +32,7 @@ export default async function Region({ params }) {
   if (!cityData || cityData.length === 0) {
     return notFound();
   }
+
 
   // testing schema
   function schemaJsonSample() {
@@ -120,9 +99,11 @@ export default async function Region({ params }) {
       <BreakSection />
 
       {/* Region Based Filter */}
-      <RegionFilter />
+      {/* <RegionFilter /> */}
+      <RegionFilterNew />
 
       <ReviewSectionRegion />
+      {/* Blog Section */}
       <GuideSection sectionTitle="Blogs" data={fakeData} />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={schemaJsonSample()} key="product-jsonld" />

@@ -23,9 +23,10 @@ export const getCitiesRegions = async () => {
  */
 export const getCategories = async () => {
   try {
-    const response = await publicApi.get(`/api/categories`);
-    return response?.data?.data;
+    const response = await publicApi.get("/api/categories");
+    return response.data.data ?? [];
   } catch (error) {
+    console.error("Failed to fetch categories", error);
     return [];
   }
 };
@@ -57,7 +58,6 @@ export const getAllCitiesAdmin = async () => {
   }
 };
 
-
 /**
  * Get All Attributes
  * @param {string} page
@@ -72,7 +72,6 @@ export const getAllAttributesAdmin = async (page) => {
   }
 };
 
-
 /**
  * Get All TagsAdmin
  * @param {string} page
@@ -86,7 +85,6 @@ export const getAllTagsAdmin = async (page = "") => {
     return { data: [] }; // ✅ FIXED: consistent return shape
   }
 };
-
 
 /**
  * Get All Users

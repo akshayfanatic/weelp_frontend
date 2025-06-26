@@ -2,8 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { CheckoutFields, CheckoutUserDetailCard } from "@/app/components/Pages/FRONT_END/checkout/CheckoutCards";
-import { CheckoutItems } from "./checkoutitems.module";
+import { CheckoutFields, CheckoutUserDetailCard, CheckoutItems } from "@/app/components/Pages/FRONT_END/checkout/CheckoutCards";
 import useMiniCartStore from "@/lib/store/useMiniCartStore";
 import { getStripe } from "@/lib/stripe/stripe";
 import axios from "axios";
@@ -71,7 +70,8 @@ const StripeContainer = () => {
 
   // handle checkout functionality
   const handleCheckout = async (data) => {
-    // // Prepare booking data
+    
+    // Prepare booking data
     const bookingData = {
       order_type: type,
       orderable_id: id,
@@ -92,6 +92,7 @@ const StripeContainer = () => {
         relationship: "Brother",
       },
     };
+    
     try {
       await editUserProfileAction(data); // send data to backend
       await initiateCheckout(bookingData); // initiate checkout
@@ -118,6 +119,7 @@ const StripeContainer = () => {
 
                 {/* Checkout Fields */}
                 <CheckoutFields />
+                
               </form>
             </FormProvider>
           ) : (

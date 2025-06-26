@@ -2,7 +2,7 @@
 import { publicApi } from "../axiosInstance";
 
 /**
- * Get Region Details Frontend
+ * Get Region Details
  * @param {*} region
  * @returns []
  */
@@ -13,5 +13,45 @@ export const fetchRegionDetails = async (region) => {
   } catch (error) {
     console.log("Error fetching region details:", error);
     return [];
+  }
+};
+
+/**
+ * Get All Cities of Region
+ * @param {string} region region slug
+ * @returns []
+ */
+export const getCitiesByRegion = async (region) => {
+  try {
+    const response = await publicApi.get(`/api/region/${region}/cities/`, {
+      headers: { "Content-Type": "application/json" },
+    });
+    return response.data;
+  } catch (error) {
+    console.log("Error fetching city data:");
+
+    return [];
+  }
+};
+
+
+
+/**
+ * Get Region All Items
+ * @param {string} region region of the items
+ * @param {string} query query params
+ * @return {}
+ */
+
+export const getItemsByRegion = async (region, query = "") => {
+  try {
+    const response = await publicApi.get(`/api/region/${region}/region-all-items${query}/`, {
+      headers: { "Content-Type": "application/json" },
+    });
+    return response.data;
+  } catch (error) {
+    console.log("Error fetching city data:");
+
+    return {};
   }
 };

@@ -7,7 +7,8 @@ import Link from "next/link";
 
 // Lazy load client-only components
 const LoginForm = dynamic(() => import("@/app/components/Form/LoginForm").then((mod) => mod.LoginForm), { ssr: false });
-const StripeContainer = dynamic(() => import("@/app/components/Pages/FRONT_END/checkout/StripeContainter"), { ssr: false  });
+const StripeContainer = dynamic(() => import("@/app/components/Pages/FRONT_END/checkout/StripeContainter"), { ssr: false }); // hosted checkout
+const CheckoutMainManual = dynamic(() => import("@/app/components/Pages/FRONT_END/checkout/checkoutmanual/CheckoutMain"), { ssr: false }); // manual checkout
 
 const CheckoutPage = () => {
   const { data: session } = useSession();
@@ -34,7 +35,8 @@ const CheckoutPage = () => {
     );
   }
 
-  return <StripeContainer />;
+  // return <StripeContainer />; // Hosted Checkout Component
+  return <CheckoutMainManual />;
 };
 
 export default CheckoutPage;

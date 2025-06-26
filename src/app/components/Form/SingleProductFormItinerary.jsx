@@ -61,6 +61,8 @@ export default function SingleProductFormItinerary({ productData }) {
   const [showResponse, setShowResponse] = useState(false);
   const { setMiniCartOpen, addItem, clearCart, cartItems } = useMiniCartStore();
 
+
+
   const [showScuvadiving, setShowScuvadiving] = useState(null); // show scuvadiving content
   const router = useRouter(); // intialize router
 

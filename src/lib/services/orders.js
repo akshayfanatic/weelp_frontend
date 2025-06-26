@@ -1,4 +1,5 @@
-import { authApi } from "../axiosInstance";
+import { authApi, publicApi } from "../axiosInstance";
+import { log } from "../utils";
 
 /**
  * Get Single Order Admin
@@ -38,8 +39,6 @@ export async function getAllOrdersAdmin(search = "") {
   }
 }
 
-
-
 /**
  * Get All Users Orders
  * @param {string} search search query if exist
@@ -57,6 +56,32 @@ export async function getAllUsersOrdersAdmin(search = "") {
 
     return {}; // fallback for other statuses
   } catch (error) {
+    return {};
+  }
+}
+
+
+
+/**
+ * Fetch order details for the Thank You page.
+ * @param {string} payment_intent - Payment intent from query string
+ * @returns {object} Order data or empty object if not found or failed
+ */
+export async function getUserOrderThankyou(payment_intent = "") {
+  if (!payment_intent) return {};
+
+  try {
+    const res = await publicApi.get(`/api/order/thankyou`, {
+      params: { payment_intent },
+      headers: { Accept: "application/json" },
+    });
+
+    if (res.status === 200) return res.data;
+    if (res.status === 404) return {}; // Not found
+
+    return {}; // Other unexpected status
+  } catch (error) {
+    console.error("Order Thankyou fetch error:", error?.response || error);
     return {};
   }
 }

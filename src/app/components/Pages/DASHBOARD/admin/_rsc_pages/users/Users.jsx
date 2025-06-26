@@ -4,10 +4,8 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import Link from "next/link";
-import { typography } from "@/utils/typography";
 import { UserDataTable } from "./UserDataTable";
 
 // mock user
@@ -23,8 +21,8 @@ const UsersPageComponent = ({ users = [], active_users = 0, pending_users = 0, t
     <div className="space-y-4 sm:p-8 sm:pt-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className={cn(typography["page-title"])}>Users</h2>
-          <p className={cn(typography["text-sm-secondary"])}>Manage system users and their access</p>
+          <h2 className="text-2xl">Users</h2>
+          <p className="text-base">Manage system users and their access</p>
         </div>
         <div className="flex items-center space-x-2">
           <Link href="/dashboard/admin/users/new">
@@ -43,11 +41,11 @@ const UsersPageComponent = ({ users = [], active_users = 0, pending_users = 0, t
           return (
             <Card key={index} className="hover:shadow-md ease-in-out duration-300">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className={cn(typography["card-title"])}>{item.title}</CardTitle>
+                <CardTitle className="text-xl font-bold">{item.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className={cn(typography["card-stat"])}>{item.stats}</div>
-                <p className={cn(typography["card-stat-label"])}>Across all departments</p>
+                <div className="text-base font-bold">{item.stats}</div>
+                <p className="text-sm">Across all departments</p>
               </CardContent>
             </Card>
           );

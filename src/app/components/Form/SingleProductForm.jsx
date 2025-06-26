@@ -73,12 +73,12 @@ export default function SingleProductForm({ productId, productData }) {
   const onSubmit = async (data) => {
     setMiniCartOpen(true);
 
-    log(data);
-
+    // add item to cart
     addItem({
       id: productData?.id,
       price: productData?.pricing?.regular_price,
       name: productData?.name,
+      currency: productData?.pricing?.currency,
       ...data,
       featured_image: "https://picsum.photos/200/300",
       type: productData?.item_type,
@@ -223,11 +223,19 @@ export default function SingleProductForm({ productId, productData }) {
                             <span className="text-sm">{type == "adults" ? "Above 13 or above" : type == "children" ? "Age 2-12" : type == "infants" ? "Under 2" : null}</span>
                           </div>
                           <div className="flex items-center gap-4">
-                            <button type="button" onClick={() => handleDecrement(type)} className="w-8 h-8 rounded-full border text-lg flex items-center justify-center text-gray-700 bg-graycolor hover:bg-[#e9f5ed] hover:opacity-80">
+                            <button
+                              type="button"
+                              onClick={() => handleDecrement(type)}
+                              className="w-8 h-8 rounded-full border text-lg flex items-center justify-center text-gray-700 bg-graycolor hover:bg-[#e9f5ed] hover:opacity-80"
+                            >
                               <Minus size={14} />
                             </button>
                             <span className="font-semibold">{howMany[type]}</span>
-                            <button type="button" onClick={() => handleIncrement(type)} className="w-8 h-8 rounded-full border border-secondarylight text-lg flex items-center justify-center text-secondaryDark hover:bg-[#e9f5ed] hover:opacity-80 ">
+                            <button
+                              type="button"
+                              onClick={() => handleIncrement(type)}
+                              className="w-8 h-8 rounded-full border border-secondarylight text-lg flex items-center justify-center text-secondaryDark hover:bg-[#e9f5ed] hover:opacity-80 "
+                            >
                               <Plus size={14} />
                             </button>
                           </div>
