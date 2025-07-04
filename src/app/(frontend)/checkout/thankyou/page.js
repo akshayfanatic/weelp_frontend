@@ -15,19 +15,19 @@ const SucceceedPage = () => {
   const searchParams = useSearchParams(); // params serach
 
   const { clearCart, cartItems } = useMiniCartStore(); // store for itesm
-  const session = useSession(); // prevent user to page
+  const { data: session } = useSession(); // prevent user to page
 
   const payment_intent = searchParams.get("payment_intent"); // retrieve session id
-  const { orderData = {}, isValidating, error } = useOrderThankyou(payment_intent); // retrieve data
-
+  const { orderData, isValidating, error } = useOrderThankyou(payment_intent); // retrieve data
+  
   const { success, order = {} } = orderData;
+
   // cart cleared
   useEffect(() => {
     clearCart(); // clear cart
     sessionStorage.removeItem("clientSecret"); // clear client secret
+    sessionStorage.removeItem("paymentIntent"); // clear intent
   }, []);
-
-  console.log(orderData);
 
   // error handling
   if (error) {
@@ -43,12 +43,11 @@ const SucceceedPage = () => {
     );
   }
 
-  // console.log(order);
-  const { item, payment, user, emergency_contact } = order || {};
-  const dashboardUrl = session?.user?.role === "admin" ? "/dashboard/admin" : "/dashboard/customer";
+  const { emergency_contact = {}, item = {}, payment = {}, user = {} } = order || {}; // destructure order data
+  const dashboardUrl = session?.user?.role === "super_admin" ? "/dashboard/admin" : "/dashboard/customer"; // use role send based on use link
   const amount = parseFloat(payment?.amount || 0);
   const currency = payment?.currency || "";
-  const priceAmount = formatCurrency(amount);
+  const priceAmount = formatCurrency(amount, currency);
 
   return (
     <div className="min-h-[85vh] bg-gray-50 py-10 px-4 flex justify-center items-center">
@@ -163,7 +162,6 @@ const SucceceedPage = () => {
       </div>
     </div>
   );
-  return <div>Scucess Page</div>;
 };
 
 export default SucceceedPage;

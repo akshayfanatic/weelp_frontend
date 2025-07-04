@@ -17,24 +17,7 @@ import ReviewCard, { ReviewCard2, SingleProductReviewCard } from "../components/
 import AiSection from "../components/Pages/FRONT_END/home/AiSection";
 import { publicApi } from "@/lib/axiosInstance";
 import { log } from "@/lib/utils";
-
-
-/**
- * Returns all Featured Activities
- * @returns []
- */
-async function getAllFeaturedActivities() {
-  try {
-    const response = await publicApi.get(`/api/activities/featured-activities`, {
-      headers: { Accept: "application/json" },
-    });
-
-    return response.data;
-  } catch (error) {
-    console.log("Error fetching city data:", error);
-    return [];
-  }
-}
+import { getAllFeaturedActivities } from "@/lib/services/activites";
 
 
 /**

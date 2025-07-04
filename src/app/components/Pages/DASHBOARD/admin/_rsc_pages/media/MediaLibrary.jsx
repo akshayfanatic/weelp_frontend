@@ -86,7 +86,7 @@ export function Medialibrary() {
                 return (
                   <Card
                     key={index}
-                    className={`group relative aspect-square overflow-hidden rounded-lg bg-muted cursor-pointer ${
+                    className={`group relative aspect-square overflow-hidden rounded-lg bg-muted cursor-pointer  ${
                       isMediaPage ? "" : selectedImages.some((img) => img.id === image.id) && "border p-4 border-secondaryDark"
                     } `}
                     onClick={() => (isMediaPage ? handleSelectMedia(image) : handleSelect(image))}

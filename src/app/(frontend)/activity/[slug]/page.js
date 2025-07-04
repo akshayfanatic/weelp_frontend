@@ -33,7 +33,6 @@ export default async function DestinationPage({ params }) {
     description: description,
   };
 
-  console.log(activityData);
   return (
     <>
       <BannerSection activityName={name} />

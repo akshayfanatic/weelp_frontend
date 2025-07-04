@@ -3,6 +3,7 @@
 import { authApi } from "../axiosInstance";
 import { log } from "../utils";
 
+
 /**
  * Get Single Attribute on Admin side
  * @param {Number} attributeId
@@ -14,11 +15,13 @@ export async function getSingleAttributeAdmin(attributeId) {
       headers: { Accept: "application/json" },
     });
 
+
     return response?.data;
   } catch (error) {
     return [];
   }
 }
+
 
 /**
  * Get Attribute By Slug on Admin side

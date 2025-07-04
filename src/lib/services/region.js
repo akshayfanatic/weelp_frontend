@@ -1,8 +1,9 @@
 "use server";
 import { publicApi } from "../axiosInstance";
 
+
 /**
- * Get Region Details
+ * This method return the region details
  * @param {*} region
  * @returns []
  */

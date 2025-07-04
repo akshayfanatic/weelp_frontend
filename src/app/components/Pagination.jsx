@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 
-export const CustomPagination = ({ totalItems=0, itemsPerPage=0, currentPage=0, onPageChange }) => {
-  if (!totalItems || !itemsPerPage || !currentPage || !onPageChange) {
-    return <p className="text-red-400 hidden">All Props Not Passed</p>;
+export const CustomPagination = ({ totalItems = 0, itemsPerPage = 0, currentPage = 0, onPageChange }) => {
+  if (!totalItems || !itemsPerPage || !currentPage) {
+    return <p className="text-red-400 animate-pulse hidden">All Props Not Passed Pagination</p>;
   }
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -41,5 +41,3 @@ export const CustomPagination = ({ totalItems=0, itemsPerPage=0, currentPage=0, 
     </div>
   );
 };
-
-

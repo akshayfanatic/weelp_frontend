@@ -68,8 +68,7 @@ export async function getAllUsersOrdersAdmin(search = "") {
  * @returns {object} Order data or empty object if not found or failed
  */
 export async function getUserOrderThankyou(payment_intent = "") {
-  if (!payment_intent) return {};
-
+ 
   try {
     const res = await publicApi.get(`/api/order/thankyou`, {
       params: { payment_intent },
@@ -81,7 +80,7 @@ export async function getUserOrderThankyou(payment_intent = "") {
 
     return {}; // Other unexpected status
   } catch (error) {
-    console.error("Order Thankyou fetch error:", error?.response || error);
+    log("Order Thankyou fetch error:", error?.response || error);
     return {};
   }
 }

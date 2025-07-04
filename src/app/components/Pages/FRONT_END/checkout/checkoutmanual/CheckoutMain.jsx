@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { CheckoutItems, CheckoutUserDetailCard } from "../CheckoutCards";
 import useMiniCartStore from "@/lib/store/useMiniCartStore";
 import { useUserProfile } from "@/hooks/api/customer/profile";
-import { initializeCheckout } from "@/lib/actions/checkout"; // action for intialize checkout
+import { createPaymentIntent, initializeCheckout } from "@/lib/actions/checkout"; // action for intialize checkout
 
 const stripePromise = getStripe(); // import stripe promise
 export default function CheckoutMainManual() {
@@ -20,20 +20,25 @@ export default function CheckoutMainManual() {
 
   const amount = parseInt(price); // convert to number
   const [clientSecret, setClientSecret] = useState("");
+  const [paymentIntent, setPayMentIntent] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // initialize paymnet
-  const initializePayment = async () => {
+  const initializePaymentIntent = async () => {
     try {
-      const res = await initializeCheckout({
+      const res = await createPaymentIntent({
         amount,
         currency: String(currency).toLowerCase(),
+        email: session?.user?.email || "",
       });
 
-      if (res?.success && res?.data?.clientSecret) {
-        setClientSecret(res.data.clientSecret);
-        sessionStorage.setItem("clientSecret", res.data.clientSecret);
+      if (res?.success && res?.clientSecret) {
+        setClientSecret(res?.clientSecret);
+        setPayMentIntent(res?.paymentIntent);
+
+        sessionStorage.setItem("clientSecret", res?.clientSecret); // create session
+        sessionStorage.setItem("paymentIntent", res?.paymentIntent); // create session
       } else {
         setError("Client secret not received");
       }
@@ -52,7 +57,7 @@ export default function CheckoutMainManual() {
       setClientSecret(cachedSecret);
       setLoading(false);
     } else {
-      initializePayment();
+      initializePaymentIntent();
     }
   }, []);
 
@@ -93,7 +98,7 @@ export default function CheckoutMainManual() {
 
           {/* Checkout Fields */}
           <Elements stripe={stripePromise} options={{ clientSecret: clientSecret }}>
-            <CheckoutForm clientSecret={clientSecret} />
+            <CheckoutForm clientSecret={clientSecret} paymentIntentId={paymentIntent} />
           </Elements>
         </div>
       </div>
@@ -103,7 +108,4 @@ export default function CheckoutMainManual() {
       </div>
     </section>
   );
-
-  // Fallback (should not happen ideally)
-  return <div className="text-center text-gray-600">Something went wrong. Please refresh.</div>;
 }

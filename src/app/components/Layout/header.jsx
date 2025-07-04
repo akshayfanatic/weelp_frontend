@@ -144,7 +144,7 @@ export const HeaderAccount = () => {
           <button className="relative" onClick={handleShowCart}>
             <ShoppingCart className="text-xs" size={20} />
             {cartItems?.length > 0 && (
-              <Badge className={"absolute bottom-1/4  left-1/2 scale-75 "} variant={""}>
+              <Badge className={"absolute bottom-1/4  left-1/2 scale-75 "}>
                 {cartItems?.length}
               </Badge>
             )}

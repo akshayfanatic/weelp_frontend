@@ -14,11 +14,10 @@ import useMiniCartStore from "@/lib/store/useMiniCartStore";
 import { Button } from "@/components/ui/button";
 import { useForm, FormProvider } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
-import axios from "axios";
 import { editUserProfileAction } from "@/lib/actions/userActions";
 import { checkoutCreateOrder } from "@/lib/actions/checkout";
 
-const CheckoutForm = ({ clientSecret = [""] }) => {
+const CheckoutForm = ({ clientSecret = "" , paymentIntentId="" }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useUserProfile(); // client side fetch user
@@ -41,7 +40,6 @@ const CheckoutForm = ({ clientSecret = [""] }) => {
   });
 
   const item = cartItems.at(0) || {}; // retrieve item
-  const paymentIntentId = clientSecret.split("_secret")[0];
 
   // prepare item data
   const {
@@ -116,10 +114,11 @@ const CheckoutForm = ({ clientSecret = [""] }) => {
         toast({ title: "Processing your payment..." });
       }
     } catch (error) {
-      console.error("Unexpected error during checkout:", error);
+      console.log("Unexpected error during checkout:", error);
       toast({ title: "An unexpected error occurred. Please try again.", variant: "destructive" });
     }
   };
+
 
   return (
     <FormProvider {...methods}>
@@ -134,7 +133,6 @@ const CheckoutForm = ({ clientSecret = [""] }) => {
             wallets: {
               applePay: "never",
               googlePay: "never",
-              paypal: "never",
             },
             terms: {
               card: "always",
@@ -144,7 +142,6 @@ const CheckoutForm = ({ clientSecret = [""] }) => {
               cashapp: "never",
               googlePay: "never",
               ideal: "never",
-              paypal: "never",
               sepaDebit: "never",
               sofort: "never",
               usBankAccount: "never",
@@ -152,9 +149,6 @@ const CheckoutForm = ({ clientSecret = [""] }) => {
             layout: {
               type: "tabs",
               defaultCollapsed: false,
-            },
-            applePay: {
-              buttonType: "donate",
             },
           }}
         />
@@ -167,7 +161,6 @@ const CheckoutForm = ({ clientSecret = [""] }) => {
     </FormProvider>
   );
 };
-
 export default CheckoutForm;
 
 // Billing Details Fields

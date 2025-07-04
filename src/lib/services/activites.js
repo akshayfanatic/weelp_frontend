@@ -48,3 +48,21 @@ export async function getAllActivitesAdmin(search = "") {
     return [];
   }
 }
+
+
+/**
+ * Returns all Featured Activities
+ * @returns []
+ */
+export async function getAllFeaturedActivities() {
+  try {
+    const response = await publicApi.get(`/api/activities/featured-activities`, {
+      headers: { Accept: "application/json" },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log("Error fetching city data:", error);
+    return [];
+  }
+}
