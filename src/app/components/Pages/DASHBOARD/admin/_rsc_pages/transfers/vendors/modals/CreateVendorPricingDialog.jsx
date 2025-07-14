@@ -1,23 +1,29 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import dynamic from "next/dynamic";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
 
 const CreateVendorPricingForm = dynamic(() => import("../vendor_form/CreateVendorPricingForm"), { ssr: false }); // for lazy load
 
 // Order Navigation
 const CreateVendorPricingDialog = ({ title, desciption, label }) => {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   // title description
   if (title && desciption) {
     return (
-      <div className="flex justify-between w-full py-4">
-        <div>
-          <h1 className="text-2xl font-bold flex items-center gap-4">{title}</h1>
-          <p className="text-sm text-muted-foreground">{desciption}</p>
+      <Card className="flex justify-between w-full py-4 bg-inherit border-none shadow-none">
+        <div className="w-full flex gap-2 flex-col sm:flex-row">
+          <ArrowLeft onClick={() => router.back()} />
+          <div>
+            <CardTitle className="text-2xl font-bold flex items-center gap-4">{title}</CardTitle>
+            <CardDescription>{desciption}</CardDescription>
+          </div>
         </div>
 
         {label && (
@@ -41,7 +47,7 @@ const CreateVendorPricingDialog = ({ title, desciption, label }) => {
             </DialogContent>
           </Dialog>
         )}
-      </div>
+      </Card>
     );
   }
   return <div className="flex justify-between w-full py-4 font-extrabold"> Props Not Passed </div>;

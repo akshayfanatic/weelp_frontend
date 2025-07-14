@@ -6,6 +6,7 @@ import { useAllOrdersAdmin } from "@/hooks/api/admin/orders";
 import { useForm, FormProvider, useFormContext, useWatch } from "react-hook-form";
 import { CustomPagination } from "@/app/components/Pagination";
 import { debounce } from "lodash";
+import { editVendorStatusbyIdAdmin } from "@/lib/actions/vendor";
 
 const OrdersPage = () => {
   // initialize form
@@ -53,9 +54,6 @@ const OrdersPage = () => {
   // safely extract data
   const { data = {} } = orders;
   const { current_page = "", per_page = "", total = "" } = data;
-
-  console.log(data)
-
 
   return (
     <div className="spacye-y-4">

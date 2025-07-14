@@ -3,14 +3,14 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Plus } from "lucide-react";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import dynamic from "next/dynamic";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
 
-const CreateVendorRouteForm = dynamic(() => import("../vendor_form/CreateVendorRouteForm"), { ssr: false }); // for lazy load
+const CreateVendorVehicleForm = dynamic(() => import("../vendor_form/CreateVendorVehicleForm"), { ssr: false }); // for lazy load
 
 // Order Navigation
-const CreateVendorRouteDialog = ({ title, desciption, label }) => {
+const CreateVendorVehicleDialog = ({ title, desciption, label }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
@@ -18,7 +18,7 @@ const CreateVendorRouteDialog = ({ title, desciption, label }) => {
   if (title && desciption) {
     return (
       <Card className="flex justify-between w-full py-4 bg-inherit border-none shadow-none">
-          <div className="w-full flex gap-2 flex-col sm:flex-row">
+        <div className="w-full flex gap-2 flex-col sm:flex-row">
           <ArrowLeft onClick={() => router.back()} />
           <div>
             <CardTitle className="text-2xl font-bold flex items-center gap-4">{title}</CardTitle>
@@ -38,12 +38,12 @@ const CreateVendorRouteDialog = ({ title, desciption, label }) => {
             </DialogTrigger>
             <DialogContent className="sm:max-w-2xl">
               <DialogHeader>
-                <DialogTitle>Add New Route</DialogTitle>
-                <DialogDescription>Create a new transfer route with pricing</DialogDescription>
+                <DialogTitle>Add New Vehicle</DialogTitle>
+                <DialogDescription>Add a new vehicle to your fleet</DialogDescription>
               </DialogHeader>
 
               {/* Create Vendor Form*/}
-              <CreateVendorRouteForm onSuccess={() => setOpen(false)} />
+              <CreateVendorVehicleForm onSuccess={() => setOpen(false)} />
             </DialogContent>
           </Dialog>
         )}
@@ -53,4 +53,4 @@ const CreateVendorRouteDialog = ({ title, desciption, label }) => {
   return <div className="flex justify-between w-full py-4 font-extrabold"> Props Not Passed </div>;
 };
 
-export default CreateVendorRouteDialog;
+export default CreateVendorVehicleDialog;

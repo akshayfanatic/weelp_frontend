@@ -1,5 +1,4 @@
-import { ArrowUpDown, Bot, ChartColumnIncreasing, Compass, Files, FolderTree, HelpCircle, Home, MailsIcon, Map, Search, Settings, Star, Tag, Tags, UserCog2, Users, Wallet } from "lucide-react";
-
+import { HelpCircle, Settings, Star, Tag } from "lucide-react";
 
 // User Navigation
 export const DashboardUserNav = {

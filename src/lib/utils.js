@@ -90,12 +90,10 @@ export const addCommabetweenString = (string) => {
 
 /**
  * Formats amount into a currency string.
- *
  * @param {number} amount - Amount of currency in major units.
  * @param {string} currency - Currency code (ISO 4217), e.g. "USD", "INR", "EUR".
  * @param {string} [locale="en-US"] - Optional locale for formatting, defaults to "en-US".
  * @returns {string} - Formatted currency string.
- *
  * @example
  * formatCurrency(60, "USD") // "$60.00"
  * formatCurrency(2500, "INR", "en-IN") // "₹2,500.00"

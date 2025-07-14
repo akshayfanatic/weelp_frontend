@@ -9,6 +9,5 @@ export async function GET(req) {
   const query = req.nextUrl.search;
   await delay(500);
   const data={} = await getAllOrdersAdmin(query);
-  
   return NextResponse.json({ data });
 }

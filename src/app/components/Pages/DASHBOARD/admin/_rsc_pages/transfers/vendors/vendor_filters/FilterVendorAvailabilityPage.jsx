@@ -5,13 +5,18 @@ import { useEffect, useState, useMemo } from "react";
 import { debounce } from "lodash";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useAllVendorsAdmin } from "@/hooks/api/admin/vendors";
 import { Card } from "@/components/ui/card";
 import { CustomPagination } from "@/app/components/Pagination";
-import { CardVendor } from "../shared/vendor_cards";
+import { CardVendorAvailability } from "../shared/vendor_cards";
+import useSWR from "swr";
+import { useParams } from "next/navigation";
+import { fetcher } from "@/lib/fetchers";
 import { VendorNoResultFound } from "../shared/VendorNoResultFound";
 
-const FilterVendorPage = () => {
+const FilterVendorAvailabilityPage = () => {
+  const { vendorId } = useParams(); // get vendor id
+
+  // intialize method
   const form = useForm({
     defaultValues: {
       search: "",
@@ -40,8 +45,10 @@ const FilterVendorPage = () => {
     return () => debouncedSetQuery.cancel();
   }, [search, page, debouncedSetQuery]);
 
-  const { vendors = {}, isLoading, mutate } = useAllVendorsAdmin(query); // fetch vendor data
+  const { data = {}, isLoading, error } = useSWR(`/api/admin/vendors/${vendorId}/availability${query}`, fetcher); // for single route get dynamic
+  const { current_page, data: availability = [], per_page, total } = data?.data || {}; // destructure data
 
+  console.log(availability);
   const handlePageChange = (newPage) => {
     setValue("page", newPage);
   };
@@ -56,7 +63,7 @@ const FilterVendorPage = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="search" placeholder="Search vendors..." {...field} className="max-w-md" />
+                  <Input type="search" placeholder="Search availability..." {...field} className="max-w-md" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -64,31 +71,24 @@ const FilterVendorPage = () => {
           />
         </form>
       </Form>
-
       {isLoading && <p className="loader"></p>}
 
-      {!isLoading && vendors?.data?.length === 0 && <VendorNoResultFound />}
+      {error && <p className="text-red-400">Something Went Wrong</p>}
 
-      {vendors?.data?.length > 0 && (
+      {!isLoading && availability?.length === 0 && <VendorNoResultFound />}
+
+      {availability?.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {vendors.data.map((vendor) => (
-            <CardVendor
-              key={vendor.id}
-              id={vendor?.id}
-              title={vendor?.name}
-              description={vendor?.description}
-              status={vendor?.status}
-              vehicles={vendor?.vehicles?.[0]?.make}
-              routes={vendor?.routes?.[0]?.description}
-              mutate={mutate} // send mutate
-            />
+          {availability.map((available, index) => (
+            <CardVendorAvailability key={index} {...available} />
           ))}
         </div>
       )}
 
-      <CustomPagination currentPage={vendors?.current_page || 1} totalItems={vendors?.total} itemsPerPage={vendors?.per_page} onPageChange={handlePageChange} />
+      {/* Pagination */}
+      <CustomPagination currentPage={current_page || 1} totalItems={total} itemsPerPage={per_page} onPageChange={handlePageChange} />
     </Card>
   );
 };
 
-export default FilterVendorPage;
+export default FilterVendorAvailabilityPage;

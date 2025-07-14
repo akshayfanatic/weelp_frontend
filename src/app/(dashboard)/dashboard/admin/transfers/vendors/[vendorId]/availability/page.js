@@ -1,9 +1,6 @@
-import React from 'react'
-
+import CreateVendorAvailabilityPage from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/transfers/vendors/vendor_page/CreateVendorAvailabilityPage";
 const VendorAvailabilityPage = () => {
-  return (
-    <div>VendorAvailabilityPage</div>
-  )
-}
+  return <CreateVendorAvailabilityPage />;
+};
 
-export default VendorAvailabilityPage
+export default VendorAvailabilityPage;

@@ -7,10 +7,11 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { CustomPagination } from "@/app/components/Pagination";
-import { CardVendorRoute } from "../vendor_cards";
+import { CardVendorRoute } from "../shared/vendor_cards";
 import useSWR from "swr";
 import { useParams } from "next/navigation";
 import { fetcher } from "@/lib/fetchers";
+import { VendorNoResultFound } from "../shared/VendorNoResultFound";
 
 const FilterVendorRoutePage = () => {
   const { vendorId } = useParams(); // get vendor id
@@ -73,7 +74,7 @@ const FilterVendorRoutePage = () => {
 
       {error && <p className="text-red-400">Something Went Wrong</p>}
 
-      {!isLoading && routes?.length === 0 && <p className="text-red-400">Sorry No Route Created</p>}
+      {!isLoading && routes?.length === 0 && <VendorNoResultFound />}
 
       {routes?.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

@@ -1,9 +1,6 @@
-import React from 'react'
+import CreateVendorDriverPage from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/transfers/vendors/vendor_page/CreateVendorDriverPage";
+const VendorDriverPage = () => {
+  return <CreateVendorDriverPage />;
+};
 
-const VendorDriversPage = () => {
-  return (
-    <div>VendorDriversPage</div>
-  )
-}
-
-export default VendorDriversPage
+export default VendorDriverPage;

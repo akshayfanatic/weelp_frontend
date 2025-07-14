@@ -5,13 +5,18 @@ import { useEffect, useState, useMemo } from "react";
 import { debounce } from "lodash";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useAllVendorsAdmin } from "@/hooks/api/admin/vendors";
 import { Card } from "@/components/ui/card";
 import { CustomPagination } from "@/app/components/Pagination";
-import { CardVendor } from "../shared/vendor_cards";
+import { CardVendorDriver } from "../shared/vendor_cards";
+import { useParams } from "next/navigation";
+import { fetcher } from "@/lib/fetchers";
 import { VendorNoResultFound } from "../shared/VendorNoResultFound";
+import useSWR from "swr";
 
-const FilterVendorPage = () => {
+const FilterVendorDriverPage = () => {
+  const { vendorId } = useParams(); // get vendor id
+
+  // intialize method
   const form = useForm({
     defaultValues: {
       search: "",
@@ -40,7 +45,8 @@ const FilterVendorPage = () => {
     return () => debouncedSetQuery.cancel();
   }, [search, page, debouncedSetQuery]);
 
-  const { vendors = {}, isLoading, mutate } = useAllVendorsAdmin(query); // fetch vendor data
+  const { data = {}, isLoading, error } = useSWR(`/api/admin/vendors/${vendorId}/drivers${query}`, fetcher); // for single route get dynamic
+  const { current_page, data: drivers = [], per_page, total } = data?.data || {}; // destructure data
 
   const handlePageChange = (newPage) => {
     setValue("page", newPage);
@@ -56,7 +62,7 @@ const FilterVendorPage = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="search" placeholder="Search vendors..." {...field} className="max-w-md" />
+                  <Input type="search" placeholder="Search drivers..." {...field} className="max-w-md" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -64,31 +70,24 @@ const FilterVendorPage = () => {
           />
         </form>
       </Form>
-
       {isLoading && <p className="loader"></p>}
 
-      {!isLoading && vendors?.data?.length === 0 && <VendorNoResultFound />}
+      {error && <p className="text-red-400">Something Went Wrong</p>}
 
-      {vendors?.data?.length > 0 && (
+      {!isLoading && drivers?.length === 0 && <VendorNoResultFound />}
+
+      {drivers?.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {vendors.data.map((vendor) => (
-            <CardVendor
-              key={vendor.id}
-              id={vendor?.id}
-              title={vendor?.name}
-              description={vendor?.description}
-              status={vendor?.status}
-              vehicles={vendor?.vehicles?.[0]?.make}
-              routes={vendor?.routes?.[0]?.description}
-              mutate={mutate} // send mutate
-            />
+          {drivers.map((driver, index) => (
+            <CardVendorDriver key={index} {...driver} />
           ))}
         </div>
       )}
 
-      <CustomPagination currentPage={vendors?.current_page || 1} totalItems={vendors?.total} itemsPerPage={vendors?.per_page} onPageChange={handlePageChange} />
+      {/* Pagination */}
+      <CustomPagination currentPage={current_page || 1} totalItems={total} itemsPerPage={per_page} onPageChange={handlePageChange} />
     </Card>
   );
 };
 
-export default FilterVendorPage;
+export default FilterVendorDriverPage;
