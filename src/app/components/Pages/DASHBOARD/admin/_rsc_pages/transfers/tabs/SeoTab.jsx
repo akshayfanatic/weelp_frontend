@@ -132,7 +132,7 @@ const SeoTab = () => {
 
   // update with latest value
   useEffect(() => {
-    if (!jsonInput.trim()) {
+    if (!String(jsonInput).trim()) {
       setJsonInput(JSON.stringify(selectedSchemaData || {}, null, 2));
     }
   }, [selectedSchemaData]);
@@ -145,7 +145,7 @@ const SeoTab = () => {
       // Clear any previous errors
       clearErrors("schema_data");
 
-      if (jsonInput.trim()) {
+      if (String(jsonInput).trim()) {
         setJsonInput(JSON.parse(jsonInput));
         setValue("seo.schema_data", JSON.parse(jsonInput));
       } else {

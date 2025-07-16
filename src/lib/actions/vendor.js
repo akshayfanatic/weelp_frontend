@@ -9,7 +9,6 @@ import { delay, log } from "../utils";
  * @param {{ name: string, description: string, email: string, phone: string, address:string, status:string }} data form data related to create vendor
  * @returns {void}
  */
-
 export const createVendor = async (data = {}) => {
   try {
     await delay(500);

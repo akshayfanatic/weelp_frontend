@@ -1,10 +1,14 @@
+"use client";
+
+import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import { useMediaStore } from "@/lib/store/useMediaStore";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Medialibrary } from "../../media/MediaLibrary";
 import { Trash2 } from "lucide-react";
+
+const Medialibrary = dynamic(() => import("../../media/MediaLibrary").then((mod) => mod.Medialibrary), { ssr: false }); // dynamically import model
 
 // Media Tab
 const MediaTab = () => {
@@ -15,18 +19,18 @@ const MediaTab = () => {
 
   const {
     setValue,
-    formState: { errors },
     getValues,
+    formState: { errors },
   } = useFormContext();
 
-  const media_gallery = useWatch({
-    name: "media_gallery",
+  const media = useWatch({
+    name: "media",
   });
 
   //  Hydarte First if there is already media exist
   useEffect(() => {
-    if (media_gallery?.length > 0) {
-      setActivityImages(media_gallery); // Sync from form to local state
+    if (media?.length > 0) {
+      setActivityImages(media); // Sync from form to local state
     }
   }, []);
 
@@ -45,7 +49,7 @@ const MediaTab = () => {
 
   // sycn with form
   useEffect(() => {
-    setValue("media_gallery", activityImages); // sync form
+    setValue("media", activityImages); // sync form
   }, [activityImages, setValue]);
 
   // handleDelteImage
@@ -53,18 +57,17 @@ const MediaTab = () => {
     setActivityImages((prev) => {
       const updatedImages = prev.filter((img) => img.url !== image.url);
       // setActivityImages(updatedImages);
-      setTimeout(() => setValue("media_gallery", updatedImages), 0); //
+      setTimeout(() => setValue("media", updatedImages), false); //
       return updatedImages;
     });
   };
 
-  // console.log(getValues())
   return (
     <div className="flex flex-col gap-4">
       <div className="hidden">
         <Controller
           control={control}
-          name="media_gallery"
+          name="media"
           // defaultValue={[]}
           rules={{
             validate: (val) => val?.length > 0 || "Please upload at least 1 image.",
@@ -100,7 +103,7 @@ const MediaTab = () => {
           })}
         </div>
       ) : (
-        <div className="w-full">{errors.media_gallery && <p className="text-red-500 mt-1">{errors.media_gallery.message}</p>}</div>
+        <div className="w-full">{errors.media && <p className="text-red-500 mt-1">{errors.media.message}</p>}</div>
       )}
     </div>
   );

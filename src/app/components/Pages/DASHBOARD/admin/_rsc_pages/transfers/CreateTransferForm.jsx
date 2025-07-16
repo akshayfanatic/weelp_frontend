@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useForm, FormProvider } from "react-hook-form";
-import { removeNestedKey } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import { createTransferByAdmin } from "@/lib/actions/transfer";
 
 // Create Dynamic Import For Performance Optimization
 const NavigationTransfer = dynamic(() => import("./transfer_shared").then((mod) => mod.NavigationTransfer), { ssr: false }); // for export
@@ -17,28 +17,17 @@ const PricingTab = dynamic(() => import("./tabs/PricingTab"), { ssr: false });
 const MediaTab = dynamic(() => import("./tabs/MediaTab"), { ssr: false });
 const SeoTab = dynamic(() => import("./tabs/SeoTab"), { ssr: false });
 
-export const CreateTransferForm = ({ categories, attributes, tags, locations = [], allactivities, alltransfers }) => {
+export const CreateTransferForm = ({}) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
   const router = useRouter();
-  const { toast } = useToast();
+  const { toast } = useToast(); // intialize toast
 
   // intialize methods
   const methods = useForm({
-    shouldUnregister: false,
-    mode: "onSubmit",
     defaultValues: {
-      schedules: [],
-      pricing: {
-        currency: "USD",
-        availability: "available",
-        start_date: "2025-06-01",
-        end_date: "2025-06-10",
-      },
-      price_variations: [],
-      blackout_dates: [],
-      inclusions_exclusions: [],
-      media_gallery: [],
+      is_vendor: true,
+      media: [],
     },
   });
 
@@ -95,38 +84,41 @@ export const CreateTransferForm = ({ categories, attributes, tags, locations = [
   const onSubmit = async (data) => {
     const mergedData = { ...formData, ...data };
 
-    if (currentStep < 7) {
+    if (currentStep < 5) {
       setFormData(mergedData);
       setCurrentStep((prev) => prev + 1);
+
       return;
     }
 
-    // Cleaning of Data Extra data remove before hit
-    const { activities: dirtyActivities, transfers: dirtyTransfers } = mergedData;
+    // console.log(media);
+    const { media = [] } = formData;
 
-    const activities = removeNestedKey(dirtyActivities, "activitydata");
-    const transfers = removeNestedKey(dirtyTransfers, "transferData");
+    // change media data
+    const finalData = {
+      ...formData,
+      media: media.map((val) => ({
+        media_id: val.media_id,
+      })),
+    };
 
-    let finalData = _.set(mergedData, "activities", activities); // add new activites
-    finalData = _.set(mergedData, "transfers", transfers); // add new transfers
 
     // submit full data
     try {
-      // const res = await createItinerary(finalData);
+      const res = await createTransferByAdmin(finalData);
 
-      if (res.success) {
-        toast({ title: "Itinerary created successfully!" });
+      // if (res.success) {
+      toast({ title: res.message || "Created successfully!" });
 
-        // success reset
-        reset();
-        // router.push("/dashboard/admin/itineraries");
-      } else {
-        toast({
-          title: "Error",
-          description: res.message || "Something went wrong",
-          variant: "destructive",
-        });
-      }
+      //   // success reset
+      //   // router.push("/dashboard/admin/itineraries");
+      // } else {
+      //   toast({
+      //     title: "Error",
+      //     description: res.message || "Something went wrong",
+      //     variant: "destructive",
+      //   });
+      // }
     } catch (error) {
       toast({
         title: "Unexpected Error",
@@ -194,7 +186,6 @@ export const CreateTransferForm = ({ categories, attributes, tags, locations = [
                 )}
 
                 {/* Prevent Button On Schedules */}
-
                 <Button type="submit" disabled={isSubmitting} className={`ml-auto py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-secondaryDark cursor-pointer`}>
                   {currentStep === 5 ? "Submit" : "Next"}
                 </Button>

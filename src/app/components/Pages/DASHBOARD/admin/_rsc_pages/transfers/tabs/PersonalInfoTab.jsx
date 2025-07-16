@@ -28,7 +28,7 @@ const PersonalInfoTab = () => {
   };
 
   // transfer type
-  const transferType = [
+  const transfer_type = [
     { label: "Airport Transfer", value: "airport_transfer" },
     { label: "Hotel Transfer", value: "hotel_transfer" },
     { label: "Point to Point", value: "point_to_point" },
@@ -89,11 +89,11 @@ const PersonalInfoTab = () => {
 
       {/* Transfer Type */}
       <div className="space-y-2">
-        <Label htmlFor="transferType" className={`block text-sm font-medium ${errors?.transferType ? "text-red-400" : "text-black"}`}>
+        <Label htmlFor="transfer_type" className={`block text-sm font-medium ${errors?.transfer_type ? "text-red-400" : "text-black"}`}>
           Transfer Type
         </Label>
         <Controller
-          name="transferType"
+          name="transfer_type"
           control={control}
           rules={{ required: "Field Required" }}
           render={({ field }) => (
@@ -102,7 +102,7 @@ const PersonalInfoTab = () => {
                 <SelectValue placeholder="Select transfer type" />
               </SelectTrigger>
               <SelectContent>
-                {transferType.map((transfer) => (
+                {transfer_type.map((transfer) => (
                   <SelectItem key={transfer.value} value={transfer.value}>
                     {transfer.label}
                   </SelectItem>
@@ -111,7 +111,7 @@ const PersonalInfoTab = () => {
             </Select>
           )}
         />
-        {errors?.transferType && <p className="text-red-500 text-sm mt-1">{errors?.transferType?.message}</p>}
+        {errors?.transfer_type && <p className="text-red-500 text-sm mt-1">{errors?.transfer_type?.message}</p>}
       </div>
     </div>
   );

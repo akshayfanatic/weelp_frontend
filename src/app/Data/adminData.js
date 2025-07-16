@@ -77,7 +77,7 @@ export const DashboardAdminNav = {
           url: "/dashboard/admin/transfers",
         },
         {
-          title: "Regions",
+          title: "Vendors",
           icon: Box,
           url: "/dashboard/admin/transfers/vendors",
         },
