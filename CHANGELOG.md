@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.4.0...v0.5.0) (2025-07-16)
+
+
+### ✨ Features
+
+* create transfer by vendor functionality completed ([fa2f45c](https://github.com/akshayfanatic/weelp_frontend/commit/fa2f45c411024dcffe85322831343eb2f2adc4c0))
+
 ## [0.4.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.3.0...v0.4.0) (2025-07-14)
 
 ## [0.3.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.2.0...v0.3.0) (2025-07-14)
