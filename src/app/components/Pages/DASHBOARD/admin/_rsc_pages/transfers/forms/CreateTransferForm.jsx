@@ -10,12 +10,12 @@ import dynamic from "next/dynamic";
 import { createTransferByAdmin } from "@/lib/actions/transfer";
 
 // Create Dynamic Import For Performance Optimization
-const NavigationTransfer = dynamic(() => import("./transfer_shared").then((mod) => mod.NavigationTransfer), { ssr: false }); // for export
-const PersonalInfoTab = dynamic(() => import("./tabs/PersonalInfoTab"), { ssr: false });
-const VendorTab = dynamic(() => import("./tabs/VendorTab"), { ssr: false });
-const PricingTab = dynamic(() => import("./tabs/PricingTab"), { ssr: false });
-const MediaTab = dynamic(() => import("./tabs/MediaTab"), { ssr: false });
-const SeoTab = dynamic(() => import("./tabs/SeoTab"), { ssr: false });
+const NavigationTransfer = dynamic(() => import("../transfer_shared").then((mod) => mod.NavigationTransfer), { ssr: false }); // for export
+const PersonalInfoTab = dynamic(() => import("../tabs/PersonalInfoTab"), { ssr: false });
+const VendorTab = dynamic(() => import("../tabs/VendorTab"), { ssr: false });
+const PricingTab = dynamic(() => import("../tabs/PricingTab"), { ssr: false });
+const MediaTab = dynamic(() => import("../tabs/MediaTab"), { ssr: false });
+const SeoTab = dynamic(() => import("../tabs/SeoTab"), { ssr: false });
 
 export const CreateTransferForm = ({}) => {
   const [currentStep, setCurrentStep] = useState(1);

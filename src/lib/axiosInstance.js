@@ -1,12 +1,13 @@
 import axios from "axios";
 import { auth } from "../lib/auth";
 
+
 // Public API instance (No auth required)
 export const publicApi = axios.create({
   baseURL: `${process.env.API_BASE_URL}`,
 });
 
-// Authenticated API instance
+// // Authenticated API instance
 export const authApi = axios.create({
   baseURL: `${process.env.API_BASE_URL}`,
 });
@@ -38,3 +39,7 @@ authApi.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+
+
+

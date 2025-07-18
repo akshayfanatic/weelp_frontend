@@ -40,12 +40,14 @@ const FilterVendorPage = () => {
     return () => debouncedSetQuery.cancel();
   }, [search, page, debouncedSetQuery]);
 
-  const { vendors = {}, isLoading, mutate } = useAllVendorsAdmin(query); // fetch vendor data
+  const { vendors = {}, isLoading, error, mutate } = useAllVendorsAdmin(query); // fetch vendor data
 
   const handlePageChange = (newPage) => {
     setValue("page", newPage);
   };
 
+  console.log(error)
+  if(error)return <div className="text-red-400">{error}</div>
   return (
     <Card className="bg-inherit border-none shadow-none flex flex-col gap-4">
       <Form {...form}>

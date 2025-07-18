@@ -1,14 +1,17 @@
 import * as React from "react";
-import { Check, ChevronsUpDown, MapPin } from "lucide-react";
+import { ArrowLeft, Check, ChevronsUpDown, MapPin } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Command, CommandInput, CommandList, CommandItem, CommandGroup } from "@/components/ui/command";
+import { useRouter } from "next/navigation";
 
 export const NavigationTransfer = ({ title, desciption }) => {
+  const router = useRouter();
   if (title && desciption) {
     return (
-      <div className="flex justify-between w-full py-4">
+      <div className="flex items-center w-full py-4 gap-2">
+        <ArrowLeft onClick={() => router.back()} size={24} />
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
           <p className="text-sm text-muted-foreground">{desciption}</p>
@@ -143,10 +146,7 @@ export function ComboboxVendorAvailablity({ data = [], value, onChange, placehol
                   <span className="flex flex-col w-full text-sm text-center">
                     {" "}
                     Date:{item?.date}
-                    <span className="text-xs text-gray-500">
-
-                     Start Time: {item?.start_time}
-                    </span>
+                    <span className="text-xs text-gray-500">Start Time: {item?.start_time}</span>
                   </span>
 
                   <Check className={cn("ml-auto", value === item.id ? "opacity-100" : "opacity-0")} />

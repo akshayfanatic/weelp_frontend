@@ -1,8 +1,6 @@
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import _ from "lodash";
-import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
