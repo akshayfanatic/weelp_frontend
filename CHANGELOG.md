@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.5.0...v0.6.0) (2025-07-18)
+
+
+### ✨ Features
+
+* Working On Transfer Created By Admin ([862613f](https://github.com/akshayfanatic/weelp_frontend/commit/862613fe5ca7c0bde72b200e18252e2bd8901a5c))
+
 ## [0.5.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.4.0...v0.5.0) (2025-07-16)
 
 
