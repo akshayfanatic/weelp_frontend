@@ -18,39 +18,23 @@ export const createTransferByAdmin = async (data = {}) => {
       },
     });
 
-    // revalidatePath("/dashboard/admin/transfers"); // revalidate api
+    revalidatePath("/dashboard/admin/transfers"); // revalidate api
 
-    log(res);
     return {
       success: true,
       message: res.data?.message,
     };
   } catch (err) {
-    log(err?.response);
-    // const status = err?.response?.status;
+    log(err?.response)
+    const status = err?.response?.status;
 
-    // if (status === 400) {
-    //   return {
-    //     success: false,
-    //     message: "Validation error",
-    //     errors: err?.response?.data?.errors,
-    //   };
-    // }
-
-    // // if email alrady exist
-    // if (status === 409) {
-    //   return {
-    //     success: false,
-    //     message: err?.response?.data?.error || "Already Exist",
-    //   };
-    // }
-
-    // if (status === 422) {
-    //   return {
-    //     success: false,
-    //     message: "Vendor already exists",
-    //   };
-    // }
+    if (status === 400) {
+      return {
+        success: false,
+        message: "Validation error",
+        errors: err?.response?.data?.errors,
+      };
+    }
 
     return {
       success: false,

@@ -17,6 +17,8 @@ const PricingTab = dynamic(() => import("../tabs/PricingTab"), { ssr: false });
 const MediaTab = dynamic(() => import("../tabs/MediaTab"), { ssr: false });
 const SeoTab = dynamic(() => import("../tabs/SeoTab"), { ssr: false });
 
+
+// Create Transfer Form By Vendor
 export const CreateTransferForm = ({}) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
@@ -96,29 +98,28 @@ export const CreateTransferForm = ({}) => {
 
     // change media data
     const finalData = {
-      ...formData,
+      ...data,
       media: media.map((val) => ({
         media_id: val.media_id,
       })),
     };
 
-
     // submit full data
     try {
       const res = await createTransferByAdmin(finalData);
 
-      // if (res.success) {
-      toast({ title: res.message || "Created successfully!" });
+      if (res.success) {
+        toast({ title: res.message || "Created successfully!" });
 
-      //   // success reset
-      //   // router.push("/dashboard/admin/itineraries");
-      // } else {
-      //   toast({
-      //     title: "Error",
-      //     description: res.message || "Something went wrong",
-      //     variant: "destructive",
-      //   });
-      // }
+        // success reset
+        router.push("/dashboard/admin/transfers");
+      } else {
+        toast({
+          title: "Error",
+          description: res.message || "Something went wrong",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       toast({
         title: "Unexpected Error",

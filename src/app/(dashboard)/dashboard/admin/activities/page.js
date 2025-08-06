@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 import React from "react";
 import { getCategoriesAdmin } from "@/lib/services/global";
 import FilterActivity from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/activities/FilterActivityPage";

@@ -5,7 +5,7 @@ import { useForm, Controller, useWatch } from "react-hook-form";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar, Clock, Ellipsis, Plus, SquarePen, Star, Tag, Trash2, Users } from "lucide-react";
+import { Calendar, Clock, Download, Ellipsis, FileText, Plus, PlusCircle, SquarePen, Star, Tag, Trash2, Users } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import debounce from "lodash.debounce";
@@ -21,7 +21,9 @@ import useSWR from "swr"; // for states cache and ui management
 import { fetcher } from "@/lib/fetchers"; // interceptors
 import { useToast } from "@/hooks/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
-import { deleteMultiplePackages, deletePackage } from "@/lib/actions/packages";
+import { deleteItinerary, deleteMultipleItineraries } from "@/lib/actions/itineraries";
+import { useAllCategoriesAdmin } from "@/hooks/api/admin/categories";
+import { useAttributeBySlugAdmin } from "@/hooks/api/admin/attributes";
 
 const seasons = ["spring", "summer", "winter", "automn"]; // static season
 
@@ -36,15 +38,25 @@ const sortOptions = [
   { name: "Default (Newest First)", value: "default" },
 ];
 
-const FilterPackage = ({ categories = [], difficulties = [], durations = [] }) => {
-  const priceID = useId();
+const FilterTransfer = () => {
   const { toast } = useToast(); // intialize toast
   const [selectedItems, setSelectedItems] = useState([]); // selected item for multiple delete case
   const [modalState, setModalState] = useState({
-    openDropdownIndex: "", // string: index as string or "" for none
+    openDropdownIndex: "", //
     openDialogIndex: "",
   });
 
+  const { categories: categoriesData = {}, error: isErrorCategories } = useAllCategoriesAdmin(); // get categories by (hook)
+  const categories = categoriesData?.data?.data ?? []; // desturcutre categories safely
+
+  const { attributes: dificultyData = {}, error: isDificultyError } = useAttributeBySlugAdmin("difficulty-level"); // get attribute by slug (hook)
+  const { attributes: durationDataD = {}, error: isDurationError } = useAttributeBySlugAdmin("difficulty-level"); // get attribute by slug (hook)
+
+  // both attributes destructue safely
+  const difficulties = dificultyData?.data ?? [];
+  const durations = durationDataD?.data ?? [];
+
+  // intialize hook
   const { register, setValue, control } = useForm({
     //initalize form
     defaultValues: {
@@ -58,8 +70,9 @@ const FilterPackage = ({ categories = [], difficulties = [], durations = [] }) =
       price: [50, 2000],
     },
   });
+
   const filters = useWatch({ control: control }); // intialize watching
-  const [debouncedFilters, setDebouncedFilters] = useState(filters); //
+  const [debouncedFilters, setDebouncedFilters] = useState(filters); // fitlering
 
   //  handle delete to open modal
   const handleDeleteClick = (index) => {
@@ -77,10 +90,10 @@ const FilterPackage = ({ categories = [], difficulties = [], durations = [] }) =
   // handle for delete activity
   async function handleDelete(itemId) {
     try {
-      await deletePackage(itemId); // call server action
+      await deleteItinerary(itemId); // call server action
 
       toast({
-        title: "Package deleted",
+        title: "Itinerary deleted",
         variant: "success",
       });
 
@@ -134,15 +147,17 @@ const FilterPackage = ({ categories = [], difficulties = [], durations = [] }) =
   }, [debouncedFilters]);
 
   // SWR fetch
-  const { data, error, isValidating, mutate } = useSWR(`/api/admin/packages?${queryParams}`, fetcher, { revalidateOnFocus: true });
+  const { data, error, isValidating, mutate } = useSWR(`/api/admin/transfers?${queryParams}`, fetcher, { revalidateOnFocus: true });
+  
 
   // destructure data
   const { data: items = [], current_page = "", per_page = "", total: totalItems = "" } = data?.data || {}; // destructure safely
+  console.log(items)
 
   // handle Multiple Delete
   const handleMultpleDelete = async () => {
     try {
-      const res = await deleteMultiplePackages(selectedItems); // delete itineraries
+      const res = await deleteMultipleItineraries(selectedItems); // delete itineraries
       if (res.success) {
         toast({ title: "Itineraries deleted", variant: "success" });
 
@@ -176,13 +191,13 @@ const FilterPackage = ({ categories = [], difficulties = [], durations = [] }) =
           <Controller
             name="name"
             control={control}
-            render={({ field }) => <Input type="search" placeholder="Search Package" className="w-full bg-white focus-visible:ring-secondaryDark" {...field} />}
+            render={({ field }) => <Input type="search" placeholder="Search Transfer" className="w-full bg-white focus-visible:ring-secondaryDark" {...field} />}
           />
         </div>
 
         <Accordion type="single" collapsible>
           {/* Category */}
-          {categories.length > 0 && (
+          {!isErrorCategories && categories.length > 0 && (
             <AccordionItem value="category">
               <AccordionTrigger>
                 <p className="flex items-center gap-4">
@@ -213,6 +228,8 @@ const FilterPackage = ({ categories = [], difficulties = [], durations = [] }) =
               </AccordionContent>
             </AccordionItem>
           )}
+          {/* Error in Categories */}
+          {isErrorCategories && <p className="text-red-400 text-sm text-center">Failed to load Categories.</p>}
 
           {/* difficulty_level */}
           {difficulties.length > 0 && (
@@ -327,7 +344,7 @@ const FilterPackage = ({ categories = [], difficulties = [], durations = [] }) =
         {/* Sidebar */}
         <div className="flex justify-start lg:justify-between flex-wrap">
           Recommended
-          <div className="space-y-4 flex flex-col ">
+          <div className="space-y-4 flex flex-col">
             {selectedItems.length > 0 ? (
               // Seleted Items Functionality
               <p className="flex self-end gap-4">
@@ -341,9 +358,9 @@ const FilterPackage = ({ categories = [], difficulties = [], durations = [] }) =
               </p>
             ) : (
               <Button asChild>
-                <Link className="w-fit self-end bg-secondaryDark text-black" href="/dashboard/admin/package-builder/new">
+                <Link className="w-fit self-end bg-secondaryDark text-black" href="/dashboard/admin/transfers/new">
                   {/** Create New itineraries */}
-                  <Plus size={16} /> Create Package
+                  <Plus size={16} /> Create Transfer
                 </Link>
               </Button>
             )}
@@ -454,7 +471,7 @@ const FilterPackage = ({ categories = [], difficulties = [], durations = [] }) =
                         <DropdownMenuContent className="space-y-0 -ml-20">
                           <DropdownMenuItem className="py-0">
                             <Button asChild variant="outline" className="w-full px-2 border-none flex justify-start text-sm font-normal">
-                              <Link href={`/dashboard/admin/package-builder/${itemId}`}>
+                              <Link href={`/dashboard/admin/itineraries/${itemId}`}>
                                 <SquarePen size={16} className="mr-2" />
                                 Edit
                               </Link>
@@ -528,4 +545,4 @@ const FilterPackage = ({ categories = [], difficulties = [], durations = [] }) =
   );
 };
 
-export default FilterPackage;
+export default FilterTransfer;

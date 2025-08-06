@@ -7,7 +7,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetchers";
 import { SelectInputTransfer, SelectInputTransfer2 } from "../components/SelectForm";
-import FormLabel from "../components/FormLabel";
+
 
 // Basic Information
 const BasicInfoTabAdmin = () => {
@@ -107,7 +107,7 @@ const BasicInfoTabAdmin = () => {
       {/* Pickup Location Dropoff Location */}
       <div className="flex w-full gap-4 flex-col sm:flex-row">
         <div className="pb-2 space-y-2 w-full">
-          <FormLabel htmlFor="pickup_location" text="Pickup Location" />
+          <Label htmlFor="pickup_location">Pickup Location</Label>
           <Controller
             name="pickup_location"
             control={control}
@@ -118,7 +118,7 @@ const BasicInfoTabAdmin = () => {
         </div>
 
         <div className="pb-2 space-y-2 w-full">
-          <FormLabel htmlFor="dropoff_location" text="Pickup Location" />
+          <Label htmlFor="dropoff_location">Dropoff Location</Label>
           <Controller
             name="dropoff_location"
             control={control}

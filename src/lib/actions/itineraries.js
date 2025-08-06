@@ -9,6 +9,7 @@ import { delay, log } from "../utils";
  * @returns {}
  */
 export const createItinerary = async (data) => {
+  log(data)
   try {
     await delay(500);
     const res = await authApi.post("/api/admin/itineraries", data);
@@ -17,6 +18,7 @@ export const createItinerary = async (data) => {
       message: res.data?.message,
     };
   } catch (err) {
+    log(err?.response);
     const status = err?.response?.status;
 
     // on status 400

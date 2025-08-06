@@ -27,6 +27,7 @@ import { Medialibrary } from "../media/MediaLibrary";
 import { Card } from "@/components/ui/card";
 import { deleteItineraryItems, editItinerary } from "@/lib/actions/itineraries"; // server actions for handling data
 
+
 export const EditItineraryForm = ({ categories, attributes, tags, locations = [], allactivities, alltransfers, itineraryData }) => {
   const hasResetRef = useRef(false);
   const [currentStep, setCurrentStep] = useState(1);

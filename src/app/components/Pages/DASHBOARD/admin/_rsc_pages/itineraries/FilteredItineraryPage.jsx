@@ -5,7 +5,7 @@ import { useForm, Controller, useWatch } from "react-hook-form";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar, Clock, Download, Ellipsis, FileText, Plus, PlusCircle, SquarePen, Star, Tag, Trash2, Users } from "lucide-react";
+import { Calendar, Clock, Ellipsis,  Plus, SquarePen, Star, Tag, Trash2, Users } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import debounce from "lodash.debounce";

@@ -1,17 +1,7 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import FilterTransfer from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/transfers/FilteredTransferPage";
 
 const TransfersPage = () => {
-  return (
-    <div>
-      Transfer Page
-      <Button asChild>
-        <Link className="" href={"/dashboard/admin/transfers/new"}>
-          Create Transfer
-        </Link>
-      </Button>
-    </div>
-  );
+  return <FilterTransfer />;
 };
 
 export default TransfersPage;

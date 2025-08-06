@@ -8,7 +8,7 @@ import { isEmpty } from "lodash";
 import { notFound } from "next/navigation";
 
 const EditItinerary = async ({ params }) => {
-  const [{ data: tagsData }, { data: locationsData = {} }, {  data: attributesData = {} },{ data: categoriesData = {}  }, transfers, {data:activitiesData=[]}] = await Promise.all([
+  const [{ data: tagsData }, { data: locationsData = {} }, { data: attributesData = {} }, { data: categoriesData = {} }, transfers, { data: activitiesData = [] }] = await Promise.all([
     getAllTagsAdmin(),
     getAllCitiesAdmin(),
     getAllAttributesAdmin(),
@@ -17,7 +17,7 @@ const EditItinerary = async ({ params }) => {
     getAllActivitesAdmin(),
   ]);
 
-  const { data:tags = [] } = tagsData; // for tags
+  const { data: tags = [] } = tagsData; // for tags
   const { data: locations = [] } = locationsData; // get cities
   const { data: categories = [] } = categoriesData; // categories
   const { data: attributes = [] } = attributesData; // for attributes

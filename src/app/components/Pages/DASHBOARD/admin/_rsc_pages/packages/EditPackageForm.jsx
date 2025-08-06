@@ -816,7 +816,11 @@ export const EditPackageForm = ({ categories, attributes, tags, locations = [], 
                   .map((filteredActivity, activityIndex) => (
                     <div key={activityIndex} className="p-4 flex w-full border rounded-md items-center gap-4">
                       {/* Update First LocalState then Server side and falllback picsum */}
-                      <img className="size-24" src={filteredActivity?.activitydata?.media_gallery?.[0]?.url || filteredActivity?.media_url?.[0]?.url || "https://picsum.photos/100/100"} alt="filter-activity-image" />
+                      <img
+                        className="size-24"
+                        src={filteredActivity?.activitydata?.media_gallery?.[0]?.url || filteredActivity?.media_url?.[0]?.url || "https://picsum.photos/100/100"}
+                        alt="filter-activity-image"
+                      />
                       <div className="space-y-2">
                         <p className="font-bold text-base">{filteredActivity?.activitydata?.name || filteredActivity?.activity_name}</p>
                         <div className="flex gap-2">
@@ -2379,7 +2383,6 @@ export const EditPackageForm = ({ categories, attributes, tags, locations = [], 
     finalData = _.set(mergedData, "transfers", transfers); // add new transfers
     finalData = _.set(mergedData, "itineraries", itineraries); // add new itineraries
 
-    // console.log(finalData)
     // submit full data
     try {
       const res = await editPackage(id, finalData);

@@ -55,16 +55,16 @@ const bookingSchema = z
 
 // itinerary
 export default function SingleProductFormItinerary({ productData }) {
+
   const [initform, setInitForm] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false); // date & howmany
   const [showHowMany, setShowHowMany] = useState(false); // date & howmany
   const [showResponse, setShowResponse] = useState(false);
   const { setMiniCartOpen, addItem, clearCart, cartItems } = useMiniCartStore();
 
-
-
   const [showScuvadiving, setShowScuvadiving] = useState(null); // show scuvadiving content
   const router = useRouter(); // intialize router
+
 
   const isInCart = cartItems.some((item) => item.id === productData.id);
 

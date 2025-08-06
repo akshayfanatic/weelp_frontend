@@ -179,6 +179,8 @@ const SeoTab = () => {
     }, 3000);
   };
 
+
+
   return (
     <Accordion
       type="single"

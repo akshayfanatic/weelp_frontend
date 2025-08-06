@@ -7,14 +7,14 @@ import { useForm, FormProvider } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-import { createTransferByAdmin } from "@/lib/actions/transfer";
 import { Card } from "@/components/ui/card";
+import { createTransferByAdmin } from "@/lib/actions/transfer";
 
 // Create Dynamic Import For Performance Optimization
 const NavigationTransfer = dynamic(() => import("../transfer_shared").then((mod) => mod.NavigationTransfer), { ssr: false }); // for export
 const BasicInfoTabAdmin = dynamic(() => import("../tabs/BasicInfoTabAdmin"), { ssr: false });
-const VendorTab = dynamic(() => import("../tabs/VendorTab"), { ssr: false });
-const PricingTab = dynamic(() => import("../tabs/PricingTab"), { ssr: false });
+const PricingTabAdmin = dynamic(() => import("../tabs/PricingTabAdmin"), { ssr: false });
+const ScheduleTabAdmin = dynamic(() => import("../tabs/ScheduleTabAdmin"), { ssr: false }); // schedule tab
 const MediaTab = dynamic(() => import("../tabs/MediaTab"), { ssr: false });
 const SeoTab = dynamic(() => import("../tabs/SeoTab"), { ssr: false });
 
@@ -27,13 +27,16 @@ export const CreateTransferFormByAdmin = ({}) => {
   // intialize methods
   const methods = useForm({
     defaultValues: {
-      is_vendor: true,
+      is_vendor: false,
       media: [],
+      availability_type: "",
+      available_days: [],
+      time_slots: [],
+      blackout_dates: [],
     },
   });
 
-  // Handle Global Level Error
-  const { reset } = methods;
+  // Handle Global State
   const { errors, isValid, isSubmitting } = methods?.formState;
 
   //  Main Steps
@@ -69,9 +72,9 @@ export const CreateTransferFormByAdmin = ({}) => {
       case 1:
         return <BasicInfoTabAdmin />;
       case 2:
-        return <VendorTab />;
+        return <PricingTabAdmin />;
       case 3:
-        return <PricingTab />;
+        return <ScheduleTabAdmin />;
       case 4:
         return <MediaTab />;
       case 5:
@@ -88,37 +91,38 @@ export const CreateTransferFormByAdmin = ({}) => {
     if (currentStep < 5) {
       setFormData(mergedData);
       setCurrentStep((prev) => prev + 1);
-
       return;
     }
 
-    // console.log(media);
-    const { media = [] } = formData;
+    const { media = [] } = data; // destructure media
 
     // change media data
     const finalData = {
-      ...formData,
+      ...data,
       media: media.map((val) => ({
         media_id: val.media_id,
+        media_type: "image",
       })),
     };
+
+    console.log(finalData);
 
     // submit full data
     try {
       const res = await createTransferByAdmin(finalData);
 
-      // if (res.success) {
-      toast({ title: res.message || "Created successfully!" });
+      if (res.success) {
+        toast({ title: res.message || "Created successfully!" });
 
-      //   // success reset
-      //   // router.push("/dashboard/admin/itineraries");
-      // } else {
-      //   toast({
-      //     title: "Error",
-      //     description: res.message || "Something went wrong",
-      //     variant: "destructive",
-      //   });
-      // }
+        // success reset
+        router.push("/dashboard/admin/transfers");
+      } else {
+        toast({
+          title: "Error",
+          description: res.message || "Something went wrong",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       toast({
         title: "Unexpected Error",

@@ -3,7 +3,7 @@ import { log } from "../utils";
 
 /**
  * Get Single Activity on Client side
- * @param {String} activitySlug
+ * @param {String} activitySlug slug of the activity
  * @returns []
  */
 export async function getSingleActivity(activitySlug) {
@@ -59,7 +59,7 @@ export async function getAllFeaturedActivities() {
     const response = await publicApi.get(`/api/activities/featured-activities`, {
       headers: { Accept: "application/json" },
     });
-
+    
     return response.data;
   } catch (error) {
     console.log("Error fetching city data:", error);

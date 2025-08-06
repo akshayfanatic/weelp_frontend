@@ -28,8 +28,7 @@ const PricingTab = () => {
     setValue("pricing_tier_id", "");
     setValue("availability_id", "");
   }, [watchedVendorId]);
-  console.log(availabilitys)
-
+  
   return (
     <Card>
       <CardHeader className="py-4">

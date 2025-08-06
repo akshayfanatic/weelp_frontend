@@ -12,13 +12,15 @@ import { delay, log } from "../utils";
 export const createActivity = async (data) => {
   try {
     await delay(500);
+    log(data)
     const res = await authApi.post("/api/admin/activities", data);
+    
     return {
       success: true,
       message: res.data?.message,
     };
   } catch (err) {
-    log(err?.response);
+
     const status = err?.response?.status;
     if (status === 400) {
       return {

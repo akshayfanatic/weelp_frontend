@@ -45,7 +45,7 @@ export  function SelectInputTransfer({ value, onChange, options = [], placeholde
 /**
  * SelectInputTransfer Component
  * @param {Object} props
- * @param {SelectOption2[]} props.options - Array of options with `id` and `name`
+ * @param {SelectOption2[]} props.options - Array of options with `label` and `value`
  * @param {any} props.value - Selected value
  * @param {function} props.onChange - Handler on value change
  * @param {string} [props.placeholder] - Placeholder text
