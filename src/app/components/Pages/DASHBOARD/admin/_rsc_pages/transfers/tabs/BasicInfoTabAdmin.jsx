@@ -7,7 +7,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetchers";
 import { SelectInputTransfer, SelectInputTransfer2 } from "../components/SelectForm";
-
+import { VEHICLE_TYPES , TRANSFER_TYPES } from "@/lib/constants/transfer"; // constants
 
 // Basic Information
 const BasicInfoTabAdmin = () => {
@@ -36,22 +36,6 @@ const BasicInfoTabAdmin = () => {
     }
   };
 
-  // transfer type
-  const transferType = [
-    { label: "Airport Transfer", value: "airport_transfer" },
-    { label: "Hotel Transfer", value: "hotel_transfer" },
-    { label: "Point to Point", value: "point_to_point" },
-    { label: "Tour Transfer", value: "tour_transfer" },
-  ];
-
-  //vehicle type
-  const vehicleType = [
-    { label: "Sedan", value: "sedan" },
-    { label: "Bus", value: "bus" },
-    { label: "Minibus", value: "minibus" },
-    { label: "Van", value: "van" },
-  ];
-
   if (isLoading) return <div className="loader"></div>;
 
   if (error) return <div className="text-red-500">Something went wrong: {error.message}</div>;
@@ -76,6 +60,20 @@ const BasicInfoTabAdmin = () => {
         {errors?.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
       </div>
 
+      <div className="pb-2 space-y-2 w-full">
+        <Label htmlFor="slug" className={`block text-sm font-medium ${errors?.slug ? "text-red-400" : "text-black"}`}>
+          Slug
+        </Label>
+        <Input
+          placeholder="Enter Url slug"
+          id="slug"
+          {...register("slug", { required: "Slug is required" })}
+          className="mt-1 p-2 text-sm block w-full rounded-md border border-gray-300 shadow-sm focus-visible:ring-secondaryDark"
+          onBlur={handleBlur}
+        />
+        {errors?.slug && <p className="text-red-500 text-sm mt-1">{errors?.slug.message}</p>}
+      </div>
+
       {/* Transfer Type */}
       <div className="space-y-2">
         <Label htmlFor="transfer_type" className={`block text-sm font-medium ${errors?.transfer_type ? "text-red-400" : "text-black"}`}>
@@ -85,7 +83,7 @@ const BasicInfoTabAdmin = () => {
           name="transfer_type"
           control={control}
           rules={{ required: "Field Required" }}
-          render={({ field }) => <SelectInputTransfer2 value={field.value} onChange={field.onChange} options={transferType} placeholder="Select pickup location..." />}
+          render={({ field }) => <SelectInputTransfer2 value={field.value} onChange={field.onChange} options={TRANSFER_TYPES} placeholder="Select pickup location..." />}
         />
         {errors?.transfer_type && <p className="text-red-500 text-sm mt-1">{errors?.transfer_type?.message}</p>}
       </div>
@@ -99,7 +97,7 @@ const BasicInfoTabAdmin = () => {
           name="vehicle_type"
           control={control}
           rules={{ required: "Field Required" }}
-          render={({ field }) => <SelectInputTransfer2 value={field.value} onChange={field.onChange} options={vehicleType} placeholder="Select pickup location..." />}
+          render={({ field }) => <SelectInputTransfer2 value={field.value} onChange={field.onChange} options={VEHICLE_TYPES} placeholder="Select pickup location..." />}
         />
         {errors?.vehicle_type && <p className="text-red-500 text-sm mt-1">{errors?.vehicle_type?.message}</p>}
       </div>

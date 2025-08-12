@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { Card } from "@/components/ui/card";
-import { createTransferByAdmin } from "@/lib/actions/transfer";
+import {  editTransferByAdmin } from "@/lib/actions/transfer";  // edit actions
 
 // Create Dynamic Import For Performance Optimization
 const NavigationTransfer = dynamic(() => import("../transfer_shared").then((mod) => mod.NavigationTransfer), { ssr: false }); // for export
@@ -18,21 +18,47 @@ const ScheduleTabAdmin = dynamic(() => import("../tabs/ScheduleTabAdmin"), { ssr
 const MediaTab = dynamic(() => import("../tabs/MediaTab"), { ssr: false });
 const SeoTab = dynamic(() => import("../tabs/SeoTab"), { ssr: false });
 
-export const CreateTransferFormByAdmin = ({}) => {
+export const EditTransferFormByAdmin = ({ transferData }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
   const router = useRouter();
   const { toast } = useToast(); // intialize toast
 
+  // destructure transfer data
+  const { id: transferId, name = "", slug = "", transfer_type = "", vendor_routes = {}, description = "", pricing_availability = {}, seo = {}, schedule = {}, media_gallery = [] } = transferData;
+  const { vehicle_type = "", dropoff_location = "", pickup_location = "", inclusion = "" } = vendor_routes; // routes destructure
+  const { base_price = "", currency = "", price_type = "", extra_luggage_charge = "", waiting_charge } = pricing_availability; //pricing destructure
+  const { availability_type, available_days = [], time_slots = [], blackout_dates = [], minimum_lead_time, maximum_passengers } = schedule; // destructure schedule data
+
   // intialize methods
   const methods = useForm({
     defaultValues: {
+      name: name,
+      slug: slug,
+      transfer_type: transfer_type,
       is_vendor: false,
-      media_gallery: [],
-      availability_type: "",
-      available_days: [],
-      time_slots: [],
-      blackout_dates: [],
+      vehicle_type: vehicle_type,
+      dropoff_location: dropoff_location,
+      pickup_location: pickup_location,
+      description: description,
+      inclusion: inclusion,
+      base_price: base_price,
+      currency: currency,
+      price_type: price_type,
+      extra_luggage_charge: extra_luggage_charge,
+      waiting_charge: waiting_charge,
+
+      // schedule field data
+      availability_type: availability_type,
+      available_days: available_days,
+      time_slots: time_slots,
+      blackout_dates: blackout_dates,
+      minimum_lead_time: minimum_lead_time,
+      maximum_passengers: maximum_passengers,
+
+      // seo
+      seo: { ...seo, schema_data: JSON.parse(seo.schema_data) },
+      media_gallery: media_gallery,
     },
   });
 
@@ -104,14 +130,12 @@ export const CreateTransferFormByAdmin = ({}) => {
       })),
     };
 
-
-
     // submit full data
     try {
-      const res = await createTransferByAdmin(finalData);
+      const res = await editTransferByAdmin(transferId, finalData);
 
       if (res.success) {
-        toast({ title: res.message || "Created successfully!" });
+        toast({ title: res.message || "Updated successfully!" });
 
         // success reset
         router.push("/dashboard/admin/transfers");
@@ -133,7 +157,7 @@ export const CreateTransferFormByAdmin = ({}) => {
 
   return (
     <Card className="min-h-screen border-none shadow-none w-full bg-gray-50 py-12 sm:px-6 lg:px-8">
-      <NavigationTransfer title={"New Transfer"} desciption={"Create a new transfer service"} />
+      <NavigationTransfer title={"Edit Transfer"} desciption={"Edit your transfer service"} />
       <div className="w-full space-y-4">
         <FormProvider {...methods}>
           <div className="w-full">

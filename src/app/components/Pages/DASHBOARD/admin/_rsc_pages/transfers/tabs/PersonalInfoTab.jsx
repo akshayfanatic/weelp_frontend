@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { generateSlug } from "@/lib/utils";
 import { Controller, useFormContext } from "react-hook-form";
+import { TRANSFER_TYPES } from "@/lib/constants/transfer";
 
 // Basic Information
 const PersonalInfoTab = () => {
@@ -27,13 +28,6 @@ const PersonalInfoTab = () => {
     }
   };
 
-  // transfer type
-  const transfer_type = [
-    { label: "Airport Transfer", value: "airport_transfer" },
-    { label: "Hotel Transfer", value: "hotel_transfer" },
-    { label: "Point to Point", value: "point_to_point" },
-    { label: "Tour Transfer", value: "tour_transfer" },
-  ];
 
   return (
     <div className="space-y-4 py-6">
@@ -102,7 +96,7 @@ const PersonalInfoTab = () => {
                 <SelectValue placeholder="Select transfer type" />
               </SelectTrigger>
               <SelectContent>
-                {transfer_type.map((transfer) => (
+                {TRANSFER_TYPES.map((transfer) => (
                   <SelectItem key={transfer.value} value={transfer.value}>
                     {transfer.label}
                   </SelectItem>

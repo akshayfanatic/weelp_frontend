@@ -17,7 +17,6 @@ export async function getAllTransfersAdmin() {
   }
 }
 
-
 /**
  * Fetches a list of admin transfers with optional query parameters.
  *
@@ -34,8 +33,32 @@ export async function getAllTransfersAdminn(search = "") {
     const response = await authApi.get(`/api/admin/transfers/${search ? search : ""}`, {
       headers: { Accept: "application/json" },
     });
+
+    console.log(response)
     return response?.data;
   } catch (error) {
     return [];
+  }
+}
+
+
+/**
+ * Get Single Transfer on Admin side
+ * @param {Number} transferId
+ * @returns {Promise<Object|Array>} Returns the API response data if successful, otherwise returns an empty array.
+ */
+export async function getSingleTransferAdmin(transferId = "") {
+  try {
+    const response = await authApi.get(`/api/admin/transfers/${transferId}`, {
+      headers: { Accept: "application/json" },
+    });
+
+    if (response.status == 200) {
+      return response?.data;
+    }
+
+    return {};
+  } catch (error) {
+    return {};
   }
 }

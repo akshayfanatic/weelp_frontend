@@ -7,51 +7,58 @@ import { useForm, FormProvider } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-import { Card } from "@/components/ui/card";
-import { createTransferByAdmin } from "@/lib/actions/transfer";
+import { editTransferByAdmin } from "@/lib/actions/transfer";
 
 // Create Dynamic Import For Performance Optimization
 const NavigationTransfer = dynamic(() => import("../transfer_shared").then((mod) => mod.NavigationTransfer), { ssr: false }); // for export
-const BasicInfoTabAdmin = dynamic(() => import("../tabs/BasicInfoTabAdmin"), { ssr: false });
-const PricingTabAdmin = dynamic(() => import("../tabs/PricingTabAdmin"), { ssr: false });
-const ScheduleTabAdmin = dynamic(() => import("../tabs/ScheduleTabAdmin"), { ssr: false }); // schedule tab
+const PersonalInfoTab = dynamic(() => import("../tabs/PersonalInfoTab"), { ssr: false });
+const VendorTab = dynamic(() => import("../tabs/VendorTab"), { ssr: false });
+const PricingTab = dynamic(() => import("../tabs/PricingTab"), { ssr: false });
 const MediaTab = dynamic(() => import("../tabs/MediaTab"), { ssr: false });
 const SeoTab = dynamic(() => import("../tabs/SeoTab"), { ssr: false });
 
-export const CreateTransferFormByAdmin = ({}) => {
+// Create Transfer Form By Vendor
+export const EditTransferForm = ({ transferData }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
   const router = useRouter();
   const { toast } = useToast(); // intialize toast
 
+  // desturcuture formdata
+  const { id: transferId, name, slug, description, transfer_type, seo = {}, vendor_routes = {}, media_gallery = [] } = transferData; // destrucutre vendor data
+  const { vendor_id, route_id } = vendor_routes; // destructure vendor routes
+
   // intialize methods
   const methods = useForm({
     defaultValues: {
-      is_vendor: false,
-      media_gallery: [],
-      availability_type: "",
-      available_days: [],
-      time_slots: [],
-      blackout_dates: [],
+      name: name,
+      slug: slug,
+      description: description,
+      transfer_type: transfer_type,
+      vendor_id: vendor_id ?? "",
+      route_id: route_id ?? "",
+      media_gallery: media_gallery,
+      seo: { ...seo, schema_data: JSON.parse(seo?.schema_data) },
     },
   });
 
-  // Handle Global State
+  // Handle Global Level Error
+  const { reset } = methods;
   const { errors, isValid, isSubmitting } = methods?.formState;
 
   //  Main Steps
   const steps = [
     {
       id: 1,
-      title: "Basic Info",
+      title: "Basic Information",
     },
     {
       id: 2,
-      title: "Pricing",
+      title: "Vendor Route",
     },
     {
       id: 3,
-      title: "Schedule",
+      title: "Pricing Availability",
     },
     {
       id: 4,
@@ -70,11 +77,11 @@ export const CreateTransferFormByAdmin = ({}) => {
   const renderStep = () => {
     switch (currentStep) {
       case 1:
-        return <BasicInfoTabAdmin />;
+        return <PersonalInfoTab />;
       case 2:
-        return <PricingTabAdmin />;
+        return <VendorTab />;
       case 3:
-        return <ScheduleTabAdmin />;
+        return <PricingTab />;
       case 4:
         return <MediaTab />;
       case 5:
@@ -91,10 +98,12 @@ export const CreateTransferFormByAdmin = ({}) => {
     if (currentStep < 5) {
       setFormData(mergedData);
       setCurrentStep((prev) => prev + 1);
+
       return;
     }
 
-    const { media_gallery = [] } = data; // destructure media
+    // console.log(media);
+    const { media_gallery = [] } = formData;
 
     // change media data
     const finalData = {
@@ -104,11 +113,10 @@ export const CreateTransferFormByAdmin = ({}) => {
       })),
     };
 
-
-
     // submit full data
     try {
-      const res = await createTransferByAdmin(finalData);
+      console.log("finaldata", finalData);
+      const res = await editTransferByAdmin(transferId, finalData);
 
       if (res.success) {
         toast({ title: res.message || "Created successfully!" });
@@ -132,8 +140,8 @@ export const CreateTransferFormByAdmin = ({}) => {
   };
 
   return (
-    <Card className="min-h-screen border-none shadow-none w-full bg-gray-50 py-12 sm:px-6 lg:px-8">
-      <NavigationTransfer title={"New Transfer"} desciption={"Create a new transfer service"} />
+    <div className="min-h-screen w-full bg-gray-50 py-12 sm:px-6 lg:px-8">
+      <NavigationTransfer title={"Edit Transfer"} desciption={"Edit your transfer service"} />
       <div className="w-full space-y-4">
         <FormProvider {...methods}>
           <div className="w-full">
@@ -197,6 +205,6 @@ export const CreateTransferFormByAdmin = ({}) => {
           </form>
         </FormProvider>
       </div>
-    </Card>
+    </div>
   );
 };

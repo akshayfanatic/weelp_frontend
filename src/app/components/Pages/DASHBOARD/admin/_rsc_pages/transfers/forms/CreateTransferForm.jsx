@@ -17,7 +17,6 @@ const PricingTab = dynamic(() => import("../tabs/PricingTab"), { ssr: false });
 const MediaTab = dynamic(() => import("../tabs/MediaTab"), { ssr: false });
 const SeoTab = dynamic(() => import("../tabs/SeoTab"), { ssr: false });
 
-
 // Create Transfer Form By Vendor
 export const CreateTransferForm = ({}) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -29,7 +28,7 @@ export const CreateTransferForm = ({}) => {
   const methods = useForm({
     defaultValues: {
       is_vendor: true,
-      media: [],
+      media_gallery: [],
     },
   });
 
@@ -94,12 +93,12 @@ export const CreateTransferForm = ({}) => {
     }
 
     // console.log(media);
-    const { media = [] } = formData;
+    const { media_gallery = [] } = formData;
 
     // change media data
     const finalData = {
       ...data,
-      media: media.map((val) => ({
+      media_gallery: media_gallery.map((val) => ({
         media_id: val.media_id,
       })),
     };

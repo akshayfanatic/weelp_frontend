@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useId, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useForm, Controller, useWatch } from "react-hook-form";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar, Clock, Download, Ellipsis, FileText, Plus, PlusCircle, SquarePen, Star, Tag, Trash2, Users } from "lucide-react";
+import { Calendar, Car, Clock, Ellipsis, Plus, SquarePen, Tag, Trash2, User, Users } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import debounce from "lodash.debounce";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -18,25 +17,12 @@ import "react-range-slider-input/dist/style.css";
 import { CustomPagination } from "@/app/components/Pagination";
 import Link from "next/link";
 import useSWR from "swr"; // for states cache and ui management
+import { useToast } from "@/hooks/use-toast"; // toast for notification
+import { Checkbox } from "@/components/ui/checkbox"; //
 import { fetcher } from "@/lib/fetchers"; // interceptors
-import { useToast } from "@/hooks/use-toast";
-import { Checkbox } from "@/components/ui/checkbox";
-import { deleteItinerary, deleteMultipleItineraries } from "@/lib/actions/itineraries";
-import { useAllCategoriesAdmin } from "@/hooks/api/admin/categories";
-import { useAttributeBySlugAdmin } from "@/hooks/api/admin/attributes";
-
-const seasons = ["spring", "summer", "winter", "automn"]; // static season
-
-const sortOptions = [
-  { name: "Price: Low to High", value: "price_asc" },
-  { name: "Price: High to Low", value: "price_desc" },
-  { name: "Name: A to Z", value: "name_asc" },
-  { name: "Name: Z to A", value: "name_desc" },
-  { name: "ID: Oldest First", value: "id_asc" },
-  { name: "ID: Newest First", value: "id_desc" },
-  { name: "Featured First", value: "featured" },
-  { name: "Default (Newest First)", value: "default" },
-];
+import { deleteMultipleTransfers, deleteTransfer } from "@/lib/actions/transfer"; // inline actions
+import { VEHICLE_TYPES } from "@/lib/constants/transfer"; // constants
+import { SORT_BY } from "@/lib/constants/shared"; // filter constants
 
 const FilterTransfer = () => {
   const { toast } = useToast(); // intialize toast
@@ -46,28 +32,16 @@ const FilterTransfer = () => {
     openDialogIndex: "",
   });
 
-  const { categories: categoriesData = {}, error: isErrorCategories } = useAllCategoriesAdmin(); // get categories by (hook)
-  const categories = categoriesData?.data?.data ?? []; // desturcutre categories safely
-
-  const { attributes: dificultyData = {}, error: isDificultyError } = useAttributeBySlugAdmin("difficulty-level"); // get attribute by slug (hook)
-  const { attributes: durationDataD = {}, error: isDurationError } = useAttributeBySlugAdmin("difficulty-level"); // get attribute by slug (hook)
-
-  // both attributes destructue safely
-  const difficulties = dificultyData?.data ?? [];
-  const durations = durationDataD?.data ?? [];
-
   // intialize hook
   const { register, setValue, control } = useForm({
     //initalize form
     defaultValues: {
-      name: "",
-      category: "",
-      difficulty_level: "",
-      duration: "",
-      seasons: [],
+      vehicle_type: "",
+      availability_date: "",
+      capacity: "",
+      price: [50, 150],
       sort_by: "",
       page: 1,
-      price: [50, 2000],
     },
   });
 
@@ -87,16 +61,15 @@ const FilterTransfer = () => {
     setModalState((prev) => ({ ...prev, openDialogIndex: "" }));
   };
 
-  // handle for delete activity
+  // handle for delete transfer
   async function handleDelete(itemId) {
     try {
-      await deleteItinerary(itemId); // call server action
+      const res = await deleteTransfer(itemId); // call server action for deletion
 
       toast({
-        title: "Itinerary deleted",
+        title: res.message || "Delete Succesfully",
         variant: "success",
       });
-
       mutate(); // trigger api
       closeDialog(); // close your dialog after success
     } catch (error) {
@@ -131,13 +104,9 @@ const FilterTransfer = () => {
   const queryParams = useMemo(() => {
     const params = new URLSearchParams();
 
-    if (debouncedFilters.name) params.append("name", debouncedFilters.name);
-    if (debouncedFilters.category) params.append("category", debouncedFilters.category);
-    if (debouncedFilters.difficulty_level) params.append("difficulty_level", debouncedFilters.difficulty_level);
-    if (debouncedFilters.duration) params.append("duration", debouncedFilters.duration);
-    if (debouncedFilters.seasons?.length) {
-      debouncedFilters.seasons.forEach((season) => params.append("season[]", season));
-    }
+    if (debouncedFilters.vehicle_type) params.append("vehicle_type", debouncedFilters.vehicle_type);
+    if (debouncedFilters.availability_date) params.append("availability_date", debouncedFilters.availability_date);
+    if (debouncedFilters.capacity) params.append("capacity", debouncedFilters.capacity);
     if (debouncedFilters.sort_by) params.append("sort_by", debouncedFilters.sort_by);
     if (debouncedFilters.price?.[0]) params.append("min_price", debouncedFilters.price[0]);
     if (debouncedFilters.price?.[1]) params.append("max_price", debouncedFilters.price[1]);
@@ -148,18 +117,16 @@ const FilterTransfer = () => {
 
   // SWR fetch
   const { data, error, isValidating, mutate } = useSWR(`/api/admin/transfers?${queryParams}`, fetcher, { revalidateOnFocus: true });
-  
 
   // destructure data
   const { data: items = [], current_page = "", per_page = "", total: totalItems = "" } = data?.data || {}; // destructure safely
-  console.log(items)
 
   // handle Multiple Delete
   const handleMultpleDelete = async () => {
     try {
-      const res = await deleteMultipleItineraries(selectedItems); // delete itineraries
+      const res = await deleteMultipleTransfers({ transferIds: selectedItems }); // delete itineraries
       if (res.success) {
-        toast({ title: "Itineraries deleted", variant: "success" });
+        toast({ title: res.message || "Transfers deleted", variant: "success" });
 
         // Force update the UI
         mutate();
@@ -170,6 +137,7 @@ const FilterTransfer = () => {
         toast({ title: "Delete failed", description: res.error, variant: "destructive" });
       }
     } catch (error) {
+      console.log(error);
       toast({ title: "Something went wrong", variant: "destructive" });
 
       // flush items
@@ -186,135 +154,67 @@ const FilterTransfer = () => {
     <Card className="flex gap-4 flex-col lg:flex-row ">
       {/* Sidebar Filter */}
       <div className="lg:w-1/4  space-y-6 p-4">
-        {/* Search */}
-        <div className="space-y-2">
-          <Controller
-            name="name"
-            control={control}
-            render={({ field }) => <Input type="search" placeholder="Search Transfer" className="w-full bg-white focus-visible:ring-secondaryDark" {...field} />}
-          />
-        </div>
-
         <Accordion type="single" collapsible>
-          {/* Category */}
-          {!isErrorCategories && categories.length > 0 && (
-            <AccordionItem value="category">
-              <AccordionTrigger>
-                <p className="flex items-center gap-4">
-                  <Tag size={18} /> Categories
-                </p>
-              </AccordionTrigger>
-              <AccordionContent>
-                <Controller
-                  name="category"
-                  control={control}
-                  render={({ field }) => (
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="focus:ring-0">
-                        <SelectValue placeholder="Select a category" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {categories.map((category, i) => (
-                            <SelectItem key={i} value={category.slug}>
-                              {category.name}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  )}
-                />
-              </AccordionContent>
-            </AccordionItem>
-          )}
-          {/* Error in Categories */}
-          {isErrorCategories && <p className="text-red-400 text-sm text-center">Failed to load Categories.</p>}
-
-          {/* difficulty_level */}
-          {difficulties.length > 0 && (
-            <AccordionItem value="difficulty_level">
-              <AccordionTrigger>
-                <p className="flex items-center gap-4">
-                  <Star size={18} /> Difficulty
-                </p>
-              </AccordionTrigger>
-              <AccordionContent>
-                <Controller
-                  name="difficulty_level"
-                  control={control}
-                  render={({ field }) => (
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="focus:ring-0">
-                        <SelectValue placeholder="Select a difficulty_level" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {difficulties.map((level, i) => (
-                            <SelectItem key={i} value={level}>
-                              {level}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  )}
-                />
-              </AccordionContent>
-            </AccordionItem>
-          )}
-
-          {/* Duration */}
-          {durations.length > 0 && (
-            <AccordionItem value="duration">
-              <AccordionTrigger>
-                <p className="flex items-center gap-4">
-                  <Clock size={18} /> Duration
-                </p>
-              </AccordionTrigger>
-              <AccordionContent>
-                <Controller
-                  name="duration"
-                  control={control}
-                  render={({ field }) => (
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="focus:ring-0">
-                        <SelectValue placeholder="Select a duration" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {durations.map((d, i) => (
-                            <SelectItem key={i} value={d}>
-                              {d}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  )}
-                />
-              </AccordionContent>
-            </AccordionItem>
-          )}
-
-          {/* Seasons */}
-          <AccordionItem value="seasons">
+          {/* Vehicle Type */}
+          <AccordionItem value="vehicle_type">
             <AccordionTrigger>
               <p className="flex items-center gap-4">
-                <Calendar size={18} /> Seasons
+                <Car size={18} />
+                Vehicle Type
               </p>
             </AccordionTrigger>
             <AccordionContent>
-              {seasons.map((season, i) => (
-                <Label key={i} htmlFor={`season_${i}`} className="flex items-center justify-end flex-row-reverse gap-3 p-2 rounded-md hover:bg-gray-50 cursor-pointer">
-                  <span className="capitalize text-sm text-gray-700">{season}</span>
-                  <input id={`season_${i}`} type="checkbox" value={season} className="h-4 w-4 accent-secondaryDark" {...register("seasons")} />
-                </Label>
-              ))}
+              <Controller
+                name="vehicle_type"
+                control={control}
+                render={({ field }) => (
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <SelectTrigger className="focus:ring-0">
+                      <SelectValue placeholder="Select a vehicle_type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {VEHICLE_TYPES.map((vehicle, i) => (
+                          <SelectItem key={i} value={vehicle?.value}>
+                            {vehicle?.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
             </AccordionContent>
           </AccordionItem>
 
-          {/* price Range */}
+          {/* Availability */}
+          <AccordionItem value="availablity_date">
+            <AccordionTrigger>
+              <p className="flex items-center gap-4">
+                <Calendar size={18} /> Availability
+              </p>
+            </AccordionTrigger>
+            <AccordionContent>
+              <Input type="date" {...register("availability_date")} />
+            </AccordionContent>
+          </AccordionItem>
+
+          {/* Capacity */}
+          <AccordionItem value="capacity">
+            <AccordionTrigger>
+              <p className="flex items-center gap-4">
+                <User size={18} />
+                Capacity
+              </p>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="flex items-center gap-4">
+                <Input type="number" placeholder="Total Persons" {...register("capacity")} />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+
+          {/* Price Range */}
           <AccordionItem value="price">
             <AccordionTrigger>
               <p className="flex items-center gap-4">
@@ -326,7 +226,7 @@ const FilterTransfer = () => {
                 <Controller
                   name="price"
                   control={control}
-                  render={({ field }) => <ReactRangeSliderInput {...field} min={50} max={2000} step={100} value={field.value} onInput={field.onChange} className="w-full" />}
+                  render={({ field }) => <ReactRangeSliderInput {...field} min={50} max={5000} step={100} value={field.value} onInput={field.onChange} className="w-full" />}
                 />
 
                 <div className="w-full flex justify-between text-sm text-gray-600 mt-2">
@@ -376,7 +276,7 @@ const FilterTransfer = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      {sortOptions.map(({ name, value }) => (
+                      {SORT_BY.map(({ name, value }) => (
                         <SelectItem key={value} value={value} className="cursor-pointer">
                           {name}
                         </SelectItem>
@@ -404,7 +304,7 @@ const FilterTransfer = () => {
           {!isValidating && !error && items.length > 0 && (
             <div className="flex flex-col gap-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 ">
-                {items.map(({ id: itemId, name, media_gallery = [], tags = [], attributes = [] }, index) => (
+                {items.map(({ id: itemId, name, media_gallery = [], tags = [], attributes = [], vendor_routes: { is_vendor } = {} }, index) => (
                   <Card
                     key={index}
                     className={`group hover:shadow-md ease duration-300 rounded-lg w-full lg:w-fit border relative ${selectedItems?.includes(itemId) && "p-3 border border-secondaryDark"}`}
@@ -417,6 +317,9 @@ const FilterTransfer = () => {
 
                     <div className=" bg-white p-4 space-y-2">
                       <h2>{name}</h2>
+
+                      {/* vendor routes name */}
+                      <span>{`Checking is by vendor ${is_vendor}`}</span>
 
                       {/* attributes have duration then */}
                       {attributes.length > 0 &&
@@ -471,10 +374,18 @@ const FilterTransfer = () => {
                         <DropdownMenuContent className="space-y-0 -ml-20">
                           <DropdownMenuItem className="py-0">
                             <Button asChild variant="outline" className="w-full px-2 border-none flex justify-start text-sm font-normal">
-                              <Link href={`/dashboard/admin/itineraries/${itemId}`}>
-                                <SquarePen size={16} className="mr-2" />
-                                Edit
-                              </Link>
+                              {/* Edit Transfers Route Based on isVendor */}
+                              {is_vendor ? (
+                                <Link href={`/dashboard/admin/transfers/edit/${itemId}/vendor`}>
+                                  <SquarePen size={16} className="mr-2" />
+                                  Edit
+                                </Link>
+                              ) : (
+                                <Link href={`/dashboard/admin/transfers/edit/${itemId}/admin`}>
+                                  <SquarePen size={16} className="mr-2" />
+                                  Edit
+                                </Link>
+                              )}
                             </Button>
                           </DropdownMenuItem>
 

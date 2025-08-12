@@ -12,15 +12,14 @@ import { delay, log } from "../utils";
 export const createActivity = async (data) => {
   try {
     await delay(500);
-    log(data)
+    log(data);
     const res = await authApi.post("/api/admin/activities", data);
-    
+
     return {
       success: true,
       message: res.data?.message,
     };
   } catch (err) {
-
     const status = err?.response?.status;
     if (status === 400) {
       return {
@@ -129,13 +128,7 @@ export async function deleteActivity(activityId) {
  * @param {Array} delete_type - deleted_location_ids deleted_seasonal_pricing_ids  deleted_group_discounts_ids deleted_promo_codes_ids
  * @returns
  */
-export async function deleteActivityItems({ 
-  activityId, 
-  deleted_location_ids = [], 
-  deleted_seasonal_pricing_ids = [], 
-  deleted_group_discounts_ids = [], 
-  deleted_promo_codes_ids = [] 
-}) {
+export async function deleteActivityItems({ activityId, deleted_location_ids = [], deleted_seasonal_pricing_ids = [], deleted_group_discounts_ids = [], deleted_promo_codes_ids = [] }) {
   try {
     // delete data
     const res = await authApi.delete(`/api/admin/activities/${activityId}/partial-delete`, {
@@ -150,7 +143,6 @@ export async function deleteActivityItems({
     // revalidate data
     revalidatePath(`/dashboard/admin/activities/${activityId}`); // revalidate paths
     return { success: true, data: "Deleted Successfully" };
-
   } catch (error) {
     const status = error?.response?.status;
     const serverMessage = error?.response?.data?.message || "Something went wrong";

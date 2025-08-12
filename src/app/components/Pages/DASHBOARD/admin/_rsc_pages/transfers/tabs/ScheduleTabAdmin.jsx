@@ -51,15 +51,7 @@ const ScheduleTabAdmin = () => {
   ];
 
   // Availability Days
-  const availabilityDays = [
-    { label: "Monday", value: "monday" },
-    { label: "Tuesday", value: "tuesday" },
-    { label: "Wednesday", value: "wednesday" },
-    { label: "Thursday", value: "thursday" },
-    { label: "Friday", value: "friday" },
-    { label: "Saturday", value: "saturday" },
-    { label: "Sunday", value: "sunday" },
-  ];
+  const availabilityDays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
   // handleRemove Time Slote Field
   const handleRemoveSlotField = (index) => {
@@ -97,21 +89,22 @@ const ScheduleTabAdmin = () => {
                   render={({ field }) => (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                       {availabilityDays.map((day) => {
-                        const isSelected = field.value.includes(day.value);
+                        const isSelected = field.value.includes(day);
                         return (
                           <Button
-                            key={day.value}
+                            key={day}
                             type="button"
+                            className="capitalize"
                             variant={isSelected ? "secondary" : "outline"}
                             onClick={() => {
                               if (isSelected) {
-                                field.onChange(field.value.filter((val) => val !== day.value));
+                                field.onChange(field.value.filter((val) => val !== day));
                               } else {
-                                field.onChange([...field.value, day.value]);
+                                field.onChange([...field.value, day]);
                               }
                             }}
                           >
-                            {day.label}
+                            {day}
                           </Button>
                         );
                       })}

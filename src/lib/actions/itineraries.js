@@ -150,6 +150,7 @@ export async function deleteItinerary(itineraryId) {
   }
 }
 
+
 /**
  * Action to delete multiple Itinerary
  * @param {[]} itinerary_ids

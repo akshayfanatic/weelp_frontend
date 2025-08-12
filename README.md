@@ -239,14 +239,6 @@ Used in `lib/` to create simplified interfaces for:
 - Mutations
 - External integrations (e.g., Stripe, Axios)
 
-### ✅ **Feature-Sliced Design (FSD)**
-
-Separation by **domain** and **business role** (admin, public, customer). Makes scaling easy and onboarding faster.
-
-### ✅ **Domain-Driven Design (DDD)**
-
-Each model (e.g., activities, orders) owns its **fetching** and **mutation logic**, keeping concerns domain-centric.
-
 ### ✅ **SOLID Principles**
 
 - **Single Responsibility**: Each module/folder has one clear purpose.
@@ -263,3 +255,7 @@ Each model (e.g., activities, orders) owns its **fetching** and **mutation logic
 - 🚀 Fast developer experience with clean boundaries
 
 ---
+
+
+
+    // "dev": "next dev",

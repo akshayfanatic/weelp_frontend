@@ -1,6 +1,6 @@
 // app/api/admin/transfers/route.js
 import { NextResponse } from "next/server";
-import { getAllTransfersAdminn } from "@/lib/services/transfers";
+import { getAllTransfersAdmin, getAllTransfersAdminn } from "@/lib/services/transfers";
 import { delay } from "@/lib/utils";
 
 export async function GET(req) {

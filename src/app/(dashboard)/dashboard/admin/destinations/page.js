@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import DestinationsPageAdmin from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/destination";
 
 const DestinationPage = () => {
-  return (
-    <div>DestinationPage</div>
-  )
-}
+  return <DestinationsPageAdmin />;
+};
 
-export default DestinationPage
+export default DestinationPage;

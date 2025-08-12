@@ -24,7 +24,7 @@ const MediaTab = () => {
   } = useFormContext();
 
   const media = useWatch({
-    name: "media",
+    name: "media_gallery",
   });
 
   //  Hydarte First if there is already media exist
@@ -49,7 +49,7 @@ const MediaTab = () => {
 
   // sycn with form
   useEffect(() => {
-    setValue("media", activityImages); // sync form
+    setValue("media_gallery", activityImages); // sync form
   }, [activityImages, setValue]);
 
   // handleDelteImage
@@ -57,7 +57,7 @@ const MediaTab = () => {
     setActivityImages((prev) => {
       const updatedImages = prev.filter((img) => img.url !== image.url);
       // setActivityImages(updatedImages);
-      setTimeout(() => setValue("media", updatedImages), false); //
+      setTimeout(() => setValue("media_gallery", updatedImages), false); //
       return updatedImages;
     });
   };
@@ -67,7 +67,7 @@ const MediaTab = () => {
       <div className="hidden">
         <Controller
           control={control}
-          name="media"
+          name="media_gallery"
           // defaultValue={[]}
           rules={{
             validate: (val) => val?.length > 0 || "Please upload at least 1 image.",

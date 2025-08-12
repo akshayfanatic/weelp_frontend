@@ -2,32 +2,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { PageInfo } from "../settings_shared";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 
 export const Settings = () => {
   const form = useForm({
@@ -52,19 +33,14 @@ export const Settings = () => {
 
   return (
     <div className="space-y-6 w-full">
-      <PageInfo
-        pageTitle="General Settings"
-        pageDescription="Manage your application preferences and settings"
-      />
+      <PageInfo pageTitle="General Settings" pageDescription="Manage your application preferences and settings" />
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="text-lg">Appearance</CardTitle>
-              <CardDescription>
-                Customize how the application looks and feels
-              </CardDescription>
+              <CardDescription>Customize how the application looks and feels</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <FormField
@@ -100,10 +76,7 @@ export const Settings = () => {
                   <FormItem className="flex items-center justify-between">
                     <FormLabel>Compact Mode</FormLabel>
                     <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
+                      <Switch checked={field.value} onCheckedChange={field.onChange} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -114,9 +87,7 @@ export const Settings = () => {
           <Card>
             <CardHeader>
               <CardTitle>Regional Settings</CardTitle>
-              <CardDescription>
-                Configure your regional preferences
-              </CardDescription>
+              <CardDescription>Configure your regional preferences</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4 md:grid-cols-2">
               {[
@@ -167,10 +138,7 @@ export const Settings = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{label}</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                      >
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <SelectTrigger>
                           <SelectValue />
                         </SelectTrigger>
@@ -193,9 +161,7 @@ export const Settings = () => {
           <Card>
             <CardHeader>
               <CardTitle>Application Settings</CardTitle>
-              <CardDescription>
-                Configure general application behavior
-              </CardDescription>
+              <CardDescription>Configure general application behavior</CardDescription>
             </CardHeader>
             <CardContent>
               <FormField
@@ -205,10 +171,7 @@ export const Settings = () => {
                   <FormItem className="flex items-center justify-between">
                     <FormLabel>Auto-save</FormLabel>
                     <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
+                      <Switch checked={field.value} onCheckedChange={field.onChange} />
                     </FormControl>
                   </FormItem>
                 )}
