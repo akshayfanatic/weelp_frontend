@@ -1,4 +1,3 @@
-// custom hook for reusability
 import { useState, useEffect } from "react";
 
 export function useIsClient() {

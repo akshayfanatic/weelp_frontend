@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import CreatePlaceForm from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/destinations_forms/CreatePlaceForm";
 
-const CreatePlace = () => {
-  return (
-    <div>CreatePlace</div>
-  )
-}
+const CreatePlacePage = () => {
+  return <CreatePlaceForm />;
+};
 
-export default CreatePlace
+export default CreatePlacePage;

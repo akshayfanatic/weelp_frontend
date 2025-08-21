@@ -1,11 +1,9 @@
 "use client";
 
 import "@/app/globals.css";
-import { SessionProvider } from "next-auth/react";
 import { useUIStore } from "@/lib/store/uiStore";
 import { Inter, Roboto, Poppins } from "next/font/google";
-
-
+import AppProviders from "@/app/components/Layout/ProviderWrapper";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 const roboto = Roboto({ subsets: ["latin"], display: "swap", weight: "400" });
@@ -22,15 +20,9 @@ export default function RootLayout({ children }) {
   const font = useUIStore((state) => state.font);
 
   return (
-    <html
-      lang="en"
-      className={`${theme === "dark" && "dark"} ${
-        fontMap[font] || inter.className
-      }`}
-      
-    >
+    <html lang="en" className={`${theme === "dark" && "dark"} ${fontMap[font] || inter.className}`}>
       <body className="flex flex-col">
-        <SessionProvider>{children}</SessionProvider>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

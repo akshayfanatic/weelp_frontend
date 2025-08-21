@@ -1,26 +1,28 @@
 "use client";
+
 import { SessionProvider } from "next-auth/react";
-import { useUIStore } from "@/lib/store/uiStore";
 import { useIsClient } from "@/hooks/useIsClient";
 import { Toaster } from "@/components/ui/toaster";
-import Header from "./header";
-import Footer from "./footer";
+import { SWRConfig } from "swr";
+import { fetcher } from "@/lib/fetchers";
 
-// Files Handle All Provider which used across the app
-export default function AppProviders({ children }) {
-  const isClient = useIsClient(); // hydration
-  const { stickyHeader } = useUIStore(); // sticky header 
+export default function AppProviders({ children, session }) {
+  const isClient = useIsClient();  // preven hydration error
 
-  if (isClient) {
-    return (
-      <SessionProvider>
-        <Header />
-        <main className={`bg-mainBackground ${stickyHeader ? "pt-16" : ""}`}>
-          {children}
-          <Toaster />
-        </main>
-        <Footer />
-      </SessionProvider>
-    );
-  }
+  if (!isClient) return null;
+
+  return (
+    <SessionProvider session={session}>
+      <SWRConfig
+        value={{
+          fetcher,
+          revalidateOnFocus: true,
+          shouldRetryOnError: false,
+        }}
+      >
+        {children}
+        <Toaster />
+      </SWRConfig>
+    </SessionProvider>
+  );
 }

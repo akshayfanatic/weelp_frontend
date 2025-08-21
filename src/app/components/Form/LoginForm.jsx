@@ -107,7 +107,7 @@ export function LoginForm({ customUrl }) {
             <label htmlFor="password" className="flex items-center bg-white shadow-md border p-1 px-2 rounded-md relative">
               <KeyRound className="text-[#5A5A5A] size-4" />
               <input
-                type={isHide ? "password" : "text"}
+                type={isHide ? "text" : "password"}
                 id="password"
                 placeholder="Password"
                 {...register("password")}
@@ -116,14 +116,14 @@ export function LoginForm({ customUrl }) {
               />
 
               {isHide ? (
-                <Eye
+                <EyeOff
                   onClick={() => {
                     setHide(!isHide);
                   }}
                   className="text-[#5A5A5A] size-5 absolute right-6 cursor-pointer"
                 />
               ) : (
-                <EyeOff
+                <Eye
                   onClick={() => {
                     setHide(!isHide);
                   }}

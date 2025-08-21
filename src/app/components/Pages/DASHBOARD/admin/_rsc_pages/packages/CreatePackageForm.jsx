@@ -822,13 +822,13 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                   <PopoverTrigger asChild>
                     <Button id="start_date" variant="outline" className={cn("justify-start text-left font-normal", !startDate && "text-muted-foreground")}>
                       <CalendarIcon />
-                      {startDate ? format(new Date(startDate), "yyyy-MM-dd")  : <span>Pick a date</span>}
+                      {startDate ? format(new Date(startDate), "yyyy-MM-dd") : <span>Pick a date</span>}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="p-0" align="start">
                     <Calendar
                       mode="single"
-                      selected={startDate ? format(new Date(startDate), "yyyy-MM-dd")  : undefined}
+                      selected={startDate ? format(new Date(startDate), "yyyy-MM-dd") : undefined}
                       onSelect={(date) => setValue("pricing.start_date", date?.toISOString().split("T")[0])}
                       initialFocus
                     />
@@ -847,7 +847,12 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="p-0" align="start">
-                    <Calendar mode="single" selected={endDate ? format(new Date(endDate), "yyyy-MM-dd")  : undefined} onSelect={(date) => setValue("pricing.end_date", date?.toISOString().split("T")[0])} initialFocus />
+                    <Calendar
+                      mode="single"
+                      selected={endDate ? format(new Date(endDate), "yyyy-MM-dd") : undefined}
+                      onSelect={(date) => setValue("pricing.end_date", date?.toISOString().split("T")[0])}
+                      initialFocus
+                    />
                   </PopoverContent>
                 </Popover>
               </div>
@@ -1926,7 +1931,6 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       return;
     }
 
-    // console.log(mergedData)
     // Cleaning of Data Extra data remove before hit
     const { activities: dirtyActivities, transfers: dirtyTransfers, itineraries: dirtyItineraries } = mergedData;
 

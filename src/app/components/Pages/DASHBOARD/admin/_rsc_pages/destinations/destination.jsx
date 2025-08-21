@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileUp, FileDown, Globe, MapPin, Building, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DestinationListCard } from "./components/Cards";
+import { DestinationListCard } from "./components/cards/DestinationCard";
 
 const DestinationsPageAdmin = () => {
   // import export data
@@ -63,7 +63,7 @@ const DestinationsPageAdmin = () => {
 
       <CardContent>
         {/* Displaying Route Cards */}
-        <div className="flex justify-between gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full gap-4">
           {DESTINATIONS_ROUTE.map((destination, index) => {
             return <DestinationListCard key={index} {...destination}></DestinationListCard>;
           })}

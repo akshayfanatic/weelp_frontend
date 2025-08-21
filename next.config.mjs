@@ -5,11 +5,16 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "picsum.photos",
-        pathname: "/**", // Allow all images from this domain
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "192.168.29.153",
+        port: "9000",
+        pathname: "/**",
       },
     ],
   },
 };
 
-
-export default nextConfig
+export default nextConfig;

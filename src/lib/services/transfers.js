@@ -34,13 +34,11 @@ export async function getAllTransfersAdminn(search = "") {
       headers: { Accept: "application/json" },
     });
 
-    console.log(response)
     return response?.data;
   } catch (error) {
     return [];
   }
 }
-
 
 /**
  * Get Single Transfer on Admin side

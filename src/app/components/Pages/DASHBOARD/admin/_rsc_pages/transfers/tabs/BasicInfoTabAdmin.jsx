@@ -7,7 +7,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetchers";
 import { SelectInputTransfer, SelectInputTransfer2 } from "../components/SelectForm";
-import { VEHICLE_TYPES , TRANSFER_TYPES } from "@/lib/constants/transfer"; // constants
+import { VEHICLE_TYPES , TRANSFER_TYPES } from "@/app/constants/transfer"; // constants
 
 // Basic Information
 const BasicInfoTabAdmin = () => {

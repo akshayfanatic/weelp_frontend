@@ -12,7 +12,7 @@ export const CustomPagination = ({ totalItems = 0, itemsPerPage = 0, currentPage
       <p className="text-xs  text-gray-600 invisible">Showing 1 to 3 of 3 items</p>
       <div className="flex gap-2">
         {currentPage > 1 && (
-          <Button variant="outline" onClick={() => onPageChange(currentPage - 1)}>
+          <Button variant="outline" type="button" onClick={() => onPageChange(currentPage - 1)}>
             Prev
           </Button>
         )}
@@ -20,6 +20,7 @@ export const CustomPagination = ({ totalItems = 0, itemsPerPage = 0, currentPage
         {[...Array(totalPages)].map((_, i) => (
           <Button
             variant="outline"
+            type="button"
             key={i}
             // disabled={currentPage === i + 1}
             className={`text-black p-2 rounded-md bg-white  ${currentPage === i + 1 && "bg-secondaryDark  text-white"} `}

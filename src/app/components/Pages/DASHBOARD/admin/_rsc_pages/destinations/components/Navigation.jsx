@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, ArrowLeftIcon, CirclePlus } from "lucide-react";
+import { ArrowLeft, CirclePlus } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -16,16 +16,15 @@ import { useRouter } from "next/navigation";
  */
 export const NavigationDestinations = ({ title = "", description = "", url = "", name = "" }) => {
   const router = useRouter(); // intialize router
-  
-  if (title && description && url && name) {
 
+  if (title && description) {
     // icon size
     const ICON_SIZE = 16;
     return (
       <Card className="bg-inherit border-none shadow-none">
         <CardHeader className="px-0">
-          <div className="flex items-center justify-between">
-            <div className="flex items-start gap-2">
+          <div className="flex items-center justify-between flex-wrap">
+            <div className="flex items-start gap-2 flex-col sm:flex-row">
               <ArrowLeft onClick={() => router.back()} cursor="pointer" />
               <div className="space-y-2">
                 <CardTitle className="capitalize">{title}</CardTitle>
@@ -33,12 +32,14 @@ export const NavigationDestinations = ({ title = "", description = "", url = "",
               </div>
             </div>
 
-            <Link href={url}>
-              <Button className="text-base" variant="secondary">
-                <CirclePlus size={ICON_SIZE} />
-                {name}
-              </Button>
-            </Link>
+            {url && name && (
+              <Link href={url}>
+                <Button className="text-base" variant="secondary">
+                  <CirclePlus size={ICON_SIZE} />
+                  {name}
+                </Button>
+              </Link>
+            )}
           </div>
         </CardHeader>
       </Card>

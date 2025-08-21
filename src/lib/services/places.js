@@ -7,7 +7,7 @@ import { log } from "../utils";
  */
 export async function getPlacesByAdminOptions() {
   try {
-    const response = await authApi.get(`/api/admin/places/place-dropdown`, {
+    const response = await authApi.get(`/api/admin/places/list`, {
       headers: { Accept: "application/json" },
     });
 
@@ -19,5 +19,26 @@ export async function getPlacesByAdminOptions() {
   } catch (error) {
     console.error("Service Error:", error);
     throw new Error("Failed to fetch data from backend server");
+  }
+}
+
+/**
+ * Fetches a list of Places for admin with optional query parameters.
+ * @function
+ * @param {string} [search=""] - Optional query string (must start with `?`).
+ *   Example: "?name=india&page=2"
+ * @returns {Promise<Object>} Returns the API response data if successful, otherwise returns an empty object.
+ *
+ * @example
+ * const states = await getAllPlacesAdmin("?name=india&page=2");
+ */
+export async function getAllPlacesAdmin(search = "") {
+  try {
+    const response = await authApi.get(`/api/admin/places/${search}`, {
+      headers: { Accept: "application/json" },
+    });
+    return response?.data;
+  } catch (error) {
+    return {};
   }
 }

@@ -12,7 +12,7 @@ export const fetchRegionDetails = async (region) => {
     const response = await publicApi(`api/region/${region}`);
     return response?.data?.data;
   } catch (error) {
-    console.log("Error fetching region details:", error);
+    console.error("Error fetching region details:", error);
     return [];
   }
 };
@@ -29,7 +29,7 @@ export const getCitiesByRegion = async (region) => {
     });
     return response.data;
   } catch (error) {
-    console.log("Error fetching city data:");
+    console.error("Error fetching city data:");
 
     return [];
   }
@@ -51,7 +51,7 @@ export const getItemsByRegion = async (region, query = "") => {
     });
     return response.data;
   } catch (error) {
-    console.log("Error fetching city data:");
+    console.error("Error fetching city data:");
 
     return {};
   }

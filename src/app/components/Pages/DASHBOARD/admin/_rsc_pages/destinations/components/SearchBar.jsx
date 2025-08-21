@@ -5,5 +5,5 @@ import { useFormContext } from "react-hook-form";
 export const SearchBar = ({ searchText = "" }) => {
   const { register } = useFormContext(); // retrieve all hook methods
 
-  return <Input type="text" placeholder={searchText} {...register("search")} className="max-w-sm" />;
+  return <Input type="search" placeholder={searchText} {...register("query")} className="max-w-sm" />;
 };
