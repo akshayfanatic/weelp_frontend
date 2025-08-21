@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.9.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.8.0...v0.9.0) (2025-08-21)
+
+
+### ✨ Features
+
+* **destinations:** add full CRUD for country,state,city,places ([3363064](https://github.com/akshayfanatic/weelp_frontend/commit/33630647f1046d50df78fbe3f2d1056725d471ac))
+
 ## [0.8.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.7.0...v0.8.0) (2025-08-12)
 
 
