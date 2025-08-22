@@ -17,6 +17,7 @@ import { DashboardUserNav } from "@/app/Data/userData";
 import Link from "next/link";
 import { Description, DialogTitle } from "@radix-ui/react-dialog";
 import { usePathname } from "next/navigation";
+import UserMenu2 from "./UserMenu2";
 
 const { userRoutes } = DashboardUserNav;
 
@@ -54,7 +55,7 @@ export function AppSidebar() {
                 <SidebarFooter className={"px-0"}>
                   <SidebarMenu>
                     <SidebarMenuItem>
-                      <UserMenu />
+                      <UserMenu2 />
                     </SidebarMenuItem>
                   </SidebarMenu>
                 </SidebarFooter>
@@ -87,7 +88,7 @@ export function AppSidebar() {
                 <SidebarFooter>
                   <SidebarMenu>
                     <SidebarMenuItem>
-                      <UserMenu />
+                      <UserMenu2 />
                     </SidebarMenuItem>
                   </SidebarMenu>
                 </SidebarFooter>

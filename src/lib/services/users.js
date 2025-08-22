@@ -16,3 +16,35 @@ export const getUserProfile = async () => {
     return { user: null, error: "Failed to load profile. Please try again." };
   }
 };
+
+
+/**
+ * Get Single User on Admin side
+ * @param {String} userId id of the User
+ * @returns {object}
+ */
+export async function getSingleUserAdmin(userId) {
+  try {
+    const response = await authApi.get(`/api/admin/users/${userId}`, {
+      headers: { Accept: "application/json" },
+    });
+
+    return response.data;
+  } catch (error) {
+    return {};
+  }
+}
+
+/**
+ * Get All Users
+ * @returns []
+ */
+export async function getAllUsersAdmin() {
+  try {
+    const response = await authApi.get("/api/admin/users");
+    return response?.data;
+  } catch (error) {
+    console.log("Error fetching users:", error);
+    return [];
+  }
+}

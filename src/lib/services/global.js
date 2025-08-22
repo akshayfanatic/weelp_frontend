@@ -89,16 +89,3 @@ export const getAllTagsAdmin = async (page = "") => {
   }
 };
 
-/**
- * Get All Users
- * @returns []
- */
-export async function getAllUsersAdmin() {
-  try {
-    const response = await authApi.get("/api/admin/users");
-    return response?.data;
-  } catch (error) {
-    console.log("Error fetching users:", error);
-    return [];
-  }
-}

@@ -25,12 +25,9 @@ export const createUserAction = async (formData) => {
   }
 };
 
-
-
 // Edit UserProfile {** PUT}
 export const editUserProfileAction = async (formData) => {
   try {
-    
     const response = await authApi.put("/api/profile", formData, {
       headers: { "Content-Type": "application/json" },
     });
@@ -48,4 +45,48 @@ export const editUserProfileAction = async (formData) => {
   }
 };
 
+/**
+ * Action to Edit User Super Admin
+ * @param {number} userId
+ * @returns {{ success: boolean, message: string }} - API response status and message
+ */
+export const editUserAdmin = async (userId, data = {}) => {
+  try {
+    await delay(500);
 
+    const res = await authApi.put(`/api/admin/users/${userId}`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    revalidatePath("/dashboard/admin/users"); // revalidate API cache
+
+    return {
+      success: true,
+      message: res.data?.message,
+    };
+  } catch (err) {
+    const status = err?.response?.status;
+
+    if (status === 400) {
+      return {
+        success: false,
+        message: "Validation error",
+        errors: err?.response?.data?.errors,
+      };
+    }
+
+    if (status === 422) {
+      return {
+        success: false,
+        message: "User Validation error",
+      };
+    }
+
+    return {
+      success: false,
+      message: "Something went wrong while editing Place",
+    };
+  }
+};

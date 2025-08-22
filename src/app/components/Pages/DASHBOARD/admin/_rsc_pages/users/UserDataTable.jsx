@@ -1,25 +1,17 @@
 "use client";
 
 import { DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-
+import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, getFilteredRowModel } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { usePathname, useRouter } from "next/navigation";
 
 export function UserDataTable({ data }) {
+  const router = useRouter();
+  const pathname = usePathname();
+
   // columns of users
   const columns = [
     {
@@ -44,6 +36,7 @@ export function UserDataTable({ data }) {
       enableHiding: false,
       cell: ({ row }) => {
         const user = row.original;
+
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -55,24 +48,12 @@ export function UserDataTable({ data }) {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Edit</DropdownMenuItem>
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <DropdownMenuItem className="text-red-400 hover:text-red-400" onSelect={(e) => e.preventDefault()}>
-                    Delete
-                  </DropdownMenuItem>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure want to remove user {user?.name} ?</AlertDialogTitle>
-                    <AlertDialogDescription>Your User will we removed automatically from database.</AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>Continue</AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
+              <DropdownMenuItem onClick={() => router.push(`${pathname}/${user?.id}`)}>
+                <Edit /> Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-red-400 hover:text-red-400" onSelect={(e) => e.preventDefault()}>
+                <Trash2 /> Delete
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );

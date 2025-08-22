@@ -103,14 +103,12 @@ const Header = () => {
 export default Header;
 
 /** Account Menu */
-import { SessionProvider } from "next-auth/react";
 import { createPortal } from "react-dom";
 import Minicart from "../Modals/Minicart";
 import ModalForm from "../Modals/ModalForm";
 import SubmenuAccount from "../Modals/SubmenuAccount";
 import useMiniCartStore from "@/lib/store/useMiniCartStore";
 import { Badge } from "@/components/ui/badge";
-import { log } from "@/lib/utils";
 
 export const HeaderAccount = () => {
   const { isMiniCartOpen, setMiniCartOpen, cartItems } = useMiniCartStore(); //mini cart store

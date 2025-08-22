@@ -7,7 +7,7 @@ import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/c
 import Link from "next/link";
 import { useUserProfile } from "@/hooks/api/customer/profile";
 
-export default function UserMenu() {
+export default function UserMenu2() {
   const { user, error, isLoading } = useUserProfile();
 
   const { name = "", email = "", role = "" } = user; // destructure data
@@ -24,15 +24,14 @@ export default function UserMenu() {
               </Avatar>
 
               {/* Display Based on Role */}
-              {role === "customer" && (
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{name}</span>
-                  <span className="text-muted-foreground truncate text-xs">{email}</span>
-                </div>
-              )}
+
+              <div className="grid flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-medium">{name}</span>
+                <span className="text-muted-foreground truncate text-xs">{email}</span>
+              </div>
             </SidebarMenuButton>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg focus-visible:ring-0" side="bottom" align="end" sideOffset={6}>
+          <DropdownMenuContent className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg focus-visible:ring-0" side="top" align="end" sideOffset={6}>
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-full">
@@ -53,15 +52,9 @@ export default function UserMenu() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/dashboard/admin/settings">
+                <Link href="/dashboard/customer/settings">
                   <Settings />
                   Settings
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/dashboard/admin/users">
-                  <Users />
-                  Users
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>

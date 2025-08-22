@@ -61,13 +61,8 @@ const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
                 </DialogTrigger>
               </li>
               <DialogContent className={"bg-transparent border-none"} aria-describedby={undefined}>
-                <DialogHeader>
-                  <DialogTitle className={"hidden"}>Are you absolutely sure?</DialogTitle>
-                  <DialogDescription className={"sr-only"} asChild>
-                    <LoginForm customUrl={dynamicPaths || "/"} />
-                    {/** Display Login Form */}
-                  </DialogDescription>
-                </DialogHeader>
+                <DialogTitle className="sr-only">Are you absolutely sure?</DialogTitle>
+                <LoginForm customUrl={dynamicPaths || "/"} />
               </DialogContent>
             </Dialog>
           </>

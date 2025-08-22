@@ -7,16 +7,29 @@ import { Plus } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { UserDataTable } from "./UserDataTable";
+import { useAllUsersAdmin } from "@/hooks/api/admin/users";
 
 // mock user
-const UsersPageComponent = ({ users = [], active_users = 0, pending_users = 0, total_users = 0 }) => {
+const UsersPageComponent = () => {
+  
+  // Fetching All Users
+  const {
+    users: { users = [], active_users = 0, pending_users = 0, total_users = 0 },
+    error,
+    isLoading,
+  } = useAllUsersAdmin();
+
+  console.log(users);
+
+  if (isLoading) return <span className="loader"></span>;
+  if (error) return <span className="text-red-400">{error}</span>;
+
   // Stats of Users
   const UserStats = [
     { id: 1, title: "Total Users", stats: total_users || 0 },
     { id: 2, title: "Active Users", stats: active_users || 0 },
     { id: 3, title: "Pending Users", stats: pending_users || 0 },
   ];
-
   return (
     <div className="space-y-4 sm:p-8 sm:pt-6">
       <div className="flex items-center justify-between">
@@ -36,7 +49,7 @@ const UsersPageComponent = ({ users = [], active_users = 0, pending_users = 0, t
 
       {/* Analytics Cards */}
       <div className="grid gap-4 grid-cols-1 lg:grid-cols-3">
-        {/* Mapping Data */}
+        {/* {Mapping Data */}
         {UserStats.map((item, index) => {
           return (
             <Card key={index} className="hover:shadow-md ease-in-out duration-300">
@@ -60,5 +73,7 @@ const UsersPageComponent = ({ users = [], active_users = 0, pending_users = 0, t
     </div>
   );
 };
+
+
 
 export default UsersPageComponent;

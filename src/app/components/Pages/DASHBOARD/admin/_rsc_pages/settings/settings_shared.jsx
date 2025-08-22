@@ -1,3 +1,5 @@
+import { ArrowLeft } from "lucide-react";
+
 export const PageInfo = ({ pageTitle, pageDescription }) => {
   return (
     <div>
