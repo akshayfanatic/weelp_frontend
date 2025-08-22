@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.9.0...v0.9.1) (2025-08-22)
+
+
+### ♻️ Code Refactoring
+
+* **users:** clean up Users page and settings dialogs ([47a056c](https://github.com/akshayfanatic/weelp_frontend/commit/47a056cd72cdc96a7b12098a58eef33ed6f0d7eb))
+
 ## [0.9.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.8.0...v0.9.0) (2025-08-21)
 
 
