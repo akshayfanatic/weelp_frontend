@@ -1,23 +1,25 @@
 {
   "name": "bookingapp",
-  "version": "0.9.2",
+  "version": "0.10.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,md,mdx,css,yaml,yml}\"",
+    "format": "prettier --write \"**/*\" ",
     "release": "standard-version",
     "release:patch": "standard-version --release-as patch",
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx,css,md,mdx,yaml,yml}": [
-      "npm run lint --fix",
-      "npm run format"
+    "*.{js,ts,jsx,tsx}": [
+      "next lint --fix"
+    ],
+    "*.{css,md,mdx,yaml,yml}": [
+      "prettier --write"
     ]
   },
   "dependencies": {

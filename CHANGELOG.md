@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.10.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.9.2...v0.10.0) (2025-08-25)
+
 ### [0.9.2](https://github.com/akshayfanatic/weelp_frontend/compare/v0.9.1...v0.9.2) (2025-08-25)
 
 
