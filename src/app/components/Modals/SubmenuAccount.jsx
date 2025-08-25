@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { User, House, Heart, Settings, Tags, LogOut } from "lucide-react";
@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { LoginForm } from "../Form/LoginForm";
 
 const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
+  const [open, setOpen] = useState();
   // pathname
   const pathname = usePathname();
 
@@ -36,7 +37,7 @@ const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
         {/* Conditionally render the first li based on session existence */}
         {!session ? (
           <>
-            <Dialog>
+            <Dialog open={open} onOpenChange={setOpen}>
               <li className="p-4 px-8 border-b text-[#5A5A5A]">
                 <DialogTrigger asChild>
                   <button className="text-md leading-5 flex gap-x-2">
@@ -62,7 +63,7 @@ const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
               </li>
               <DialogContent className={"bg-transparent border-none"} aria-describedby={undefined}>
                 <DialogTitle className="sr-only">Are you absolutely sure?</DialogTitle>
-                <LoginForm customUrl={dynamicPaths || "/"} />
+                <LoginForm onCloseDialog={() => setOpen(false)} customUrl={dynamicPaths || "/"} />
               </DialogContent>
             </Dialog>
           </>

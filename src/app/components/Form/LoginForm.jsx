@@ -19,7 +19,7 @@ const schema = z.object({
   password: z.string().min(6, "Password must be at least 6 characters").nonempty("Password is required"),
 });
 
-export function LoginForm({ customUrl }) {
+export function LoginForm({ customUrl, onCloseDialog }) {
   const { toast } = useToast();
   const isClient = useIsClient(); // custom hook for hydration
   const [isHide, setHide] = useState(false);
@@ -81,9 +81,17 @@ export function LoginForm({ customUrl }) {
           <div>
             <h3 className=" font-semibold text-xl">
               Log In or{" "}
-              <Link href={"/user/signup"} className=" underline">
+              <button
+                type="button"
+                variant="default"
+                onClick={() => {
+                  onCloseDialog?.(); // tells parent: close dialog
+                  router.push("/user/signup"); // navigate
+                }}
+                className="underline"
+              >
                 Sign Up
-              </Link>
+              </button>
             </h3>
             <sub className="text-[#5a5a5a]">Login into your account using your email.</sub>
           </div>

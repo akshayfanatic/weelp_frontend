@@ -32,6 +32,7 @@ const formSchema = z.object({
 
 export const ImagePreviewForm = ({ isDialogOpen, setIsDialogOpen, selectedImage = {}, mutateMedia }) => {
   const { toast } = useToast();
+  console.log(selectedImage);
 
   const { id = "", name = "", alt_text = "" } = selectedImage;
 

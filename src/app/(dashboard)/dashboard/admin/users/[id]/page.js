@@ -15,14 +15,7 @@ const EditUserPage = async ({ params }) => {
   }
 
   const { user } = userData;
-  return (
-    <div>
-      <h1>Edit User Page</h1>
-      <p>User ID: {id}</p>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-      <EditUserForm userData={user} />
-    </div>
-  );
+  return <EditUserForm userData={user} />;
 };
 
 export default EditUserPage;
