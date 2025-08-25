@@ -188,15 +188,13 @@ src                         # Entry Point to the Application
 
 ### Use Proxy API's For Client side Data Fetching
 
-#### **Basically I made a Busineess Layer Trying to Implement SOC and SOLID Pattern**
+#### **Basically I made a Businees Layer Trying to Implement SOC and SOLID Pattern**
 
 **Facade Pattern + FSD + DDD + SOLID Principles**
 
 This project implements a scalable, modular architecture for managing API data and business logic using a combination of:
 
-- ✅ **Facade Pattern**
-- 🧱 **Feature-Sliced Design (FSD)**
-- 🧠 **Domain-Driven Design (DDD)**
+- ✅ **Layer Based Pattern**
 - ⚙️ **Single Responsibility & Open/Closed Principles** from SOLID
 
 ---
@@ -241,14 +239,11 @@ Used in `lib/` to create simplified interfaces for:
 
 ### ✅ **SOLID Principles**
 
-- **Single Responsibility**: Each module/folder has one clear purpose.
-- **Open/Closed Principle**: Easy to extend new logic without changing existing code.
+- **Single Responsibility**: Each layer based single responsibility has one clear purpose.
 
 ---
 
 ## 💡 Benefits
-
-- 🧩 Modular & composable
 - 📈 Highly scalable for growing codebases
 - 🔐 Secure with role-based API structure
 - 🧠 Easier to test and maintain
