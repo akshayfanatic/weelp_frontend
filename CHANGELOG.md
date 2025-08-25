@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.2](https://github.com/akshayfanatic/weelp_frontend/compare/v0.9.1...v0.9.2) (2025-08-25)
+
+
+### 🐛 Bug Fixes
+
+* **auth:** close Dialog when navigating to sign up ([a69e119](https://github.com/akshayfanatic/weelp_frontend/commit/a69e119e8cee5c39d504db0f8d855dc17c325b21))
+
 ### [0.9.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.9.0...v0.9.1) (2025-08-22)
 
 
