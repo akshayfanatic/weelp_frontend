@@ -8,7 +8,7 @@
     "start": "next start",
     "test": "echo \"No tests yet\" && exit 0",
     "lint": "next lint",
-    "format": "prettier --write \"**/*\" ",
+    "format": "prettier",
     "release": "standard-version",
     "release:patch": "standard-version --release-as patch",
     "release:minor": "standard-version --release-as minor",
