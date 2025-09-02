@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.11.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.9.2...v0.11.0) (2025-09-02)
+
+
+### ✨ Features
+
+* **reviews:** implement admin review management with filtering ([316619b](https://github.com/akshayfanatic/weelp_frontend/commit/316619b82aad10a35628e4da7ada8f7af524e408))
+
 ## [0.10.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.9.2...v0.10.0) (2025-08-25)
 
 ### [0.9.2](https://github.com/akshayfanatic/weelp_frontend/compare/v0.9.1...v0.9.2) (2025-08-25)
