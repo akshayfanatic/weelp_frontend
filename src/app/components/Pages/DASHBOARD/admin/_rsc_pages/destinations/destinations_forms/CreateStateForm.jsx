@@ -12,7 +12,7 @@ import { useParams } from "next/navigation";
 import { omit } from "lodash";
 import { useIsClient } from "@/hooks/useIsClient";
 import { createState, editState } from "@/lib/actions/state";
-import { FORM_STATE_VALUES_DEFAULT } from "@/app/constants/forms/country";
+import { FORM_STATE_VALUES_DEFAULT } from "@/constants/forms/country";
 import { useCountriesOptionsAdmin } from "@/hooks/api/admin/countries"; // hook for countries
 
 // Lazy Load Client Components

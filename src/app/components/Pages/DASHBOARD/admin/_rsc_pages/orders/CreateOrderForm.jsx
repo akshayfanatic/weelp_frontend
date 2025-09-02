@@ -58,7 +58,7 @@ const CreateOrderForm = () => {
   const { itineraries = [], isLoading: isLoadingItineraries, isValidating: isValidatingItineraries, error: itinerariesError, mutate: mutateItineraries } = useAllItinerariesAdmin(); // itineraries
   const { packages = [], isLoading: isLoadingPackages, isValidating: isValidatingPackages, error: packageErrors, mutate: mutatePackages } = useAllPackagesAdmin(); // pacakges
 
-  const allUsers = users?.data?.users || []; // extract users
+  const allUsers = users?.users || []; // extract users
   const allActivities = activities?.data?.data || []; // extract activities
   const allItineraries = itineraries?.data?.data || []; // extract itineraries
   const allPackages = packages?.data?.data || []; // extract itineraries
@@ -592,7 +592,6 @@ const CreateOrderForm = () => {
       return;
     }
 
-
     // Final step: submit the form
     try {
       const res = await createOrder(data);
@@ -608,7 +607,6 @@ const CreateOrderForm = () => {
       // Optionally show an error message to the user
       toast({ title: "Something went wrong", variant: "destructive" });
     }
-
   };
 
   return (

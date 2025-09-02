@@ -9,7 +9,7 @@ import { createCountry, editCountry } from "@/lib/actions/country";
 import { useToast } from "@/hooks/use-toast";
 import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
-import { FORM_COUNTRY_VALUES_DEFAULT } from "@/app/constants/forms/country";
+import { FORM_COUNTRY_VALUES_DEFAULT } from "@/constants/forms/country";
 import { omit } from "lodash";
 import { useIsClient } from "@/hooks/useIsClient";
 
@@ -123,42 +123,6 @@ const CreateCountryForm = ({ apiFormData = {} }) => {
         return null;
     }
   };
-
-  // const onSubmit = async (data) => {
-  //   const mergedData = { ...formData, ...data };
-
-  //   if (currentStep < 8) {
-  //     setFormData(mergedData);
-  //     setCurrentStep((prev) => prev + 1);
-  //     return;
-  //   }
-
-  //   console.log(mergedData);
-
-  //   // submit full data
-  //   try {
-  //     const res = await createCountry(mergedData);
-
-  //     if (res.success) {
-  //       toast({ title: res.message || "Created successfully!" });
-
-  //       router.push("/dashboard/admin/destinations/countries/");
-  //     } else {
-  //       toast({
-  //         title: "Error",
-  //         description: res.message || "Something went wrong",
-  //         variant: "destructive",
-  //       });
-  //     }
-  //   } catch (error) {
-  //     toast({
-  //       title: "Unexpected Error",
-  //       description: "Please try again later.",
-  //       variant: "destructive",
-  //     });
-  //   }
-
-  // };
 
   // inside onSubmit
 

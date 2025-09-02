@@ -4,7 +4,7 @@ import { auth } from "./lib/auth";
 export async function middleware(req) {
   const session = await auth();
 
-  // // Redirect unauthenticated users to login
+  // Redirect unauthenticated users to login
   if (!session) {
     return NextResponse.redirect(new URL("/user/login", req.url));
   }

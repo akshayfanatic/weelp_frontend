@@ -5,7 +5,7 @@ export function useAllUsersAdmin() {
   const { data, error, isValidating, isLoading, mutate } = useSWR("/api/admin/users", fetcher);
 
   return {
-    users: data || [],
+    users: data || {},
     isLoading,
     isValidating,
     error,

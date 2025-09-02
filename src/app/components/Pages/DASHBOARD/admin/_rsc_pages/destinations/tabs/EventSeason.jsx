@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { format, parseISO } from "date-fns";
 import Select from "react-select";
 import { Textarea } from "@/components/ui/textarea";
-import { CALENDAR_MONTHS, EVENT_TYPES, SEASON_ACTIVITIES } from "@/app/constants/shared";
+import { CALENDAR_MONTHS, EVENT_TYPES, SEASON_ACTIVITIES } from "@/constants/shared";
 
 const EventSeasonTab = () => {
   const form = useFormContext(); // intialize form context

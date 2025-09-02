@@ -35,7 +35,7 @@ export const CustomPagination = ({ totalItems = 0, itemsPerPage = 0, currentPage
           </Button>
         ))}
 
-        <Button variant="outline" disabled={currentPage === totalPages} onClick={() => onPageChange(currentPage + 1)}>
+        <Button type="button" variant="outline" disabled={currentPage === totalPages} onClick={() => onPageChange(currentPage + 1)}>
           Next
         </Button>
       </div>

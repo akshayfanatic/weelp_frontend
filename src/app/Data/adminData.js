@@ -18,6 +18,7 @@ import {
   Mail,
   Percent,
   BookImage,
+  MessageSquare,
 } from "lucide-react";
 
 export const DashboardAdminNav = {
@@ -89,6 +90,7 @@ export const DashboardAdminNav = {
       url: "/dashboard/admin/package-builder",
     },
     { title: "Orders", icon: ShoppingCart, url: "/dashboard/admin/orders" },
+    { title: "Reviews", icon: MessageSquare, url: "/dashboard/admin/reviews" },
     { title: "Pages", icon: FileText, url: "/dashboard/admin/pages" },
     { title: "Blogs", icon: FileText, url: "/dashboard/admin/blogs" },
     {

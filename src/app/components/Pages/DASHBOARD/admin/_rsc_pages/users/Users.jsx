@@ -19,7 +19,6 @@ const UsersPageComponent = () => {
     isLoading,
   } = useAllUsersAdmin();
 
-  console.log(users);
 
   if (isLoading) return <span className="loader"></span>;
   if (error) return <span className="text-red-400">{error}</span>;

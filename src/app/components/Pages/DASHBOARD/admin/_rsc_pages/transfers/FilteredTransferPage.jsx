@@ -21,8 +21,8 @@ import { useToast } from "@/hooks/use-toast"; // toast for notification
 import { Checkbox } from "@/components/ui/checkbox"; //
 import { fetcher } from "@/lib/fetchers"; // interceptors
 import { deleteMultipleTransfers, deleteTransfer } from "@/lib/actions/transfer"; // inline actions
-import { VEHICLE_TYPES } from "@/app/constants/transfer"; // constants
-import { SORT_BY } from "@/app/constants/shared"; // filter constants
+import { VEHICLE_TYPES } from "@/constants/transfer"; // constants
+import { SORT_BY } from "@/constants/shared"; // filter constants
 
 const FilterTransfer = () => {
   const { toast } = useToast(); // intialize toast

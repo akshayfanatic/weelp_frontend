@@ -11,9 +11,8 @@ import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
 import { omit } from "lodash";
 import { useIsClient } from "@/hooks/useIsClient";
-import { FORM_CITY_VALUES_DEFAULT  } from "@/app/constants/forms/country";
+import { FORM_CITY_VALUES_DEFAULT  } from "@/constants/forms/country";
 import { createCity, editCity } from "@/lib/actions/cities"; // actions
-import { useCountriesOptionsAdmin } from "@/hooks/api/admin/countries"; // hook for countries
 
 // Lazy Load Client Components
 const BasicInformationTab = dynamic(() => import("../tabs/BasicInformation"));

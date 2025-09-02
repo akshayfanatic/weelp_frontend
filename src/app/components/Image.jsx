@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { FALLBACK_IMAGE } from "../constants/image";
+import { FALLBACK_IMAGE } from "../../constants/image";
 
 export default function SafeImage({ src = "", alt = "", ...props }) {
   const [imgSrc, setImgSrc] = useState(src || FALLBACK_IMAGE);

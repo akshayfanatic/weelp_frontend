@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { generateSlug } from "@/lib/utils";
 import { Controller, useFormContext } from "react-hook-form";
-import { TRANSFER_TYPES } from "@/app/constants/transfer";
+import { TRANSFER_TYPES } from "@/constants/transfer";
 
 // Basic Information
 const PersonalInfoTab = () => {

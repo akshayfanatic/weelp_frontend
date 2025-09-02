@@ -48,7 +48,6 @@ const FilterVendorAvailabilityPage = () => {
   const { data = {}, isLoading, error } = useSWR(`/api/admin/vendors/${vendorId}/availability${query}`, fetcher); // for single route get dynamic
   const { current_page, data: availability = [], per_page, total } = data?.data || {}; // destructure data
 
-  console.log(availability);
   const handlePageChange = (newPage) => {
     setValue("page", newPage);
   };

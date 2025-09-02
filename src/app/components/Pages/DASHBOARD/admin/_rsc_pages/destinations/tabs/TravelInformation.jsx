@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import Select from "react-select";
 import { Select as ShadcnSelect, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CURRENCY, GMT_TIMEZONE, LANGUAGES, LOCAL_CUISINE, PUBLIC_TRANSPORTATION } from "@/app/constants/shared";
+import { CURRENCY, GMT_TIMEZONE, LANGUAGES, LOCAL_CUISINE, PUBLIC_TRANSPORTATION } from "@/constants/shared";
 import { Textarea } from "@/components/ui/textarea";
 import { ComboboxMultiple } from "@/components/ui/combobox_multi";
 

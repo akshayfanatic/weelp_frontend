@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import Select from "react-select";
 import { Select as ShadcnSelect, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CURRENCY, GMT_TIMEZONE, LANGUAGES, LOCAL_CUISINE } from "@/app/constants/shared";
+import { CURRENCY, GMT_TIMEZONE, LANGUAGES, LOCAL_CUISINE } from "@/constants/shared";
 
 const LocationDetailsTab = () => {
   const form = useFormContext();

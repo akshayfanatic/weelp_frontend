@@ -51,6 +51,7 @@ const OrdersPage = () => {
   // fetch orders
   const { orders = {}, isLoading: isLoadingOrders, isValidating: isValidatingOrders, mutate: mutateOrders, error: errorOrders } = useAllOrdersAdmin(`?${queryParams}`);
 
+  console.log(orders)
   // safely extract data
   const { data = {} } = orders;
   const { current_page = "", per_page = "", total = "" } = data;

@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { Card } from "@/components/ui/card";
-import {  editTransferByAdmin } from "@/lib/actions/transfer";  // edit actions
+import { editTransferByAdmin } from "@/lib/actions/transfer"; // edit actions
 
 // Create Dynamic Import For Performance Optimization
 const NavigationTransfer = dynamic(() => import("../transfer_shared").then((mod) => mod.NavigationTransfer), { ssr: false }); // for export
