@@ -27,12 +27,6 @@ export const FORM_REVIEW_ITEM_TYPE = [
   { value: "itinerary", label: "Itinerary" },
 ];
 
-/**
- * Drop down Lists
- * @type {ReviewSelectOption2[]}
- */
-export const FORM_REVIEW_ITEM_TYPE2 = [
-  { id: 2, name: "Package" },
-  { id: 3, name: "Activity" },
-  { id: 6, name: "Itinerary" },
-];
+
+
+

@@ -92,7 +92,6 @@ const FilteredReview = () => {
       {isValidating && <span className="loader"></span>}
       {!isValidating && !error && (
         <>
-          {/* <pre>{JSON.stringify(reveiws)}</pre> */}
           <ReviewTable reviews={reveiws} onDelete={handleDeleteReview} />
           <CustomPagination totalItems={total} itemsPerPage={per_page} currentPage={current_page} onPageChange={handlePageChange} />
         </>

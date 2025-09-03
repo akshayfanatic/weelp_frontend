@@ -1,4 +1,5 @@
 "use client";
+
 import { fetcher } from "@/lib/fetchers";
 import React from "react";
 import useSWR from "swr";
@@ -10,7 +11,7 @@ const SingleReviewPage = () => {
   const { data, error, isLoading } = useSWR(`/api/admin/reviews/${id}`, fetcher); // get dynamic data
 
   if (isLoading) return <p className="loader"></p>;
-  if (error) return <p>Error loading review</p>;
+  if (error) return <p className="text-red-400">Error loading review</p>;
   if (!data?.success) return notFound();
 
   return <ReviewForm reviewData={data?.data || {}} id={id} />;

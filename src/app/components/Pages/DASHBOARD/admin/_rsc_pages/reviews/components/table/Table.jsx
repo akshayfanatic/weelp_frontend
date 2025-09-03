@@ -1,4 +1,5 @@
 "use client";
+
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Edit, Star, Trash2 } from "lucide-react";
@@ -15,11 +16,9 @@ export function ReviewTable({ reviews = [], onDelete }) {
     {
       accessorKey: "created_at",
       header: "Date",
-      cell: ({row}) => {
-        const created_date=row?.original?.created_at
-        return(
-          <span className="text-nowrap">{created_date}</span>
-        )
+      cell: ({ row }) => {
+        const created_date = row?.original?.created_at;
+        return <span className="text-nowrap">{created_date}</span>;
       },
     },
     {
@@ -61,7 +60,7 @@ export function ReviewTable({ reviews = [], onDelete }) {
       cell: ({ row }) => {
         const status = row.original.status;
         return (
-          <div>
+          <div className="capitalize">
             {status === "approved" && <Badge variant="success">{status}</Badge>}
             {status === "pending" && <Badge variant="warning">{status}</Badge>}
             {!["approved", "pending"].includes(status) && <Badge variant="default">{status}</Badge>}
@@ -91,7 +90,6 @@ export function ReviewTable({ reviews = [], onDelete }) {
               className="text-red-400 cursor-pointer"
             />
           </div>
-          // </TableCell>
         );
       },
     },

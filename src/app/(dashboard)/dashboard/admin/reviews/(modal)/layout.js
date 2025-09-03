@@ -11,7 +11,7 @@ export default function ModalLayout({ children }) {
       <DialogDescription className="sr-only" aria-describedby={undefined}>
         A Form Dialog Form Creating/Editing Review
       </DialogDescription>
-      <DialogContent className="max-w-md w-full h-[60vh] overflow-y-auto ">{children}</DialogContent>
+     <DialogContent className="sm:max-w-lg max-w-xs w-full h-[90vh] overflow-y-auto ">{children}</DialogContent>
     </Dialog>
   );
 }

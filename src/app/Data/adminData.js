@@ -19,6 +19,8 @@ import {
   Percent,
   BookImage,
   MessageSquare,
+  Dot,
+  Plus,
 } from "lucide-react";
 
 export const DashboardAdminNav = {
@@ -91,6 +93,7 @@ export const DashboardAdminNav = {
     },
     { title: "Orders", icon: ShoppingCart, url: "/dashboard/admin/orders" },
     { title: "Reviews", icon: MessageSquare, url: "/dashboard/admin/reviews" },
+    { title: "Manage Add Ons", icon: Plus, url: "/dashboard/admin/addon" },
     { title: "Pages", icon: FileText, url: "/dashboard/admin/pages" },
     { title: "Blogs", icon: FileText, url: "/dashboard/admin/blogs" },
     {
