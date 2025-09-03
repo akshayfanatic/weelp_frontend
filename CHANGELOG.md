@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.12.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.11.1...v0.12.0) (2025-09-03)
+
+
+### ✨ Features
+
+* **add-on-form:** implement create form with full mutation and validation ([4d9500c](https://github.com/akshayfanatic/weelp_frontend/commit/4d9500c2d16e4d07c3e07078f6ab43811f77a71f))
+
 ### [0.11.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.11.0...v0.11.1) (2025-09-02)
 
 ## [0.11.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.9.2...v0.11.0) (2025-09-02)
