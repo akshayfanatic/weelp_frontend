@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.13.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.12.0...v0.13.0) (2025-09-05)
+
+
+### ✨ Features
+
+* **addOn:** implement full CRUD with filter and reusable 404 component ([49e7da7](https://github.com/akshayfanatic/weelp_frontend/commit/49e7da7ffcbbb8695b7e0f896d1ac64ede39a611))
+
 ## [0.12.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.11.1...v0.12.0) (2025-09-03)
 
 
