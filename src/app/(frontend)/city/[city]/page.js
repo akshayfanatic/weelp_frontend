@@ -5,11 +5,9 @@ import { whiteCardData, fakeData } from "@/app/Data/ShopData";
 import BreakSection from "@/app/components/BreakSection";
 import { TourSection } from "@/app/components/Pages/FRONT_END/Global/TourSection";
 import ShopSection from "@/app/components/Pages/FRONT_END/Global/ShopSection";
-import  { ReviewSectionCity } from "@/app/components/Pages/FRONT_END/Global/ReviewSection";
+import { ReviewSectionCity } from "@/app/components/Pages/FRONT_END/Global/ReviewSection";
 import GuideSection from "@/app/components/Pages/FRONT_END/Global/GuideSection";
-import ProductSliderSection, {
-  ProductSliderSectionItinerary,
-} from "@/app/components/Pages/FRONT_END/Global/ProductSliderSection";
+import ProductSliderSection, { ProductSliderSectionItinerary } from "@/app/components/Pages/FRONT_END/Global/ProductSliderSection";
 import { publicApi } from "@/lib/axiosInstance";
 import { notFound } from "next/navigation";
 import { log } from "@/lib/utils";
@@ -105,16 +103,10 @@ export default async function CityPage({ params }) {
 
   const { data: activitesData = [] } = await getActivitisDataByCity(city);
   const { data: itineraryData = [] } = await getItineraryDataByCity(city);
-  const { data: packageData = [], tag_list = [] } = await getPackageDataByCity(
-    city
-  );
+  const { data: packageData = [], tag_list = [] } = await getPackageDataByCity(city);
 
   // If all are empty or null, trigger notFound()
-  if (
-    (!activitesData || activitesData.length === 0) &&
-    (!itineraryData || itineraryData.length === 0) &&
-    (!packageData || packageData.length === 0)
-  ) {
+  if ((!activitesData || activitesData.length === 0) && (!itineraryData || itineraryData.length === 0) && (!packageData || packageData.length === 0)) {
     notFound();
   }
 
@@ -127,19 +119,9 @@ export default async function CityPage({ params }) {
 
       <CitySection data={whiteCardData} />
 
-      {activitesData?.length > 0 && (
-        <ProductSliderSection
-          sliderTitle={"Top Activities"}
-          destinations={activitesData}
-        />
-      )}
+      {activitesData?.length > 0 && <ProductSliderSection sliderTitle={"Top Activities"} destinations={activitesData} />}
 
-      {itineraryData.length > 0 && (
-        <ProductSliderSection
-          sliderTitle={"Top Itenerary"}
-          destinations={itineraryData}
-        />
-      )}
+      {itineraryData.length > 0 && <ProductSliderSection sliderTitle={"Top Itenerary"} destinations={itineraryData} />}
 
       {packageData?.length > 0 && (
         <>
@@ -152,14 +134,11 @@ export default async function CityPage({ params }) {
       <CityFilter />
 
       {typeof citydata === "object" && <ReviewSectionCity cityData={citydata} />}
-      
+
       <GuideSection sectionTitle={"Blogs"} data={fakeData} />
 
       {/* Add schema in  page */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </>
   );
 }

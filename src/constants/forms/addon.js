@@ -41,3 +41,13 @@ export const FORM_ADDON_VALUES_DEFAULT = {
   price_calculation: "per_package",
   active_status: false,
 };
+
+/**
+ * Add On Dropdown Options FOR STATUS QUERY
+ * @type {AddOnSelectOption[]}
+ */
+export const FORM_ADDON_STATUS = [
+  { value: "all", label: "All Status" },
+  { value: "active", label: "Active" },
+  { value: "inactive", label: "In Active" },
+];

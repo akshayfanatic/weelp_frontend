@@ -2,7 +2,8 @@
 
 import { fetcher } from "@/lib/fetchers";
 import InputSearch from "./components/Input";
-import { useForm, FormProvider, useWatch } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import useSWR from "swr";
 import { CustomPagination } from "@/app/components/Pagination";
 import { ReviewTable } from "./components/table/Table";
@@ -10,6 +11,8 @@ import { useToast } from "@/hooks/use-toast";
 import { deleteReview } from "@/lib/actions/reviews";
 import { useEffect, useMemo, useState } from "react";
 import { debounce } from "lodash";
+import { SelectField } from "./components/SelectField";
+import { FORM_REVIEW_ITEM_TYPE } from "@/constants/forms/review";
 
 const FilteredReview = () => {
   const { toast } = useToast();
@@ -19,6 +22,7 @@ const FilteredReview = () => {
     defaultValues: {
       search: "",
       page: 1,
+      item_type: "all",
     },
     mode: "onChange", // validation triggers on each keystroke
   });
@@ -47,6 +51,7 @@ const FilteredReview = () => {
 
     if (debouncedFilters.search) params.append("item_name", debouncedFilters.search); // controll every query
     if (debouncedFilters.page) params.append("page", debouncedFilters.page); // controll every query
+    if (debouncedFilters.item_type !== "all") params.append("item_type", debouncedFilters.item_type); // controll every query
 
     return params.toString();
   }, [debouncedFilters]);
@@ -82,11 +87,28 @@ const FilteredReview = () => {
 
   return (
     <div className="space-y-8">
-      <FormProvider {...form}>
-        <form>
+      <Form {...form}>
+        <form className="flex w-full justify-between flex-col sm:flex-row gap-4">
           <InputSearch />
+
+          {/* Item Type */}
+          <div className="max-w-[240px] w-full ">
+            <FormField
+              control={form.control}
+              name="item_type"
+              defaultValue="all" // 👈 default to "All Types"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <SelectField data={[...FORM_REVIEW_ITEM_TYPE, { value: "all", label: "All" }]} value={field.value} onChange={field.onChange} placeholder="Select Item Type" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </form>
-      </FormProvider>
+      </Form>
 
       {/* Table Data */}
       {isValidating && <span className="loader"></span>}

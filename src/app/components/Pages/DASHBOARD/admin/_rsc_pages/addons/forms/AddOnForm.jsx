@@ -11,10 +11,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { SelectField } from "../components/Select";
 import { FORM_ADDON_VALUES_DEFAULT, FORM_ADDON_ITEMTYPE, FORM_ADDON_PRICE_CALCULATION_BY, ADDON_TYPES } from "@/constants/forms/addon";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { DialogClose } from "@/components/ui/dialog";
-import { createAddOn } from "@/lib/actions/addOn";
 import { useToast } from "@/hooks/use-toast";
+import { createAddOn, editAddOn } from "@/lib/actions/addOn"; // actions
+
+// Extract values
+const priceCalculationValues = FORM_ADDON_PRICE_CALCULATION_BY.map(({ value }) => value);
 
 // Zod Schema for validation
 export const AddOnFormSchema = z.object({
@@ -24,21 +27,21 @@ export const AddOnFormSchema = z.object({
   }),
 
   description: z.string(),
-  price: z
+  price: z.coerce
     .number({
       required_error: "Price is required",
       invalid_type_error: "Price must be a number",
     })
     .min(0, "Price cannot be negative"),
 
-  sale_price: z
+  sale_price: z.coerce
     .number({
       invalid_type_error: "Sale price must be a number",
     })
     .min(0, "Sale price cannot be negative")
-    .nullable()
     .optional(),
-  price_calculation: z.enum(["per_activity", "per_package", "per_itinerary", "per_transfer"], {
+
+  price_calculation: z.enum(priceCalculationValues, {
     errorMap: () => ({
       message: "Price calculation must be one of the allowed values",
     }),
@@ -47,12 +50,13 @@ export const AddOnFormSchema = z.object({
 });
 
 //  Form Component
-export const AddOnForm = () => {
+export const AddOnForm = ({ formData = {} }) => {
+  const { id } = useParams(); // checking id is exist
   const { toast } = useToast();
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(AddOnFormSchema),
-    defaultValues: FORM_ADDON_VALUES_DEFAULT,
+    defaultValues: { ...FORM_ADDON_VALUES_DEFAULT, ...formData },
   });
 
   // destructure form
@@ -63,7 +67,12 @@ export const AddOnForm = () => {
   // handle submit
   const onSubmit = async (data) => {
     try {
-      const response = await createAddOn(data);
+      let response;
+      if (id) {
+        response = await editAddOn(id, data);
+      } else {
+        response = await createAddOn(data);
+      }
 
       if (!response.success) {
         // Handle API errors gracefully
@@ -176,6 +185,7 @@ export const AddOnForm = () => {
                 <FormField
                   control={form.control}
                   name="sale_price"
+                  defaultValue={undefined}
                   render={({ field }) => (
                     <FormItem className="flex-1">
                       <FormLabel className={FORMSTYLE.formLabel}>Sale Price</FormLabel>
@@ -238,7 +248,7 @@ export const AddOnForm = () => {
                 </DialogClose>
 
                 <Button type="submit" variant="secondary" className="self-end">
-                  Submit
+                  {isSubmitting ? "Submitting" : "Submit"}
                 </Button>
               </div>
             </fieldset>

@@ -20,8 +20,5 @@
  * @property {number} price - The base price of the add-on. 
  * @property {number} [sale_price] - The discounted price of the add-on. 
  * @property {string} price_calculation - Defines how the price should be calculated.
- * Options:
- * - `"fixed"` → Flat amount
- * - `"percentage"` → Percentage-based calculation
  * @property {boolean} [active_status=false] - Whether the add-on is active or not. Defaults to `false`.
  */
