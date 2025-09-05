@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.13.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.13.0...v0.13.1) (2025-09-05)
+
+
+### ✅ Tests
+
+* verify automatic Coolify deployment ([b3fc202](https://github.com/akshayfanatic/weelp_frontend/commit/b3fc2021664915911121a7784355cfa50df5e52b))
+* verify automatic Coolify deployment ([1f5a5cd](https://github.com/akshayfanatic/weelp_frontend/commit/1f5a5cd71d82a08911b1e42039782aa9b7dc5ca8))
+
+
+### ✨ Features
+
+* **addon:** Implement Add On Feature in Create Activity Tested Successfully ([510c6e0](https://github.com/akshayfanatic/weelp_frontend/commit/510c6e00d434d60e145199b0b6201a0abda7ab47))
+
 ## [0.13.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.12.0...v0.13.0) (2025-09-05)
 
 
