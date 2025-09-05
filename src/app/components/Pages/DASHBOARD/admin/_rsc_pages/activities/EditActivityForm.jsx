@@ -27,6 +27,10 @@ import { isEmpty, isArray } from "lodash";
 import { useMediaStore } from "@/lib/store/useMediaStore"; // For Handling Media Store
 import { Medialibrary } from "../media/MediaLibrary"; // Handling Media Library
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import dynamic from "next/dynamic";
+import { useAddOnOptionsAdmin } from "@/hooks/api/admin/addon";
+
+const SharedAddOnMultiSelect = dynamic(() => import("../shared_tabs/addon/SharedAddOn"), { ssr: false });
 
 export const EditActivityForm = ({ categories, attributes, tags, locations = [], activitydata }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -34,6 +38,10 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
   const [formData, setFormData] = useState({});
   const router = useRouter();
   const { toast } = useToast();
+
+  const { data, error, isLoading } = useAddOnOptionsAdmin();
+
+  const addOnOptions = data?.data || [];
 
   //desctructure data
   const {
@@ -53,7 +61,9 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
     group_discounts,
     early_bird_discount,
     last_minute_discount,
+    addons = [],
   } = activitydata;
+
 
   // total location retrive of activity
   const presetLocations = presetLocation.map(({ id, location_type, city_id, location_label, duration }) => ({
@@ -90,6 +100,9 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
   // intialGroupDiscount
   const initialGroupDiscounts = !isEmpty(group_discounts) ? group_discounts : [];
 
+  // addons modify
+  const initialAddOn = addons?.length > 0 ? addons?.map(({ addon_id, addon_name, addon_active_status }) => ({ id: addon_id, name: addon_name, active_status: addon_active_status })) : [];
+
   //  intialize form
   const methods = useForm({
     shouldUnregister: false,
@@ -113,6 +126,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       group_discounts: initialGroupDiscounts,
       early_bird_discount: early_bird_discount,
       last_minute_discount: last_minute_discount,
+      // addons: addons?.length > 0 ? addons?.map(({ addon_id, addon_name, addon_active_status }) => ({ id: addon_id, name: addon_name, active_status: addon_active_status })) : []
     },
   });
 
@@ -150,11 +164,17 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
     },
     {
       id: 4,
-      title: "Images & Media",
-      description: "Upload images regarding activity",
+      title: "Add On`s",
+      description: "Add on of the Activity",
     },
     {
       id: 5,
+      title: "Images & Media",
+      description: "Upload images regarding activity",
+    },
+
+    {
+      id: 6,
       title: "Pricing & Booking",
       description: "Prices , group sizes, and booking info",
     },
@@ -1186,8 +1206,10 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       case 3:
         return <TaxonomiesAttributesTab />;
       case 4:
-        return <MediaTab />;
+        return <SharedAddOnMultiSelect />;
       case 5:
+        return <MediaTab />;
+      case 6:
         return <PricingTab />;
       default:
         return null;
@@ -1198,7 +1220,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
   const onSubmit = async (data) => {
     const mergedData = { ...formData, ...data };
 
-    if (currentStep < 5) {
+    if (currentStep < 6) {
       setFormData(mergedData);
       setCurrentStep((prev) => prev + 1);
       return;
@@ -1318,7 +1340,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
 
                 <div className="flex gap-4">
                   {/* Display Cancel Button */}
-                  {currentStep === 5 && (
+                  {currentStep === 6 && (
                     <Button
                       type="button"
                       onClick={() => {
@@ -1330,7 +1352,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                     </Button>
                   )}
                   <Button type="submit" disabled={isSubmitting} className={`ml-auto py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-secondaryDark cursor-pointer`}>
-                    {isSubmitting ? (currentStep === 5 ? "Submitting..." : "Submit") : currentStep === 5 ? "Submit" : "Next"}
+                    {isSubmitting ? (currentStep === 6 ? "Submitting..." : "Submit") : currentStep === 6 ? "Submit" : "Next"}
                   </Button>
                 </div>
               </div>

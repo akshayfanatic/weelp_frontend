@@ -26,6 +26,10 @@ import { NavigationActivity } from "./activity_shared";
 import { useMediaStore } from "@/lib/store/useMediaStore"; // For Handling Media Store
 import { Medialibrary } from "../media/MediaLibrary"; // Handling Media Library
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import dynamic from "next/dynamic";
+
+
+const SharedAddOnMultiSelect = dynamic(() => import("../shared_tabs/addon/SharedAddOn"), { ssr: false });
 
 export const CreateActivityForm = ({ categories, attributes, tags, locations = [] }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -51,6 +55,7 @@ export const CreateActivityForm = ({ categories, attributes, tags, locations = [
         discount_amount: 10,
         discount_type: "fixed",
       },
+      addons: [],
     },
   });
 
@@ -78,11 +83,17 @@ export const CreateActivityForm = ({ categories, attributes, tags, locations = [
     },
     {
       id: 4,
-      title: "Images & Media",
-      description: "Upload images regarding activity",
+      title: "Add On`s",
+      description: "Add on of the Activity",
     },
     {
       id: 5,
+      title: "Images & Media",
+      description: "Upload images regarding activity",
+    },
+
+    {
+      id: 6,
       title: "Pricing & Booking",
       description: "Prices , group sizes, and booking info",
     },
@@ -544,8 +555,6 @@ export const CreateActivityForm = ({ categories, attributes, tags, locations = [
   // Pricing Tab
   const PricingTab = () => {
     const [isSeasonPricing, setSeasonPricing] = useState(true);
-    const [isEarlyBirdDiscount, setEarlyBirdDiscount] = useState(false);
-    const [islastMinuteDiscount, setLastMinuteDiscount] = useState(false);
 
     // check if changes state
     useEffect(() => {
@@ -929,8 +938,10 @@ export const CreateActivityForm = ({ categories, attributes, tags, locations = [
       case 3:
         return <TaxonomiesAttributesTab />;
       case 4:
-        return <MediaTab />;
+        return <SharedAddOnMultiSelect />;
       case 5:
+        return <MediaTab />;
+      case 6:
         return <PricingTab />;
       default:
         return null;
@@ -941,12 +952,13 @@ export const CreateActivityForm = ({ categories, attributes, tags, locations = [
   const onSubmit = async (data) => {
     const mergedData = { ...formData, ...data };
 
-    if (currentStep < 5) {
+    if (currentStep < 6) {
       setFormData(mergedData);
       setCurrentStep((prev) => prev + 1);
       return;
     }
 
+    // console.log(mergedData);
     // handle api for creating activity
     try {
       const res = await createActivity(mergedData);
@@ -1027,7 +1039,7 @@ export const CreateActivityForm = ({ categories, attributes, tags, locations = [
 
                 <div className="flex gap-4">
                   {/* Display Cancel Button */}
-                  {currentStep === 5 && (
+                  {currentStep === 6 && (
                     <Button
                       type="button"
                       onClick={() => {
@@ -1039,7 +1051,7 @@ export const CreateActivityForm = ({ categories, attributes, tags, locations = [
                     </Button>
                   )}
                   <Button type="submit" disabled={isSubmitting} className={`ml-auto py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-secondaryDark cursor-pointer`}>
-                    {isSubmitting ? (currentStep === 5 ? "Submitting..." : "Submit") : currentStep === 5 ? "Submit" : "Next"}
+                    {isSubmitting ? (currentStep === 6 ? "Submitting..." : "Submit") : currentStep === 6 ? "Submit" : "Next"}
                   </Button>
                 </div>
               </div>
