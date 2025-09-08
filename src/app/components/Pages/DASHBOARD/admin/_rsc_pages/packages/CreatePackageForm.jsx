@@ -35,6 +35,9 @@ import { Medialibrary } from "../media/MediaLibrary";
 import { useMediaStore } from "@/lib/store/useMediaStore";
 import { isEmpty } from "lodash";
 import { createPackage } from "@/lib/actions/packages";
+import dynamic from "next/dynamic";
+
+const SharedAddOnMultiSelect = dynamic(() => import("../shared_tabs/addon/SharedAddOn"), { ssr: false });
 
 export const CreatePackageForm = ({ categories, attributes, tags, locations = [], allactivities, alltransfers, itineraries }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -67,6 +70,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       blackout_dates: [],
       inclusions_exclusions: [],
       media_gallery: [],
+      addons:[]
     },
   });
 
@@ -102,18 +106,22 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
     },
     {
       id: 7,
-      title: "Media",
+      title: "Add On's",
     },
     {
       id: 8,
-      title: "Taxonomy",
+      title: "Media",
     },
     {
       id: 9,
-      title: "FAQ",
+      title: "Taxonomy",
     },
     {
       id: 10,
+      title: "FAQ",
+    },
+    {
+      id: 11,
       title: "SEO",
     },
   ];
@@ -1908,12 +1916,14 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       case 6:
         return <InclusionTab />;
       case 7:
-        return <MediaTab />;
+        return <SharedAddOnMultiSelect />;
       case 8:
-        return <TaxonomiesAttributesTab />;
+        return <MediaTab />;
       case 9:
-        return <FaqTab />;
+        return <TaxonomiesAttributesTab />;
       case 10:
+        return <FaqTab />;
+      case 11:
         return <SeoTab />;
       default:
         return null;
@@ -1925,7 +1935,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
     const mergedData = { ...formData, ...data };
 
     //
-    if (currentStep < 10) {
+    if (currentStep < 11) {
       setFormData(mergedData);
       setCurrentStep((prev) => prev + 1);
       return;
@@ -1941,8 +1951,6 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
     let finalData = _.set(mergedData, "activities", activities); // add new activites
     finalData = _.set(mergedData, "transfers", transfers); // add new transfers
     finalData = _.set(mergedData, "itineraries", itineraries); // add new itineraries
-
-    console.log(finalData);
 
     // submit full data
     try {
@@ -2015,9 +2023,9 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                 )}
 
                 {/* Prevent Button On Schedules and Information Tab */}
-                {currentStep === 3 || currentStep === 2 || currentStep === 9 ? null : (
-                  <div className={`flex ${currentStep > 9 ? "w-fit gap-4" : "w-full justify-between"}`}>
-                    {(currentStep < 2 || currentStep > 9) && (
+                {currentStep === 3 || currentStep === 2 || currentStep === 10 ? null : (
+                  <div className={`flex ${currentStep > 10 ? "w-fit gap-4" : "w-full justify-between"}`}>
+                    {(currentStep < 2 || currentStep > 10) && (
                       <Button
                         type="button"
                         onClick={() => {
@@ -2029,7 +2037,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                       </Button>
                     )}
                     <Button type="submit" disabled={isSubmitting} className={`ml-auto py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-secondaryDark cursor-pointer`}>
-                      {isSubmitting ? (currentStep === 10 ? "Submitting..." : "Submit") : currentStep === 10 ? "Submit" : "Next"}
+                      {isSubmitting ? (currentStep === 11 ? "Submitting..." : "Submit") : currentStep === 11 ? "Submit" : "Next"}
                     </Button>
                   </div>
                 )}

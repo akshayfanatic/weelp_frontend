@@ -26,7 +26,9 @@ import { useMediaStore } from "@/lib/store/useMediaStore";
 import { Medialibrary } from "../media/MediaLibrary";
 import { Card } from "@/components/ui/card";
 import { deleteItineraryItems, editItinerary } from "@/lib/actions/itineraries"; // server actions for handling data
+import dynamic from "next/dynamic";
 
+const SharedAddOnMultiSelect = dynamic(() => import("../shared_tabs/addon/SharedAddOn"), { ssr: false });
 
 export const EditItineraryForm = ({ categories, attributes, tags, locations = [], allactivities, alltransfers, itineraryData }) => {
   const hasResetRef = useRef(false);
@@ -57,6 +59,7 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
     categories: presetCategories = [],
     tags: presetTags = [],
     attributes: presetAttributes = [],
+    addons,
   } = itineraryData;
 
   // destructure schema
@@ -69,6 +72,9 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
         attribute_value,
       }))
     : [];
+
+  // addons modify
+  const initialAdd = Array.isArray(addons) ? addons.map((item) => item.addon_id) : [];
 
   // intial states
   const methods = useForm({
@@ -99,6 +105,7 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
       categories: presetCategories?.length ? presetCategories.map(({ category_id }) => category_id) : [],
       tags: presetTags?.length ? presetTags.map(({ tag_id }) => tag_id) : [],
       attributes: initialAttributes,
+      addons: initialAdd,
     },
   });
 
@@ -151,14 +158,18 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
     },
     {
       id: 5,
-      title: "Media",
+      title: "Add On`s",
     },
     {
       id: 6,
-      title: "Seo",
+      title: "Media",
     },
     {
       id: 7,
+      title: "Seo",
+    },
+    {
+      id: 8,
       title: "Taxonomy",
     },
   ];
@@ -1743,10 +1754,12 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
       case 4:
         return <InclusionTab />;
       case 5:
-        return <MediaTab />;
+        return <SharedAddOnMultiSelect />;
       case 6:
-        return <SeoTab />;
+        return <MediaTab />;
       case 7:
+        return <SeoTab />;
+      case 8:
         return <TaxonomiesAttributesTab />;
       default:
         return null;
@@ -1863,19 +1876,19 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
                 {currentStep === 2 ? null : (
                   <div className="flex gap-4">
                     {/* Display Cancel Button Final Step */}
-                    {currentStep === 7 && (
+                    {currentStep === 8 && (
                       <Button
                         type="button"
                         onClick={() => {
                           router.back();
                         }}
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-800 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
                       >
                         Cancel
                       </Button>
                     )}
                     <Button type="submit" disabled={isSubmitting} className={`ml-auto py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-secondaryDark cursor-pointer`}>
-                      {isSubmitting ? (currentStep === 7 ? "Submitting..." : "Submit") : currentStep === 7 ? "Submit" : "Next"}
+                      {isSubmitting ? (currentStep === 8 ? "Submitting..." : "Submit") : currentStep === 8 ? "Submit" : "Next"}
                     </Button>
                   </div>
                 )}

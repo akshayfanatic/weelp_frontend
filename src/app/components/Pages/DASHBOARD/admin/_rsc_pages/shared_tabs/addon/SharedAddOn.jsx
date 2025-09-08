@@ -1,7 +1,5 @@
 import React from "react";
-import useSWR from "swr";
 import { Controller, useFormContext } from "react-hook-form";
-import { fetcher } from "@/lib/fetchers";
 import { ComboboxMultiple } from "@/components/ui/combobox_multi";
 import { Label } from "@/components/ui/label";
 import { useAddOnOptionsAdmin } from "@/hooks/api/admin/addon";

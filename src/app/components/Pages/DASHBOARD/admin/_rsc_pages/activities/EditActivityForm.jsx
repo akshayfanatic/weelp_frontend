@@ -64,7 +64,6 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
     addons = [],
   } = activitydata;
 
-
   // total location retrive of activity
   const presetLocations = presetLocation.map(({ id, location_type, city_id, location_label, duration }) => ({
     id,
@@ -101,7 +100,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
   const initialGroupDiscounts = !isEmpty(group_discounts) ? group_discounts : [];
 
   // addons modify
-  const initialAddOn = addons?.length > 0 ? addons?.map(({ addon_id, addon_name, addon_active_status }) => ({ id: addon_id, name: addon_name, active_status: addon_active_status })) : [];
+  const initialAdd = Array.isArray(addons) ? addons.map((item) => item.addon_id) : [];
 
   //  intialize form
   const methods = useForm({
@@ -126,7 +125,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       group_discounts: initialGroupDiscounts,
       early_bird_discount: early_bird_discount,
       last_minute_discount: last_minute_discount,
-      // addons: addons?.length > 0 ? addons?.map(({ addon_id, addon_name, addon_active_status }) => ({ id: addon_id, name: addon_name, active_status: addon_active_status })) : []
+      addons: initialAdd,
     },
   });
 
@@ -1242,6 +1241,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       group_discounts,
       early_bird_discount,
       last_minute_discount,
+      addons,
     } = mergedData;
 
     const finalData = {
@@ -1260,6 +1260,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       group_discounts,
       early_bird_discount,
       last_minute_discount,
+      addons,
     };
 
     // Handle Submission

@@ -26,6 +26,9 @@ import { Medialibrary } from "../media/MediaLibrary";
 import { useMediaStore } from "@/lib/store/useMediaStore";
 import { createItinerary } from "@/lib/actions/itineraries";
 import { isEmpty } from "lodash";
+import dynamic from "next/dynamic";
+
+const SharedAddOnMultiSelect = dynamic(() => import("../shared_tabs/addon/SharedAddOn"), { ssr: false });
 
 export const CreateItineraryForm = ({ categories, attributes, tags, locations = [], allactivities, alltransfers }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -48,6 +51,7 @@ export const CreateItineraryForm = ({ categories, attributes, tags, locations = 
       blackout_dates: [],
       inclusions_exclusions: [],
       media_gallery: [],
+      addons:[]
     },
   });
 
@@ -75,14 +79,18 @@ export const CreateItineraryForm = ({ categories, attributes, tags, locations = 
     },
     {
       id: 5,
-      title: "Media",
+      title: "Add On`s",
     },
     {
       id: 6,
-      title: "Seo",
+      title: "Media",
     },
     {
       id: 7,
+      title: "Seo",
+    },
+    {
+      id: 8,
       title: "Taxonomy",
     },
   ];
@@ -520,8 +528,6 @@ export const CreateItineraryForm = ({ categories, attributes, tags, locations = 
       name: "blackout_dates",
     });
 
-
-
     return (
       <div className="flex flex-col justify-between py-2  rounded-md space-y-8">
         {/* Base Pricing */}
@@ -610,7 +616,7 @@ export const CreateItineraryForm = ({ categories, attributes, tags, locations = 
                   <PopoverContent className="p-0" align="start">
                     <Calendar
                       mode="single"
-                      selected={startDate ? format(new Date(startDate),"yyyy-MM-dd") : undefined}
+                      selected={startDate ? format(new Date(startDate), "yyyy-MM-dd") : undefined}
                       onSelect={(date) => setValue("pricing.start_date", date?.toISOString().split("T")[0])}
                       initialFocus
                     />
@@ -629,7 +635,12 @@ export const CreateItineraryForm = ({ categories, attributes, tags, locations = 
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="p-0" align="start">
-                    <Calendar mode="single" selected={endDate ? format(new Date(endDate),"yyyy-MM-dd")  : undefined} onSelect={(date) => setValue("pricing.end_date", date?.toISOString().split("T")[0])} initialFocus />
+                    <Calendar
+                      mode="single"
+                      selected={endDate ? format(new Date(endDate), "yyyy-MM-dd") : undefined}
+                      onSelect={(date) => setValue("pricing.end_date", date?.toISOString().split("T")[0])}
+                      initialFocus
+                    />
                   </PopoverContent>
                 </Popover>
               </div>
@@ -1349,7 +1360,12 @@ export const CreateItineraryForm = ({ categories, attributes, tags, locations = 
 
             <div className="space-y-2">
               <Label className={`${errors?.seo?.og_image_url?.message && "text-red-400"}`}>OG Image Url</Label>
-              <Input type="url" placeholder=" e.g: https://example.com/sample-og.jpg" className="focus-visible:ring-secondaryDark" {...register("seo.og_image_url", { required: "og_image_url Required" })} />
+              <Input
+                type="url"
+                placeholder=" e.g: https://example.com/sample-og.jpg"
+                className="focus-visible:ring-secondaryDark"
+                {...register("seo.og_image_url", { required: "og_image_url Required" })}
+              />
               {errors?.seo?.og_image_url && <p className="text-red-400 text-sm">{errors?.seo?.og_image_url?.message}</p>}
             </div>
 
@@ -1431,10 +1447,12 @@ export const CreateItineraryForm = ({ categories, attributes, tags, locations = 
       case 4:
         return <InclusionTab />;
       case 5:
-        return <MediaTab />;
+        return <SharedAddOnMultiSelect />;
       case 6:
-        return <SeoTab />;
+        return <MediaTab />;
       case 7:
+        return <SeoTab />;
+      case 8:
         return <TaxonomiesAttributesTab />;
       default:
         return null;
@@ -1445,7 +1463,7 @@ export const CreateItineraryForm = ({ categories, attributes, tags, locations = 
   const onSubmit = async (data) => {
     const mergedData = { ...formData, ...data };
 
-    if (currentStep < 7) {
+    if (currentStep < 8) {
       setFormData(mergedData);
       setCurrentStep((prev) => prev + 1);
       return;
@@ -1459,6 +1477,7 @@ export const CreateItineraryForm = ({ categories, attributes, tags, locations = 
 
     let finalData = _.set(mergedData, "activities", activities); // add new activites
     finalData = _.set(mergedData, "transfers", transfers); // add new transfers
+
 
     // submit full data
     try {
@@ -1547,7 +1566,7 @@ export const CreateItineraryForm = ({ categories, attributes, tags, locations = 
                 {currentStep === 2 ? null : (
                   <div className="flex gap-4">
                     {/* Display Cancel Button Final Step */}
-                    {currentStep === 7 && (
+                    {currentStep === 8 && (
                       <Button
                         type="button"
                         onClick={() => {
@@ -1559,7 +1578,7 @@ export const CreateItineraryForm = ({ categories, attributes, tags, locations = 
                       </Button>
                     )}
                     <Button type="submit" disabled={isSubmitting} className={`ml-auto py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-secondaryDark cursor-pointer`}>
-                      {isSubmitting ? (currentStep === 7 ? "Submitting..." : "Submit") : currentStep === 7 ? "Submit" : "Next"}
+                      {isSubmitting ? (currentStep === 8 ? "Submitting..." : "Submit") : currentStep === 8 ? "Submit" : "Next"}
                     </Button>
                   </div>
                 )}

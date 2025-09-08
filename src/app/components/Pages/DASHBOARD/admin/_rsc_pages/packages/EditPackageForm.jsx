@@ -35,6 +35,9 @@ import { Medialibrary } from "../media/MediaLibrary";
 import { useMediaStore } from "@/lib/store/useMediaStore";
 import { isEmpty } from "lodash";
 import { deletePackageItems, editPackage } from "@/lib/actions/packages";
+import dynamic from "next/dynamic";
+
+const SharedAddOnMultiSelect = dynamic(() => import("../shared_tabs/addon/SharedAddOn"), { ssr: false });
 
 export const EditPackageForm = ({ categories, attributes, tags, locations = [], allactivities, alltransfers, itineraries, packageData }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -69,6 +72,7 @@ export const EditPackageForm = ({ categories, attributes, tags, locations = [], 
     attributes: presetAttributes = [],
     seo,
     faqs = [],
+    addons = [],
   } = packageData;
 
   const initialAttributes = presetAttributes?.length
@@ -77,6 +81,9 @@ export const EditPackageForm = ({ categories, attributes, tags, locations = [], 
         attribute_value,
       }))
     : [];
+
+  // addons modify
+  const initialAdd = Array.isArray(addons) ? addons.map((item) => item.addon_id) : [];
 
   const methods = useForm({
     shouldUnregister: false,
@@ -115,10 +122,9 @@ export const EditPackageForm = ({ categories, attributes, tags, locations = [], 
       attributes: initialAttributes,
       seo: { ...seo, schema_data: JSON.parse(seo?.schema_data) },
       faqs: faqs,
+      addons: initialAdd,
     },
   });
-
-  // console.log(packageData)
 
   // Handle Global Level Error
   const { reset } = methods;
@@ -189,18 +195,22 @@ export const EditPackageForm = ({ categories, attributes, tags, locations = [], 
     },
     {
       id: 7,
-      title: "Media",
+      title: "Add On's",
     },
     {
       id: 8,
-      title: "Taxonomy",
+      title: "Media",
     },
     {
       id: 9,
-      title: "FAQ",
+      title: "Taxonomy",
     },
     {
       id: 10,
+      title: "FAQ",
+    },
+    {
+      id: 11,
       title: "SEO",
     },
   ];
@@ -2349,12 +2359,14 @@ export const EditPackageForm = ({ categories, attributes, tags, locations = [], 
       case 6:
         return <InclusionTab />;
       case 7:
-        return <MediaTab />;
+        return <SharedAddOnMultiSelect />;
       case 8:
-        return <TaxonomiesAttributesTab />;
+        return <MediaTab />;
       case 9:
-        return <FaqTab />;
+        return <TaxonomiesAttributesTab />;
       case 10:
+        return <FaqTab />;
+      case 11:
         return <SeoTab />;
       default:
         return null;
@@ -2366,7 +2378,7 @@ export const EditPackageForm = ({ categories, attributes, tags, locations = [], 
     const mergedData = { ...formData, ...data };
 
     //
-    if (currentStep < 10) {
+    if (currentStep < 11) {
       setFormData(mergedData);
       setCurrentStep((prev) => prev + 1);
       return;
@@ -2454,9 +2466,9 @@ export const EditPackageForm = ({ categories, attributes, tags, locations = [], 
                 )}
 
                 {/* Prevent Button On Schedules and Information Tab */}
-                {currentStep === 3 || currentStep === 2 || currentStep === 9 ? null : (
-                  <div className={`flex ${currentStep > 9 ? "w-fit gap-4" : "w-full justify-between"}`}>
-                    {(currentStep < 2 || currentStep > 9) && (
+                {currentStep === 3 || currentStep === 2 || currentStep === 10 ? null : (
+                  <div className={`flex ${currentStep > 10 ? "w-fit gap-4" : "w-full justify-between"}`}>
+                    {(currentStep < 2 || currentStep > 10) && (
                       <Button
                         type="button"
                         onClick={() => {
@@ -2468,7 +2480,7 @@ export const EditPackageForm = ({ categories, attributes, tags, locations = [], 
                       </Button>
                     )}
                     <Button type="submit" disabled={isSubmitting} className={`ml-auto py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-secondaryDark cursor-pointer`}>
-                      {isSubmitting ? (currentStep === 10 ? "Submitting..." : "Submit") : currentStep === 10 ? "Submit" : "Next"}
+                      {isSubmitting ? (currentStep === 11 ? "Submitting..." : "Submit") : currentStep === 11 ? "Submit" : "Next"}
                     </Button>
                   </div>
                 )}
