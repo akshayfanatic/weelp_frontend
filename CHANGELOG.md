@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.15.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.14.0...v0.15.0) (2025-09-11)
+
+
+### ✨ Features
+
+* **dashboard/reviews:** add create review feature for customers ([6b56390](https://github.com/akshayfanatic/weelp_frontend/commit/6b5639086e24784eac6ad0149b708a64d32695e2))
+
 ## [0.14.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.13.1...v0.14.0) (2025-09-11)
 
 
