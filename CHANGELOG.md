@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.14.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.13.1...v0.14.0) (2025-09-11)
+
+
+### ✨ Features
+
+* Create Review Feature For Customer ([4eec9b5](https://github.com/akshayfanatic/weelp_frontend/commit/4eec9b5bbb4cfbd81b06505a4428b61aad288b1c))
+* Integrate Addon Tab to Activity,Itinerary and Package ([1e1b95f](https://github.com/akshayfanatic/weelp_frontend/commit/1e1b95ff7b8accf6f41f6f1397c85f5ced6dd8d9))
+
 ### [0.13.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.13.0...v0.13.1) (2025-09-05)
 
 
