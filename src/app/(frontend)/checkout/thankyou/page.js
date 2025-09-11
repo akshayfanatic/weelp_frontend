@@ -46,8 +46,10 @@ const SucceceedPage = () => {
   const { emergency_contact = {}, item = {}, payment = {}, user = {} } = order || {}; // destructure order data
   const dashboardUrl = session?.user?.role === "super_admin" ? "/dashboard/admin" : "/dashboard/customer"; // use role send based on use link
   const amount = parseFloat(payment?.amount || 0);
-  const currency = payment?.currency || "";
+  const currency = payment?.currency || "USD";
   const priceAmount = formatCurrency(amount, currency);
+
+  // console.log(priceAmount)
 
   return (
     <div className="min-h-[85vh] bg-gray-50 py-10 px-4 flex justify-center items-center">
@@ -85,7 +87,7 @@ const SucceceedPage = () => {
 
                 <TableRow>
                   <TableCell className="font-semibold">Amount Paid</TableCell>
-                  <TableCell className="text-secondaryDark">{priceAmount}</TableCell>
+                  {/* <TableCell className="text-secondaryDark">{priceAmount}</TableCell> */}
                 </TableRow>
 
                 <TableRow>

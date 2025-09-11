@@ -21,6 +21,8 @@ const CheckoutForm = ({ clientSecret = "" , paymentIntentId="" }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useUserProfile(); // client side fetch user
+
+  console.log('client user',user)
   const { cartItems = [] } = useMiniCartStore(); // store items
   const { toast } = useToast(); // intialize toast
 

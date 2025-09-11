@@ -6,6 +6,7 @@
 export const REVIEW_STATUS = ["approved", "pending"];
 
 /**
+ * For Admin Form
  * @type {ReviewFormValues}
  */
 export const FORM_REVIEWS_VALUES_DEFAULT = {
@@ -27,6 +28,16 @@ export const FORM_REVIEW_ITEM_TYPE = [
   { value: "itinerary", label: "Itinerary" },
 ];
 
-
-
-
+/**
+ * For Customer Form For Reviews
+ * @type {ReviewFormCustomer}
+ * @param {ReviewFormCustomer} reviewFormData
+ */
+export const CUSTOMER_REVIEW_VALUES_DEFAULT = {
+  item_type: null,
+  item_id: null,
+  rating: null,
+  review_text: "",
+  existing_media_ids: [],
+  file: [],
+};

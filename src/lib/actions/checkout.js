@@ -41,6 +41,8 @@ export const initializeCheckout = async (payload = {}) => {
  * @returns {Promise<{ success: boolean; data?: any; error?: string }>}
  */
 export async function checkoutCreateOrder(orderDetail = {}) {
+  log(orderDetail);
+
   try {
     const response = await publicApi.post(`/api/stripe/create-order`, orderDetail, {
       headers: {
@@ -56,11 +58,12 @@ export async function checkoutCreateOrder(orderDetail = {}) {
     // If not 200,
     return { success: false, error: `Unexpected status code: ${response?.status}` };
   } catch (error) {
-    log(error?.response);
+    // log(error?.response);
     const status = error?.response?.status || 500;
     return { success: false, error: `Server Error Pleaease Try Again: ${status}` };
   }
 }
+
 
 /**
  * Action for Create Payment Intent
@@ -90,32 +93,4 @@ export const createPaymentIntent = async (payload = {}) => {
   }
 };
 
-// useEffect(() => {
-//   const fetchClientSecret = async () => {
-//     setLoading(true);
 
-//     try {
-//       const cachedSecret = sessionStorage.getItem("clientSecret");
-//       if (cachedSecret) {
-//         setClientSecret(cachedSecret);
-//       } else {
-//         const res = await createPaymentIntent({ amount, currency });
-
-//         console.log(res)
-
-//         if (res?.success && res?.clientSecret) {
-//           setClientSecret(res?.clientSecret);
-//           sessionStorage.setItem("clientSecret", res.clientSecret); // setsession
-//         } else {
-//           setError(res?.error || "Client secret not received");
-//         }
-//       }
-//     } catch (err) {
-//       setError(err?.message || "Something went wrong");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   fetchClientSecret();
-// }, [amount, currency]);

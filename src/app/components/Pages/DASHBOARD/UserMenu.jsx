@@ -1,6 +1,6 @@
 "use client";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { LogOut, UserIcon, Settings, Users, ArrowBigLeftDash, Home } from "lucide-react";
+import { LogOut, UserIcon, Settings, Users, ArrowBigLeftDash, Home, User } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";

@@ -4,7 +4,7 @@ import { authApi } from "../axiosInstance";
 
 export const getUserProfile = async () => {
   try {
-    const response = await authApi.get("/api/profile");
+    const response = await authApi.get("/api/customer/profile");
 
     if (response.status === 200) {
       return { user: response?.data?.user, error: null };

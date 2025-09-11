@@ -2,9 +2,7 @@ import { CustomerBookingsList } from "@/app/components/Pages/DASHBOARD/user/_rsc
 import React from "react";
 
 const BookingsPage = () => {
-  return (
-    <CustomerBookingsList />
-  )
+  return <CustomerBookingsList />;
 };
 
 export default BookingsPage;

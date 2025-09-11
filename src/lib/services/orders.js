@@ -39,26 +39,7 @@ export async function getAllOrdersAdmin(search = "") {
   }
 }
 
-/**
- * Get All Users Orders
- * @param {string} search search query if exist
- * @returns {}
- */
-export async function getAllUsersOrdersAdmin(search = "") {
-  try {
-    const res = await authApi.get(`/api/userorders/${search ? search : ""}`, {
-      headers: { Accept: "application/json" },
-    });
 
-    // for handling diffrent response
-    if (res.status === 200) return res.data;
-    if (res.status === 404) return {}; // not found
-
-    return {}; // fallback for other statuses
-  } catch (error) {
-    return {};
-  }
-}
 
 
 

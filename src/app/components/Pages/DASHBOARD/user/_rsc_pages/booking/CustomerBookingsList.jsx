@@ -1,18 +1,17 @@
 "use client";
+
 import React, { useMemo } from "react";
 import BookingCard from "@/app/components/BookingCard";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAllOrdersCustomer } from "@/hooks/api/customer/orders";
 import { useForm, useWatch, Controller } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 export const CustomerBookingsList = () => {
-  const { orders = {}, isLoading: isloadingOrders, isValidating: isValidatingOrders, error: isOrderError, mutate: mutateOrders } = useAllOrdersCustomer(); // fetching data
-
-  console.log(orders)
-
+  const { orders, isLoading: isloadingOrders, isValidating: isValidatingOrders, error: isOrderError, mutate: mutateOrders } = useAllOrdersCustomer(); // fetching data
+  
   // intialize form
   const { register, control } = useForm({
     defaultValues: {
@@ -88,7 +87,7 @@ export const CustomerBookingsList = () => {
               <SelectContent>
                 <SelectGroup>
                   {itemType.map(({ name, value }, index) => (
-                    <SelectItem key={index} value={value} >
+                    <SelectItem key={index} value={value}>
                       {name}
                     </SelectItem>
                   ))}
@@ -103,6 +102,12 @@ export const CustomerBookingsList = () => {
       <div className="bg-[#f5f9fa] p-8 min-h-full h-[78vh]">
         <div className="flex flex-wrap  bg-[#F5F9FA] gap-4">
           {filteredOrders.length > 0 ? filteredOrders.map((order) => <BookingCard key={order.id} bookingItem={order} />) : <p> No bookings found</p>}
+
+          {/* isloading */}
+          {isloadingOrders && <span className="loader"></span>}
+
+          {/* If Error Exist */}
+          {isOrderError && <span className="text-red-400">Something Went Wrong</span>}
         </div>
       </div>
     </Card>

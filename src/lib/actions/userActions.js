@@ -28,7 +28,7 @@ export const createUserAction = async (formData) => {
 // Edit UserProfile {** PUT}
 export const editUserProfileAction = async (formData) => {
   try {
-    const response = await authApi.put("/api/profile", formData, {
+    const response = await authApi.put("/api/customer/profile", formData, {
       headers: { "Content-Type": "application/json" },
     });
 
