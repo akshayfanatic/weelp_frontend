@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { authApi } from "@/lib/axiosInstance";
 import { delay, log } from "@/lib/utils";
 import { ApiError } from "@/dto/Error";
+import { ApiResponse } from "@/dto/Success";
 
 /**
  * Action for Create a  review by Customer.
@@ -37,7 +38,7 @@ export const createReviewByCustomer = async (data) => {
     // Optional: simulate network delay for better UX testing
     await delay(500);
 
-    const response = await authApi.post("/api/customer/postreview", formData, {
+    const response = await authApi.post("/api/customer/review", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -117,7 +118,7 @@ export const editReviewByCustomer = async (data, id) => {
     // Optional: simulate network delay
     await delay(500);
 
-    const res = await authApi.post(`/api/customer/updatereview/${id}`, formData, {
+    const res = await authApi.post(`/api/customer/review/${id}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -125,6 +126,7 @@ export const editReviewByCustomer = async (data, id) => {
 
     // Revalidate Next.js cache for reviews page
     revalidatePath("/dashboard/customer");
+    revalidatePath(`/dashboard/customer/reviews/${id}`);
 
     return {
       success: true,
@@ -163,5 +165,52 @@ export const editReviewByCustomer = async (data, id) => {
       success: false,
       message: "Something went wrong while creating the review",
     };
+  }
+};
+
+/**
+ * Action to delete a review by ID for a customer.
+ *
+ * @param {number} reviewId - The ID of the review to delete.
+ * @returns {Promise<ReturnType<typeof ApiResponse> | ReturnType<typeof ApiError>>}
+ */
+export const deleteReviewCustomer = async (reviewId) => {
+  try {
+    // Validate input
+    if (!reviewId) {
+      return ApiError({
+        message: "Review ID is required",
+        status: 400,
+      });
+    }
+
+    // Call API
+    const res = await authApi.delete(`/api/customer/review/${reviewId}/`);
+
+    // Revalidate the dashboard reviews page
+    revalidatePath("/dashboard/customer/reviews");
+
+    // Return success
+    return ApiResponse({
+      data: { message: res?.data?.message || "Deleted successfully" },
+      status: 200,
+    });
+  } catch (err) {
+    const error = err;
+
+    // Axios error with response
+    if (error?.response) {
+      return ApiError({
+        message: error.response?.data?.message || "Failed to delete review",
+        status: error.response?.status || 500,
+        errors: error.response?.data?.errors || error.message,
+      });
+    }
+
+    // JS Error or fallback
+    return ApiError({
+      message: error?.message || "Unknown error occurred",
+      status: 500,
+    });
   }
 };
