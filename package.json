@@ -19,8 +19,8 @@
     "*.{js,ts,jsx,tsx}": [
       "next lint "
     ],
-    "*.{css,md,mdx,yaml,yml,js,jsx,ts,tsx}": [
-      "prettier --write --ignore-unknown"
+    "*.{css,md,mdx,yaml,yml}": [
+      "prettier --write"
     ]
   },
   "dependencies": {
@@ -86,7 +86,6 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.1.5",
     "postcss": "^8.4.49",
-    "prettier": "3.6.2",
     "standard-version": "^9.5.0",
     "tailwindcss": "^3.4.15",
     "typescript": "^5.7.3"
