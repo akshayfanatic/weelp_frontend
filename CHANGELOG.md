@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.2](https://github.com/akshayfanatic/weelp_frontend/compare/v0.15.1...v0.15.2) (2025-09-12)
+
+
+### 🎨 Code Style Changes
+
+* **PrettierConfiguration:** Setup Prettier Configuration ([b590566](https://github.com/akshayfanatic/weelp_frontend/commit/b59056628adeb31f51936448830109d9f7d0d8f6))
+
 ### [0.15.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.15.0...v0.15.1) (2025-09-12)
 
 ### 🐛 Bug Fixes
