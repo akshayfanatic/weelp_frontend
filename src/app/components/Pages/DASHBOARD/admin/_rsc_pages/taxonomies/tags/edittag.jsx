@@ -1,29 +1,29 @@
-"use client";
+'use client';
 
-import React  from "react";
-import { Form, FormLabel, FormDescription, FormField, FormItem, FormControl, FormMessage } from "@/components/ui/form";
-import { generateSlug } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
-import { useForm, useWatch } from "react-hook-form";
-import { TaxonomyFormNavigation } from "../taxonomies_shared";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { editTag } from "@/lib/actions/tags";
+import React from 'react';
+import { Form, FormLabel, FormDescription, FormField, FormItem, FormControl, FormMessage } from '@/components/ui/form';
+import { generateSlug } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import { useForm, useWatch } from 'react-hook-form';
+import { TaxonomyFormNavigation } from '../taxonomies_shared';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { editTag } from '@/lib/actions/tags';
 
 // schema
 const formSchema = z.object({
   name: z.string().min(3, {
-    message: "Category name must be at least 3 characters.",
+    message: 'Category name must be at least 3 characters.',
   }),
   slug: z.string().min(3, {
-    message: "Slug is required.",
+    message: 'Slug is required.',
   }),
   description: z.string().min(3, {
-    message: "Please enter a description.",
+    message: 'Please enter a description.',
   }),
 });
 
@@ -35,9 +35,9 @@ export const EditTageForm = ({ tagdata }) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: name || "",
-      slug: slug || "",
-      description: description || "",
+      name: name || '',
+      slug: slug || '',
+      description: description || '',
     },
   });
 
@@ -45,7 +45,7 @@ export const EditTageForm = ({ tagdata }) => {
     formState: { isSubmitting },
   } = form; // state
 
-  const nameValue = useWatch({ control: form.control, name: "name" });
+  const nameValue = useWatch({ control: form.control, name: 'name' });
 
   const onSubmit = async (data) => {
     try {
@@ -57,7 +57,7 @@ export const EditTageForm = ({ tagdata }) => {
 
         // Display success notification
         toast({
-          title: res.message || "Tag Updated Successfully",
+          title: res.message || 'Tag Updated Successfully',
         });
 
         // back to tags
@@ -65,32 +65,32 @@ export const EditTageForm = ({ tagdata }) => {
       } else {
         // Display error notification
         toast({
-          variant: "destructive",
-          title: "Failed to update tags",
+          variant: 'destructive',
+          title: 'Failed to update tags',
           description: res.message,
         });
 
         // Optional: Show validation errors if needed
         if (res.errors) {
-          console.log("Validation Errors:", res.errors);
+          console.log('Validation Errors:', res.errors);
         }
       }
     } catch (error) {
       toast({
-        variant: "destructive",
-        title: "An unexpected error occurred",
-        description: "Please try again later.",
+        variant: 'destructive',
+        title: 'An unexpected error occurred',
+        description: 'Please try again later.',
       });
     }
   };
 
   return (
     <div>
-      <TaxonomyFormNavigation title={"Update Tag"} description={"Add a new tag to organize activities"} url={"/dashboard/admin/taxonomies/tags/"} />
+      <TaxonomyFormNavigation title={'Update Tag'} description={'Add a new tag to organize activities'} url={'/dashboard/admin/taxonomies/tags/'} />
       <div className="px-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 bg-white border p-6 shadow-sm rounded-lg">
-            <fieldset className={`flex flex-col gap-4 ${isSubmitting && "cursor-wait"}`} disabled={isSubmitting}>
+            <fieldset className={`flex flex-col gap-4 ${isSubmitting && 'cursor-wait'}`} disabled={isSubmitting}>
               <FormLabel className="font-semibold text-lg">Basic Information</FormLabel>
               <FormDescription>Enter the details for the new tag.</FormDescription>
 
@@ -106,7 +106,9 @@ export const EditTageForm = ({ tagdata }) => {
                         placeholder="e.g, Family Friendly"
                         {...field}
                         onBlur={() => {
-                          form.setValue("slug", generateSlug(nameValue), { shouldValidate: true });
+                          form.setValue('slug', generateSlug(nameValue), {
+                            shouldValidate: true,
+                          });
                         }}
                       />
                     </FormControl>
@@ -148,13 +150,13 @@ export const EditTageForm = ({ tagdata }) => {
 
               <p className="flex gap-2">
                 <Button className="w-fit bg-secondaryDark hover:bg-secondaryDark" type="submit">
-                  {isSubmitting ? "Updating Tag" : " Update Tag"}
+                  {isSubmitting ? 'Updating Tag' : ' Update Tag'}
                 </Button>
                 <Button
                   className="w-fit bg-inherit hover:bg-inherit text-black border"
                   type="button"
                   onClick={() => {
-                    router.push("/dashboard/admin/taxonomies/tags/");
+                    router.push('/dashboard/admin/taxonomies/tags/');
                   }}
                 >
                   Cancel

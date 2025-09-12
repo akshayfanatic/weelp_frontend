@@ -1,27 +1,27 @@
-"use client";
+'use client';
 
-import React, { useMemo } from "react";
-import BookingCard from "@/app/components/BookingCard";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useAllOrdersCustomer } from "@/hooks/api/customer/orders";
-import { useForm, useWatch, Controller } from "react-hook-form";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import React, { useMemo } from 'react';
+import BookingCard from '@/app/components/BookingCard';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useAllOrdersCustomer } from '@/hooks/api/customer/orders';
+import { useForm, useWatch, Controller } from 'react-hook-form';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 
 export const CustomerBookingsList = () => {
   const { orders, isLoading: isloadingOrders, isValidating: isValidatingOrders, error: isOrderError, mutate: mutateOrders } = useAllOrdersCustomer(); // fetching data
-  
+
   // intialize form
   const { register, control } = useForm({
     defaultValues: {
-      status: "completed",
-      sort_by: "activity",
+      status: 'completed',
+      sort_by: 'activity',
     },
   });
 
   // watching fields
-  const status = useWatch({ control, name: "status" });
+  const status = useWatch({ control, name: 'status' });
   const filters = useWatch({ control });
 
   const { data: { orders: allOrders = [] } = {} } = orders;
@@ -37,23 +37,23 @@ export const CustomerBookingsList = () => {
 
   // Order Status
   const orderStatus = [
-    { name: "Completed", value: "completed" },
-    { name: "Cancelled", value: "cancelled" },
-    { name: "Pending", value: "pending" },
-    { name: "Refunded", value: "refunded" },
+    { name: 'Completed', value: 'completed' },
+    { name: 'Cancelled', value: 'cancelled' },
+    { name: 'Pending', value: 'pending' },
+    { name: 'Refunded', value: 'refunded' },
   ];
 
   // ItemType
   const itemType = [
-    { name: "Activity", value: "activity" },
-    { name: "Itinerary", value: "itinerary" },
-    { name: "Package", value: "package" },
-    { name: "All Items", value: "all" },
+    { name: 'Activity', value: 'activity' },
+    { name: 'Itinerary', value: 'itinerary' },
+    { name: 'Package', value: 'package' },
+    { name: 'All Items', value: 'all' },
   ];
 
   return (
     <Card className="shadow-none border-none bg-inherit  bg-white ">
-      <CardHeader className={"px-8"}>
+      <CardHeader className={'px-8'}>
         <CardTitle className="text-xl text-Blueish font-medium">Your Bookings</CardTitle>
         <CardDescription className="text-lg text-grayDark">Manage your bookings, plans.</CardDescription>
       </CardHeader>
@@ -62,13 +62,13 @@ export const CustomerBookingsList = () => {
         <Card className="flex justify-between items-center gap-2 bg-none border-none bg-gray-200 p-1">
           {orderStatus.map(({ name, value }, index) => {
             return (
-              <Label key={index} className={`${status === value && "bg-white"} flex items-center flex-wrap text-center text-xs sm:text-base cursor-pointer p-2 border rounded-md relative`}>
+              <Label key={index} className={`${status === value && 'bg-white'} flex items-center flex-wrap text-center text-xs sm:text-base cursor-pointer p-2 border rounded-md relative`}>
                 {name}
                 <Input
                   type="radio"
                   value={value}
                   className=" invisible absolute"
-                  {...register("status")} // register here
+                  {...register('status')} // register here
                 />
               </Label>
             );

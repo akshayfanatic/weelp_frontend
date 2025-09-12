@@ -1,36 +1,36 @@
-"use client";
+'use client';
 
-import React, { useEffect } from "react";
-import { useForm, FormProvider, Controller, useFieldArray, useWatch, useFormContext } from "react-hook-form";
-import { useState } from "react";
-import { CalendarIcon, Tag, Trash2, Users, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Combobox } from "@/components/ui/combobox";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { ComboboxMultiple, ComboboxMultipleAttribute } from "@/components/ui/combobox_multi";
-import { Card } from "@/components/ui/card";
-import { cn, generateSlug, log } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { constructNow, format } from "date-fns";
-import { DiscountBlock } from "@/app/components/Form/reusablecomponents/DiscountSettings";
-import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
-import { NavigationActivity } from "./activity_shared";
-import { deleteActivityItems, editActivity } from "@/lib/actions/activities";
-import { isEmpty, isArray } from "lodash";
-import { useMediaStore } from "@/lib/store/useMediaStore"; // For Handling Media Store
-import { Medialibrary } from "../media/MediaLibrary"; // Handling Media Library
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import dynamic from "next/dynamic";
-import { useAddOnOptionsAdmin } from "@/hooks/api/admin/addon";
+import React, { useEffect } from 'react';
+import { useForm, FormProvider, Controller, useFieldArray, useWatch, useFormContext } from 'react-hook-form';
+import { useState } from 'react';
+import { CalendarIcon, Tag, Trash2, Users, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { Combobox } from '@/components/ui/combobox';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { ComboboxMultiple, ComboboxMultipleAttribute } from '@/components/ui/combobox_multi';
+import { Card } from '@/components/ui/card';
+import { cn, generateSlug, log } from '@/lib/utils';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { constructNow, format } from 'date-fns';
+import { DiscountBlock } from '@/app/components/Form/reusablecomponents/DiscountSettings';
+import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
+import { NavigationActivity } from './activity_shared';
+import { deleteActivityItems, editActivity } from '@/lib/actions/activities';
+import { isEmpty, isArray } from 'lodash';
+import { useMediaStore } from '@/lib/store/useMediaStore'; // For Handling Media Store
+import { Medialibrary } from '../media/MediaLibrary'; // Handling Media Library
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import dynamic from 'next/dynamic';
+import { useAddOnOptionsAdmin } from '@/hooks/api/admin/addon';
 
-const SharedAddOnMultiSelect = dynamic(() => import("../shared_tabs/addon/SharedAddOn"), { ssr: false });
+const SharedAddOnMultiSelect = dynamic(() => import('../shared_tabs/addon/SharedAddOn'), { ssr: false });
 
 export const EditActivityForm = ({ categories, attributes, tags, locations = [], activitydata }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -105,7 +105,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
   //  intialize form
   const methods = useForm({
     shouldUnregister: false,
-    mode: "onSubmit",
+    mode: 'onSubmit',
     defaultValues: {
       name: name,
       slug: slug,
@@ -133,49 +133,49 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
 
   /** Inline Actions Side Effects */
   useEffect(() => {
-    methods.setValue("locations", [...presetLocations]); // update side effect for location
+    methods.setValue('locations', [...presetLocations]); // update side effect for location
   }, [toggleUpdate, locations]);
 
   useEffect(() => {
-    methods.setValue("seasonal_pricing", [...initialSeasonalPricing]); // update side effect for seasonal pricing
+    methods.setValue('seasonal_pricing', [...initialSeasonalPricing]); // update side effect for seasonal pricing
   }, [toggleUpdate, seasonal_pricing]);
 
   useEffect(() => {
-    methods.setValue("group_discounts", [...group_discounts]); // update side effect for group discount
+    methods.setValue('group_discounts', [...group_discounts]); // update side effect for group discount
   }, [toggleUpdate, group_discounts]);
 
   //  Main Steps
   const steps = [
     {
       id: 1,
-      title: "Basic Information",
-      description: "Name , description and status",
+      title: 'Basic Information',
+      description: 'Name , description and status',
     },
     {
       id: 2,
-      title: "Location",
-      description: "Activity type and where it takes place",
+      title: 'Location',
+      description: 'Activity type and where it takes place',
     },
     {
       id: 3,
-      title: "Taxonomies & Attributes",
-      description: "Duration , difficulty and requirements",
+      title: 'Taxonomies & Attributes',
+      description: 'Duration , difficulty and requirements',
     },
     {
       id: 4,
-      title: "Add On`s",
-      description: "Add on of the Activity",
+      title: 'Add On`s',
+      description: 'Add on of the Activity',
     },
     {
       id: 5,
-      title: "Images & Media",
-      description: "Upload images regarding activity",
+      title: 'Images & Media',
+      description: 'Upload images regarding activity',
     },
 
     {
       id: 6,
-      title: "Pricing & Booking",
-      description: "Prices , group sizes, and booking info",
+      title: 'Pricing & Booking',
+      description: 'Prices , group sizes, and booking info',
     },
   ];
 
@@ -191,12 +191,12 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
 
     // handling value when blur
     const handleBlur = () => {
-      const name = getValues("name");
-      const currentSlug = getValues("slug");
+      const name = getValues('name');
+      const currentSlug = getValues('slug');
       const newSlug = generateSlug(name);
 
       if (currentSlug !== newSlug) {
-        setValue("slug", newSlug);
+        setValue('slug', newSlug);
       }
     };
 
@@ -204,26 +204,26 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       <div className="space-y-4 py-6">
         <div className="pb-2 space-y-2 w-full">
           <div className="pb-2 space-y-2">
-            <Label htmlFor="name" className={`block text-sm font-medium ${errors?.name ? "text-red-400" : "text-gray-700"}`}>
+            <Label htmlFor="name" className={`block text-sm font-medium ${errors?.name ? 'text-red-400' : 'text-gray-700'}`}>
               Name
             </Label>
             <Input
               placeholder="Activity name"
               id="name"
-              {...register("name", { required: "Name is required" })}
+              {...register('name', { required: 'Name is required' })}
               className="mt-1 p-2 text-sm block w-full rounded-md border border-gray-300 shadow-sm focus:outline-secondaryDark"
               onBlur={handleBlur}
             />
             {errors?.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
           </div>
           <div className="pb-2 space-y-2 w-full">
-            <Label htmlFor="slug" className={`block text-sm font-medium ${errors?.slug ? "text-red-400" : "text-black"}`}>
+            <Label htmlFor="slug" className={`block text-sm font-medium ${errors?.slug ? 'text-red-400' : 'text-black'}`}>
               Slug
             </Label>
             <Input
               placeholder="Enter Url slug"
               id="slug"
-              {...register("slug", { required: "Slug is required" })}
+              {...register('slug', { required: 'Slug is required' })}
               className="mt-1 p-2 text-sm block w-full rounded-md border border-gray-300 shadow-sm focus-visible:ring-secondaryDark"
               onBlur={handleBlur}
             />
@@ -231,14 +231,14 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
           </div>
         </div>
         <div className="pb-2 space-y-2">
-          <Label htmlFor="description" className={`block text-sm font-medium ${errors?.description ? "text-red-400" : "text-gray-700"}`}>
+          <Label htmlFor="description" className={`block text-sm font-medium ${errors?.description ? 'text-red-400' : 'text-gray-700'}`}>
             Description
           </Label>
           <Textarea
             placeholder="Detailed description"
             id="description"
-            {...register("description", {
-              required: "Description is required",
+            {...register('description', {
+              required: 'Description is required',
             })}
             className="mt-1 p-2 text-sm block w-full rounded-md border border-gray-300 shadow-sm h-28 focus:outline-secondaryDark"
           />
@@ -246,14 +246,14 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
         </div>
 
         <div className="pb-2 space-y-2">
-          <Label htmlFor="short_description" className={`block text-sm font-medium ${errors?.short_description ? "text-red-400" : "text-gray-700"}`}>
+          <Label htmlFor="short_description" className={`block text-sm font-medium ${errors?.short_description ? 'text-red-400' : 'text-gray-700'}`}>
             Short Description
           </Label>
           <Textarea
             placeholder="Short description"
             id="short_description"
-            {...register("short_description", {
-              required: "Field is required",
+            {...register('short_description', {
+              required: 'Field is required',
             })}
             className="mt-1 p-2 text-sm block w-full rounded-md border border-gray-300 h-20 focus:outline-secondaryDark"
           />
@@ -301,10 +301,13 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       remove: removeLocation,
     } = useFieldArray({
       control,
-      name: "locations", // Field array for locations
+      name: 'locations', // Field array for locations
     });
 
-    const predefinedLocations = useWatch({ control: control, name: "locations" }); // watches
+    const predefinedLocations = useWatch({
+      control: control,
+      name: 'locations',
+    }); // watches
 
     // remove location handle
     const handleRemoveLocation = async (item, activityId, index) => {
@@ -321,25 +324,28 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       deleted_location_ids.push(id);
 
       try {
-        const res = await deleteActivityItems({ activityId, deleted_location_ids });
+        const res = await deleteActivityItems({
+          activityId,
+          deleted_location_ids,
+        });
 
         console.log(res);
         if (res.success) {
-          toast({ title: "Activity Updated successfully!" });
+          toast({ title: 'Activity Updated successfully!' });
 
           setToggleUpdate((prev) => !prev); // update toggle listner
         } else {
           toast({
-            title: "Error",
-            description: res.error || "Please Try Again",
-            variant: "destructive",
+            title: 'Error',
+            description: res.error || 'Please Try Again',
+            variant: 'destructive',
           });
         }
       } catch (error) {
         toast({
-          title: "Unexpected Error",
-          description: "Please try again later.",
-          variant: "destructive",
+          title: 'Unexpected Error',
+          description: 'Please try again later.',
+          variant: 'destructive',
         });
       }
     };
@@ -360,7 +366,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                   type="number"
                   min={1}
                   placeholder="Min Age"
-                  value={field.value || ""} // Ensure it's controlled
+                  value={field.value || ''} // Ensure it's controlled
                   onChange={(e) => field.onChange(e.target.value)}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus-visible:focus:outline-secondaryDark"
                 />
@@ -385,7 +391,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                   min={1}
                   max={50}
                   placeholder="Max group size"
-                  value={field.value || ""} // Ensure it's controlled
+                  value={field.value || ''} // Ensure it's controlled
                   onChange={(e) => field.onChange(e.target.value)}
                   className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus-visible:outline-secondaryDark"
                 />
@@ -408,14 +414,14 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
             <Controller
               name="locations.0.location_label"
               control={methods.control}
-              rules={{ required: "Type required" }}
+              rules={{ required: 'Type required' }}
               render={({ field }) => (
                 <Select onValueChange={field.onChange} value={field.value}>
                   <SelectTrigger className="w-full rounded-md text-start focus:outline-secondaryDark">
                     <SelectValue placeholder="Location Type" />
                   </SelectTrigger>
                   <SelectContent>
-                    {["Starting Point", "Main Location", "End Point"].map((category, index) => (
+                    {['Starting Point', 'Main Location', 'End Point'].map((category, index) => (
                       <SelectItem className="capitalize" key={index} value={category}>
                         {category}
                       </SelectItem>
@@ -426,21 +432,21 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
             />
 
             {/* Hidden Input to Set Primary Type */}
-            <input type="hidden" {...methods.register("locations.0.location_type")} value="primary" />
+            <input type="hidden" {...methods.register('locations.0.location_type')} value="primary" />
 
             {/* Primary Location Duration */}
             <Controller
               name="locations.0.duration"
               control={methods.control}
               defaultValue={0}
-              rules={{ required: "Field Required" }}
+              rules={{ required: 'Field Required' }}
               render={({ field }) => (
                 <Input
                   type="number"
                   min={1}
                   placeholder="Duration (in minutes)"
                   className="w-full p-2 mt-2 border rounded-md"
-                  value={field.value || ""}
+                  value={field.value || ''}
                   onChange={(e) => field.onChange(e.target.value)}
                 />
               )}
@@ -468,7 +474,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                             <SelectValue placeholder="Location Type" />
                           </SelectTrigger>
                           <SelectContent>
-                            {["StopOver", "Highlight", "Optional"].map((category, idx) => (
+                            {['StopOver', 'Highlight', 'Optional'].map((category, idx) => (
                               <SelectItem className="capitalize" key={idx} value={category}>
                                 {category}
                               </SelectItem>
@@ -482,14 +488,14 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                       name={`locations[${index}].duration`}
                       control={methods.control}
                       defaultValue={1}
-                      rules={{ required: "Field Required" }}
+                      rules={{ required: 'Field Required' }}
                       render={({ field }) => (
                         <Input
                           type="number"
                           min={1}
                           placeholder="Duration (in minutes)"
                           className="w-full p-2 mt-2 border rounded-md"
-                          value={field.value || ""}
+                          value={field.value || ''}
                           onChange={(e) => field.onChange(e.target.value)}
                         />
                       )}
@@ -510,8 +516,8 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
             onClick={() =>
               appendLocation({
                 city_id: null,
-                location_label: "",
-                location_type: "additional", // Predefined as additional
+                location_label: '',
+                location_type: 'additional', // Predefined as additional
                 duration: null,
               })
             }
@@ -536,17 +542,17 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       <div className="space-y-4">
         {/* Categories */}
         <div>
-          <Label htmlFor={"categories"} className="block py-2 text-sm font-medium text-gray-700">
+          <Label htmlFor={'categories'} className="block py-2 text-sm font-medium text-gray-700">
             Categories
           </Label>
           <Controller
             control={methods.control}
             name="categories"
-            rules={{ required: "Categories Required" }}
+            rules={{ required: 'Categories Required' }}
             render={({ field: { value, onChange } }) => (
               <ComboboxMultiple
-                id={"categories"}
-                type={"categories"} //Required
+                id={'categories'}
+                type={'categories'} //Required
                 items={categories} //Required
                 value={value || []} //Required
                 onChange={onChange} //Required
@@ -558,7 +564,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
 
         {/* Tags */}
         <div>
-          <Label htmlFor={"tags"} className="block py-2 text-sm font-medium text-gray-700">
+          <Label htmlFor={'tags'} className="block py-2 text-sm font-medium text-gray-700">
             Tags
           </Label>
 
@@ -566,11 +572,11 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
           <Controller
             control={methods.control}
             name="tags"
-            rules={{ required: "Tags Required" }}
+            rules={{ required: 'Tags Required' }}
             render={({ field: { value, onChange } }) => (
               <ComboboxMultiple
-                id={"tags"}
-                type={"tags"} // Required
+                id={'tags'}
+                type={'tags'} // Required
                 items={tags} //Required
                 value={value || []} //Required
                 onChange={onChange} //Required
@@ -583,20 +589,20 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
 
         {/* Attributes */}
         <div>
-          <Label htmlFor={"attributes"} className="block py-2 text-sm font-medium text-gray-700">
+          <Label htmlFor={'attributes'} className="block py-2 text-sm font-medium text-gray-700">
             Attributes
           </Label>
           <Controller
             name="attributes"
             control={methods?.control}
-            rules={{ required: "Please Select Attributes" }}
-            render={({ field: { onChange, value } }) => <ComboboxMultipleAttribute id={"attributes"} attributes={attributes} value={value} onChange={onChange} />}
+            rules={{ required: 'Please Select Attributes' }}
+            render={({ field: { onChange, value } }) => <ComboboxMultipleAttribute id={'attributes'} attributes={attributes} value={value} onChange={onChange} />}
           />
           {errors?.attributes && <span className="text-red-400">{errors?.attributes?.message}</span>}
         </div>
 
         <div className="w-full py-2">
-          <Label htmlFor={"difficulty_level"} className="block text-sm font-medium text-gray-700">
+          <Label htmlFor={'difficulty_level'} className="block text-sm font-medium text-gray-700">
             Difficulty Level
           </Label>
           <Controller
@@ -604,12 +610,12 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
             control={methods.control}
             defaultValue="easy"
             render={({ field }) => (
-              <Select id={"difficulty_level"} onValueChange={field.onChange} defaultValue={field.value}>
+              <Select id={'difficulty_level'} onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger className="mt-1 w-full capitalize rounded-md p-2 focus:outline-secondaryDark">
                   <SelectValue placeholder="Select a unit" />
                 </SelectTrigger>
                 <SelectContent>
-                  {["easy", "moderate", "hard"].map((val, index) => (
+                  {['easy', 'moderate', 'hard'].map((val, index) => (
                     <SelectItem key={index} value={val} className="capitalize">
                       {val}
                     </SelectItem>
@@ -636,7 +642,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
     } = useFormContext();
 
     const media_gallery = useWatch({
-      name: "media_gallery",
+      name: 'media_gallery',
     });
 
     //  Hydarte First if there is already media exist
@@ -650,7 +656,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
     useEffect(() => {
       if (selectedMedia.length > 0) {
         // 1. Transform selectedMedia (id → media_id) before adding
-        const transformedMedia = selectedMedia.map((obj) => _.mapKeys(obj, (value, key) => (key === "id" ? "media_id" : key))); // update key to media id
+        const transformedMedia = selectedMedia.map((obj) => _.mapKeys(obj, (value, key) => (key === 'id' ? 'media_id' : key))); // update key to media id
 
         // 2. Push transformed data to local state
         setActivityImages((prev) => [...prev, ...transformedMedia]);
@@ -661,7 +667,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
 
     // sycn with form
     useEffect(() => {
-      setValue("media_gallery", activityImages); // sync form
+      setValue('media_gallery', activityImages); // sync form
     }, [activityImages, setValue]);
 
     // handleDelteImage
@@ -669,7 +675,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       setActivityImages((prev) => {
         const updatedImages = prev.filter((img) => img.url !== image.url);
         // setActivityImages(updatedImages);
-        setTimeout(() => setValue("media_gallery", updatedImages), 0); //
+        setTimeout(() => setValue('media_gallery', updatedImages), 0); //
         return updatedImages;
       });
     };
@@ -682,9 +688,9 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
             name="media_gallery"
             defaultValue={[]}
             rules={{
-              validate: (val) => val?.length > 0 || "Please upload at least 1 image.",
+              validate: (val) => val?.length > 0 || 'Please upload at least 1 image.',
             }}
-            render={() => ""}
+            render={() => ''}
           />
         </div>
 
@@ -737,7 +743,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       formState: { errors, isValid },
     } = useFormContext();
 
-    const seasonalPricing = getValues("seasonal_pricing");
+    const seasonalPricing = getValues('seasonal_pricing');
     const isEnabledSeasonalPricing = Array.isArray(seasonalPricing) && seasonalPricing.length > 0 ? seasonalPricing.every((item) => item.enable_seasonal_pricing === true) : false;
 
     // check is enabled or not pre existing
@@ -754,7 +760,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       remove: removeSeason,
     } = useFieldArray({
       control,
-      name: "seasonal_pricing",
+      name: 'seasonal_pricing',
     });
 
     //group discount fields
@@ -764,21 +770,21 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       remove: removeDiscountField,
     } = useFieldArray({
       control,
-      name: "group_discounts",
+      name: 'group_discounts',
     });
 
     // ALL season fields at once
     const watchedSeasons =
       useWatch({
         control,
-        name: "seasonal_pricing",
+        name: 'seasonal_pricing',
       }) || [];
 
     // date range error
     const isDateError = errors?.seasonal_pricing;
 
-    const seasonFieldsWatched = useWatch({ name: "seasonal_pricing" });
-    const discountFieldsWatched = useWatch({ name: "group_discounts" });
+    const seasonFieldsWatched = useWatch({ name: 'seasonal_pricing' });
+    const discountFieldsWatched = useWatch({ name: 'group_discounts' });
 
     const handleRemoveSeason = async (seasonfield, activityId, index) => {
       const { id } = seasonfield;
@@ -793,24 +799,27 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       deleted_seasonal_pricing_ids.push(id);
 
       try {
-        const res = await deleteActivityItems({ activityId, deleted_seasonal_pricing_ids });
+        const res = await deleteActivityItems({
+          activityId,
+          deleted_seasonal_pricing_ids,
+        });
 
         if (res.success) {
-          toast({ title: "Activity Updated successfully!" });
+          toast({ title: 'Activity Updated successfully!' });
 
           setToggleUpdate((prev) => !prev); // update toggle listner
         } else {
           toast({
-            title: "Error",
-            description: res.error || "Please Try Again",
-            variant: "destructive",
+            title: 'Error',
+            description: res.error || 'Please Try Again',
+            variant: 'destructive',
           });
         }
       } catch (error) {
         toast({
-          title: "Unexpected Error",
-          description: "Please try again later.",
-          variant: "destructive",
+          title: 'Unexpected Error',
+          description: 'Please try again later.',
+          variant: 'destructive',
         });
       }
     };
@@ -829,34 +838,37 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
       deleted_group_discounts_ids.push(id);
 
       try {
-        const res = await deleteActivityItems({ activityId, deleted_group_discounts_ids }); // delete through action
+        const res = await deleteActivityItems({
+          activityId,
+          deleted_group_discounts_ids,
+        }); // delete through action
 
         if (res.success) {
-          toast({ title: "Activity Updated successfully!" });
+          toast({ title: 'Activity Updated successfully!' });
 
           setToggleUpdate((prev) => !prev); // update toggle listner
         } else {
           toast({
-            title: "Error",
-            description: res.error || "Please Try Again",
-            variant: "destructive",
+            title: 'Error',
+            description: res.error || 'Please Try Again',
+            variant: 'destructive',
           });
         }
       } catch (error) {
         toast({
-          title: "Unexpected Error",
-          description: "Please try again later.",
-          variant: "destructive",
+          title: 'Unexpected Error',
+          description: 'Please try again later.',
+          variant: 'destructive',
         });
       }
     };
 
     // allseasons
     const seasons = [
-      { name: "Spring Season", value: "spring" },
-      { name: "Summer Season", value: "summer" },
-      { name: "Autumn Season", value: "autumn" },
-      { name: "Winter Season", value: "winter" },
+      { name: 'Spring Season', value: 'spring' },
+      { name: 'Summer Season', value: 'summer' },
+      { name: 'Autumn Season', value: 'autumn' },
+      { name: 'Winter Season', value: 'winter' },
     ];
 
     return (
@@ -873,14 +885,14 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                 name="pricing.regular_price"
                 control={methods.control}
                 // defaultValue={0}
-                rules={{ required: "Base Price is required" }}
+                rules={{ required: 'Base Price is required' }}
                 render={({ field }) => (
                   <Input
                     {...field}
                     id="regular_price"
                     type="number"
                     required={true}
-                    value={field.value == 0 ? "" : field.value}
+                    value={field.value == 0 ? '' : field.value}
                     min={1}
                     placeholder="e.g: 10 , 20"
                     onChange={(e) => field.onChange(Number(e.target.value))}
@@ -902,14 +914,14 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                 render={({ field }) => (
                   <Select
                     onValueChange={field.onChange}
-                    value={field.value ?? "USD"} //
+                    value={field.value ?? 'USD'} //
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select a currency" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        {["USD", "EUR", "GBP", "JPY", "INR"].map((val, index) => {
+                        {['USD', 'EUR', 'GBP', 'JPY', 'INR'].map((val, index) => {
                           return (
                             <SelectItem key={index} value={val}>
                               {val}
@@ -940,7 +952,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                       enable_seasonal_pricing: true,
                     }));
                     // Update your form values or state
-                    setValue("seasonal_pricing", updated);
+                    setValue('seasonal_pricing', updated);
                   }
 
                   // Optional: on toggle OFF, disable all
@@ -949,7 +961,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                       ...item,
                       enable_seasonal_pricing: false,
                     }));
-                    setValue("seasonal_pricing", updated);
+                    setValue('seasonal_pricing', updated);
                   }
                 }}
               />
@@ -978,11 +990,11 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                           <div className="text-sm text-muted-foreground mb-2"></div>
                           <Popover>
                             <PopoverTrigger asChild>
-                              <Button variant="outline" className={cn("w-full justify-start text-left font-normal", !dateRange?.from && "text-muted-foreground")}>
+                              <Button variant="outline" className={cn('w-full justify-start text-left font-normal', !dateRange?.from && 'text-muted-foreground')}>
                                 <CalendarIcon className="mr-2 h-4 w-4" />
                                 {dateRange?.from && dateRange?.to ? (
                                   <>
-                                    {format(new Date(dateRange.from), "MMM dd, yyyy")} - {format(new Date(dateRange.to), "MMM dd, yyyy")}
+                                    {format(new Date(dateRange.from), 'MMM dd, yyyy')} - {format(new Date(dateRange.to), 'MMM dd, yyyy')}
                                   </>
                                 ) : (
                                   <span>Pick a date range</span>
@@ -994,7 +1006,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                                 name={`seasonal_pricing.${index}.dateRange`}
                                 control={methods.control}
                                 rules={{
-                                  validate: (value) => (value?.from && value?.to ? true : "Please select a valid date range"),
+                                  validate: (value) => (value?.from && value?.to ? true : 'Please select a valid date range'),
                                 }}
                                 render={({ field }) => (
                                   <Calendar
@@ -1007,8 +1019,8 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                                     onSelect={(range) => {
                                       field.onChange(range);
 
-                                      methods.setValue(`seasonal_pricing.${index}.season_start`, range?.from ? new Date(range.from).toISOString().split("T")[0] : "");
-                                      methods.setValue(`seasonal_pricing.${index}.season_end`, range?.to ? new Date(range.to).toISOString().split("T")[0] : "");
+                                      methods.setValue(`seasonal_pricing.${index}.season_start`, range?.from ? new Date(range.from).toISOString().split('T')[0] : '');
+                                      methods.setValue(`seasonal_pricing.${index}.season_end`, range?.to ? new Date(range.to).toISOString().split('T')[0] : '');
                                     }}
                                   />
                                 )}
@@ -1024,7 +1036,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                             name={`seasonal_pricing.${index}.season_price`}
                             control={methods.control}
                             defaultValue={0}
-                            rules={{ required: "Price is required" }}
+                            rules={{ required: 'Price is required' }}
                             render={({ field }) => (
                               <Input
                                 {...field}
@@ -1032,7 +1044,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                                 type="number"
                                 required
                                 min={1}
-                                value={field.value == 0 ? "" : field.value}
+                                value={field.value == 0 ? '' : field.value}
                                 placeholder="e.g: 10 , 20"
                                 onChange={(e) => field.onChange(Number(e.target.value))}
                               />
@@ -1046,7 +1058,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                           <Controller
                             name={`seasonal_pricing.${index}.season_name`}
                             control={methods.control}
-                            rules={{ required: "Season name is required" }}
+                            rules={{ required: 'Season name is required' }}
                             render={({ field }) => (
                               <Select onValueChange={field.onChange} value={field.value}>
                                 <SelectTrigger id={`season_name_${index}`} className="w-full">
@@ -1079,9 +1091,9 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                   type="button"
                   onClick={() =>
                     addSeason({
-                      season_name: "",
-                      season_start: "",
-                      season_end: "",
+                      season_name: '',
+                      season_start: '',
+                      season_end: '',
                       season_price: 0,
                     })
                   }
@@ -1113,7 +1125,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                   addDiscountField({
                     min_people: 1,
                     discount_amount: 0,
-                    discount_type: "percentage",
+                    discount_type: 'percentage',
                   });
                 }}
               >
@@ -1133,7 +1145,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                           min={1}
                           required={true}
                           type="number"
-                          value={field.value == 0 ? " " : field.value}
+                          value={field.value == 0 ? ' ' : field.value}
                           placeholder="Min. People"
                           onChange={(e) => field.onChange(Number(e.target.value))}
                         />
@@ -1149,7 +1161,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                           min={1}
                           type="number"
                           required={true}
-                          value={field.value == 0 ? "" : field.value}
+                          value={field.value == 0 ? '' : field.value}
                           placeholder="Discount Amount"
                           onChange={(e) => field.onChange(Number(e.target.value))}
                         />
@@ -1267,27 +1279,27 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
     try {
       const res = await editActivity(id, finalData);
       if (res.success) {
-        toast({ title: "Activity Updated successfully!" });
+        toast({ title: 'Activity Updated successfully!' });
         router.back(); // backroute
       } else {
         toast({
-          title: "Error",
+          title: 'Error',
           description: res.message,
-          variant: "destructive",
+          variant: 'destructive',
         });
       }
     } catch (error) {
       toast({
-        title: "Unexpected Error",
-        description: "Please try again later.",
-        variant: "destructive",
+        title: 'Unexpected Error',
+        description: 'Please try again later.',
+        variant: 'destructive',
       });
     }
   };
 
   return (
     <div className="min-h-screen w-full bg-gray-50 py-12 sm:px-6 lg:px-8">
-      <NavigationActivity title={"Edit Activity"} desciption={"Edit activity for your customers"} backurl={"/dashboard/admin/activities/"} />
+      <NavigationActivity title={'Edit Activity'} desciption={'Edit activity for your customers'} backurl={'/dashboard/admin/activities/'} />
       <div className="w-full space-y-8">
         <FormProvider {...methods}>
           <div className="w-full bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
@@ -1302,7 +1314,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                       }}
                       className={`flex flex-col items-center w-full space-y-1 cursor-pointer group relative self-start`}
                     >
-                      <Separator className={` pt-1 rounded-full ${currentStep >= step?.id && "bg-secondaryDark group-hover:bg-blue-600 "}`} />
+                      <Separator className={` pt-1 rounded-full ${currentStep >= step?.id && 'bg-secondaryDark group-hover:bg-blue-600 '}`} />
 
                       <div className={`text-sm font-medium pt-2`}>{step.title}</div>
                       <span className="text-sm text-gray-500">{step?.description}</span>
@@ -1313,7 +1325,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
             </div>
           </div>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
-            <fieldset className={`space-y-6 ${isSubmitting && " cursor-wait"}`} disabled={isSubmitting}>
+            <fieldset className={`space-y-6 ${isSubmitting && ' cursor-wait'}`} disabled={isSubmitting}>
               {renderStep()}
               <div className="flex justify-between pt-4">
                 {currentStep > 1 && (
@@ -1353,7 +1365,7 @@ export const EditActivityForm = ({ categories, attributes, tags, locations = [],
                     </Button>
                   )}
                   <Button type="submit" disabled={isSubmitting} className={`ml-auto py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-secondaryDark cursor-pointer`}>
-                    {isSubmitting ? (currentStep === 6 ? "Submitting..." : "Submit") : currentStep === 6 ? "Submit" : "Next"}
+                    {isSubmitting ? (currentStep === 6 ? 'Submitting...' : 'Submit') : currentStep === 6 ? 'Submit' : 'Next'}
                   </Button>
                 </div>
               </div>

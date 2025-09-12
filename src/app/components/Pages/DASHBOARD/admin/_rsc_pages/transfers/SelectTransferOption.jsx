@@ -1,9 +1,9 @@
-"use client";
-import React from "react";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, User } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+'use client';
+import React from 'react';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft, User } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const SelectTransferOption = () => {
   //intialize route
@@ -11,8 +11,16 @@ const SelectTransferOption = () => {
 
   // route selection
   const selectRoute = [
-    { label: "By Admin", icon: <User className="h-6 w-6" />, url: "/dashboard/admin/transfers/new/admin" }, // admin transfer creation
-    { label: "By Vendor", icon: <User className="h-6 w-6" />, url: "/dashboard/admin/transfers/new/vendor" }, // vendor based transfer creation
+    {
+      label: 'By Admin',
+      icon: <User className="h-6 w-6" />,
+      url: '/dashboard/admin/transfers/new/admin',
+    }, // admin transfer creation
+    {
+      label: 'By Vendor',
+      icon: <User className="h-6 w-6" />,
+      url: '/dashboard/admin/transfers/new/vendor',
+    }, // vendor based transfer creation
   ];
 
   return (

@@ -1,6 +1,5 @@
-import React from "react";
-import { Card, CardTitle } from "@/components/ui/card";
-
+import React from 'react';
+import { Card, CardTitle } from '@/components/ui/card';
 
 const CitySection = ({ data }) => {
   if (data && data.length > 0) {
@@ -9,14 +8,9 @@ const CitySection = ({ data }) => {
         {data &&
           data.length > 0 &&
           data.slice(0, 6).map((val, index) => (
-            <Card
-              key={index}
-              className="w-full sm:max-w-xs h-40 flex flex-col shadow-md justify-center items-center p-4 bg-white rounded-lg"
-            >
+            <Card key={index} className="w-full sm:max-w-xs h-40 flex flex-col shadow-md justify-center items-center p-4 bg-white rounded-lg">
               {val?.icon && <val.icon />} {/* ✅ Corrected rendering */}
-              <CardTitle className="capitalize text-center text-lg font-semibold text-[#143042] mt-4">
-                {val?.name}
-              </CardTitle>
+              <CardTitle className="capitalize text-center text-lg font-semibold text-[#143042] mt-4">{val?.name}</CardTitle>
             </Card>
           ))}
       </section>

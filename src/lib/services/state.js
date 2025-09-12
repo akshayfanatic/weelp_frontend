@@ -1,5 +1,5 @@
-import { publicApi, authApi } from "../axiosInstance";
-import { log } from "../utils";
+import { publicApi, authApi } from '../axiosInstance';
+import { log } from '../utils';
 
 /**
  * Get Single State on Admin side
@@ -9,7 +9,7 @@ import { log } from "../utils";
 export async function getSingleStateAdmin(id) {
   try {
     const response = await authApi.get(`/api/admin/states/${id}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
     if (response.status === 200) {
       return response.data;
@@ -32,18 +32,16 @@ export async function getSingleStateAdmin(id) {
  * @example
  * const states = await getAllStatesAdmin("?name=india&page=2");
  */
-export async function getAllStatesAdmin(search = "") {
+export async function getAllStatesAdmin(search = '') {
   try {
     const response = await authApi.get(`/api/admin/states/${search}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
     return response?.data;
   } catch (error) {
     return {};
   }
 }
-
-
 
 /**
  * Get State Options
@@ -52,7 +50,7 @@ export async function getAllStatesAdmin(search = "") {
 export async function getStatesOptionsAdmin() {
   try {
     const response = await authApi.get(`/api/admin/states/list`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {

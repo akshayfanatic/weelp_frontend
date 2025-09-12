@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useForm, useWatch } from "react-hook-form";
-import { useEffect, useState, useMemo } from "react";
-import { debounce } from "lodash";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
-import { CustomPagination } from "@/app/components/Pagination";
-import { CardVendorVehicle } from "../shared/vendor_cards";
-import useSWR from "swr";
-import { useParams } from "next/navigation";
-import { fetcher } from "@/lib/fetchers";
-import { VendorNoResultFound } from "../shared/VendorNoResultFound";
+import { useForm, useWatch } from 'react-hook-form';
+import { useEffect, useState, useMemo } from 'react';
+import { debounce } from 'lodash';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Card } from '@/components/ui/card';
+import { CustomPagination } from '@/app/components/Pagination';
+import { CardVendorVehicle } from '../shared/vendor_cards';
+import useSWR from 'swr';
+import { useParams } from 'next/navigation';
+import { fetcher } from '@/lib/fetchers';
+import { VendorNoResultFound } from '../shared/VendorNoResultFound';
 
 const FilterVendorVehiclePage = () => {
   const { vendorId } = useParams(); // get vendor id
@@ -19,25 +19,25 @@ const FilterVendorVehiclePage = () => {
   // intialize method
   const form = useForm({
     defaultValues: {
-      search: "",
+      search: '',
       page: 1,
     },
   });
 
   const { control, setValue } = form;
-  const search = useWatch({ control, name: "search" });
-  const page = useWatch({ control, name: "page" });
+  const search = useWatch({ control, name: 'search' });
+  const page = useWatch({ control, name: 'page' });
 
-  const [query, setQuery] = useState("?page=1");
+  const [query, setQuery] = useState('?page=1');
 
   // debounced query update
   const debouncedSetQuery = useMemo(
     () =>
       debounce((search, page) => {
-        const queryString = `?search=${encodeURIComponent(search || "")}&page=${page}`;
+        const queryString = `?search=${encodeURIComponent(search || '')}&page=${page}`;
         setQuery(queryString);
       }, 500),
-    []
+    [],
   );
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const FilterVendorVehiclePage = () => {
   const { current_page, data: vehicles = [], per_page, total } = data?.data || {}; // destructure data
 
   const handlePageChange = (newPage) => {
-    setValue("page", newPage);
+    setValue('page', newPage);
   };
 
   return (

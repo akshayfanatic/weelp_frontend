@@ -1,9 +1,9 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { authApi } from "../axiosInstance";
-import { delay, log } from "../utils";
-import { ApiError } from "@/dto/Error";
+import { revalidatePath } from 'next/cache';
+import { authApi } from '../axiosInstance';
+import { delay, log } from '../utils';
+import { ApiError } from '@/dto/Error';
 
 /**
  * Method to create an Add-On
@@ -14,13 +14,13 @@ export const createAddOn = async (data) => {
   try {
     await delay(500);
 
-    const res = await authApi.post("/api/admin/addons/", data);
+    const res = await authApi.post('/api/admin/addons/', data);
 
-    revalidatePath("/dashboard/admin/addon"); // create add ons
+    revalidatePath('/dashboard/admin/addon'); // create add ons
 
     return {
       success: true,
-      message: res.data?.message || "Add On created successfully",
+      message: res.data?.message || 'Add On created successfully',
     };
   } catch (err) {
     const status = err?.response?.status;
@@ -28,12 +28,12 @@ export const createAddOn = async (data) => {
     switch (status) {
       case 422:
         return ApiError({
-          message: err.response.data?.message || "Server side Validation Failed",
+          message: err.response.data?.message || 'Server side Validation Failed',
           status,
         });
       case 500:
         return ApiError({
-          message: err.response.data?.error || "Internal server error",
+          message: err.response.data?.error || 'Internal server error',
           status,
         });
       default:
@@ -54,11 +54,11 @@ export const editAddOn = async (id, data) => {
 
     const res = await authApi.put(`/api/admin/addons/${id}`, data);
 
-    revalidatePath("/dashboard/admin/addon"); // create add ons
+    revalidatePath('/dashboard/admin/addon'); // create add ons
 
     return {
       success: true,
-      message: res.data?.message || "Add On Edited successfully",
+      message: res.data?.message || 'Add On Edited successfully',
     };
   } catch (err) {
     const status = err?.response?.status;
@@ -66,12 +66,12 @@ export const editAddOn = async (id, data) => {
     switch (status) {
       case 422:
         return ApiError({
-          message: err.response.data?.message || "Server side Validation Failed",
+          message: err.response.data?.message || 'Server side Validation Failed',
           status,
         });
       case 500:
         return ApiError({
-          message: err.response.data?.error || "Internal server error",
+          message: err.response.data?.error || 'Internal server error',
           status,
         });
       default:
@@ -79,7 +79,6 @@ export const editAddOn = async (id, data) => {
     }
   }
 };
-
 
 /**
  * Method to Edit an Add-On
@@ -92,11 +91,11 @@ export const deleteAddon = async (id) => {
 
     const res = await authApi.delete(`/api/admin/addons/${id}`);
 
-    revalidatePath("/dashboard/admin/addon"); // create add ons
+    revalidatePath('/dashboard/admin/addon'); // create add ons
 
     return {
       success: true,
-      message: res.data?.message || "Deleted successfully",
+      message: res.data?.message || 'Deleted successfully',
     };
   } catch (err) {
     const status = err?.response?.status;
@@ -104,12 +103,12 @@ export const deleteAddon = async (id) => {
     switch (status) {
       case 422:
         return ApiError({
-          message: err.response.data?.message || "Server side Validation Failed",
+          message: err.response.data?.message || 'Server side Validation Failed',
           status,
         });
       case 500:
         return ApiError({
-          message: err.response.data?.error || "Internal server error",
+          message: err.response.data?.error || 'Internal server error',
           status,
         });
       default:

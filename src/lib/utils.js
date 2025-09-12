@@ -1,6 +1,6 @@
-import { clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-import _ from "lodash";
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+import _ from 'lodash';
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -12,16 +12,15 @@ export function cn(...inputs) {
  */
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-
 /**
  * Create Log method for checking where it come file
  * @param  {...any} args
  */
 export const log = (...args) => {
   const error = new Error();
-  const stack = error.stack.split("\n")[2].trim(); // Get the caller info from stack trace
+  const stack = error.stack.split('\n')[2].trim(); // Get the caller info from stack trace
   const match = stack.match(/(\/[^/]+)+:\d+:\d+/); // Extract file and line:column
-  const filePath = match ? match[0] : "unknown source";
+  const filePath = match ? match[0] : 'unknown source';
 
   console.log(`🚀 [${filePath}] `, ...args); // Log with file info
 };
@@ -35,8 +34,8 @@ export const generateSlug = (value) => {
   return String(value)
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, "-") // Replace spaces with hyphens
-    .replace(/[^a-z0-9-]/g, ""); // Remove special characters
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/[^a-z0-9-]/g, ''); // Remove special characters
 };
 
 /**
@@ -45,7 +44,7 @@ export const generateSlug = (value) => {
  * @returns "string"
  */
 export const actualDate = (str) => {
-  return String(str).split("T").at(0);
+  return String(str).split('T').at(0);
 };
 
 /**
@@ -54,7 +53,7 @@ export const actualDate = (str) => {
  * @returns string
  */
 export const stringSignRemover = (string) => {
-  return String(string).replace(/[^a-zA-Z0-9 ]/g, " ");
+  return String(string).replace(/[^a-zA-Z0-9 ]/g, ' ');
 };
 
 /**
@@ -83,7 +82,7 @@ export const addCommabetweenString = (string) => {
   return string
     .split(/[\s,]+/) // split by spaces or commas
     .filter(Boolean) // remove empty strings
-    .join(" , ");
+    .join(' , ');
 };
 
 /**
@@ -97,13 +96,13 @@ export const addCommabetweenString = (string) => {
  * formatCurrency(2500, "INR", "en-IN") // "₹2,500.00"
  * formatCurrency(1200, "JPY", "ja-JP") // "￥1,200"
  */
-export function formatCurrency(amount, currency, locale = "en-US") {
+export function formatCurrency(amount, currency, locale = 'en-US') {
   if (amount === null && amount === undefined && currency === null) {
-    return "";
+    return '';
   }
 
   return new Intl.NumberFormat(locale, {
-    style: "currency",
+    style: 'currency',
     currency: currency,
   }).format(amount);
 }

@@ -1,38 +1,38 @@
-"use client";
+'use client';
 
-import { useForm, useWatch } from "react-hook-form";
-import { useEffect, useState, useMemo } from "react";
-import { debounce } from "lodash";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useAllVendorsAdmin } from "@/hooks/api/admin/vendors";
-import { Card } from "@/components/ui/card";
-import { CustomPagination } from "@/app/components/Pagination";
-import { CardVendor } from "../shared/vendor_cards";
-import { VendorNoResultFound } from "../shared/VendorNoResultFound";
+import { useForm, useWatch } from 'react-hook-form';
+import { useEffect, useState, useMemo } from 'react';
+import { debounce } from 'lodash';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useAllVendorsAdmin } from '@/hooks/api/admin/vendors';
+import { Card } from '@/components/ui/card';
+import { CustomPagination } from '@/app/components/Pagination';
+import { CardVendor } from '../shared/vendor_cards';
+import { VendorNoResultFound } from '../shared/VendorNoResultFound';
 
 const FilterVendorPage = () => {
   const form = useForm({
     defaultValues: {
-      search: "",
+      search: '',
       page: 1,
     },
   });
 
   const { control, setValue } = form;
-  const search = useWatch({ control, name: "search" });
-  const page = useWatch({ control, name: "page" });
+  const search = useWatch({ control, name: 'search' });
+  const page = useWatch({ control, name: 'page' });
 
-  const [query, setQuery] = useState("?page=1");
+  const [query, setQuery] = useState('?page=1');
 
   // debounced query update
   const debouncedSetQuery = useMemo(
     () =>
       debounce((search, page) => {
-        const queryString = `?search=${encodeURIComponent(search || "")}&page=${page}`;
+        const queryString = `?search=${encodeURIComponent(search || '')}&page=${page}`;
         setQuery(queryString);
       }, 500),
-    []
+    [],
   );
 
   useEffect(() => {
@@ -43,11 +43,11 @@ const FilterVendorPage = () => {
   const { vendors = {}, isLoading, error, mutate } = useAllVendorsAdmin(query); // fetch vendor data
 
   const handlePageChange = (newPage) => {
-    setValue("page", newPage);
+    setValue('page', newPage);
   };
 
-  console.log(error)
-  if(error)return <div className="text-red-400">{error}</div>
+  console.log(error);
+  if (error) return <div className="text-red-400">{error}</div>;
   return (
     <Card className="bg-inherit border-none shadow-none flex flex-col gap-4">
       <Form {...form}>

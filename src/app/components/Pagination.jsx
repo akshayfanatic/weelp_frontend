@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 export const CustomPagination = ({ totalItems = 0, itemsPerPage = 0, currentPage = 0, onPageChange }) => {
   if (!totalItems || !itemsPerPage || !currentPage) {
@@ -23,7 +23,7 @@ export const CustomPagination = ({ totalItems = 0, itemsPerPage = 0, currentPage
             type="button"
             key={i}
             // disabled={currentPage === i + 1}
-            className={`text-black p-2 rounded-md bg-white  ${currentPage === i + 1 && "bg-secondaryDark  text-white"} `}
+            className={`text-black p-2 rounded-md bg-white  ${currentPage === i + 1 && 'bg-secondaryDark  text-white'} `}
             onClick={() => {
               if (currentPage === i + 1) {
                 return;

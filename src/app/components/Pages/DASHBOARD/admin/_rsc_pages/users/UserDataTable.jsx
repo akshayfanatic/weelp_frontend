@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu";
-import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
-import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, getFilteredRowModel } from "@tanstack/react-table";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { usePathname, useRouter } from "next/navigation";
+import { DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuCheckboxItem } from '@/components/ui/dropdown-menu';
+import { Edit, MoreHorizontal, Trash2 } from 'lucide-react';
+import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, getFilteredRowModel } from '@tanstack/react-table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { usePathname, useRouter } from 'next/navigation';
 
 export function UserDataTable({ data }) {
   const router = useRouter();
@@ -15,23 +15,23 @@ export function UserDataTable({ data }) {
   // columns of users
   const columns = [
     {
-      accessorKey: "name",
-      header: "Name",
+      accessorKey: 'name',
+      header: 'Name',
     },
     {
-      accessorKey: "status",
-      header: "Status",
+      accessorKey: 'status',
+      header: 'Status',
     },
     {
-      accessorKey: "email",
-      header: "Email",
+      accessorKey: 'email',
+      header: 'Email',
     },
     {
-      accessorKey: "role",
-      header: "Role",
+      accessorKey: 'role',
+      header: 'Role',
     },
     {
-      id: "actions",
+      id: 'actions',
       header: () => <span className="sr-only">Actions</span>, // Optional: no header text
       enableHiding: false,
       cell: ({ row }) => {
@@ -75,8 +75,8 @@ export function UserDataTable({ data }) {
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter emails..."
-          value={table.getColumn("email")?.getFilterValue() ?? ""}
-          onChange={(event) => table.getColumn("email")?.setFilterValue(event.target.value)}
+          value={table.getColumn('email')?.getFilterValue() ?? ''}
+          onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
         <DropdownMenu>
@@ -113,9 +113,9 @@ export function UserDataTable({ data }) {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} className={"capitalize"}>
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'} className={'capitalize'}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell className={"[&:nth-child(3)]:lowercase"} key={cell.id}>
+                    <TableCell className={'[&:nth-child(3)]:lowercase'} key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}

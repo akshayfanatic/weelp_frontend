@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import useSWR from "swr";
-import { useForm, useWatch } from "react-hook-form";
-import { fetcher } from "@/lib/fetchers"; // or use `fetcher`
-import { DataTableAttributes } from "./data-table";
-import { CustomPagination } from "@/app/components/Pagination";
-import { TaxonomiesPageTitle } from "../taxonomies_shared";
+import useSWR from 'swr';
+import { useForm, useWatch } from 'react-hook-form';
+import { fetcher } from '@/lib/fetchers'; // or use `fetcher`
+import { DataTableAttributes } from './data-table';
+import { CustomPagination } from '@/app/components/Pagination';
+import { TaxonomiesPageTitle } from '../taxonomies_shared';
 
 export function AttributePageClient() {
   const { control, watch, setValue } = useForm({
@@ -22,11 +22,11 @@ export function AttributePageClient() {
 
   const response = data?.data || {};
 
-  const { data: items = [], current_page = "", per_page = "", total: totalItems = "" } = response?.data || {}; // destrucutre data
+  const { data: items = [], current_page = '', per_page = '', total: totalItems = '' } = response?.data || {}; // destrucutre data
 
   // Handle page change
   const handlePageChange = (newPage) => {
-    setValue("page", newPage); // updates the form state and re-triggers SWR
+    setValue('page', newPage); // updates the form state and re-triggers SWR
   };
 
   return (
@@ -34,8 +34,8 @@ export function AttributePageClient() {
       <TaxonomiesPageTitle
         title="Attributes"
         buttoninfo={{
-          buttonName: "add tag",
-          buttonurl: "/dashboard/admin/taxonomies/tags/new",
+          buttonName: 'add tag',
+          buttonurl: '/dashboard/admin/taxonomies/tags/new',
         }}
       />
       <DataTableAttributes attributes={items} isloading={isLoading} mutate={mutate} />

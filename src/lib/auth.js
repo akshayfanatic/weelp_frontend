@@ -1,6 +1,6 @@
-import NextAuth, { CredentialsSignin } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { jwtDecode } from "jwt-decode";
+import NextAuth, { CredentialsSignin } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { jwtDecode } from 'jwt-decode';
 
 export const {
   handlers: { GET, POST },
@@ -13,18 +13,18 @@ export const {
     CredentialsProvider({
       // Add credentials configuration
       credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
         try {
           const loginAPI = `${process.env.API_BASE_URL}api/login`;
 
           const loginRes = await fetch(loginAPI, {
-            method: "POST",
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
             },
             body: JSON.stringify({
               email: credentials.email,
@@ -53,7 +53,7 @@ export const {
             expiresAt: decodedToken.exp * 1000,
           };
         } catch (error) {
-          console.log("Authorization error:", error);
+          console.log('Authorization error:', error);
           return null;
         }
       },
@@ -97,7 +97,7 @@ export const {
     },
   },
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
   },
   secret: process.env.AUTH_SECRET,
   // debug: true

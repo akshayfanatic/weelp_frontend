@@ -1,12 +1,12 @@
-"use client";
-import BreakSection from "@/app/components/BreakSection";
-import { EditProfile } from "@/app/components/Pages/DASHBOARD/user/_rsc_pages/settings/EditProfile";
-import { UserNotFound } from "@/app/components/Pages/DASHBOARD/UserNotFound";
-import { useUserProfile } from "@/hooks/api/customer/profile";
+'use client';
+import BreakSection from '@/app/components/BreakSection';
+import { EditProfile } from '@/app/components/Pages/DASHBOARD/user/_rsc_pages/settings/EditProfile';
+import { UserNotFound } from '@/app/components/Pages/DASHBOARD/UserNotFound';
+import { useUserProfile } from '@/hooks/api/customer/profile';
 
 const ProfilePage = () => {
-  const { user ,error,isLoading  } = useUserProfile(); // client side fetch user
-  
+  const { user, error, isLoading } = useUserProfile(); // client side fetch user
+
   return (
     <div className="w-full">
       <h2 className="font-bold text-lg">Profile</h2>

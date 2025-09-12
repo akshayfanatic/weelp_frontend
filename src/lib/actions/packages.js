@@ -1,7 +1,7 @@
-"use server";
-import { revalidatePath } from "next/cache";
-import { authApi } from "../axiosInstance";
-import { delay, log } from "../utils";
+'use server';
+import { revalidatePath } from 'next/cache';
+import { authApi } from '../axiosInstance';
+import { delay, log } from '../utils';
 
 /**
  * Method for Create  Package
@@ -11,7 +11,7 @@ import { delay, log } from "../utils";
 export const createPackage = async (data) => {
   try {
     await delay(500);
-    const res = await authApi.post("/api/admin/packages", data);
+    const res = await authApi.post('/api/admin/packages', data);
     return {
       success: true,
       message: res.data?.message,
@@ -24,7 +24,7 @@ export const createPackage = async (data) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         status: 400,
         // errors: err.response.data.errors,
       };
@@ -34,20 +34,20 @@ export const createPackage = async (data) => {
     if (status === 422) {
       return {
         success: false,
-        message: "Itinerary Already Exist",
+        message: 'Itinerary Already Exist',
       };
     }
 
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -66,7 +66,7 @@ export const editPackage = async (id, data) => {
 
     // revalidate path
     if (res.status == 200) {
-      revalidatePath("/dashboard/admin/package-builder/edit"); //revalidating path
+      revalidatePath('/dashboard/admin/package-builder/edit'); //revalidating path
       return {
         success: true,
         message: res.data?.message,
@@ -78,7 +78,7 @@ export const editPackage = async (id, data) => {
     if (status === 400) {
       return {
         success: false,
-        message: err.response.data.message || "validation error",
+        message: err.response.data.message || 'validation error',
         status: 400,
         errors: err.response.data.message,
       };
@@ -88,20 +88,20 @@ export const editPackage = async (id, data) => {
       const message = err.response.data.message;
       return {
         success: false,
-        message: "Activity Already Exist",
+        message: 'Activity Already Exist',
       };
     }
 
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -141,11 +141,11 @@ export async function deletePackageItems({
     });
 
     // revalidate data
-    revalidatePath("/dashboard/admin/packages/edit"); // pending work itinerary specific revalidate by id {/dashboard/admin/packages/edit/itineraryid}
-    return { success: true, data: "Deleted Successfully" };
+    revalidatePath('/dashboard/admin/packages/edit'); // pending work itinerary specific revalidate by id {/dashboard/admin/packages/edit/itineraryid}
+    return { success: true, data: 'Deleted Successfully' };
   } catch (error) {
     const status = error?.response?.status;
-    const serverMessage = error?.response?.data?.message || "Something went wrong";
+    const serverMessage = error?.response?.data?.message || 'Something went wrong';
 
     return {
       success: false,
@@ -162,14 +162,12 @@ export async function deletePackageItems({
 export async function deletePackage(packageId) {
   try {
     const res = await authApi.delete(`/api/admin/packages/${packageId}/`);
-    revalidatePath("/dashboard/admin/package-builder"); //revalidating path
+    revalidatePath('/dashboard/admin/package-builder'); //revalidating path
     return { success: true, data: res.data };
   } catch (error) {
     return { success: false, error: error.message };
   }
 }
-
-
 
 /**
  * Action to delete multiple Package
@@ -183,7 +181,7 @@ export async function deleteMultiplePackages(package_ids = []) {
     });
 
     // revalidate path
-    revalidatePath("/dashboard/admin/package-builder"); //revalidating path
+    revalidatePath('/dashboard/admin/package-builder'); //revalidating path
     return { success: true, data: res.data };
   } catch (error) {
     return { success: false, error: error.message };

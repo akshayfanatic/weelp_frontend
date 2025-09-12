@@ -1,9 +1,5 @@
-
-
 const PromoPage = () => {
-  return (
-    <div>PromoPage</div>
-  )
-}
+  return <div>PromoPage</div>;
+};
 
-export default PromoPage
+export default PromoPage;

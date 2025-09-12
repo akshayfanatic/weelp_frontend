@@ -1,8 +1,8 @@
-import React from "react";
-import { useController, useFormContext } from "react-hook-form";
-import { useDropzone } from "react-dropzone";
-import { Card, CardContent } from "@/components/ui/card";
-import { X } from "lucide-react";
+import React from 'react';
+import { useController, useFormContext } from 'react-hook-form';
+import { useDropzone } from 'react-dropzone';
+import { Card, CardContent } from '@/components/ui/card';
+import { X } from 'lucide-react';
 
 export default function SmartDropZone({ name, multiple = true }) {
   const { control } = useFormContext();

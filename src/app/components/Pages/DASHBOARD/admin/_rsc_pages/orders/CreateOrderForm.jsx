@@ -1,27 +1,27 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { useForm, FormProvider, useFormContext, Controller, useWatch } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { NavigationOrder } from "./orders_shared";
-import { Separator } from "@/components/ui/separator";
-import { useRouter } from "next/navigation";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
-import { cn, generateSlug } from "@/lib/utils";
-import { useAllUsersAdmin } from "@/hooks/api/admin/users";
-import { useAllActivitiesAdmin } from "@/hooks/api/admin/activities";
-import { Combobox } from "@/components/ui/combobox";
-import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select"; // update path based on your setup
-import { useAllItinerariesAdmin } from "@/hooks/api/admin/itineraries";
-import { useAllPackagesAdmin } from "@/hooks/api/admin/packages";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, Clock, Minus, Plus } from "lucide-react";
-import { constructNow, format } from "date-fns";
-import { Calendar } from "@/components/ui/calendar";
-import { createOrder } from "@/lib/actions/orders";
-import { useToast } from "@/hooks/use-toast";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { useForm, FormProvider, useFormContext, Controller, useWatch } from 'react-hook-form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { NavigationOrder } from './orders_shared';
+import { Separator } from '@/components/ui/separator';
+import { useRouter } from 'next/navigation';
+import { Textarea } from '@/components/ui/textarea';
+import { Switch } from '@/components/ui/switch';
+import { cn, generateSlug } from '@/lib/utils';
+import { useAllUsersAdmin } from '@/hooks/api/admin/users';
+import { useAllActivitiesAdmin } from '@/hooks/api/admin/activities';
+import { Combobox } from '@/components/ui/combobox';
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select'; // update path based on your setup
+import { useAllItinerariesAdmin } from '@/hooks/api/admin/itineraries';
+import { useAllPackagesAdmin } from '@/hooks/api/admin/packages';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { CalendarIcon, Clock, Minus, Plus } from 'lucide-react';
+import { constructNow, format } from 'date-fns';
+import { Calendar } from '@/components/ui/calendar';
+import { createOrder } from '@/lib/actions/orders';
+import { useToast } from '@/hooks/use-toast';
 
 const CreateOrderForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -30,24 +30,24 @@ const CreateOrderForm = () => {
 
   const methods = useForm({
     defaultValues: {
-      user_id: "",
-      orderable_type: "activity",
-      orderable_id: "",
-      travel_date: "",
+      user_id: '',
+      orderable_type: 'activity',
+      orderable_id: '',
+      travel_date: '',
       number_of_adults: 1,
       number_of_children: 0,
-      status: "pending",
+      status: 'pending',
       payment: {
-        payment_status: "",
-        payment_method: "",
-        total_amount: "",
+        payment_status: '',
+        payment_method: '',
+        total_amount: '',
         is_custom_amount: false,
-        custom_amount: "",
+        custom_amount: '',
       },
       emergency_contact: {
-        contact_name: "John Doe",
-        contact_phone: "+1234567890",
-        relationship: "Brother",
+        contact_name: 'John Doe',
+        contact_phone: '+1234567890',
+        relationship: 'Brother',
       },
     },
   });
@@ -68,9 +68,9 @@ const CreateOrderForm = () => {
 
   // step information
   const steps = [
-    { id: 1, title: "Customer" },
-    { id: 2, title: "Payment Information" },
-    { id: 3, title: "Contact Information" },
+    { id: 1, title: 'Customer' },
+    { id: 2, title: 'Payment Information' },
+    { id: 3, title: 'Contact Information' },
   ];
 
   const CustomerTab = () => {
@@ -85,22 +85,25 @@ const CreateOrderForm = () => {
 
     // static order type
     const OrderType = [
-      { id: 1, name: "Activity", value: "activity" },
-      { id: 2, name: "Itinerary", value: "itinerary" },
-      { id: 3, name: "Holiday Package", value: "package" },
+      { id: 1, name: 'Activity', value: 'activity' },
+      { id: 2, name: 'Itinerary', value: 'itinerary' },
+      { id: 3, name: 'Holiday Package', value: 'package' },
     ];
 
     // static status
     const OrderStatus = [
-      { id: 1, name: "Pending", value: "pending" },
-      { id: 2, name: "Confirmed", value: "confirmed" },
-      { id: 3, name: "Cancelled", value: "cancelled" },
+      { id: 1, name: 'Pending', value: 'pending' },
+      { id: 2, name: 'Confirmed', value: 'confirmed' },
+      { id: 3, name: 'Cancelled', value: 'cancelled' },
     ];
 
-    const watchOrderType = useWatch({ control, name: "orderable_type" });
-    const watchStatusType = useWatch({ control, name: "status" });
-    const watchNumberAdults = useWatch({ control, name: "number_of_adults" });
-    const watchNumberChildren = useWatch({ control, name: "number_of_children" });
+    const watchOrderType = useWatch({ control, name: 'orderable_type' });
+    const watchStatusType = useWatch({ control, name: 'status' });
+    const watchNumberAdults = useWatch({ control, name: 'number_of_adults' });
+    const watchNumberChildren = useWatch({
+      control,
+      name: 'number_of_children',
+    });
 
     // decrement number
     const handleDecrement = (type) => {
@@ -109,18 +112,18 @@ const CreateOrderForm = () => {
         return;
       }
       // type adult
-      if (type === "adult") {
+      if (type === 'adult') {
         // set value decrement
         if (watchNumberAdults <= 1) return; // prevent to 1
-        setValue("number_of_adults", watchNumberAdults - 1);
+        setValue('number_of_adults', watchNumberAdults - 1);
         return;
       }
 
       // type children
-      if (type === "children") {
+      if (type === 'children') {
         if (watchNumberChildren <= 0) return;
 
-        setValue("number_of_children", watchNumberChildren - 1);
+        setValue('number_of_children', watchNumberChildren - 1);
         return;
       }
     };
@@ -133,16 +136,16 @@ const CreateOrderForm = () => {
       }
 
       // type adult
-      if (type === "adult") {
+      if (type === 'adult') {
         // set value increment
-        setValue("number_of_adults", watchNumberAdults + 1);
+        setValue('number_of_adults', watchNumberAdults + 1);
         return;
       }
 
       // type children
-      if (type === "children") {
+      if (type === 'children') {
         // set value increment
-        setValue("number_of_children", watchNumberChildren + 1);
+        setValue('number_of_children', watchNumberChildren + 1);
         return;
       }
     };
@@ -157,26 +160,26 @@ const CreateOrderForm = () => {
         {/* Customer  & Order Type */}
         <div className="pb-2 space-x-4 flex flex-col md:flex-row">
           <div className="w-full pb-2 space-y-2">
-            <Label htmlFor="user_id" className={`block text-sm font-medium ${errors?.user_id ? "text-red-400" : "text-gray-700"}`}>
+            <Label htmlFor="user_id" className={`block text-sm font-medium ${errors?.user_id ? 'text-red-400' : 'text-gray-700'}`}>
               Customer
             </Label>
             <Controller
               name="user_id"
               control={control}
-              rules={{ required: "Field Required" }}
+              rules={{ required: 'Field Required' }}
               render={({ field }) => <Combobox placeholder="Select Customer" value={field.value} onChange={field.onChange} data={allUsers} />}
             />
             {errors?.user_id && <p className="text-red-500 text-sm mt-1">{errors?.user_id?.message}</p>}
           </div>
 
           <div className="pb-2 space-y-2 w-full">
-            <Label htmlFor="orderable_type" className={`block text-sm font-medium ${errors?.orderable_type ? "text-red-400" : "text-black"}`}>
+            <Label htmlFor="orderable_type" className={`block text-sm font-medium ${errors?.orderable_type ? 'text-red-400' : 'text-black'}`}>
               Order Type
             </Label>
             <Controller
               name="orderable_type"
               control={control}
-              rules={{ required: "Select Order Type" }}
+              rules={{ required: 'Select Order Type' }}
               render={({ field }) => (
                 <Select onValueChange={field.onChange} value={field.value}>
                   <SelectTrigger>
@@ -200,39 +203,39 @@ const CreateOrderForm = () => {
         <div className="pb-2 space-y-2">
           {/* Condition Based Rendering */}
           {/* For Activity */}
-          {watchOrderType === "activity" && (
-            <Label htmlFor="orderable_id" className={`flex flex-col gap-2 text-sm space-y-4 font-medium  ${errors?.orderable_id ? "text-red-400" : "text-gray-700"}`}>
+          {watchOrderType === 'activity' && (
+            <Label htmlFor="orderable_id" className={`flex flex-col gap-2 text-sm space-y-4 font-medium  ${errors?.orderable_id ? 'text-red-400' : 'text-gray-700'}`}>
               Activity
               <Controller
                 name="orderable_id"
                 control={control}
-                rules={{ required: "Field Required" }}
+                rules={{ required: 'Field Required' }}
                 render={({ field }) => <Combobox placeholder="Select Activity" value={field.value} onChange={field.onChange} data={allActivities} />}
               />
             </Label>
           )}
 
           {/* For Transfer */}
-          {watchOrderType === "itinerary" && (
-            <Label htmlFor="orderable_id" className={`flex flex-col gap-2 text-sm space-y-4 font-medium  ${errors?.orderable_id ? "text-red-400" : "text-gray-700"}`}>
+          {watchOrderType === 'itinerary' && (
+            <Label htmlFor="orderable_id" className={`flex flex-col gap-2 text-sm space-y-4 font-medium  ${errors?.orderable_id ? 'text-red-400' : 'text-gray-700'}`}>
               Itinerary
               <Controller
                 name="orderable_id"
                 control={control}
-                rules={{ required: "Field Required" }}
+                rules={{ required: 'Field Required' }}
                 render={({ field }) => <Combobox placeholder="Select Itinerary" value={field.value} onChange={field.onChange} data={allItineraries} />}
               />
             </Label>
           )}
 
           {/* For Package */}
-          {watchOrderType === "package" && (
-            <Label htmlFor="orderable_id" className={`flex flex-col gap-2 text-sm space-y-4 font-medium  ${errors?.orderable_id ? "text-red-400" : "text-gray-700"}`}>
+          {watchOrderType === 'package' && (
+            <Label htmlFor="orderable_id" className={`flex flex-col gap-2 text-sm space-y-4 font-medium  ${errors?.orderable_id ? 'text-red-400' : 'text-gray-700'}`}>
               Package
               <Controller
                 name="orderable_id"
                 control={control}
-                rules={{ required: "Field Required" }}
+                rules={{ required: 'Field Required' }}
                 render={({ field }) => <Combobox placeholder="Select Package" value={field.value} onChange={field.onChange} data={allPackages} />}
               />
             </Label>
@@ -244,20 +247,20 @@ const CreateOrderForm = () => {
         {/* Date Selection */}
         <div className="pb-2 space-x-4 flex flex-col md:flex-row">
           <div className="pb-2 space-y-2 w-full">
-            <Label htmlFor="travel_date" className={`block text-sm font-medium ${errors?.travel_date ? "text-red-400" : "text-gray-700"}`}>
+            <Label htmlFor="travel_date" className={`block text-sm font-medium ${errors?.travel_date ? 'text-red-400' : 'text-gray-700'}`}>
               Travel Date
             </Label>
             <Controller
               control={control}
               name="travel_date"
-              rules={{ required: "Date Required" }}
+              rules={{ required: 'Date Required' }}
               render={({ field }) => {
                 return (
                   <Popover>
                     <PopoverTrigger asChild>
-                      <Button variant={"outline"} className={cn("w-full justify-start text-left font-normal", !field.value && "text-muted-foreground")}>
+                      <Button variant={'outline'} className={cn('w-full justify-start text-left font-normal', !field.value && 'text-muted-foreground')}>
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {field.value ? format(field.value, "yyyy-MM-dd") : <span>Pick a date</span>}
+                        {field.value ? format(field.value, 'yyyy-MM-dd') : <span>Pick a date</span>}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
@@ -266,7 +269,7 @@ const CreateOrderForm = () => {
                         selected={field.value ? new Date(field.value) : undefined}
                         onSelect={(date) => {
                           if (date) {
-                            field.onChange(format(date, "yyyy-MM-dd")); // format before storing
+                            field.onChange(format(date, 'yyyy-MM-dd')); // format before storing
                           }
                         }}
                         initialFocus
@@ -280,20 +283,20 @@ const CreateOrderForm = () => {
           </div>
 
           <div className="pb-2 space-y-2 w-full">
-            <Label htmlFor="preferred_time" className={`block text-sm font-medium ${errors?.preferred_time ? "text-red-400" : "text-gray-700"}`}>
+            <Label htmlFor="preferred_time" className={`block text-sm font-medium ${errors?.preferred_time ? 'text-red-400' : 'text-gray-700'}`}>
               Preferred Time
             </Label>
             <Input
               type="time"
               id="preferred_time"
-              {...register("preferred_time", {
-                required: "Time Required",
+              {...register('preferred_time', {
+                required: 'Time Required',
                 onBlur: (e) => {
                   const value = e.target.value; // e.g., "14:30"
                   if (value) {
                     console.log(value);
                     const formatted = `${value}:00`; // → "14:30:00"
-                    setValue("preferred_time", formatted);
+                    setValue('preferred_time', formatted);
                   }
                 },
               })}
@@ -310,10 +313,10 @@ const CreateOrderForm = () => {
             <Label htmlFor="number_of_adults" className="text-sm font-medium text-gray-700 flex flex-col gap-2">
               Number of Adults
               <div className="flex gap-2">
-                <Minus className="text-lg size-10 p-2 border rounded-md " onClick={() => handleDecrement("adult")} />
+                <Minus className="text-lg size-10 p-2 border rounded-md " onClick={() => handleDecrement('adult')} />
 
-                <Input type="number" min={1} id="number_of_adults" className="w-full" {...register("number_of_adults", { valueAsNumber: true })} />
-                <Plus className="text-lg size-10 p-2 border rounded-md " onClick={() => handleIncrement("adult")} />
+                <Input type="number" min={1} id="number_of_adults" className="w-full" {...register('number_of_adults', { valueAsNumber: true })} />
+                <Plus className="text-lg size-10 p-2 border rounded-md " onClick={() => handleIncrement('adult')} />
               </div>
             </Label>
           </div>
@@ -323,9 +326,9 @@ const CreateOrderForm = () => {
             <Label htmlFor="number_of_children" className="text-sm font-medium text-gray-700 flex flex-col gap-2">
               Number of Children
               <div className="flex gap-2">
-                <Minus className="text-lg size-10 p-2 border rounded-md " onClick={() => handleDecrement("children")} />
-                <Input type="number" min={0} id="number_of_children" className="w-full" {...register("number_of_children", { valueAsNumber: true })} />
-                <Plus className="text-lg size-10 p-2 border rounded-md " onClick={() => handleIncrement("children")} />
+                <Minus className="text-lg size-10 p-2 border rounded-md " onClick={() => handleDecrement('children')} />
+                <Input type="number" min={0} id="number_of_children" className="w-full" {...register('number_of_children', { valueAsNumber: true })} />
+                <Plus className="text-lg size-10 p-2 border rounded-md " onClick={() => handleIncrement('children')} />
               </div>
             </Label>
           </div>
@@ -333,13 +336,13 @@ const CreateOrderForm = () => {
 
         {/* Status  */}
         <div className="pb-2 space-y-2 w-full">
-          <Label htmlFor="status" className={`block text-sm font-medium ${errors?.status ? "text-red-400" : "text-black"}`}>
+          <Label htmlFor="status" className={`block text-sm font-medium ${errors?.status ? 'text-red-400' : 'text-black'}`}>
             Status
           </Label>
           <Controller
             name="status"
             control={control}
-            rules={{ required: "Select an order status" }}
+            rules={{ required: 'Select an order status' }}
             render={({ field }) => (
               <Select
                 value={field.value}
@@ -364,10 +367,15 @@ const CreateOrderForm = () => {
 
         {/* Specia requirements  */}
         <div className="pb-2 space-y-2 w-full">
-          <Label htmlFor="special_requirements" className={`block text-sm font-medium ${errors?.special_requirements ? "text-red-400" : "text-black"}`}>
+          <Label htmlFor="special_requirements" className={`block text-sm font-medium ${errors?.special_requirements ? 'text-red-400' : 'text-black'}`}>
             Special Requirements
           </Label>
-          <Textarea id="special_requirements" {...register("special_requirements", { required: "Field Required" })} />
+          <Textarea
+            id="special_requirements"
+            {...register('special_requirements', {
+              required: 'Field Required',
+            })}
+          />
           {errors?.special_requirements && <p className="text-red-500 text-sm mt-1">{errors?.special_requirements?.message}</p>}
         </div>
       </div>
@@ -386,26 +394,29 @@ const CreateOrderForm = () => {
 
     // static method type
     const PaymentMethod = [
-      { id: 1, name: "Credit Card", value: "credit_card" },
-      { id: 2, name: "Debit Card", value: "debit_card" },
-      { id: 3, name: "Bank Transfer", value: "bank_transfer" },
-      { id: 4, name: "Cash", value: "cash" },
+      { id: 1, name: 'Credit Card', value: 'credit_card' },
+      { id: 2, name: 'Debit Card', value: 'debit_card' },
+      { id: 3, name: 'Bank Transfer', value: 'bank_transfer' },
+      { id: 4, name: 'Cash', value: 'cash' },
     ];
 
     // static status
     const PaymentStatus = [
-      { id: 1, name: "Partial", value: "partial" },
-      { id: 2, name: "Pending", value: "pending" },
-      { id: 3, name: "Paid", value: "paid" },
-      { id: 4, name: "Refunded", value: "refunded" },
+      { id: 1, name: 'Partial', value: 'partial' },
+      { id: 2, name: 'Pending', value: 'pending' },
+      { id: 3, name: 'Paid', value: 'paid' },
+      { id: 4, name: 'Refunded', value: 'refunded' },
     ];
 
-    const watchedCustomAmount = useWatch({ control, name: "payment.is_custom_amount" }); //watched switch custom amount
+    const watchedCustomAmount = useWatch({
+      control,
+      name: 'payment.is_custom_amount',
+    }); //watched switch custom amount
 
     //check if is enabled custom amount switch
     useEffect(() => {
       if (!watchedCustomAmount) {
-        setValue("payment.custom_amount", "");
+        setValue('payment.custom_amount', '');
       }
     }, [watchedCustomAmount]);
 
@@ -418,13 +429,13 @@ const CreateOrderForm = () => {
 
         <div className="pb-2 space-x-4 flex flex-col md:flex-row">
           <div className="pb-2 space-y-2 w-full">
-            <Label htmlFor="payment.payment_status" className={`block text-sm font-medium ${errors?.payment?.payment_status ? "text-red-400" : "text-black"}`}>
+            <Label htmlFor="payment.payment_status" className={`block text-sm font-medium ${errors?.payment?.payment_status ? 'text-red-400' : 'text-black'}`}>
               Payment Status
             </Label>
             <Controller
               name="payment.payment_status"
               control={control}
-              rules={{ required: "Select Payment Type" }}
+              rules={{ required: 'Select Payment Type' }}
               render={({ field }) => (
                 <Select onValueChange={field.onChange} value={field.value}>
                   <SelectTrigger>
@@ -444,13 +455,13 @@ const CreateOrderForm = () => {
           </div>
 
           <div className="pb-2 space-y-2 w-full">
-            <Label htmlFor="payment.payment_method" className={`block text-sm font-medium ${errors?.payment?.payment_method ? "text-red-400" : "text-black"}`}>
+            <Label htmlFor="payment.payment_method" className={`block text-sm font-medium ${errors?.payment?.payment_method ? 'text-red-400' : 'text-black'}`}>
               Payment Method
             </Label>
             <Controller
               name="payment.payment_method"
               control={control}
-              rules={{ required: "Select Payment Method" }}
+              rules={{ required: 'Select Payment Method' }}
               render={({ field }) => (
                 <Select onValueChange={field.onChange} value={field.value}>
                   <SelectTrigger>
@@ -473,10 +484,18 @@ const CreateOrderForm = () => {
         {/* Payment Information Row */}
         <div className="pb-2 space-x-4 flex flex-col md:flex-row">
           <div className="pb-2 space-y-2 w-full">
-            <Label htmlFor="payment.total_amount" className={`block text-sm font-medium ${errors?.payment?.total_amount ? "text-red-400" : "text-black"}`}>
+            <Label htmlFor="payment.total_amount" className={`block text-sm font-medium ${errors?.payment?.total_amount ? 'text-red-400' : 'text-black'}`}>
               Total Amount
             </Label>
-            <Input type="number" min="1" placeholder="Enter Amount" {...register("payment.total_amount", { required: "Field Required", valueAsNumber: true })} />
+            <Input
+              type="number"
+              min="1"
+              placeholder="Enter Amount"
+              {...register('payment.total_amount', {
+                required: 'Field Required',
+                valueAsNumber: true,
+              })}
+            />
             {errors?.payment?.total_amount && <p className="text-red-500 text-sm mt-1">{errors?.payment?.total_amount?.message}</p>}
           </div>
 
@@ -505,9 +524,17 @@ const CreateOrderForm = () => {
         {/* Custom Amount condition based */}
         {watchedCustomAmount && (
           <div className="flex items-center  space-x-2 w-full">
-            <Label htmlFor="payment.custom_amount" className={` text-sm font-medium w-full flex flex-col gap-2  ${errors?.payment?.custom_amount ? "text-red-400" : "text-black"}`}>
+            <Label htmlFor="payment.custom_amount" className={` text-sm font-medium w-full flex flex-col gap-2  ${errors?.payment?.custom_amount ? 'text-red-400' : 'text-black'}`}>
               Custom Amount
-              <Input type="number" min="1" placeholder="Enter Amount" {...register("payment.custom_amount", { required: "Amount Required Required", valueAsNumber: true })} />
+              <Input
+                type="number"
+                min="1"
+                placeholder="Enter Amount"
+                {...register('payment.custom_amount', {
+                  required: 'Amount Required Required',
+                  valueAsNumber: true,
+                })}
+              />
               {errors?.payment?.custom_amount && <p className="text-red-500 text-sm mt-1">{errors?.payment?.custom_amount?.message}</p>}
             </Label>
           </div>
@@ -536,15 +563,22 @@ const CreateOrderForm = () => {
         {/* Payment Information Row */}
         <div className="pb-2 space-x-4 flex flex-col items-center">
           <div className="pb-2 space-y-2 w-full">
-            <Label htmlFor="emergency_contact.contact_name" className={`block text-sm font-medium ${errors?.emergency_contact?.contact_name ? "text-red-400" : "text-black"}`}>
+            <Label htmlFor="emergency_contact.contact_name" className={`block text-sm font-medium ${errors?.emergency_contact?.contact_name ? 'text-red-400' : 'text-black'}`}>
               Contact Name
             </Label>
-            <Input id="emergency_contact.contact_name" type="text" placeholder="Enter Emergency Contact Name" {...register("emergency_contact.contact_name", { required: "Contact Name Required" })} />
+            <Input
+              id="emergency_contact.contact_name"
+              type="text"
+              placeholder="Enter Emergency Contact Name"
+              {...register('emergency_contact.contact_name', {
+                required: 'Contact Name Required',
+              })}
+            />
             {errors?.emergency_contact?.contact_name && <p className="text-red-500 text-sm mt-1">{errors?.emergency_contact?.contact_name?.message}</p>}
           </div>
 
           <div className="pb-2 space-y-2 w-full">
-            <Label htmlFor="emergency_contact.contact_phone" className={`block text-sm font-medium ${errors?.emergency_contact?.contact_phone ? "text-red-400" : "text-black"}`}>
+            <Label htmlFor="emergency_contact.contact_phone" className={`block text-sm font-medium ${errors?.emergency_contact?.contact_phone ? 'text-red-400' : 'text-black'}`}>
               Contact Phone
             </Label>
             <Input
@@ -552,16 +586,25 @@ const CreateOrderForm = () => {
               type="number"
               min="1"
               placeholder="Enter Emergency Contact Phone"
-              {...register("emergency_contact.contact_phone", { required: "Phone Number Required" })}
+              {...register('emergency_contact.contact_phone', {
+                required: 'Phone Number Required',
+              })}
             />
             {errors?.emergency_contact?.contact_name && <p className="text-red-500 text-sm mt-1">{errors?.emergency_contact?.contact_name?.message}</p>}
           </div>
 
           <div className="pb-2 space-y-2 w-full">
-            <Label htmlFor="emergency_contact.relationship" className={`block text-sm font-medium ${errors?.emergency_contact?.relationship ? "text-red-400" : "text-black"}`}>
+            <Label htmlFor="emergency_contact.relationship" className={`block text-sm font-medium ${errors?.emergency_contact?.relationship ? 'text-red-400' : 'text-black'}`}>
               Relationship
             </Label>
-            <Input id="emergency_contact.relationship" type="text" placeholder="Enter Relationsihp to customer" {...register("emergency_contact.relationship", { required: "Field Required" })} />
+            <Input
+              id="emergency_contact.relationship"
+              type="text"
+              placeholder="Enter Relationsihp to customer"
+              {...register('emergency_contact.relationship', {
+                required: 'Field Required',
+              })}
+            />
             {errors?.emergency_contact?.relationship && <p className="text-red-500 text-sm mt-1">{errors?.emergency_contact?.relationship?.message}</p>}
           </div>
         </div>
@@ -596,16 +639,16 @@ const CreateOrderForm = () => {
     try {
       const res = await createOrder(data);
       if (res.success) {
-        toast({ title: res.message || "Data submitted successfully" });
+        toast({ title: res.message || 'Data submitted successfully' });
 
         // Optionally reset or show success message
         router.back();
       } else {
-        toast({ title: "Please Try Again", variant: "destructive" });
+        toast({ title: 'Please Try Again', variant: 'destructive' });
       }
     } catch (error) {
       // Optionally show an error message to the user
-      toast({ title: "Something went wrong", variant: "destructive" });
+      toast({ title: 'Something went wrong', variant: 'destructive' });
     }
   };
 
@@ -621,12 +664,12 @@ const CreateOrderForm = () => {
                 <li
                   key={step.id}
                   className={`flex flex-col items-center w-full space-y-1 cursor-pointer group relative p-4 duration-300 ease-in-out group hover:bg-gray-100 ${
-                    currentStep == step?.id && " bg-gradient-to-t from-[#c7ffc02e] to-slate-50 border-b-secondaryDark border-b-2"
+                    currentStep == step?.id && ' bg-gradient-to-t from-[#c7ffc02e] to-slate-50 border-b-secondaryDark border-b-2'
                   }`}
                 >
                   <div
-                    className={`text-sm font-medium pt-2 w-full text-nowrap duration-300 ease-in-out ${!currentStep == step?.id && " group-hover:text-gray-800"} ${
-                      currentStep == step?.id ? "text-secondaryDark " : "text-grayDark"
+                    className={`text-sm font-medium pt-2 w-full text-nowrap duration-300 ease-in-out ${!currentStep == step?.id && ' group-hover:text-gray-800'} ${
+                      currentStep == step?.id ? 'text-secondaryDark ' : 'text-grayDark'
                     }`}
                   >
                     {step.title}
@@ -639,7 +682,7 @@ const CreateOrderForm = () => {
 
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-4 w-full  bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <fieldset className={`space-y-6 ${isSubmitting && " cursor-wait"}`} disabled={isSubmitting}>
+            <fieldset className={`space-y-6 ${isSubmitting && ' cursor-wait'}`} disabled={isSubmitting}>
               {renderStep()}
 
               <div className="flex justify-between pt-4 ">
@@ -688,7 +731,7 @@ const CreateOrderForm = () => {
                     disabled={isSubmitting}
                     className={`ml-auto py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-secondaryDark cursor-pointer`}
                   >
-                    {isSubmitting ? (currentStep === 3 ? "Submitting..." : "Submit") : currentStep === 3 ? "Submit" : "Next"}
+                    {isSubmitting ? (currentStep === 3 ? 'Submitting...' : 'Submit') : currentStep === 3 ? 'Submit' : 'Next'}
                   </Button>
                 </div>
               </div>

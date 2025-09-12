@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import React from "react";
-import { PlusIcon, Heart, X } from "lucide-react";
-import BreakSection from "../BreakSection";
-import TabButton from "../TabButton";
-import MiniCartProductCard from "../MiniCartProductCard";
-import { MinicartReviewcontent } from "../MiniCartReviewCard";
-import useMiniCartStore from "@/lib/store/useMiniCartStore";
+import React from 'react';
+import { PlusIcon, Heart, X } from 'lucide-react';
+import BreakSection from '../BreakSection';
+import TabButton from '../TabButton';
+import MiniCartProductCard from '../MiniCartProductCard';
+import { MinicartReviewcontent } from '../MiniCartReviewCard';
+import useMiniCartStore from '@/lib/store/useMiniCartStore';
 
-import { buttonVariants } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { buttonVariants } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 const Minicart = ({ showCart, setShowCart }) => {
   const router = useRouter();
@@ -17,10 +17,10 @@ const Minicart = ({ showCart, setShowCart }) => {
   const { cartItems, removeItem, totalPrice, clearCart } = useMiniCartStore();
 
   return (
-    <div id="portal_minicart" className={`fixed z-[30] top-0 right-0 w-full h-full max-w-[485px] min-h-screen ${showCart ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+    <div id="portal_minicart" className={`fixed z-[30] top-0 right-0 w-full h-full max-w-[485px] min-h-screen ${showCart ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
       <div
-        className={`relative transition-transform ease-in-out duration-300 max-w-[485px] bg-[#F3F5F6] h-full w-full shadow-2xl ${showCart ? "translate-x-0" : "translate-x-full"}`}
-        style={{ willChange: "transform" }}
+        className={`relative transition-transform ease-in-out duration-300 max-w-[485px] bg-[#F3F5F6] h-full w-full shadow-2xl ${showCart ? 'translate-x-0' : 'translate-x-full'}`}
+        style={{ willChange: 'transform' }}
       >
         {cartItems && cartItems.length > 0 ? (
           // if data exist
@@ -37,7 +37,7 @@ const Minicart = ({ showCart, setShowCart }) => {
               </div>
             </div>
 
-            <BreakSection marginTop={"my-4"} />
+            <BreakSection marginTop={'my-4'} />
 
             <div className="flex justify-between flex-col h-full">
               {/* From  ->  To */}
@@ -58,7 +58,7 @@ const Minicart = ({ showCart, setShowCart }) => {
                   </label>
                   <PlusIcon className="bg-[#f4f5f7] size-10 text-grayDark rounded-full p-2 border cursor-pointer" />
                 </div>
-                <BreakSection marginTop={"my-4"} />
+                <BreakSection marginTop={'my-4'} />
                 <div className="flex justify-between">
                   <div className="flex flex-col gap-1 w-full">
                     <h3 className="capitalize text-lg font-semibold text-Blueish">$ {totalPrice ?? 0}</h3>
@@ -66,7 +66,7 @@ const Minicart = ({ showCart, setShowCart }) => {
                   </div>
                   <button
                     onClick={() => {
-                      router.push("/checkout"), setShowCart(false);
+                      (router.push('/checkout'), setShowCart(false));
                     }}
                     className="w-full capitalize rounded-md bg-secondaryDark text-[#ffffff] text-base font-medium"
                   >

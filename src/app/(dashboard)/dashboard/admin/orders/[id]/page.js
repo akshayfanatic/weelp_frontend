@@ -1,7 +1,7 @@
-import { getSingleOrderAdmin } from "@/lib/services/orders";
-import { isEmpty } from "lodash";
-import { notFound } from "next/navigation";
-import EditOrderForm from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/orders/EditOrderForm";
+import { getSingleOrderAdmin } from '@/lib/services/orders';
+import { isEmpty } from 'lodash';
+import { notFound } from 'next/navigation';
+import EditOrderForm from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/orders/EditOrderForm';
 
 const EditOrder = async ({ params }) => {
   const { id } = await params;

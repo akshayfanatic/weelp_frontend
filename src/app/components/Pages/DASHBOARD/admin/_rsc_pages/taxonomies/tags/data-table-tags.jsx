@@ -1,21 +1,20 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useReactTable, getCoreRowModel, getPaginationRowModel, flexRender, ColumnDef } from "@tanstack/react-table";
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Edit, Trash, ChevronLeft, ChevronRight } from "lucide-react";
-import Link from "next/link";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { useToast } from "@/hooks/use-toast";
-import { deleteTag } from "@/lib/actions/tags";
-
+import { useState } from 'react';
+import { useReactTable, getCoreRowModel, getPaginationRowModel, flexRender, ColumnDef } from '@tanstack/react-table';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
+import { MoreHorizontal, Edit, Trash, ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
+import { useToast } from '@/hooks/use-toast';
+import { deleteTag } from '@/lib/actions/tags';
 
 export function DataTableTags({ tags = [], mutate }) {
   const { toast } = useToast();
-  const [selectedId, setSelectedId] = useState("");
+  const [selectedId, setSelectedId] = useState('');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   // Close dialog helper
@@ -35,34 +34,34 @@ export function DataTableTags({ tags = [], mutate }) {
       //  delete sucess fully
       if (res.success) {
         toast({
-          title: "Updated Successfully",
+          title: 'Updated Successfully',
         });
       }
 
       mutate();
     } catch (error) {
       toast({
-        title: "Something went Wrong",
-        variant: "destructive",
+        title: 'Something went Wrong',
+        variant: 'destructive',
       });
 
-      setSelectedId("");
+      setSelectedId('');
     }
   };
 
   const columns = [
     {
-      accessorKey: "name",
-      header: "Name",
+      accessorKey: 'name',
+      header: 'Name',
     },
     {
-      accessorKey: "description",
-      header: "Description",
-      cell: ({ getValue }) => getValue() || "N/A",
+      accessorKey: 'description',
+      header: 'Description',
+      cell: ({ getValue }) => getValue() || 'N/A',
     },
     {
-      id: "actions",
-      header: "Actions",
+      id: 'actions',
+      header: 'Actions',
       cell: ({ row }) => {
         const tag = row.original;
         return (

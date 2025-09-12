@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 // export const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 export const fetcher = async (url) => {
@@ -11,7 +11,7 @@ export const fetcher = async (url) => {
       throw new Error(`API Error (${error.response?.status}): ${error.message}`);
     } else {
       // console.error(`Unexpected Error: ${error} | URL: ${url}`);
-      throw new Error("Unexpected Error Occurred");
+      throw new Error('Unexpected Error Occurred');
     }
   }
 };

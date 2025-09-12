@@ -1,5 +1,5 @@
-import { publicApi, authApi } from "../axiosInstance";
-import { log } from "../utils";
+import { publicApi, authApi } from '../axiosInstance';
+import { log } from '../utils';
 
 /**
  * Get Single Itinerary on Client side
@@ -9,7 +9,7 @@ import { log } from "../utils";
 export const getSingleItinerary = async (slug) => {
   try {
     const response = await publicApi.get(`/api/itineraries/${slug}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
     return response?.data;
   } catch (error) {
@@ -25,7 +25,7 @@ export const getSingleItinerary = async (slug) => {
 export const getSingleItineraryAdmin = async (id) => {
   try {
     const response = await authApi.get(`/api/admin/itineraries/${id}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
     return response.data;
   } catch (error) {
@@ -33,20 +33,18 @@ export const getSingleItineraryAdmin = async (id) => {
   }
 };
 
-
 /**
  * Get All Itineraries Admin
  * @param {string} search
  * @returns {}
  */
-export async function getAllItinerariesAdmin(search = "") {
+export async function getAllItinerariesAdmin(search = '') {
   try {
-    const response = await authApi.get(`/api/admin/itineraries/${search ? search : ""}`, {
-      headers: { Accept: "application/json" },
+    const response = await authApi.get(`/api/admin/itineraries/${search ? search : ''}`, {
+      headers: { Accept: 'application/json' },
     });
     return response?.data;
   } catch (error) {
-    return { success: false, data: [], message: "Failed to fetch itineraries" };
+    return { success: false, data: [], message: 'Failed to fetch itineraries' };
   }
 }
-

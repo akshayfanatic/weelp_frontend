@@ -1,20 +1,20 @@
-"use client";
-import React from "react";
-import { usePathname } from "next/navigation";
-import { Controller, useController, useFormContext } from "react-hook-form";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { useCountriesOptionsAdmin } from "@/hooks/api/admin/countries";
-import { useStatesOptionsAdmin } from "@/hooks/api/admin/state";
-import { useCitiesOptionsAdmin } from "@/hooks/api/admin/cities";
+'use client';
+import React from 'react';
+import { usePathname } from 'next/navigation';
+import { Controller, useController, useFormContext } from 'react-hook-form';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { useCountriesOptionsAdmin } from '@/hooks/api/admin/countries';
+import { useStatesOptionsAdmin } from '@/hooks/api/admin/state';
+import { useCitiesOptionsAdmin } from '@/hooks/api/admin/cities';
 
 const DynamicSite = () => {
   const pathname = usePathname();
 
-  const isState = pathname.includes("states");
-  const isCity = pathname.includes("cities");
-  const isPlace = pathname.includes("places");
+  const isState = pathname.includes('states');
+  const isCity = pathname.includes('cities');
+  const isPlace = pathname.includes('places');
 
   const { countries = [], isValidating: cValid, isLoading: cLoad, error: cError } = useCountriesOptionsAdmin();
   const { states = [], isValidating: sValid, isLoading: sLoad, error: sError } = useStatesOptionsAdmin();
@@ -46,15 +46,15 @@ export const DynamicSelectField = ({ name, label, options = [], isLoading, isVal
         name={name}
         control={control}
         defaultValue=""
-        rules={{ required: "Field Required" }}
+        rules={{ required: 'Field Required' }}
         render={({ field }) => (
-          <Select value={field.value ? field.value : ""} onValueChange={(val) => field.onChange(Number(val))}>
+          <Select value={field.value ? field.value : ''} onValueChange={(val) => field.onChange(Number(val))}>
             <SelectTrigger>
               <SelectValue placeholder={placeholder || `Select ${label}`} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                {typeof options === "object" &&
+                {typeof options === 'object' &&
                   options.map((item) => (
                     <SelectItem key={item.id} value={item.id}>
                       {item.name}

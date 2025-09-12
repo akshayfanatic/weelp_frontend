@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { authApi } from "../axiosInstance";
-import { delay, log } from "../utils";
+import { revalidatePath } from 'next/cache';
+import { authApi } from '../axiosInstance';
+import { delay, log } from '../utils';
 
 /**
  * Method for Create attribute
@@ -12,10 +12,10 @@ import { delay, log } from "../utils";
 export const createAttribute = async (data) => {
   try {
     await delay(500);
-    const res = await authApi.post("/api/admin/attributes/", data);
+    const res = await authApi.post('/api/admin/attributes/', data);
 
     // revalidate  path
-    revalidatePath("/dashboard/admin/taxonomies/attributes");
+    revalidatePath('/dashboard/admin/taxonomies/attributes');
 
     return {
       success: true,
@@ -27,7 +27,7 @@ export const createAttribute = async (data) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         status: 400,
         errors: err.response.data.errors,
       };
@@ -37,20 +37,20 @@ export const createAttribute = async (data) => {
       const message = err.response.data.message;
       return {
         success: false,
-        message: "Attribute Already Exist",
+        message: 'Attribute Already Exist',
       };
     }
 
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -79,7 +79,7 @@ export const editAttribute = async (id, data) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         status: 400,
         errors: err.response.data.errors,
       };
@@ -89,25 +89,23 @@ export const editAttribute = async (id, data) => {
       const message = err.response.data.message;
       return {
         success: false,
-        message: "Attribute Already Exist",
+        message: 'Attribute Already Exist',
       };
     }
 
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
-
-
 
 /**
  * Method for Delete Attribute
@@ -131,12 +129,12 @@ export const deleteAttribute = async (id) => {
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };

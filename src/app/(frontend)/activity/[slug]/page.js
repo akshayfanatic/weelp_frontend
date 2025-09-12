@@ -1,12 +1,12 @@
 /** This File Will Handle Destination Page (Single Product) */
 
-import BannerSection from "@/app/components/Pages/FRONT_END/singleproduct/BannerSection";
-import { TabSectionActivity } from "@/app/components/Pages/FRONT_END/singleproduct/TabSection";
-import { notFound } from "next/navigation";
-import { getSingleActivity } from "@/lib/services/activites";
-import { isEmpty } from "lodash";
-import { publicApi } from "@/lib/axiosInstance";
-import { log } from "@/lib/utils";
+import BannerSection from '@/app/components/Pages/FRONT_END/singleproduct/BannerSection';
+import { TabSectionActivity } from '@/app/components/Pages/FRONT_END/singleproduct/TabSection';
+import { notFound } from 'next/navigation';
+import { getSingleActivity } from '@/lib/services/activites';
+import { isEmpty } from 'lodash';
+import { publicApi } from '@/lib/axiosInstance';
+import { log } from '@/lib/utils';
 
 export default async function DestinationPage({ params }) {
   const { slug } = await params;
@@ -27,8 +27,8 @@ export default async function DestinationPage({ params }) {
   } = activityData;
 
   const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": item_type,
+    '@context': 'https://schema.org',
+    '@type': item_type,
     name: name,
     description: description,
   };

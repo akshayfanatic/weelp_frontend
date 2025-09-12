@@ -1,45 +1,45 @@
-import React from "react";
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileUp, FileDown, Globe, MapPin, Building, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { DestinationListCard } from "./components/cards/DestinationCard";
+import React from 'react';
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { FileUp, FileDown, Globe, MapPin, Building, User } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { DestinationListCard } from './components/cards/DestinationCard';
 
 const DestinationsPageAdmin = () => {
   // import export data
   const IMPORT_EXPORT = [
-    { icon: FileUp, label: "import" },
-    { icon: FileDown, label: "export all" },
+    { icon: FileUp, label: 'import' },
+    { icon: FileDown, label: 'export all' },
   ];
 
   // destinations data
   const DESTINATIONS_ROUTE = [
     {
-      label: "Countries",
+      label: 'Countries',
       icon: Globe,
       items: 0,
-      description: "Manage countries and their details",
-      url: "/dashboard/admin/destinations/countries",
+      description: 'Manage countries and their details',
+      url: '/dashboard/admin/destinations/countries',
     },
     {
-      label: "States",
+      label: 'States',
       icon: MapPin,
       items: 0,
-      description: "Manage states and regions",
-      url: "/dashboard/admin/destinations/states",
+      description: 'Manage states and regions',
+      url: '/dashboard/admin/destinations/states',
     },
     {
-      label: "Cities",
+      label: 'Cities',
       icon: Building,
       items: 0,
-      description: "Manage cities and their attractions",
-      url: "/dashboard/admin/destinations/cities",
+      description: 'Manage cities and their attractions',
+      url: '/dashboard/admin/destinations/cities',
     },
     {
-      label: "Places",
+      label: 'Places',
       icon: User,
       items: 0,
-      description: "Manage specific places and points of interest",
-      url: "/dashboard/admin/destinations/places",
+      description: 'Manage specific places and points of interest',
+      url: '/dashboard/admin/destinations/places',
     },
   ];
 

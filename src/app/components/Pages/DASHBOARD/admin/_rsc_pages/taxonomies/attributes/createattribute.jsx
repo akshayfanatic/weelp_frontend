@@ -1,44 +1,44 @@
-"use client";
+'use client';
 
-import React from "react";
-import { TaxonomyFormNavigation } from "../taxonomies_shared";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useWatch } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { addCommabetweenString, generateSlug } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
+import React from 'react';
+import { TaxonomyFormNavigation } from '../taxonomies_shared';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, useWatch } from 'react-hook-form';
+import { z } from 'zod';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { addCommabetweenString, generateSlug } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
 // import { createCategory } from "@/lib/actions/categories";
-import { createAttribute } from "@/lib/actions/attributes";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { createAttribute } from '@/lib/actions/attributes';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export const formSchema = z
   .object({
     name: z.string().min(3, {
-      message: "Category name must be at least 3 characters.",
+      message: 'Category name must be at least 3 characters.',
     }),
     slug: z.string().min(3, {
-      message: "Slug is required and must be at least 3 characters.",
+      message: 'Slug is required and must be at least 3 characters.',
     }),
     type: z.string().min(1, {
-      message: "Type is required.",
+      message: 'Type is required.',
     }),
     description: z.string().optional(),
-    values: z.string().min(3, "Each value must be at least 3 character"),
+    values: z.string().min(3, 'Each value must be at least 3 character'),
 
     defaultValue: z.string().optional(), // optional by default
   })
   .superRefine((data, ctx) => {
-    if (data.type !== "yes/no") {
+    if (data.type !== 'yes/no') {
       if (!data.defaultValue || data.defaultValue.trim().length < 1) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Value is required.",
-          path: ["default_value"],
+          message: 'Value is required.',
+          path: ['default_value'],
         });
       }
     }
@@ -50,12 +50,12 @@ export const CreateAttributePageForm = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      slug: "",
-      type: "",
-      description: "",
-      values: "",
-      default_value: "",
+      name: '',
+      slug: '',
+      type: '',
+      description: '',
+      values: '',
+      default_value: '',
     },
   });
 
@@ -63,13 +63,13 @@ export const CreateAttributePageForm = () => {
     formState: { isSubmitting },
   } = form; // checking form state
 
-  const typeValue = form.watch("type");
+  const typeValue = form.watch('type');
 
   // on submit handle
   const onSubmit = async (data) => {
     const { values } = data; // desturcuture
 
-    const updatedValues = values.split(",");
+    const updatedValues = values.split(',');
 
     // console.log(updatedValues);
     const finalData = { ...data, values: updatedValues };
@@ -84,7 +84,7 @@ export const CreateAttributePageForm = () => {
 
         // Display success notification
         toast({
-          title: res.message || "Attribute Created Successfully",
+          title: res.message || 'Attribute Created Successfully',
         });
 
         // back to attribute
@@ -92,41 +92,41 @@ export const CreateAttributePageForm = () => {
       } else {
         // Display error notification
         toast({
-          variant: "destructive",
-          title: "Failed to create attribute",
+          variant: 'destructive',
+          title: 'Failed to create attribute',
           description: res.message,
         });
 
         // Optional: Show validation errors if needed
         if (res.errors) {
-          console.log("Validation Errors:", res.errors);
+          console.log('Validation Errors:', res.errors);
         }
       }
     } catch (error) {
       toast({
-        variant: "destructive",
-        title: "An unexpected error occurred",
-        description: "Please try again later.",
+        variant: 'destructive',
+        title: 'An unexpected error occurred',
+        description: 'Please try again later.',
       });
     }
   };
 
   // default select option
   const defaultSelectOption = [
-    { name: "Single select", value: "single_select" },
-    { name: "Multi Select", value: "multi_select" },
-    { name: "Text", value: "text" },
-    { name: "Number", value: "number" },
-    { name: "Yes/No", value: "yes/no" },
+    { name: 'Single select', value: 'single_select' },
+    { name: 'Multi Select', value: 'multi_select' },
+    { name: 'Text', value: 'text' },
+    { name: 'Number', value: 'number' },
+    { name: 'Yes/No', value: 'yes/no' },
   ];
 
   return (
     <div>
-      <TaxonomyFormNavigation title={"Create Attribute"} description={"Add a new attribute for activities"} url={"/dashboard/admin/taxonomies/attributes/"} />
+      <TaxonomyFormNavigation title={'Create Attribute'} description={'Add a new attribute for activities'} url={'/dashboard/admin/taxonomies/attributes/'} />
       <div className="px-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 bg-white border p-6 shadow-sm rounded-lg">
-            <fieldset className={`flex flex-col gap-4 ${isSubmitting && "cursor-wait"}`} disabled={isSubmitting}>
+            <fieldset className={`flex flex-col gap-4 ${isSubmitting && 'cursor-wait'}`} disabled={isSubmitting}>
               <FormLabel className="font-semibold text-lg">Attribute Details</FormLabel>
               <FormDescription>Enter the details for the new Attribute.</FormDescription>
 
@@ -142,7 +142,9 @@ export const CreateAttributePageForm = () => {
                         placeholder="Enter attribute name"
                         {...field}
                         onBlur={() => {
-                          form.setValue("slug", generateSlug(field.value), { shouldValidate: true });
+                          form.setValue('slug', generateSlug(field.value), {
+                            shouldValidate: true,
+                          });
                         }}
                       />
                     </FormControl>
@@ -225,7 +227,7 @@ export const CreateAttributePageForm = () => {
               />
 
               {/* Default Value */}
-              {typeValue !== "yes/no" && ( // remove field for specific type
+              {typeValue !== 'yes/no' && ( // remove field for specific type
                 <FormField
                   control={form.control}
                   name="default_value"
@@ -244,7 +246,7 @@ export const CreateAttributePageForm = () => {
               {/* Submit/Cancel Buttons */}
               <p className="flex gap-2">
                 <Button className="w-fit bg-secondaryDark hover:bg-secondaryDark" type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Creating Attribute" : "Create Attribute"}
+                  {isSubmitting ? 'Creating Attribute' : 'Create Attribute'}
                 </Button>
                 <Button
                   className="w-fit bg-inherit hover:bg-inherit text-black border"

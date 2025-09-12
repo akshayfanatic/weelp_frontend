@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { authApi } from "../axiosInstance";
-import { delay, log } from "../utils";
+import { revalidatePath } from 'next/cache';
+import { authApi } from '../axiosInstance';
+import { delay, log } from '../utils';
 
 /**
  * Action for Create Vendor
@@ -12,13 +12,13 @@ import { delay, log } from "../utils";
 export const createVendor = async (data = {}) => {
   try {
     await delay(500);
-    const res = await authApi.post("/api/admin/vendors/store/vendor", data, {
+    const res = await authApi.post('/api/admin/vendors/store/vendor', data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
-    revalidatePath("/dashboard/admin/transfers/vendors"); // revalidate api
+    revalidatePath('/dashboard/admin/transfers/vendors'); // revalidate api
     return {
       success: true,
       message: res.data?.message,
@@ -29,7 +29,7 @@ export const createVendor = async (data = {}) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -38,20 +38,20 @@ export const createVendor = async (data = {}) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "Already Exist",
+        message: err?.response?.data?.error || 'Already Exist',
       };
     }
 
     if (status === 422) {
       return {
         success: false,
-        message: "Vendor already exists",
+        message: 'Vendor already exists',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -65,9 +65,9 @@ export const createVendorRoute = async (data = {}) => {
   try {
     const { vendor_id } = data; // access id
     await delay(500);
-    const res = await authApi.post("/api/admin/vendors/store/route", data, {
+    const res = await authApi.post('/api/admin/vendors/store/route', data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
@@ -82,7 +82,7 @@ export const createVendorRoute = async (data = {}) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -91,20 +91,20 @@ export const createVendorRoute = async (data = {}) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "Already Exist",
+        message: err?.response?.data?.error || 'Already Exist',
       };
     }
 
     if (status === 422) {
       return {
         success: false,
-        message: "Vendor already exists",
+        message: 'Vendor already exists',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -118,9 +118,9 @@ export const createVendorPricing = async (data = {}) => {
   try {
     const { vendor_id } = data; // access id
     await delay(500);
-    const res = await authApi.post("/api/admin/vendors/store/pricing-tier", data, {
+    const res = await authApi.post('/api/admin/vendors/store/pricing-tier', data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
@@ -135,7 +135,7 @@ export const createVendorPricing = async (data = {}) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -144,20 +144,20 @@ export const createVendorPricing = async (data = {}) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "Already Exist",
+        message: err?.response?.data?.error || 'Already Exist',
       };
     }
 
     if (status === 422) {
       return {
         success: false,
-        message: "Vendor already exists",
+        message: 'Vendor already exists',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -171,9 +171,9 @@ export const createVendorAvailability = async (data = {}) => {
   try {
     const { vendor_id } = data; // access id
     await delay(500);
-    const res = await authApi.post("/api/admin/vendors/store/availability-time-slot", data, {
+    const res = await authApi.post('/api/admin/vendors/store/availability-time-slot', data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
@@ -188,7 +188,7 @@ export const createVendorAvailability = async (data = {}) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -197,20 +197,20 @@ export const createVendorAvailability = async (data = {}) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "Already Exist",
+        message: err?.response?.data?.error || 'Already Exist',
       };
     }
 
     if (status === 422) {
       return {
         success: false,
-        message: "Vendor already exists",
+        message: 'Vendor already exists',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -224,9 +224,9 @@ export const createVendorVehicle = async (data = {}) => {
   try {
     const { vendor_id } = data; // access id
     await delay(500);
-    const res = await authApi.post("/api/admin/vendors/store/vehicle", data, {
+    const res = await authApi.post('/api/admin/vendors/store/vehicle', data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
@@ -241,7 +241,7 @@ export const createVendorVehicle = async (data = {}) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -250,20 +250,20 @@ export const createVendorVehicle = async (data = {}) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "Already Exist",
+        message: err?.response?.data?.error || 'Already Exist',
       };
     }
 
     if (status === 422) {
       return {
         success: false,
-        message: "Vendor already exists",
+        message: 'Vendor already exists',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -278,9 +278,9 @@ export const createVendorDrivers = async (data = {}) => {
     const { vendor_id } = data; // access id
     await delay(500);
 
-    const res = await authApi.post("/api/admin/vendors/store/driver", data, {
+    const res = await authApi.post('/api/admin/vendors/store/driver', data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
@@ -295,7 +295,7 @@ export const createVendorDrivers = async (data = {}) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -304,20 +304,20 @@ export const createVendorDrivers = async (data = {}) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "Already Exist",
+        message: err?.response?.data?.error || 'Already Exist',
       };
     }
 
     if (status === 422) {
       return {
         success: false,
-        message: "Vendor already exists",
+        message: 'Vendor already exists',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -331,9 +331,9 @@ export const createVendorSchedule = async (data = {}) => {
   try {
     const { vendor_id } = data; // access id
     await delay(500);
-    const res = await authApi.post("/api/admin/vendors/store/schedule", data, {
+    const res = await authApi.post('/api/admin/vendors/store/schedule', data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
@@ -349,7 +349,7 @@ export const createVendorSchedule = async (data = {}) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -358,20 +358,20 @@ export const createVendorSchedule = async (data = {}) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "Already Exist",
+        message: err?.response?.data?.error || 'Already Exist',
       };
     }
 
     if (status === 422) {
       return {
         success: false,
-        message: "Vendor already exists",
+        message: 'Vendor already exists',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -388,7 +388,7 @@ export const editVendorStatusbyIdAdmin = async (vendorId, data = {}) => {
 
     const res = await authApi.put(`/api/admin/vendors/update/vendor/${vendorId}`, data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
@@ -405,7 +405,7 @@ export const editVendorStatusbyIdAdmin = async (vendorId, data = {}) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -414,21 +414,20 @@ export const editVendorStatusbyIdAdmin = async (vendorId, data = {}) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "Already Exist",
+        message: err?.response?.data?.error || 'Already Exist',
       };
     }
 
     if (status === 422) {
       return {
         success: false,
-        message: "Vendor already exists",
+        message: 'Vendor already exists',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
-

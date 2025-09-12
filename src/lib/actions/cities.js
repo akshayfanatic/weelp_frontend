@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { authApi } from "../axiosInstance";
-import { delay, log } from "../utils";
+import { revalidatePath } from 'next/cache';
+import { authApi } from '../axiosInstance';
+import { delay, log } from '../utils';
 
 /**
  * @typedef {Object} Location
@@ -61,13 +61,13 @@ export const createCity = async (data = {}) => {
   try {
     await delay(500);
 
-    const res = await authApi.post("/api/admin/cities", data, {
+    const res = await authApi.post('/api/admin/cities', data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
-    revalidatePath("/dashboard/admin/destinations/cities"); // revalidate API cache
+    revalidatePath('/dashboard/admin/destinations/cities'); // revalidate API cache
 
     return {
       success: true,
@@ -79,7 +79,7 @@ export const createCity = async (data = {}) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -87,20 +87,20 @@ export const createCity = async (data = {}) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "City already exists",
+        message: err?.response?.data?.error || 'City already exists',
       };
     }
 
     if (status === 422) {
       return {
         success: false,
-        message: "City already exists",
+        message: 'City already exists',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong while City",
+      message: 'Something went wrong while City',
     };
   }
 };
@@ -116,13 +116,13 @@ export const editCity = async (cityId, data = {}) => {
 
     const res = await authApi.put(`/api/admin/cities/${cityId}`, data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
     log(res);
 
-    revalidatePath("/dashboard/admin/destinations/cities"); // revalidate API cache
+    revalidatePath('/dashboard/admin/destinations/cities'); // revalidate API cache
 
     return {
       success: true,
@@ -134,7 +134,7 @@ export const editCity = async (cityId, data = {}) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -142,20 +142,20 @@ export const editCity = async (cityId, data = {}) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "City already exists",
+        message: err?.response?.data?.error || 'City already exists',
       };
     }
 
     if (status === 422) {
       return {
         success: false,
-        message: "City already exists",
+        message: 'City already exists',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong while editing City",
+      message: 'Something went wrong while editing City',
     };
   }
 };
@@ -169,9 +169,9 @@ export async function deleteCity(cityId) {
   try {
     const res = await authApi.delete(`/api/admin/cities/${cityId}/`);
 
-    revalidatePath("/dashboard/admin/destinations/cities/"); //revalidating path
+    revalidatePath('/dashboard/admin/destinations/cities/'); //revalidating path
     return { success: true, message: res.data?.message };
   } catch (error) {
-    return { success: false, error: "Something went wrong" };
+    return { success: false, error: 'Something went wrong' };
   }
 }

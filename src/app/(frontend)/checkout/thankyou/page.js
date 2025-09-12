@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import React, { useEffect } from "react";
-import useMiniCartStore from "@/lib/store/useMiniCartStore";
-import { useSearchParams } from "next/navigation";
-import { useSession } from "next-auth/react";
-import { useOrderThankyou } from "@/hooks/api/public/order/thankyou";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import Link from "next/link";
-import { formatCurrency } from "@/lib/utils";
+import React, { useEffect } from 'react';
+import useMiniCartStore from '@/lib/store/useMiniCartStore';
+import { useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { useOrderThankyou } from '@/hooks/api/public/order/thankyou';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import Link from 'next/link';
+import { formatCurrency } from '@/lib/utils';
 
 const SucceceedPage = () => {
   const searchParams = useSearchParams(); // params serach
@@ -17,16 +17,16 @@ const SucceceedPage = () => {
   const { clearCart, cartItems } = useMiniCartStore(); // store for itesm
   const { data: session } = useSession(); // prevent user to page
 
-  const payment_intent = searchParams.get("payment_intent"); // retrieve session id
+  const payment_intent = searchParams.get('payment_intent'); // retrieve session id
   const { orderData, isValidating, error } = useOrderThankyou(payment_intent); // retrieve data
-  
+
   const { success, order = {} } = orderData;
 
   // cart cleared
   useEffect(() => {
     clearCart(); // clear cart
-    sessionStorage.removeItem("clientSecret"); // clear client secret
-    sessionStorage.removeItem("paymentIntent"); // clear intent
+    sessionStorage.removeItem('clientSecret'); // clear client secret
+    sessionStorage.removeItem('paymentIntent'); // clear intent
   }, []);
 
   // error handling
@@ -44,9 +44,9 @@ const SucceceedPage = () => {
   }
 
   const { emergency_contact = {}, item = {}, payment = {}, user = {} } = order || {}; // destructure order data
-  const dashboardUrl = session?.user?.role === "super_admin" ? "/dashboard/admin" : "/dashboard/customer"; // use role send based on use link
+  const dashboardUrl = session?.user?.role === 'super_admin' ? '/dashboard/admin' : '/dashboard/customer'; // use role send based on use link
   const amount = parseFloat(payment?.amount || 0);
-  const currency = payment?.currency || "USD";
+  const currency = payment?.currency || 'USD';
   const priceAmount = formatCurrency(amount, currency);
 
   // console.log(priceAmount)

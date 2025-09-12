@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { Controller, useForm, useWatch } from "react-hook-form";
-import { useEffect, useState, useMemo } from "react";
-import { debounce } from "lodash";
-import { Form, FormDescription, FormItem, FormControl, FormMessage, FormField, FormLabel } from "@/components/ui/form";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { CustomPagination } from "@/app/components/Pagination";
-import { CardVendorSchedule } from "../shared/vendor_cards";
-import { useParams } from "next/navigation";
-import { fetcher } from "@/lib/fetchers";
-import { VendorNoResultFound } from "../shared/VendorNoResultFound";
-import useSWR from "swr";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { Label } from "@/components/ui/label";
+import { Controller, useForm, useWatch } from 'react-hook-form';
+import { useEffect, useState, useMemo } from 'react';
+import { debounce } from 'lodash';
+import { Form, FormDescription, FormItem, FormControl, FormMessage, FormField, FormLabel } from '@/components/ui/form';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { CustomPagination } from '@/app/components/Pagination';
+import { CardVendorSchedule } from '../shared/vendor_cards';
+import { useParams } from 'next/navigation';
+import { fetcher } from '@/lib/fetchers';
+import { VendorNoResultFound } from '../shared/VendorNoResultFound';
+import useSWR from 'swr';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Calendar } from '@/components/ui/calendar';
+import { format } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
+import { Label } from '@/components/ui/label';
 
 const FilterVendorSchedulePage = () => {
   const { vendorId } = useParams(); // get vendor id
@@ -24,10 +24,10 @@ const FilterVendorSchedulePage = () => {
   const form = useForm({
     defaultValues: {
       page: 1,
-      driver_id: "",
-      vehicle_id: "",
-      shift: "",
-      date: "",
+      driver_id: '',
+      vehicle_id: '',
+      shift: '',
+      date: '',
     },
   });
 
@@ -36,13 +36,13 @@ const FilterVendorSchedulePage = () => {
     setValue,
     formState: { errors },
   } = form;
-  const page = useWatch({ control, name: "page" });
-  const [query, setQuery] = useState("?page=1");
+  const page = useWatch({ control, name: 'page' });
+  const [query, setQuery] = useState('?page=1');
 
-  const watchedDriver_id = useWatch({ control, name: "driver_id" });
-  const watchedVehicle_id = useWatch({ control, name: "vehicle_id" });
-  const watchedShift = useWatch({ control, name: "shift" });
-  const watchedDate = useWatch({ control, name: "date" });
+  const watchedDriver_id = useWatch({ control, name: 'driver_id' });
+  const watchedVehicle_id = useWatch({ control, name: 'vehicle_id' });
+  const watchedShift = useWatch({ control, name: 'shift' });
+  const watchedDate = useWatch({ control, name: 'date' });
 
   // debounced query update
   const debouncedSetQuery = useMemo(
@@ -50,15 +50,15 @@ const FilterVendorSchedulePage = () => {
       debounce((page, driver_id, shift, date, vehicle_id) => {
         const params = new URLSearchParams();
 
-        if (driver_id) params.append("driver_id", driver_id);
-        if (shift) params.append("shift", shift);
-        if (date) params.append("date", date);
-        if (vehicle_id) params.append("vehicle_id", vehicle_id);
-        params.append("page", page.toString());
+        if (driver_id) params.append('driver_id', driver_id);
+        if (shift) params.append('shift', shift);
+        if (date) params.append('date', date);
+        if (vehicle_id) params.append('vehicle_id', vehicle_id);
+        params.append('page', page.toString());
 
         setQuery(`?${params.toString()}`);
       }, 200),
-    []
+    [],
   );
 
   // side effect for listening changes
@@ -72,7 +72,7 @@ const FilterVendorSchedulePage = () => {
 
   // handle on page change
   const handlePageChange = (newPage) => {
-    setValue("page", newPage);
+    setValue('page', newPage);
   };
 
   const { data: driverdata = [] } = useSWR(`/api/admin/vendors/${vendorId}/driversdropdown`, fetcher); // get driver data
@@ -81,7 +81,7 @@ const FilterVendorSchedulePage = () => {
   const { data: drivers = [] } = driverdata?.data || {}; // access drivers
   const { data: vehicles = [] } = vehicledata?.data || {}; // access vehcles
 
-  const shifts = ["day", "night", "morning", "evening"]; // shifts
+  const shifts = ['day', 'night', 'morning', 'evening']; // shifts
 
   return (
     <Card className="flex flex-col md:flex-row bg-inherit border-none shadow-none gap-2">
@@ -99,7 +99,7 @@ const FilterVendorSchedulePage = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Driver</FormLabel>
-                <Select onValueChange={(val) => field.onChange(Number(val))} value={field.value?.toString() || ""}>
+                <Select onValueChange={(val) => field.onChange(Number(val))} value={field.value?.toString() || ''}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Please Select Driver" />
@@ -125,7 +125,7 @@ const FilterVendorSchedulePage = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Vehicle</FormLabel>
-                <Select onValueChange={(val) => field.onChange(Number(val))} value={field.value?.toString() || ""}>
+                <Select onValueChange={(val) => field.onChange(Number(val))} value={field.value?.toString() || ''}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Please Select Vehicle" />
@@ -183,7 +183,7 @@ const FilterVendorSchedulePage = () => {
                 mode="single"
                 selected={field.value ? new Date(field.value) : undefined} // Convert string back to Date
                 onSelect={(date) => {
-                  if (date) field.onChange(format(date, "yyyy-MM-dd")); // Format as "July 11, 2025"
+                  if (date) field.onChange(format(date, 'yyyy-MM-dd')); // Format as "July 11, 2025"
                 }}
                 className="rounded-md border"
               />

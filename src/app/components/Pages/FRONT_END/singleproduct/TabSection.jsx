@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect, useRef } from "react";
-import throttle from "lodash/throttle";
+import React, { useState, useEffect, useRef } from 'react';
+import throttle from 'lodash/throttle';
 
 import {
   OverViewPanel,
@@ -14,10 +14,10 @@ import {
   ItineraryPanel,
   ProductFormItinerary,
   ProductFormPackage,
-} from "./TabSection__modules"; // Separate components
+} from './TabSection__modules'; // Separate components
 
 export const TabSectionActivity = ({ productId, base_price, productData }) => {
-  const [activeTab, setActiveTab] = useState("tab_1");
+  const [activeTab, setActiveTab] = useState('tab_1');
   const sectionRefs = useRef({});
   const [fixedTab, setFixedTab] = useState(false);
   const tabBarHeight = 68;
@@ -34,7 +34,7 @@ export const TabSectionActivity = ({ productId, base_price, productData }) => {
     // Use lodash's throttle to limit execution frequency
     const throttledCheckScrollY = throttle(checkScrollY, 100);
 
-    window.addEventListener("scroll", throttledCheckScrollY);
+    window.addEventListener('scroll', throttledCheckScrollY);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -44,7 +44,7 @@ export const TabSectionActivity = ({ productId, base_price, productData }) => {
           }
         });
       },
-      { threshold: 0.5 } // Trigger when 50% of the section is in view
+      { threshold: 0.5 }, // Trigger when 50% of the section is in view
     );
 
     // Observe all sections
@@ -53,7 +53,7 @@ export const TabSectionActivity = ({ productId, base_price, productData }) => {
     });
 
     return () => {
-      window.removeEventListener("scroll", throttledCheckScrollY, checkScrollY);
+      window.removeEventListener('scroll', throttledCheckScrollY, checkScrollY);
       observer.disconnect();
     }; // Cleanup on unmount
   }, []);
@@ -63,25 +63,25 @@ export const TabSectionActivity = ({ productId, base_price, productData }) => {
     const element = sectionRefs.current[tab];
     if (element) {
       const offsetTop = element.getBoundingClientRect().top + window.scrollY - tabBarHeight - 16; // Offset to account for the sticky tab bar and some margin
-      window.scrollTo({ top: offsetTop, behavior: "smooth" });
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
     }
   };
 
   return (
     <section className="w-full border-2 bg-mainBackground singleProduct_tabSection">
       {/* Sticky Tab Bar */}
-      <div className={`${fixedTab ? "fixed top-0 z-20" : ""} flex flex-col w-full  shadow-md bg-mainBackground`}>
+      <div className={`${fixedTab ? 'fixed top-0 z-20' : ''} flex flex-col w-full  shadow-md bg-mainBackground`}>
         <ul className="flex items-center justify-center sm:gap-x-12 container mx-auto ">
           {[
-            { id: "tab_1", label: "Overview" },
-            { id: "tab_2", label: "What's Included" },
-            { id: "tab_3", label: "Reviews" },
-            { id: "tab_4", label: "FAQs" },
+            { id: 'tab_1', label: 'Overview' },
+            { id: 'tab_2', label: "What's Included" },
+            { id: 'tab_3', label: 'Reviews' },
+            { id: 'tab_4', label: 'FAQs' },
           ].map((tab) => (
             <li
               key={tab.id}
               onClick={() => toggleTab(tab.id)}
-              className={`${activeTab === tab.id ? "font-semibold border-b-2 border-black " : ""} sm:text-base text-black cursor-pointer p-2 py-4 sm:px-6 sm:py-6  capitalize`}
+              className={`${activeTab === tab.id ? 'font-semibold border-b-2 border-black ' : ''} sm:text-base text-black cursor-pointer p-2 py-4 sm:px-6 sm:py-6  capitalize`}
             >
               {tab.label}
             </li>
@@ -91,25 +91,25 @@ export const TabSectionActivity = ({ productId, base_price, productData }) => {
 
       {/* Content */}
       <div className={`flex flex-col  xl:flex-row justify-between pt-4   mx-auto`}>
-        <div className={`w-full xl:w-3/5  flex ${fixedTab ? "mt-12" : ""}`}>
+        <div className={`w-full xl:w-3/5  flex ${fixedTab ? 'mt-12' : ''}`}>
           <div className={`flex flex-col gap-8 p-6 lg:p-12 max-w-fit w-full xl:w-4/5  ml-auto `}>
-            <div id="tab_1" ref={(el) => (sectionRefs.current["tab_1"] = el)}>
+            <div id="tab_1" ref={(el) => (sectionRefs.current['tab_1'] = el)}>
               <OverViewPanel description={productData?.description} />
             </div>
-            <div id="tab_2" ref={(el) => (sectionRefs.current["tab_2"] = el)}>
+            <div id="tab_2" ref={(el) => (sectionRefs.current['tab_2'] = el)}>
               <WhatIncludedPanel />
             </div>
-            <div id="tab_3" ref={(el) => (sectionRefs.current["tab_3"] = el)}>
+            <div id="tab_3" ref={(el) => (sectionRefs.current['tab_3'] = el)}>
               <ReviewPanel />
             </div>
-            <div id="tab_4" ref={(el) => (sectionRefs.current["tab_4"] = el)}>
+            <div id="tab_4" ref={(el) => (sectionRefs.current['tab_4'] = el)}>
               <FaqPanel />
             </div>
           </div>
         </div>
 
         {/* Cart Functionality */}
-        <div className={`${fixedTab ? "mt-12   " : ""} relative h-auto bg-[#f4f5f7]  w-full xl:w-2/5`}>
+        <div className={`${fixedTab ? 'mt-12   ' : ''} relative h-auto bg-[#f4f5f7]  w-full xl:w-2/5`}>
           <ProductForm productId={productId} productData={productData} />
         </div>
       </div>
@@ -119,7 +119,7 @@ export const TabSectionActivity = ({ productId, base_price, productData }) => {
 
 // Separate for Iterinary Page
 export const TabSectionIterenary = ({ productData }) => {
-  const [activeTab, setActiveTab] = useState("tab_1");
+  const [activeTab, setActiveTab] = useState('tab_1');
   const sectionRefs = useRef({});
   const [fixedTab, setFixedTab] = useState(false);
   const tabBarHeight = 68;
@@ -136,7 +136,7 @@ export const TabSectionIterenary = ({ productData }) => {
     // Use lodash's throttle to limit execution frequency
     const throttledCheckScrollY = throttle(checkScrollY, 100);
 
-    window.addEventListener("scroll", throttledCheckScrollY);
+    window.addEventListener('scroll', throttledCheckScrollY);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -146,7 +146,7 @@ export const TabSectionIterenary = ({ productData }) => {
           }
         });
       },
-      { threshold: 0.5 } // Trigger when 50% of the section is in view
+      { threshold: 0.5 }, // Trigger when 50% of the section is in view
     );
 
     // Observe all sections
@@ -155,7 +155,7 @@ export const TabSectionIterenary = ({ productData }) => {
     });
 
     return () => {
-      window.removeEventListener("scroll", throttledCheckScrollY, checkScrollY);
+      window.removeEventListener('scroll', throttledCheckScrollY, checkScrollY);
       observer.disconnect();
     }; // Cleanup on unmount
   }, []);
@@ -165,25 +165,25 @@ export const TabSectionIterenary = ({ productData }) => {
     const element = sectionRefs.current[tab];
     if (element) {
       const offsetTop = element.getBoundingClientRect().top + window.scrollY - tabBarHeight - 16; // Offset to account for the sticky tab bar and some margin
-      window.scrollTo({ top: offsetTop, behavior: "smooth" });
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
     }
   };
 
   return (
     <section className="w-full border-2 bg-mainBackground singleProduct_tabSection">
       {/* Sticky Tab Bar */}
-      <div className={`${fixedTab ? "fixed top-0 z-20" : ""} flex flex-col w-full  shadow-md bg-mainBackground`}>
+      <div className={`${fixedTab ? 'fixed top-0 z-20' : ''} flex flex-col w-full  shadow-md bg-mainBackground`}>
         <ul className="flex items-center justify-center sm:gap-x-12 container mx-auto ">
           {[
-            { id: "tab_1", label: "Itirenary" },
-            { id: "tab_2", label: "What's Included" },
-            { id: "tab_3", label: "Reviews" },
-            { id: "tab_4", label: "FAQs" },
+            { id: 'tab_1', label: 'Itirenary' },
+            { id: 'tab_2', label: "What's Included" },
+            { id: 'tab_3', label: 'Reviews' },
+            { id: 'tab_4', label: 'FAQs' },
           ].map((tab) => (
             <li
               key={tab.id}
               onClick={() => toggleTab(tab.id)}
-              className={`${activeTab === tab.id ? "font-semibold border-b-2 border-black " : ""} sm:text-base text-black cursor-pointer p-2 py-4 sm:px-6 sm:py-6  capitalize`}
+              className={`${activeTab === tab.id ? 'font-semibold border-b-2 border-black ' : ''} sm:text-base text-black cursor-pointer p-2 py-4 sm:px-6 sm:py-6  capitalize`}
             >
               {tab.label}
             </li>
@@ -193,27 +193,27 @@ export const TabSectionIterenary = ({ productData }) => {
 
       {/* Content */}
       <div className={`flex flex-col  xl:flex-row justify-between pt-4   mx-auto`}>
-        <div className={`w-full xl:w-3/5  flex ${fixedTab ? "mt-12" : ""}`}>
+        <div className={`w-full xl:w-3/5  flex ${fixedTab ? 'mt-12' : ''}`}>
           <div className={`flex flex-col gap-8 p-6 lg:p-12 max-w-fit w-full xl:w-4/5  ml-auto `}>
             {productData?.schedules.length > 0 && (
-              <div id="tab_1" ref={(el) => (sectionRefs.current["tab_1"] = el)}>
+              <div id="tab_1" ref={(el) => (sectionRefs.current['tab_1'] = el)}>
                 <ItineraryPanel schedules={productData?.schedules} />;
               </div>
             )}
-            <div id="tab_2" ref={(el) => (sectionRefs.current["tab_2"] = el)}>
+            <div id="tab_2" ref={(el) => (sectionRefs.current['tab_2'] = el)}>
               <WhatIncludedPanel />
             </div>
-            <div id="tab_3" ref={(el) => (sectionRefs.current["tab_3"] = el)}>
+            <div id="tab_3" ref={(el) => (sectionRefs.current['tab_3'] = el)}>
               <ReviewPanel />
             </div>
-            <div id="tab_4" ref={(el) => (sectionRefs.current["tab_4"] = el)}>
+            <div id="tab_4" ref={(el) => (sectionRefs.current['tab_4'] = el)}>
               <FaqPanel />
             </div>
           </div>
         </div>
 
         {/* Cart Functionality */}
-        <div className={`${fixedTab ? "mt-12   " : ""} relative h-auto bg-[#f4f5f7]  w-full xl:w-2/5`}>
+        <div className={`${fixedTab ? 'mt-12   ' : ''} relative h-auto bg-[#f4f5f7]  w-full xl:w-2/5`}>
           <ProductFormItinerary productData={productData} />
         </div>
       </div>
@@ -223,7 +223,7 @@ export const TabSectionIterenary = ({ productData }) => {
 
 // Separate for Iterinary Page
 export const TabSectionPackage = ({ productData }) => {
-  const [activeTab, setActiveTab] = useState("tab_1");
+  const [activeTab, setActiveTab] = useState('tab_1');
   const sectionRefs = useRef({});
   const [fixedTab, setFixedTab] = useState(false);
   const tabBarHeight = 68;
@@ -240,7 +240,7 @@ export const TabSectionPackage = ({ productData }) => {
     // Use lodash's throttle to limit execution frequency
     const throttledCheckScrollY = throttle(checkScrollY, 100);
 
-    window.addEventListener("scroll", throttledCheckScrollY);
+    window.addEventListener('scroll', throttledCheckScrollY);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -250,7 +250,7 @@ export const TabSectionPackage = ({ productData }) => {
           }
         });
       },
-      { threshold: 0.5 } // Trigger when 50% of the section is in view
+      { threshold: 0.5 }, // Trigger when 50% of the section is in view
     );
 
     // Observe all sections
@@ -259,7 +259,7 @@ export const TabSectionPackage = ({ productData }) => {
     });
 
     return () => {
-      window.removeEventListener("scroll", throttledCheckScrollY, checkScrollY);
+      window.removeEventListener('scroll', throttledCheckScrollY, checkScrollY);
       observer.disconnect();
     }; // Cleanup on unmount
   }, []);
@@ -269,25 +269,25 @@ export const TabSectionPackage = ({ productData }) => {
     const element = sectionRefs.current[tab];
     if (element) {
       const offsetTop = element.getBoundingClientRect().top + window.scrollY - tabBarHeight - 16; // Offset to account for the sticky tab bar and some margin
-      window.scrollTo({ top: offsetTop, behavior: "smooth" });
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
     }
   };
 
   return (
     <section className="w-full border-2 bg-mainBackground singleProduct_tabSection">
       {/* Sticky Tab Bar */}
-      <div className={`${fixedTab ? "fixed top-0 z-20" : ""} flex flex-col w-full  shadow-md bg-mainBackground`}>
+      <div className={`${fixedTab ? 'fixed top-0 z-20' : ''} flex flex-col w-full  shadow-md bg-mainBackground`}>
         <ul className="flex items-center justify-center sm:gap-x-12 container mx-auto ">
           {[
-            { id: "tab_1", label: "Package" },
-            { id: "tab_2", label: "What's Included" },
-            { id: "tab_3", label: "Reviews" },
-            { id: "tab_4", label: "FAQs" },
+            { id: 'tab_1', label: 'Package' },
+            { id: 'tab_2', label: "What's Included" },
+            { id: 'tab_3', label: 'Reviews' },
+            { id: 'tab_4', label: 'FAQs' },
           ].map((tab) => (
             <li
               key={tab.id}
               onClick={() => toggleTab(tab.id)}
-              className={`${activeTab === tab.id ? "font-semibold border-b-2 border-black " : ""} sm:text-base text-black cursor-pointer p-2 py-4 sm:px-6 sm:py-6  capitalize`}
+              className={`${activeTab === tab.id ? 'font-semibold border-b-2 border-black ' : ''} sm:text-base text-black cursor-pointer p-2 py-4 sm:px-6 sm:py-6  capitalize`}
             >
               {tab.label}
             </li>
@@ -297,27 +297,27 @@ export const TabSectionPackage = ({ productData }) => {
 
       {/* Content */}
       <div className={`flex flex-col  xl:flex-row justify-between pt-4   mx-auto`}>
-        <div className={`w-full xl:w-3/5  flex ${fixedTab ? "mt-12" : ""}`}>
+        <div className={`w-full xl:w-3/5  flex ${fixedTab ? 'mt-12' : ''}`}>
           <div className={`flex flex-col gap-8 p-6 lg:p-12 max-w-fit w-full xl:w-4/5  ml-auto `}>
             {productData?.schedules.length > 0 && (
-              <div id="tab_1" ref={(el) => (sectionRefs.current["tab_1"] = el)}>
+              <div id="tab_1" ref={(el) => (sectionRefs.current['tab_1'] = el)}>
                 <ItineraryPanel schedules={productData?.schedules} />;
               </div>
             )}
-            <div id="tab_2" ref={(el) => (sectionRefs.current["tab_2"] = el)}>
+            <div id="tab_2" ref={(el) => (sectionRefs.current['tab_2'] = el)}>
               <WhatIncludedPanel />
             </div>
-            <div id="tab_3" ref={(el) => (sectionRefs.current["tab_3"] = el)}>
+            <div id="tab_3" ref={(el) => (sectionRefs.current['tab_3'] = el)}>
               <ReviewPanel />
             </div>
-            <div id="tab_4" ref={(el) => (sectionRefs.current["tab_4"] = el)}>
+            <div id="tab_4" ref={(el) => (sectionRefs.current['tab_4'] = el)}>
               <FaqPanel />
             </div>
           </div>
         </div>
 
         {/* Cart Functionality */}
-        <div className={`${fixedTab ? "mt-12   " : ""} relative h-auto bg-[#f4f5f7]  w-full xl:w-2/5`}>
+        <div className={`${fixedTab ? 'mt-12   ' : ''} relative h-auto bg-[#f4f5f7]  w-full xl:w-2/5`}>
           <ProductFormPackage productData={productData} />
         </div>
       </div>

@@ -1,5 +1,5 @@
 // Single Post Sliders
-"use client"
+'use client';
 import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
@@ -11,10 +11,9 @@ import { ReviewCardCarouselAnimation } from '../Animation/ProductAnimation';
 const ReviewSlider = () => {
   const [initialize, setInitialize] = useState(null);
   useEffect(() => {
-    setInitialize(true)
-  }, [])
+    setInitialize(true);
+  }, []);
   if (initialize) {
-
     return (
       // <div>
       <Swiper
@@ -23,13 +22,12 @@ const ReviewSlider = () => {
         navigation={true}
         loop={true}
         autoplay={{
-          delay: 2000
+          delay: 2000,
         }}
-
         breakpoints={{
           450: {
             slidesPerView: 1,
-            spaceBetween: 10
+            spaceBetween: 10,
           },
           640: {
             slidesPerView: 2,
@@ -39,21 +37,20 @@ const ReviewSlider = () => {
           },
           1440: {
             slidesPerView: 3,
-          }
-
+          },
         }}
         className="w-full py-8"
       >
-
         {[...Array(6)].map((_, index) => (
           <SwiperSlide key={index}>
-            <ReviewCard title={"Markus_K"} rating={4} comment={"Very well and good organized trip to the Desert West Quads, Falcon Show, Camelriding and Delicious Barbecue."} />
+            <ReviewCard title={'Markus_K'} rating={4} comment={'Very well and good organized trip to the Desert West Quads, Falcon Show, Camelriding and Delicious Barbecue.'} />
           </SwiperSlide>
         ))}
       </Swiper>
       // </div>
     );
-  } return <ReviewCardCarouselAnimation />
+  }
+  return <ReviewCardCarouselAnimation />;
 };
 
 export default ReviewSlider;

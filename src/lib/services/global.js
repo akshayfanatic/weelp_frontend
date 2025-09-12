@@ -1,6 +1,6 @@
-"use server";
-import { authApi, publicApi } from "../axiosInstance";
-import { log } from "../utils";
+'use server';
+import { authApi, publicApi } from '../axiosInstance';
+import { log } from '../utils';
 
 /**
  * Get All Cities and Region
@@ -12,7 +12,7 @@ export const getCitiesRegions = async () => {
 
     return response?.data; //
   } catch (error) {
-    console.log("Error fetching cities:", error);
+    console.log('Error fetching cities:', error);
     return []; // return empty array
   }
 };
@@ -23,10 +23,10 @@ export const getCitiesRegions = async () => {
  */
 export const getCategories = async () => {
   try {
-    const response = await publicApi.get("/api/categories");
+    const response = await publicApi.get('/api/categories');
     return response.data.data ?? [];
   } catch (error) {
-    console.error("Failed to fetch categories", error);
+    console.error('Failed to fetch categories', error);
     return [];
   }
 };
@@ -38,7 +38,7 @@ export const getCategories = async () => {
  */
 export const getCategoriesAdmin = async (page) => {
   try {
-    const response = await authApi.get(`/api/admin/categories${page ? `?page=${page}` : ""}`);
+    const response = await authApi.get(`/api/admin/categories${page ? `?page=${page}` : ''}`);
     return { data: response?.data ?? [] };
   } catch (error) {
     return { data: [] };
@@ -54,7 +54,7 @@ export const getCategoriesAdmin = async (page) => {
 
 export const getAllCitiesAdmin = async () => {
   try {
-    const response = await authApi.get("/api/admin/cities");
+    const response = await authApi.get('/api/admin/cities');
     return { data: response?.data ?? [] };
   } catch (error) {
     return { data: [] };
@@ -68,7 +68,7 @@ export const getAllCitiesAdmin = async () => {
  */
 export const getAllAttributesAdmin = async (page) => {
   try {
-    const response = await authApi.get(`/api/admin/attributes${page ? `?page=${page}` : ""}`);
+    const response = await authApi.get(`/api/admin/attributes${page ? `?page=${page}` : ''}`);
     return { data: response?.data ?? [] };
   } catch (error) {
     return { data: [] };
@@ -80,12 +80,11 @@ export const getAllAttributesAdmin = async (page) => {
  * @param {string} page
  * @returns []
  */
-export const getAllTagsAdmin = async (page = "") => {
+export const getAllTagsAdmin = async (page = '') => {
   try {
-    const response = await authApi.get(`/api/admin/tags${page ? `?page=${page}` : ""}`);
+    const response = await authApi.get(`/api/admin/tags${page ? `?page=${page}` : ''}`);
     return { data: response?.data ?? [] };
   } catch (error) {
     return { data: [] }; // ✅ FIXED: consistent return shape
   }
 };
-

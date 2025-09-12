@@ -1,34 +1,34 @@
-"use client";
+'use client';
 
 // This Form Is Used in Single Product Page
-import React, { useEffect, useState } from "react";
-import { Calendar, Users, Minus, Plus, ChevronRight, CircleCheckBig, Clock5, CircleAlert, Map, MapPin } from "lucide-react";
-import { useForm, Controller } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/dist/style.css";
-import { useRouter } from "next/navigation";
-import useMiniCartStore from "@/lib/store/useMiniCartStore";
-import { log } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
+import React, { useEffect, useState } from 'react';
+import { Calendar, Users, Minus, Plus, ChevronRight, CircleCheckBig, Clock5, CircleAlert, Map, MapPin } from 'lucide-react';
+import { useForm, Controller } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import { useRouter } from 'next/navigation';
+import useMiniCartStore from '@/lib/store/useMiniCartStore';
+import { log } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
 
 // Zod Schema
 const bookingSchema = z
   .object({
     dateRange: z
       .object({
-        from: z.date().nullable().refine(Boolean, "Start date is required"),
-        to: z.date().nullable().refine(Boolean, "End date is required"),
+        from: z.date().nullable().refine(Boolean, 'Start date is required'),
+        to: z.date().nullable().refine(Boolean, 'End date is required'),
       })
-      .refine((data) => data.from && data.to && data.from <= data.to, "Please Select Date"),
+      .refine((data) => data.from && data.to && data.from <= data.to, 'Please Select Date'),
     howMany: z.object({
-      adults: z.number().min(1, "At least 1 adult is required").max(10, "Maximum 10 adults allowed"),
-      children: z.number().min(0).max(10, "Maximum 10 children allowed"),
-      infants: z.number().min(0).max(5, "Maximum 5 infants allowed"),
+      adults: z.number().min(1, 'At least 1 adult is required').max(10, 'Maximum 10 adults allowed'),
+      children: z.number().min(0).max(10, 'Maximum 10 children allowed'),
+      infants: z.number().min(0).max(5, 'Maximum 5 infants allowed'),
     }),
-    package: z.union([z.literal("scuba-diving"), z.literal("without-scuba-diving")]).refine((val) => val !== undefined, {
-      message: "Please select a package",
+    package: z.union([z.literal('scuba-diving'), z.literal('without-scuba-diving')]).refine((val) => val !== undefined, {
+      message: 'Please select a package',
     }),
     scubaDivingItem: z.string().optional(),
     withoutScubaDivingItem: z.string().optional(),
@@ -39,23 +39,22 @@ const bookingSchema = z
         return false; // Both cannot be filled at the same time
       }
 
-      if (data.package === "scuba-diving" && !data.scubaDivingItem) {
+      if (data.package === 'scuba-diving' && !data.scubaDivingItem) {
         return false; // If the selected package is "scuba-diving", scubaDivingItem must be filled
       }
-      if (data.package === "without-scuba-diving" && !data.withoutScubaDivingItem) {
+      if (data.package === 'without-scuba-diving' && !data.withoutScubaDivingItem) {
         return false; // If the selected package is "without-scuba-diving", withoutScubaDivingItem must be filled
       }
       return true;
     },
     {
-      message: "Please select an item for the selected package",
-      path: ["package"],
-    }
+      message: 'Please select an item for the selected package',
+      path: ['package'],
+    },
   );
 
 // itinerary
 export default function SingleProductFormItinerary({ productData }) {
-
   const [initform, setInitForm] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false); // date & howmany
   const [showHowMany, setShowHowMany] = useState(false); // date & howmany
@@ -64,7 +63,6 @@ export default function SingleProductFormItinerary({ productData }) {
 
   const [showScuvadiving, setShowScuvadiving] = useState(null); // show scuvadiving content
   const router = useRouter(); // intialize router
-
 
   const isInCart = cartItems.some((item) => item.id === productData.id);
 
@@ -81,22 +79,22 @@ export default function SingleProductFormItinerary({ productData }) {
     defaultValues: {
       dateRange: { from: null, to: null },
       howMany: { adults: 1, children: 0, infants: 0 },
-      package: "",
-      scubaDivingItem: "",
-      withoutScubaDivingItem: "",
+      package: '',
+      scubaDivingItem: '',
+      withoutScubaDivingItem: '',
     },
   });
 
-  const selectedPackage = watch("package"); // Track current package
-  const scubaDivingItem = watch("scubaDivingItem"); // Track scuba diving item
-  const withoutScubaDivingItem = watch("withoutScubaDivingItem"); // Track without scuba diving item
+  const selectedPackage = watch('package'); // Track current package
+  const scubaDivingItem = watch('scubaDivingItem'); // Track scuba diving item
+  const withoutScubaDivingItem = watch('withoutScubaDivingItem'); // Track without scuba diving item
 
   useEffect(() => {
     setInitForm(true);
-    if (selectedPackage === "scuba-diving") {
-      setValue("withoutScubaDivingItem", ""); // Clear withoutScubaDivingItem if package is 'scuba-diving'
-    } else if (selectedPackage === "without-scuba-diving") {
-      setValue("scubaDivingItem", ""); // Clear scubaDivingItem if package is 'without-scuba-diving'
+    if (selectedPackage === 'scuba-diving') {
+      setValue('withoutScubaDivingItem', ''); // Clear withoutScubaDivingItem if package is 'scuba-diving'
+    } else if (selectedPackage === 'without-scuba-diving') {
+      setValue('scubaDivingItem', ''); // Clear scubaDivingItem if package is 'without-scuba-diving'
     }
   }, [selectedPackage, setValue]);
 
@@ -115,8 +113,8 @@ export default function SingleProductFormItinerary({ productData }) {
       price: productData?.base_pricing?.variations[0]?.regular_price ?? 420,
       name: productData?.name,
       ...data,
-      featured_image: "https://picsum.photos/200/300",
-      type: "itinerary",
+      featured_image: 'https://picsum.photos/200/300',
+      type: 'itinerary',
     });
 
     // clearCart()
@@ -165,8 +163,8 @@ export default function SingleProductFormItinerary({ productData }) {
   // handleScuvadiving change
   const handlePackageSelection = (e) => {
     const value = e.target.value;
-    setValue("package", value);
-    setShowScuvadiving(value === "scuba-diving");
+    setValue('package', value);
+    setShowScuvadiving(value === 'scuba-diving');
   };
 
   if (initform) {
@@ -175,14 +173,14 @@ export default function SingleProductFormItinerary({ productData }) {
         {/* if item is in cart */}
         {isInCart ? (
           <h2 className="text-lg font-medium flex gap-4 items-center">
-            Item already in cart{" "}
+            Item already in cart{' '}
             <span className={`${buttonVariants()} bg-secondaryDark cursor-pointer`} onClick={() => setMiniCartOpen(true)}>
               Show Cart
             </span>
           </h2>
         ) : (
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-around items-center gap-4 w-full">
-            <span className="hidden" id={productData?.id ?? ""} />
+            <span className="hidden" id={productData?.id ?? ''} />
             {/* For Date & Total */}
             <div className=" w-full flex flex-col gap-4">
               <h5 className="self-start text-[#5A5A5A]">Select Date & Travelers</h5>
@@ -206,7 +204,7 @@ export default function SingleProductFormItinerary({ productData }) {
 
                       {howMany?.adults + howMany?.children}
                     </label>
-                    {errors.howMany && <p className="text-red-500 text-sm text-center">{errors.howMany?.adults?.message || ""}</p>}
+                    {errors.howMany && <p className="text-red-500 text-sm text-center">{errors.howMany?.adults?.message || ''}</p>}
                   </div>
                 </div>
               </div>
@@ -246,11 +244,11 @@ export default function SingleProductFormItinerary({ productData }) {
                       }}
                       className="bg-white w-fit p-4 px-6 rounded-lg flex flex-col gap-4 border"
                     >
-                      {["adults", "children", "infants"].map((type, index) => (
+                      {['adults', 'children', 'infants'].map((type, index) => (
                         <div key={index} className="flex justify-between items-center w-full gap-6">
                           <div>
                             <h3 className="font-semibold capitalize">{type}</h3>
-                            <span className="text-sm">{type == "adults" ? "Above 13 or above" : type == "children" ? "Age 2-12" : type == "infants" ? "Under 2" : null}</span>
+                            <span className="text-sm">{type == 'adults' ? 'Above 13 or above' : type == 'children' ? 'Age 2-12' : type == 'infants' ? 'Under 2' : null}</span>
                           </div>
                           <div className="flex items-center gap-4">
                             <button
@@ -279,7 +277,7 @@ export default function SingleProductFormItinerary({ productData }) {
 
             {/* For Package */}
             <div className="w-full flex flex-col gap-4">
-              {errors.package && <div className="text-red-500 text-sm">{"Please Select Package"}</div>}
+              {errors.package && <div className="text-red-500 text-sm">{'Please Select Package'}</div>}
               {errors.scubaDivingItem && <p className="text-red-500">{errors.scubaDivingItem.message}</p>}
 
               {errors.withoutScubaDivingItem && <p className="text-red-500">{errors.withoutScubaDivingItem.message}</p>}
@@ -296,7 +294,7 @@ export default function SingleProductFormItinerary({ productData }) {
                     value="scuba-diving"
                     className="checked:accent-secondaryDark"
                     onClick={handlePackageSelection}
-                    {...control.register("package")} // Register this field with react-hook-form
+                    {...control.register('package')} // Register this field with react-hook-form
                   />
                   <span>Scuba Diving</span>
                 </div>
@@ -308,15 +306,15 @@ export default function SingleProductFormItinerary({ productData }) {
                     <Controller
                       control={control}
                       name="scubaDivingItem" // Corrected name
-                      defaultValue={""}
+                      defaultValue={''}
                       render={({ field: { onChange, value } }) => (
                         <ul className="flex flex-row gap-4 py-6 px-6 border-t-2">
-                          {["Item 1", "Item 2", "Item 3"].map((item, index) => (
+                          {['Item 1', 'Item 2', 'Item 3'].map((item, index) => (
                             <li
                               key={index}
                               onClick={() => onChange(item)} // Set the clicked item as the only value
                               className={`cursor-pointer border border-[#5A5A5A] text-[#5A5A5A] text-xs sm:text-base font-medium p-2 sm:py-2 sm:px-6 rounded-lg capitalize w-fit 
-                            ${value === item ? "border-secondaryDark text-secondaryDark border" : ""}`}
+                            ${value === item ? 'border-secondaryDark text-secondaryDark border' : ''}`}
                             >
                               {item}
                             </li>
@@ -375,7 +373,7 @@ export default function SingleProductFormItinerary({ productData }) {
                 )}
 
                 {/* Chevron Icon with Rotation */}
-                <ChevronRight className={`absolute top-0 right-0 mt-4 mr-4 ease-in-out duration-300 ${showScuvadiving ? "rotate-90" : ""}`} />
+                <ChevronRight className={`absolute top-0 right-0 mt-4 mr-4 ease-in-out duration-300 ${showScuvadiving ? 'rotate-90' : ''}`} />
               </label>
 
               {/* Without Scuba Diving Option */}
@@ -388,7 +386,7 @@ export default function SingleProductFormItinerary({ productData }) {
                     value="without-scuba-diving"
                     className="checked:accent-secondaryDark"
                     onClick={handlePackageSelection}
-                    {...control.register("package")}
+                    {...control.register('package')}
                   />
                   <span>Without Scuba Diving</span>
                 </div>
@@ -397,16 +395,16 @@ export default function SingleProductFormItinerary({ productData }) {
                     <Controller
                       control={control}
                       name="without-scuba-diving-package-items"
-                      defaultValue={""}
-                      {...register("withoutScubaDivingItem")}
+                      defaultValue={''}
+                      {...register('withoutScubaDivingItem')}
                       render={({ field: { onChange, value } }) => (
                         <ul className="flex flex-row gap-4 py-6 px-6 border-t-2">
-                          {["Item 1", "Item 2", "Item 3"].map((item, index) => (
+                          {['Item 1', 'Item 2', 'Item 3'].map((item, index) => (
                             <li
                               key={index}
                               onClick={() => onChange(item)} // Set the clicked item as the only value
                               className={`cursor-pointer  border border-[#5A5A5A]  text-[#5A5A5A] text-xs sm:text-base font-medium p-2 sm:py-2 sm:px-6 rounded-lg capitalize w-fit 
-                            ${value === item ? "border-secondaryDark text-secondaryDark border" : ""}`}
+                            ${value === item ? 'border-secondaryDark text-secondaryDark border' : ''}`}
                             >
                               {item}
                             </li>
@@ -460,7 +458,7 @@ export default function SingleProductFormItinerary({ productData }) {
                     </div>
                   </div>
                 )}
-                <ChevronRight className={`absolute top-0 right-0 mt-4 mr-4 ease-in-out duration-300 ${showScuvadiving === null ? "rotate-0" : !showScuvadiving ? "rotate-90" : "rotate-0"}`} />
+                <ChevronRight className={`absolute top-0 right-0 mt-4 mr-4 ease-in-out duration-300 ${showScuvadiving === null ? 'rotate-0' : !showScuvadiving ? 'rotate-90' : 'rotate-0'}`} />
               </label>
             </div>
           </form>

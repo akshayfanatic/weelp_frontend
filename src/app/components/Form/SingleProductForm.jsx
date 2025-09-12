@@ -1,31 +1,31 @@
-"use client";
+'use client';
 
 // This Form Is Used in Single Product Page
-import React, { useEffect, useState } from "react";
-import { Calendar, Users, Minus, Plus } from "lucide-react";
-import { useForm, Controller } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/dist/style.css";
-import { useRouter } from "next/navigation";
-import useMiniCartStore from "@/lib/store/useMiniCartStore";
-import { log } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import React, { useEffect, useState } from 'react';
+import { Calendar, Users, Minus, Plus } from 'lucide-react';
+import { useForm, Controller } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import { useRouter } from 'next/navigation';
+import useMiniCartStore from '@/lib/store/useMiniCartStore';
+import { log } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 // Zod Schema
 const bookingSchema = z.object({
   dateRange: z
     .object({
-      from: z.date().refine(Boolean, "Start date is required"),
-      to: z.date().refine(Boolean, "End date is required"),
+      from: z.date().refine(Boolean, 'Start date is required'),
+      to: z.date().refine(Boolean, 'End date is required'),
     })
-    .refine((data) => data.from && data.to && data.from <= data.to, "Please Select Date"),
+    .refine((data) => data.from && data.to && data.from <= data.to, 'Please Select Date'),
   howMany: z.object({
-    adults: z.number().min(1, "At least 1 adult is required").max(10, "Maximum 10 adults allowed"),
-    children: z.number().min(0).max(10, "Maximum 10 children allowed"),
-    infants: z.number().min(0).max(5, "Maximum 5 infants allowed"),
+    adults: z.number().min(1, 'At least 1 adult is required').max(10, 'Maximum 10 adults allowed'),
+    children: z.number().min(0).max(10, 'Maximum 10 children allowed'),
+    infants: z.number().min(0).max(5, 'Maximum 5 infants allowed'),
   }),
 });
 
@@ -80,13 +80,13 @@ export default function SingleProductForm({ productId, productData }) {
       name: productData?.name,
       currency: productData?.pricing?.currency,
       ...data,
-      featured_image: "https://picsum.photos/200/300",
+      featured_image: 'https://picsum.photos/200/300',
       type: productData?.item_type,
     });
 
     // display notificatin
     toast({
-      title: "Item Added to Card",
+      title: 'Item Added to Card',
       // description: "Friday, February 10, 2023 at 5:57 PM",
     });
     // clearCart()
@@ -145,7 +145,7 @@ export default function SingleProductForm({ productId, productData }) {
         {/* if item is in cart */}
         {isInCart ? (
           <h2 className="text-lg font-medium flex gap-4 items-center">
-            Item already in cart{" "}
+            Item already in cart{' '}
             <span className={`${buttonVariants()} bg-secondaryDark cursor-pointer`} onClick={() => setMiniCartOpen(true)}>
               Show Cart
             </span>
@@ -176,7 +176,7 @@ export default function SingleProductForm({ productId, productData }) {
 
                       {howMany?.adults + howMany?.children}
                     </label>
-                    {errors.howMany && <p className="text-red-500 text-sm text-center">{errors.howMany?.adults?.message || ""}</p>}
+                    {errors.howMany && <p className="text-red-500 text-sm text-center">{errors.howMany?.adults?.message || ''}</p>}
                   </div>
                 </div>
               </div>
@@ -216,11 +216,11 @@ export default function SingleProductForm({ productId, productData }) {
                       }}
                       className="bg-white w-fit p-4 px-6 rounded-lg flex flex-col gap-4 border"
                     >
-                      {["adults", "children", "infants"].map((type, index) => (
+                      {['adults', 'children', 'infants'].map((type, index) => (
                         <div key={index} className="flex justify-between items-center w-full gap-6">
                           <div>
                             <h3 className="font-semibold capitalize">{type}</h3>
-                            <span className="text-sm">{type == "adults" ? "Above 13 or above" : type == "children" ? "Age 2-12" : type == "infants" ? "Under 2" : null}</span>
+                            <span className="text-sm">{type == 'adults' ? 'Above 13 or above' : type == 'children' ? 'Age 2-12' : type == 'infants' ? 'Under 2' : null}</span>
                           </div>
                           <div className="flex items-center gap-4">
                             <button

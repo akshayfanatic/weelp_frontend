@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Edit, Star, Trash2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
-import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useIsClient } from "@/hooks/useIsClient";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Edit, Star, Trash2 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
+import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { useIsClient } from '@/hooks/useIsClient';
 
 export function ReviewTable({ reviews = [], onDelete }) {
   const isClient = useIsClient(); // hydration errors
@@ -14,16 +14,16 @@ export function ReviewTable({ reviews = [], onDelete }) {
   // Columns Structure
   const columns = [
     {
-      accessorKey: "created_at",
-      header: "Date",
+      accessorKey: 'created_at',
+      header: 'Date',
       cell: ({ row }) => {
         const created_date = row?.original?.created_at;
         return <span className="text-nowrap">{created_date}</span>;
       },
     },
     {
-      accessorKey: "user",
-      header: "Customer",
+      accessorKey: 'user',
+      header: 'Customer',
       cell: ({ row }) => {
         const user = row.original.user; // get user from row data
         return (
@@ -31,11 +31,11 @@ export function ReviewTable({ reviews = [], onDelete }) {
             <div className="flex items-center gap-2">
               <Avatar>
                 <AvatarImage src={user?.avatar} alt={user?.name} />
-                <AvatarFallback>{user?.name?.[0] || "U"}</AvatarFallback>
+                <AvatarFallback>{user?.name?.[0] || 'U'}</AvatarFallback>
               </Avatar>
               <div className="flex flex-col">
-                <span>{user?.name || "Unknown User"}</span>
-                <span>{user?.email || "test@test.com"}</span>
+                <span>{user?.name || 'Unknown User'}</span>
+                <span>{user?.email || 'test@test.com'}</span>
               </div>
             </div>
           </div>
@@ -43,8 +43,8 @@ export function ReviewTable({ reviews = [], onDelete }) {
       },
     },
     {
-      accessorKey: "rating",
-      header: "Ratings",
+      accessorKey: 'rating',
+      header: 'Ratings',
       cell: ({ row }) => {
         const ratings = row.original.rating; // get user from row data
         return (
@@ -55,31 +55,31 @@ export function ReviewTable({ reviews = [], onDelete }) {
       },
     },
     {
-      accessorKey: "status",
-      header: "Status",
+      accessorKey: 'status',
+      header: 'Status',
       cell: ({ row }) => {
         const status = row.original.status;
         return (
           <div className="capitalize">
-            {status === "approved" && <Badge variant="success">{status}</Badge>}
-            {status === "pending" && <Badge variant="warning">{status}</Badge>}
-            {!["approved", "pending"].includes(status) && <Badge variant="default">{status}</Badge>}
+            {status === 'approved' && <Badge variant="success">{status}</Badge>}
+            {status === 'pending' && <Badge variant="warning">{status}</Badge>}
+            {!['approved', 'pending'].includes(status) && <Badge variant="default">{status}</Badge>}
           </div>
         );
       },
     },
     {
-      accessorKey: "review_text",
-      header: "Review",
+      accessorKey: 'review_text',
+      header: 'Review',
     },
     {
-      accessorKey: "id",
-      header: "Actions",
+      accessorKey: 'id',
+      header: 'Actions',
       cell: ({ row }) => {
         const reviewId = row?.original?.id;
         return (
           <div className="flex gap-4">
-            <Link aschild={"true"} href={`/dashboard/admin/reviews/${reviewId}`}>
+            <Link aschild={'true'} href={`/dashboard/admin/reviews/${reviewId}`}>
               <Edit size={16} />
             </Link>
             <Trash2
@@ -118,7 +118,7 @@ export function ReviewTable({ reviews = [], onDelete }) {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell className="p-2 px-4" key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}

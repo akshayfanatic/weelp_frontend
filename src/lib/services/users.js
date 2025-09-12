@@ -1,22 +1,21 @@
 // This File Will Hanldle Customer Based Logics
 
-import { authApi } from "../axiosInstance";
+import { authApi } from '../axiosInstance';
 
 export const getUserProfile = async () => {
   try {
-    const response = await authApi.get("/api/customer/profile");
+    const response = await authApi.get('/api/customer/profile');
 
     if (response.status === 200) {
       return { user: response?.data?.user, error: null };
     } else {
-      return { user: null, error: "Unexpected response from server." };
+      return { user: null, error: 'Unexpected response from server.' };
     }
   } catch (error) {
-    console.log("Error fetching user:", error);
-    return { user: null, error: "Failed to load profile. Please try again." };
+    console.log('Error fetching user:', error);
+    return { user: null, error: 'Failed to load profile. Please try again.' };
   }
 };
-
 
 /**
  * Get Single User on Admin side
@@ -26,7 +25,7 @@ export const getUserProfile = async () => {
 export async function getSingleUserAdmin(userId) {
   try {
     const response = await authApi.get(`/api/admin/users/${userId}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     return response.data;
@@ -41,10 +40,10 @@ export async function getSingleUserAdmin(userId) {
  */
 export async function getAllUsersAdmin() {
   try {
-    const response = await authApi.get("/api/admin/users");
+    const response = await authApi.get('/api/admin/users');
     return response?.data;
   } catch (error) {
-    console.log("Error fetching users:", error);
+    console.log('Error fetching users:', error);
     return [];
   }
 }

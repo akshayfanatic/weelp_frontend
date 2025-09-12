@@ -1,32 +1,32 @@
-"use client";
+'use client';
 
-import React, { useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { CheckoutFields, CheckoutUserDetailCard, CheckoutItems } from "@/app/components/Pages/FRONT_END/checkout/CheckoutCards";
-import useMiniCartStore from "@/lib/store/useMiniCartStore";
-import { getStripe } from "@/lib/stripe/stripe";
-import axios from "axios";
-import { useUserProfile } from "@/hooks/api/customer/profile";
-import { useForm, FormProvider } from "react-hook-form";
-import { editUserProfileAction } from "@/lib/actions/userActions";
-import { useToast } from "@/hooks/use-toast";
+import React, { useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { CheckoutFields, CheckoutUserDetailCard, CheckoutItems } from '@/app/components/Pages/FRONT_END/checkout/CheckoutCards';
+import useMiniCartStore from '@/lib/store/useMiniCartStore';
+import { getStripe } from '@/lib/stripe/stripe';
+import axios from 'axios';
+import { useUserProfile } from '@/hooks/api/customer/profile';
+import { useForm, FormProvider } from 'react-hook-form';
+import { editUserProfileAction } from '@/lib/actions/userActions';
+import { useToast } from '@/hooks/use-toast';
 
 // intialization checkout
 const initiateCheckout = async (bookingData) => {
   try {
     const stripe = await getStripe();
 
-    const response = await axios.post("/api/public/checkout", bookingData); // used proxy api
+    const response = await axios.post('/api/public/checkout', bookingData); // used proxy api
 
     const { id: sessionId } = response.data;
 
     const { error } = await stripe.redirectToCheckout({ sessionId });
 
     if (error) {
-      console.log("Stripe checkout error", error);
+      console.log('Stripe checkout error', error);
     }
   } catch (err) {
-    console.log("Checkout failed", err);
+    console.log('Checkout failed', err);
   }
 };
 
@@ -37,17 +37,17 @@ const StripeContainer = () => {
   const { toast } = useToast(); // intialize toast
 
   const profile = user?.profile ?? {}; // access profile safely
-  const { country = "", state = "", city = "", post_code = "", phone = "", address_line_1 = "" } = profile; // access profile data safely
+  const { country = '', state = '', city = '', post_code = '', phone = '', address_line_1 = '' } = profile; // access profile data safely
 
   // intialize form
   const methods = useForm({
     defaultValues: {
-      country: country || "",
-      state: state || "",
-      city: city || "",
-      post_code: post_code || "",
-      phone: phone || "",
-      address_line_1: address_line_1 || "",
+      country: country || '',
+      state: state || '',
+      city: city || '',
+      post_code: post_code || '',
+      phone: phone || '',
+      address_line_1: address_line_1 || '',
     },
   });
 
@@ -62,7 +62,7 @@ const StripeContainer = () => {
   const { handleSubmit } = methods;
 
   const firstItem = cartItems.at(0) || {}; //
-  const { price = "", id = "", type = "" } = firstItem;
+  const { price = '', id = '', type = '' } = firstItem;
 
   // convert to correct format
   const amount = parseFloat(price); // price
@@ -70,37 +70,39 @@ const StripeContainer = () => {
 
   // handle checkout functionality
   const handleCheckout = async (data) => {
-    
     // Prepare booking data
     const bookingData = {
       order_type: type,
       orderable_id: id,
-      travel_date: "2025-07-10",
-      preferred_time: "15:00:00",
+      travel_date: '2025-07-10',
+      preferred_time: '15:00:00',
       number_of_adults: 2,
       number_of_children: 1,
-      special_requirements: "Need vegetarian meals",
+      special_requirements: 'Need vegetarian meals',
       user_id: userId,
       amount: amount,
-      currency: "inr",
+      currency: 'inr',
       is_custom_amount: false,
       custom_amount: 0,
-      customer_email: session?.user?.email || "",
+      customer_email: session?.user?.email || '',
       emergency_contact: {
-        name: "John Doe",
-        phone: "+911234567890",
-        relationship: "Brother",
+        name: 'John Doe',
+        phone: '+911234567890',
+        relationship: 'Brother',
       },
     };
-    
+
     try {
       await editUserProfileAction(data); // send data to backend
       await initiateCheckout(bookingData); // initiate checkout
 
       // toast({ title: "Please Wait Redirecting to Checkout", variant: "default" }); // checkout redirection
     } catch (err) {
-      console.log("Checkout flow failed:", err);
-      toast({ title: err || "Something went wrong. Please try again.", variant: "destructive" });
+      console.log('Checkout flow failed:', err);
+      toast({
+        title: err || 'Something went wrong. Please try again.',
+        variant: 'destructive',
+      });
     }
   };
 
@@ -119,7 +121,6 @@ const StripeContainer = () => {
 
                 {/* Checkout Fields */}
                 <CheckoutFields />
-                
               </form>
             </FormProvider>
           ) : (

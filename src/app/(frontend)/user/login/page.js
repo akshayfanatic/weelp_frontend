@@ -1,7 +1,7 @@
-import React from "react";
-import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
-import { LoginForm } from "@/app/components/Form/LoginForm";
+import React from 'react';
+import { auth } from '@/lib/auth';
+import { redirect } from 'next/navigation';
+import { LoginForm } from '@/app/components/Form/LoginForm';
 
 const LoginPage = async () => {
   const session = await auth();

@@ -1,17 +1,17 @@
-import React from "react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Calendar, Car, Clock, Globe, LucidePackage, Mail, MapPin, MoreHorizontal, Phone, Route, Settings, Tag, User, Users } from "lucide-react";
-import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
-import { useParams, useRouter } from "next/navigation";
-import { stringSignRemover } from "@/lib/utils";
-import { Separator } from "@/components/ui/separator";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { editVendorStatusbyIdAdmin } from "@/lib/actions/vendor";
-import { useToast } from "@/hooks/use-toast";
+import React from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Calendar, Car, Clock, Globe, LucidePackage, Mail, MapPin, MoreHorizontal, Phone, Route, Settings, Tag, User, Users } from 'lucide-react';
+import { DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
+import { useParams, useRouter } from 'next/navigation';
+import { stringSignRemover } from '@/lib/utils';
+import { Separator } from '@/components/ui/separator';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { editVendorStatusbyIdAdmin } from '@/lib/actions/vendor';
+import { useToast } from '@/hooks/use-toast';
 
-export const CardVendor = ({ id, title = "", description = "", status = "", vehicles = "", routes = "", mutate }) => {
+export const CardVendor = ({ id, title = '', description = '', status = '', vehicles = '', routes = '', mutate }) => {
   const router = useRouter(); // intialize route
   const { toast } = useToast(); //intialize toast
 
@@ -20,14 +20,17 @@ export const CardVendor = ({ id, title = "", description = "", status = "", vehi
     try {
       const res = await editVendorStatusbyIdAdmin(vendorId, { status }); // action for update status
       if (res.success) {
-        toast({ title: res.message || "Vendor updated successfully" });
+        toast({ title: res.message || 'Vendor updated successfully' });
 
         mutate();
       } else {
-        toast({ title: res.message || "Failed to update vendor" });
+        toast({ title: res.message || 'Failed to update vendor' });
       }
     } catch (error) {
-      toast({ title: error?.response?.data?.message || "Something Went Wrong ", variant: "Destructive" }); // toast notfication
+      toast({
+        title: error?.response?.data?.message || 'Something Went Wrong ',
+        variant: 'Destructive',
+      }); // toast notfication
     }
   };
 
@@ -37,19 +40,19 @@ export const CardVendor = ({ id, title = "", description = "", status = "", vehi
         <div className="space-y-2">
           <CardTitle className="first-letter:capitalize">{title}</CardTitle>
 
-          {status === "active" && (
+          {status === 'active' && (
             <Badge className="w-fit" variant="success">
               active
             </Badge>
           )}
 
-          {status === "inactive" && (
+          {status === 'inactive' && (
             <Badge className="w-fit" variant="destructive">
               inactive
             </Badge>
           )}
 
-          {status === "pending" && (
+          {status === 'pending' && (
             <Badge className="w-fit bg-yellow-400" variant="ghost">
               pending
             </Badge>
@@ -89,14 +92,14 @@ export const CardVendor = ({ id, title = "", description = "", status = "", vehi
             </DropdownMenuItem>
 
             {/* Status Based Actions */}
-            {status === "active" && (
-              <DropdownMenuItem className="px-2 py-1 text-sm hover:bg-[#f5f5f5] transition focus-visible:outline-none text-red-600" onClick={() => handleVendorStatus(id, "inactive")}>
+            {status === 'active' && (
+              <DropdownMenuItem className="px-2 py-1 text-sm hover:bg-[#f5f5f5] transition focus-visible:outline-none text-red-600" onClick={() => handleVendorStatus(id, 'inactive')}>
                 Deactivate
               </DropdownMenuItem>
             )}
 
-            {(status === "inactive" || status === "pending") && (
-              <DropdownMenuItem className="px-2 py-1 text-sm hover:bg-[#f5f5f5] transition focus-visible:outline-none text-green-600" onClick={() => handleVendorStatus(id, "active")}>
+            {(status === 'inactive' || status === 'pending') && (
+              <DropdownMenuItem className="px-2 py-1 text-sm hover:bg-[#f5f5f5] transition focus-visible:outline-none text-green-600" onClick={() => handleVendorStatus(id, 'active')}>
                 Activate
               </DropdownMenuItem>
             )}
@@ -127,7 +130,7 @@ export const CardVendor = ({ id, title = "", description = "", status = "", vehi
   );
 };
 
-export const CardVendorRoute = ({ id, title = "", description = "", status = "", start_point = "", end_point = "", base_price = "", price_per_km = "" }) => {
+export const CardVendorRoute = ({ id, title = '', description = '', status = '', start_point = '', end_point = '', base_price = '', price_per_km = '' }) => {
   const router = useRouter(); // intialize route
   return (
     <Card className="max-w-full md:max-w-md space-y-2">
@@ -137,19 +140,19 @@ export const CardVendorRoute = ({ id, title = "", description = "", status = "",
           <CardDescription className="text-sm first-letter:capitalize">{description}</CardDescription>
         </div>
 
-        {status === "Active" && (
+        {status === 'Active' && (
           <Badge className="w-fit" variant="success">
             active
           </Badge>
         )}
 
-        {status === "Inactive" && (
+        {status === 'Inactive' && (
           <Badge className="w-fit" variant="destructive">
             inactive
           </Badge>
         )}
 
-        {status === "Pending" && (
+        {status === 'Pending' && (
           <Badge className="w-fit bg-yellow-400" variant="ghost">
             pending
           </Badge>
@@ -191,37 +194,37 @@ export const CardVendorRoute = ({ id, title = "", description = "", status = "",
 
 export const CardVendorPricing = ({
   vendor_id,
-  name = "",
-  description = "",
-  status = "",
-  base_price = "",
-  price_per_km = "",
-  min_distance = "",
-  waiting_charge = "",
-  peak_hour_multiplier = "",
-  night_charge_multiplier = "",
+  name = '',
+  description = '',
+  status = '',
+  base_price = '',
+  price_per_km = '',
+  min_distance = '',
+  waiting_charge = '',
+  peak_hour_multiplier = '',
+  night_charge_multiplier = '',
 }) => {
   return (
     <Card className="max-w-full md:max-w-md space-y-2">
       <CardHeader className="flex flex-row justify-between items-start p-4 md:p-6 md:pb-4">
         <div className="space-y-4">
-          <CardTitle className="first-letter:capitalize">{name || "Unnamed Tier"}</CardTitle>
-          <CardDescription className="text-sm first-letter:capitalize">{description || "No description provided"}</CardDescription>
+          <CardTitle className="first-letter:capitalize">{name || 'Unnamed Tier'}</CardTitle>
+          <CardDescription className="text-sm first-letter:capitalize">{description || 'No description provided'}</CardDescription>
         </div>
 
-        {status === "Active" && (
+        {status === 'Active' && (
           <Badge className="w-fit" variant="success">
             active
           </Badge>
         )}
 
-        {status === "Inactive" && (
+        {status === 'Inactive' && (
           <Badge className="w-fit" variant="destructive">
             inactive
           </Badge>
         )}
 
-        {status === "Pending" && (
+        {status === 'Pending' && (
           <Badge className="w-fit bg-yellow-400" variant="ghost">
             pending
           </Badge>
@@ -263,10 +266,10 @@ export const CardVendorPricing = ({
   );
 };
 
-export const CardVendorVehicle = ({ id, vendor_id, make = "", status = "", model = "", year = "", vehicle_type = "", capacity = "", next_maintenance = "", license_plate = "", features = "" }) => {
+export const CardVendorVehicle = ({ id, vendor_id, make = '', status = '', model = '', year = '', vehicle_type = '', capacity = '', next_maintenance = '', license_plate = '', features = '' }) => {
   const router = useRouter();
 
-  const allfeatures = ([] = features.split(","));
+  const allfeatures = ([] = features.split(','));
   return (
     <Card className="max-w-full md:max-w-md space-y-2">
       <CardHeader className="flex flex-row justify-between items-start p-4 md:p-6 md:pb-4">
@@ -276,19 +279,19 @@ export const CardVendorVehicle = ({ id, vendor_id, make = "", status = "", model
 
           <div className="flex space-x-2">
             {/* Status */}
-            {status === "available" && (
+            {status === 'available' && (
               <Badge className="w-fit" variant="success">
                 Available
               </Badge>
             )}
 
-            {status === "in_use" && (
+            {status === 'in_use' && (
               <Badge className="w-fit" variant="destructive">
                 In use
               </Badge>
             )}
 
-            {status === "maintenance" && (
+            {status === 'maintenance' && (
               <Badge className="w-fit bg-yellow-400" variant="ghost">
                 Maintenance
               </Badge>
@@ -385,7 +388,7 @@ export const CardVendorVehicle = ({ id, vendor_id, make = "", status = "", model
   );
 };
 
-export const CardVendorAvailability = ({ id, date = "", end_time = "", start_time = "", max_bookings = "", price_multiplier = "", vehicle_id = "", vehicle_type = "" }) => {
+export const CardVendorAvailability = ({ id, date = '', end_time = '', start_time = '', max_bookings = '', price_multiplier = '', vehicle_id = '', vehicle_type = '' }) => {
   return (
     <Card className="max-w-full md:max-w-md space-y-2">
       <CardHeader className="flex flex-row justify-between items-start p-4 md:p-6 md:pb-4">
@@ -406,7 +409,7 @@ export const CardVendorAvailability = ({ id, date = "", end_time = "", start_tim
         {/* start_time and end_time */}
         {start_time && end_time && (
           <div className="flex items-center gap-2">
-            <Clock size={16} />{" "}
+            <Clock size={16} />{' '}
             <span>
               {start_time} - {end_time}
             </span>
@@ -437,16 +440,16 @@ export const CardVendorAvailability = ({ id, date = "", end_time = "", start_tim
 
 export const CardVendorDriver = ({
   id, // id is oreinted to context of using
-  vendor_id = "",
-  first_name = "",
-  last_name = "",
-  status = "",
-  license_expiry = "",
-  license_number = "",
-  phone = "",
+  vendor_id = '',
+  first_name = '',
+  last_name = '',
+  status = '',
+  license_expiry = '',
+  license_number = '',
+  phone = '',
   languages = [],
-  assigned_vehicle_id = "",
-  assigned_vehicle_model = "",
+  assigned_vehicle_id = '',
+  assigned_vehicle_model = '',
 }) => {
   const router = useRouter(); // initialize router
   return (
@@ -458,9 +461,9 @@ export const CardVendorDriver = ({
 
           {/* Status [available ,off_duty, on_duty] */}
           <CardDescription>
-            {status === "available" && <Badge className="bg-yellow-400 text-black hover:bg-yellow-400">Available</Badge>}
-            {status === "off_duty" && <Badge variant="outline">Off Duty</Badge>}
-            {status === "on_duty" && <Badge variant="success">On Duty</Badge>}
+            {status === 'available' && <Badge className="bg-yellow-400 text-black hover:bg-yellow-400">Available</Badge>}
+            {status === 'off_duty' && <Badge variant="outline">Off Duty</Badge>}
+            {status === 'on_duty' && <Badge variant="success">On Duty</Badge>}
           </CardDescription>
         </div>
 
@@ -539,7 +542,7 @@ export const CardVendorDriver = ({
   );
 };
 
-export const CardVendorSchedule = ({ driver_name = "", shift = "", time = "", vehicle_make = "", vehicle_model = "" }) => {
+export const CardVendorSchedule = ({ driver_name = '', shift = '', time = '', vehicle_make = '', vehicle_model = '' }) => {
   return (
     <Card>
       <CardContent className="flex justify-between p-4 ">
@@ -556,7 +559,6 @@ export const CardVendorSchedule = ({ driver_name = "", shift = "", time = "", ve
             <Car />
             {vehicle_make} {vehicle_model}
           </span>
-          
         </div>
       </CardContent>
     </Card>
@@ -565,13 +567,13 @@ export const CardVendorSchedule = ({ driver_name = "", shift = "", time = "", ve
 
 export const CardSingleContactInformation = ({
   id, // id is oreinted to context of using
-  address = "",
-  email = "",
+  address = '',
+  email = '',
 }) => {
   const informationUiStructure = [
-    { label: "id", value: id, icon: <LucidePackage size={18} /> },
-    { label: "address", value: address, icon: <MapPin size={18} /> },
-    { label: "email", value: email, icon: <Mail size={18} /> },
+    { label: 'id', value: id, icon: <LucidePackage size={18} /> },
+    { label: 'address', value: address, icon: <MapPin size={18} /> },
+    { label: 'email', value: email, icon: <Mail size={18} /> },
   ];
 
   return (
@@ -646,39 +648,39 @@ export const CardSingleRouteCard = () => {
   const routeConfig = [
     {
       icon: <Route size={18} />,
-      title: "Routes",
+      title: 'Routes',
       path: `/dashboard/admin/transfers/vendors/${vendorId}/routes`,
-      description: "Manage transfer routes and pricing",
+      description: 'Manage transfer routes and pricing',
     },
     {
       icon: <Tag size={18} />,
-      title: "Pricing",
+      title: 'Pricing',
       path: `/dashboard/admin/transfers/vendors/${vendorId}/pricing`,
-      description: "Configure pricing tiers and rates",
+      description: 'Configure pricing tiers and rates',
     },
     {
       icon: <Calendar size={18} />,
-      title: "Availability",
+      title: 'Availability',
       path: `/dashboard/admin/transfers/vendors/${vendorId}/availability`,
-      description: "Set time slots and vehicle availability",
+      description: 'Set time slots and vehicle availability',
     },
     {
       icon: <Car size={18} />,
-      title: "Vehicles",
+      title: 'Vehicles',
       path: `/dashboard/admin/transfers/vendors/${vendorId}/vehicles`,
-      description: "Manage vehicle fleet",
+      description: 'Manage vehicle fleet',
     },
     {
       icon: <User size={18} />,
-      title: "Drivers",
+      title: 'Drivers',
       path: `/dashboard/admin/transfers/vendors/${vendorId}/drivers`,
-      description: "Manage driver profiles",
+      description: 'Manage driver profiles',
     },
     {
       icon: <Clock size={18} />,
-      title: "Schedule",
+      title: 'Schedule',
       path: `/dashboard/admin/transfers/vendors/${vendorId}/schedules`,
-      description: "View and manage bookings",
+      description: 'View and manage bookings',
     },
   ];
 

@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { fetcher } from "@/lib/fetchers";
-import { useParams, useRouter } from "next/navigation";
-import useSWR from "swr";
-import { isEmpty } from "lodash";
-import { VendorNoResultFound } from "../shared/VendorNoResultFound";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import dynamic from "next/dynamic";
-import { ArrowLeft } from "lucide-react";
+import { fetcher } from '@/lib/fetchers';
+import { useParams, useRouter } from 'next/navigation';
+import useSWR from 'swr';
+import { isEmpty } from 'lodash';
+import { VendorNoResultFound } from '../shared/VendorNoResultFound';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import dynamic from 'next/dynamic';
+import { ArrowLeft } from 'lucide-react';
 
-const CardSingleContactInformation = dynamic(() => import("../shared/vendor_cards").then((mod) => mod.CardSingleContactInformation), { ssr: false });
-const CardSingleServiceInformation = dynamic(() => import("../shared/vendor_cards").then((mod) => mod.CardSingleServiceInformation), { ssr: false });
-const CardSingleRouteCard = dynamic(() => import("../shared/vendor_cards").then((mod) => mod.CardSingleRouteCard), { ssr: false });
+const CardSingleContactInformation = dynamic(() => import('../shared/vendor_cards').then((mod) => mod.CardSingleContactInformation), { ssr: false });
+const CardSingleServiceInformation = dynamic(() => import('../shared/vendor_cards').then((mod) => mod.CardSingleServiceInformation), { ssr: false });
+const CardSingleRouteCard = dynamic(() => import('../shared/vendor_cards').then((mod) => mod.CardSingleRouteCard), { ssr: false });
 
 const SingleVendorPage = () => {
   const { vendorId } = useParams();
@@ -26,7 +26,7 @@ const SingleVendorPage = () => {
 
   if (!isLoading && isEmpty(vendorData)) return <VendorNoResultFound />; // hanlde 404 and empty object
 
-  const { name = "", description = "", status = "", routes = [], vehicles = [] } = vendorData;
+  const { name = '', description = '', status = '', routes = [], vehicles = [] } = vendorData;
 
   return (
     <Card className="bg-inherit border-none shadow-none  ">
@@ -41,9 +41,9 @@ const SingleVendorPage = () => {
 
         <div>
           {/* status */}
-          {status === "active" && <Badge variant="success">{status}</Badge>}
+          {status === 'active' && <Badge variant="success">{status}</Badge>}
 
-          {status !== "active" && <Badge variant="destructive">{status}</Badge>}
+          {status !== 'active' && <Badge variant="destructive">{status}</Badge>}
         </div>
       </CardHeader>
       <CardContent className="space-y-4 px-4">

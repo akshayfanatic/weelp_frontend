@@ -1,9 +1,9 @@
-import React from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, CirclePlus } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft, CirclePlus } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 /**
  * Reusable destination navigation card.
@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
  * @param {string} props.name - Name to show in "Add" button ->URL SPECIFIC
  * @returns {JSX.Element}
  */
-export const NavigationDestinations = ({ title = "", description = "", url = "", name = "" }) => {
+export const NavigationDestinations = ({ title = '', description = '', url = '', name = '' }) => {
   const router = useRouter(); // intialize router
 
   if (title && description) {

@@ -1,11 +1,11 @@
-"use client"
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { useMediaStore } from "@/lib/store/useMediaStore";
-import {  Plus, X } from "lucide-react";
-import { useEffect, useState } from "react";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
-import { Medialibrary } from "../../media/MediaLibrary";
+'use client';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { useMediaStore } from '@/lib/store/useMediaStore';
+import { Plus, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Controller, useFormContext, useWatch } from 'react-hook-form';
+import { Medialibrary } from '../../media/MediaLibrary';
 
 // Media Tab
 const MediaComponent = () => {
@@ -20,7 +20,7 @@ const MediaComponent = () => {
   } = useFormContext();
 
   const media_gallery = useWatch({
-    name: "media_gallery",
+    name: 'media_gallery',
   });
 
   //  Hydarte First if there is already media exist
@@ -34,7 +34,7 @@ const MediaComponent = () => {
   useEffect(() => {
     if (selectedMedia.length > 0) {
       // 1. Transform selectedMedia (id → media_id) before adding
-      const transformedMedia = selectedMedia.map((obj) => _.mapKeys(obj, (value, key) => (key === "id" ? "media_id" : key))); // update key to media id
+      const transformedMedia = selectedMedia.map((obj) => _.mapKeys(obj, (value, key) => (key === 'id' ? 'media_id' : key))); // update key to media id
 
       // 2. Push transformed data to local state
       setActivityImages((prev) => [...prev, ...transformedMedia]);
@@ -45,14 +45,14 @@ const MediaComponent = () => {
 
   // sycn with form
   useEffect(() => {
-    setValue("media_gallery", activityImages); // sync form
+    setValue('media_gallery', activityImages); // sync form
   }, [activityImages, setValue]);
 
   // handleDelteImage
   const handleDeleteImage = (image) => {
     setActivityImages((prev) => {
       const updatedImages = prev.filter((img) => img.url !== image.url);
-      setTimeout(() => setValue("media_gallery", updatedImages), 0); //
+      setTimeout(() => setValue('media_gallery', updatedImages), 0); //
       return updatedImages;
     });
   };
@@ -65,9 +65,9 @@ const MediaComponent = () => {
           name="media_gallery"
           defaultValue={[]}
           rules={{
-            validate: (val) => val?.length > 0 || "Please upload at least 1 image.",
+            validate: (val) => val?.length > 0 || 'Please upload at least 1 image.',
           }}
-          render={() => ""}
+          render={() => ''}
         />
       </div>
 

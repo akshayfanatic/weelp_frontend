@@ -1,6 +1,6 @@
-"use client"
-import { NavigationDestinations } from "../components/Navigation";
-import { FilterPlaces } from "../destinations_filters/FilterPlaces";
+'use client';
+import { NavigationDestinations } from '../components/Navigation';
+import { FilterPlaces } from '../destinations_filters/FilterPlaces';
 
 export const DestinationPlacePage = () => {
   return (

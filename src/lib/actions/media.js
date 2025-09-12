@@ -1,8 +1,8 @@
-"use server";
-import { revalidatePath } from "next/cache";
-import { authApi } from "../axiosInstance";
-import { delay } from "../utils";
-import { log } from "../utils";
+'use server';
+import { revalidatePath } from 'next/cache';
+import { authApi } from '../axiosInstance';
+import { delay } from '../utils';
+import { log } from '../utils';
 
 /**
  * Handles the upload of media files using FormData and Axios.
@@ -16,18 +16,18 @@ export async function uploadMedia(formData) {
     if (!formData || formData.entries().length === 0) {
       return {
         success: false,
-        error: "No files to upload",
+        error: 'No files to upload',
       };
     }
 
     // Use axios to post FormData
     await delay(500);
-    const res = await authApi.post("api/admin/media/store", formData, {
+    const res = await authApi.post('api/admin/media/store', formData, {
       headers: {
-        "Content-Type": "multipart/form-data", // Ensure this header is set for file uploads
+        'Content-Type': 'multipart/form-data', // Ensure this header is set for file uploads
       },
     });
-   
+
     // Returning response success
     return {
       success: true,
@@ -37,14 +37,14 @@ export async function uploadMedia(formData) {
     // Return error response
     return {
       success: false,
-      error: err?.message || "Something went wrong during file upload.",
+      error: err?.message || 'Something went wrong during file upload.',
     };
   }
 }
 
 /**
  * Handles the update media image in media library files using FormData and Axios.
- * @param {object} formData data of the image 
+ * @param {object} formData data of the image
  * @returns []
  */
 export async function updateMediaImage(formData) {
@@ -56,12 +56,12 @@ export async function updateMediaImage(formData) {
     if (id) {
       const res = await authApi.put(`api/admin/media/update/${id}`, formData, {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
 
       // path refresh
-      revalidatePath("/dashboard/admin/media");
+      revalidatePath('/dashboard/admin/media');
 
       // Returning response success
       return {
@@ -69,18 +69,18 @@ export async function updateMediaImage(formData) {
         data: res.data,
       };
     }
-    return { success: false, data: "Something Went Wrong" };
+    return { success: false, data: 'Something Went Wrong' };
   } catch (err) {
     // Return error response
     return {
       success: false,
-      error: err?.message || "Something went wrong during file upload.",
+      error: err?.message || 'Something went wrong during file upload.',
     };
   }
 }
 
 /**
- * Delete Media Image By Id 
+ * Delete Media Image By Id
  * @param {number} imageId Id of the image to delete
  * @returns []
  */
@@ -93,19 +93,19 @@ export async function deleteMediaImageById(imageId) {
       const res = await authApi.delete(`api/admin/media/delete/${imageId}`);
 
       // path refresh
-      revalidatePath("/dashboard/admin/media");
+      revalidatePath('/dashboard/admin/media');
 
       // Returning response success
       return {
         success: true,
       };
     }
-    return { success: false, data: "Something Went Wrong" };
+    return { success: false, data: 'Something Went Wrong' };
   } catch (err) {
     // Return error response
     return {
       success: false,
-      error: err?.message || "Something went wrong during file upload.",
+      error: err?.message || 'Something went wrong during file upload.',
     };
   }
 }

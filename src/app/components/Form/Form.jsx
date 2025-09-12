@@ -1,30 +1,30 @@
-"use client";
+'use client';
 /**  This Form Is Used in HomePage Banner  */
-import React, { useState, useEffect } from "react";
-import { MapPin, Calendar, Users, Minus, Plus } from "lucide-react";
-import { useForm, Controller, useWatch } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/dist/style.css";
-import { useRouter } from "next/navigation";
-import axios from "axios";
-import { log } from "@/lib/utils";
-import { getCitiesRegions } from "@/lib/services/global";
+import React, { useState, useEffect } from 'react';
+import { MapPin, Calendar, Users, Minus, Plus } from 'lucide-react';
+import { useForm, Controller, useWatch } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { log } from '@/lib/utils';
+import { getCitiesRegions } from '@/lib/services/global';
 
 // Zod Schema
 const bookingSchema = z.object({
-  whereTo: z.string().min(1, "Location is required"),
+  whereTo: z.string().min(1, 'Location is required'),
   dateRange: z
     .object({
-      from: z.date().nullable().refine(Boolean, "Start date is required"),
-      to: z.date().nullable().refine(Boolean, "End date is required"),
+      from: z.date().nullable().refine(Boolean, 'Start date is required'),
+      to: z.date().nullable().refine(Boolean, 'End date is required'),
     })
-    .refine((data) => data.from && data.to && data.from <= data.to, "Start date must be before end date"),
+    .refine((data) => data.from && data.to && data.from <= data.to, 'Start date must be before end date'),
   howMany: z.object({
-    adults: z.number().min(1, "At least 1 adult is required").max(10, "Maximum 10 adults allowed"),
-    children: z.number().min(0).max(10, "Maximum 10 children allowed"),
-    infants: z.number().min(0).max(5, "Maximum 5 infants allowed"),
+    adults: z.number().min(1, 'At least 1 adult is required').max(10, 'Maximum 10 adults allowed'),
+    children: z.number().min(0).max(10, 'Maximum 10 children allowed'),
+    infants: z.number().min(0).max(5, 'Maximum 5 infants allowed'),
   }),
 });
 
@@ -37,7 +37,7 @@ export default function BookingForm() {
   const [showCalendar, setShowCalendar] = useState(false);
   const [showHowMany, setShowHowMany] = useState(false);
   const [showResponse, setShowResponse] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState('');
   const [isOpen, setIsOpen] = useState();
 
   const [howMany, setHowMany] = useState({
@@ -53,7 +53,7 @@ export default function BookingForm() {
         const response = await getCitiesRegions();
         setAllLocations(response); // Assuming API returns an array of cities && region
       } catch (error) {
-        console.log("Error fetching cities:", error);
+        console.log('Error fetching cities:', error);
         setAllLocations([]);
       }
     };
@@ -70,8 +70,8 @@ export default function BookingForm() {
   } = useForm({
     resolver: zodResolver(bookingSchema),
     defaultValues: {
-      type: "",
-      whereTo: "",
+      type: '',
+      whereTo: '',
       dateRange: { from: null, to: null },
       howMany: { adults: 1, children: 0, infants: 0 },
     },
@@ -80,8 +80,8 @@ export default function BookingForm() {
   // Handle form submission
   const onSubmit = async (data) => {
     // Convert dates to YYYY-MM-DD format
-    const startDate = data?.dateRange?.from ? data.dateRange.from.toISOString().split("T")[0] : "";
-    const endDate = data?.dateRange?.to ? data.dateRange.to.toISOString().split("T")[0] : "";
+    const startDate = data?.dateRange?.from ? data.dateRange.from.toISOString().split('T')[0] : '';
+    const endDate = data?.dateRange?.to ? data.dateRange.to.toISOString().split('T')[0] : '';
 
     const quantity = data?.howMany?.adults + data?.howMany?.children + data?.howMany?.infants;
 
@@ -97,9 +97,9 @@ export default function BookingForm() {
   };
 
   // watch where to
-  const watchedWhereTo = useWatch({ control, name: "whereTo" });
-  const watchedFrom = useWatch({ control, name: "dateRange" });
-  const watchedhowMany = useWatch({ control, name: "howMany" });
+  const watchedWhereTo = useWatch({ control, name: 'whereTo' });
+  const watchedFrom = useWatch({ control, name: 'dateRange' });
+  const watchedhowMany = useWatch({ control, name: 'howMany' });
 
   const total = watchedhowMany?.adults + watchedhowMany?.children + watchedhowMany?.infants;
 
@@ -162,7 +162,7 @@ export default function BookingForm() {
               <div className="p-2 sm:p-4">
                 <label className="flex cursor-pointer justify-center items-center gap-2 text-Bluewhale text-[12px] sm:text-base" onClick={toggleLocation}>
                   <MapPin size={20} />
-                  <span>{watchedWhereTo || "Where to"}</span>
+                  <span>{watchedWhereTo || 'Where to'}</span>
                 </label>
                 {errors.whereTo && <p className="text-red-500 text-sm text-center">{errors.whereTo.message}</p>}
               </div>
@@ -174,12 +174,12 @@ export default function BookingForm() {
                 <label className="flex cursor-pointer justify-center items-center gap-2 text-Bluewhale text-[12px] sm:text-base" onClick={toggleCalendar}>
                   <Calendar size={20} />
                   {watchedFrom?.from && watchedFrom?.to
-                    ? `${new Date(watchedFrom.from).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "2-digit",
-                        year: "numeric",
+                    ? `${new Date(watchedFrom.from).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: '2-digit',
+                        year: 'numeric',
                       })} `
-                    : "When?"}
+                    : 'When?'}
                 </label>
                 {errors.dateRange && <p className="text-red-500 text-sm text-center">{errors.dateRange.message}</p>}
               </div>
@@ -190,9 +190,9 @@ export default function BookingForm() {
               <div className="p-2 sm:p-4">
                 <label className="flex cursor-pointer justify-center items-center gap-2 text-Bluewhale text-[12px] sm:text-base" onClick={toggleHowMany}>
                   <Users size={20} />
-                  <span>{total ?? "How Many?"}</span>
+                  <span>{total ?? 'How Many?'}</span>
                 </label>
-                {errors.howMany && <p className="text-red-500 text-sm text-center">{errors.howMany?.adults?.message || ""}</p>}
+                {errors.howMany && <p className="text-red-500 text-sm text-center">{errors.howMany?.adults?.message || ''}</p>}
               </div>
             </div>
           </div>
@@ -202,7 +202,7 @@ export default function BookingForm() {
             {showLocation && (
               <div
                 onMouseLeave={(e) => {
-                  e.stopPropagation(), setShowLocation(!showLocation);
+                  (e.stopPropagation(), setShowLocation(!showLocation));
                 }}
                 className="flex w-full justify-center sm:justify-start"
               >
@@ -214,12 +214,19 @@ export default function BookingForm() {
                   render={({ field }) => (
                     <div className="locationController">
                       <ul className="bg-white rounded-xl  w-[220px] overflow-hidden">
-                        <li onClick={() => field.onChange("")} className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-secondaryDark  cursor-pointer hover:bg-[#f2f7f5] ${field.value === "" ? "bg-[#e9f5ed]" : "bg-[#f2f7f5]"}`}>
+                        <li
+                          onClick={() => field.onChange('')}
+                          className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-secondaryDark  cursor-pointer hover:bg-[#f2f7f5] ${field.value === '' ? 'bg-[#e9f5ed]' : 'bg-[#f2f7f5]'}`}
+                        >
                           Suggested
                         </li>
                         {locations.map((val, index) => {
                           return (
-                            <li key={index} onClick={() => field.onChange(val?.name)} className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-[#5a5a5a]  cursor-pointer hover:bg-[#f2f7f5] ${field.value === `${val?.name}` ? "bg-[#e9f5ed]" : ""}`}>
+                            <li
+                              key={index}
+                              onClick={() => field.onChange(val?.name)}
+                              className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-[#5a5a5a]  cursor-pointer hover:bg-[#f2f7f5] ${field.value === `${val?.name}` ? 'bg-[#e9f5ed]' : ''}`}
+                            >
                               {val?.name}
                             </li>
                           );
@@ -234,7 +241,7 @@ export default function BookingForm() {
             {showCalendar && (
               <div
                 onMouseLeave={(e) => {
-                  e.stopPropagation(), setShowCalendar(!showCalendar);
+                  (e.stopPropagation(), setShowCalendar(!showCalendar));
                 }}
                 className="flex justify-center mx-auto bg-white w-fit rounded-2xl p-2"
               >
@@ -259,23 +266,31 @@ export default function BookingForm() {
             {showHowMany && (
               <div
                 onMouseLeave={(e) => {
-                  e.stopPropagation(), setShowHowMany(!showHowMany);
+                  (e.stopPropagation(), setShowHowMany(!showHowMany));
                 }}
                 className="text-nowrap flex flex-col gap-4  w-full items-center sm:items-end"
               >
                 <div className="bg-white w-fit p-4 px-6 rounded-lg flex flex-col gap-4 border">
-                  {["adults", "children", "infants"].map((type, index) => (
+                  {['adults', 'children', 'infants'].map((type, index) => (
                     <div key={index} className="flex justify-between items-center w-full gap-6">
                       <div>
                         <h3 className="font-semibold capitalize">{type}</h3>
-                        <span className="text-sm">{type == "adults" ? "Above 13 or above" : type == "children" ? "Age 2-12" : type == "infants" ? "Under 2" : null}</span>
+                        <span className="text-sm">{type == 'adults' ? 'Above 13 or above' : type == 'children' ? 'Age 2-12' : type == 'infants' ? 'Under 2' : null}</span>
                       </div>
                       <div className="flex items-center gap-4">
-                        <button type="button" onClick={() => handleDecrement(type)} className="w-8 h-8 rounded-full border text-lg flex items-center justify-center text-gray-700 bg-graycolor hover:bg-[#e9f5ed] hover:opacity-80">
+                        <button
+                          type="button"
+                          onClick={() => handleDecrement(type)}
+                          className="w-8 h-8 rounded-full border text-lg flex items-center justify-center text-gray-700 bg-graycolor hover:bg-[#e9f5ed] hover:opacity-80"
+                        >
                           <Minus size={14} />
                         </button>
                         <span className="font-semibold">{howMany[type]}</span>
-                        <button type="button" onClick={() => handleIncrement(type)} className="w-8 h-8 rounded-full border border-secondarylight text-lg flex items-center justify-center text-secondaryDark hover:bg-[#e9f5ed] hover:opacity-80 ">
+                        <button
+                          type="button"
+                          onClick={() => handleIncrement(type)}
+                          className="w-8 h-8 rounded-full border border-secondarylight text-lg flex items-center justify-center text-secondaryDark hover:bg-[#e9f5ed] hover:opacity-80 "
+                        >
                           <Plus size={14} />
                         </button>
                       </div>

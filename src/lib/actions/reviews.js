@@ -1,9 +1,9 @@
 // @ts-check
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { authApi } from "../axiosInstance";
-import { delay, log } from "../utils";
+import { revalidatePath } from 'next/cache';
+import { authApi } from '../axiosInstance';
+import { delay, log } from '../utils';
 
 /**
  * Create a new review.
@@ -16,18 +16,18 @@ export const createReview = async (data) => {
     // Optional: simulate network delay
     await delay(500);
 
-    const res = await authApi.post("/api/admin/reviews", data, {
+    const res = await authApi.post('/api/admin/reviews', data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
     // Revalidate Next.js cache for reviews page
-    revalidatePath("/dashboard/admin/reviews");
+    revalidatePath('/dashboard/admin/reviews');
 
     return {
       success: true,
-      message: res.data?.message || "Review created successfully",
+      message: res.data?.message || 'Review created successfully',
     };
   } catch (err) {
     const status = err?.response?.status;
@@ -36,7 +36,7 @@ export const createReview = async (data) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -45,7 +45,7 @@ export const createReview = async (data) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "Review already exists",
+        message: err?.response?.data?.error || 'Review already exists',
       };
     }
 
@@ -53,14 +53,14 @@ export const createReview = async (data) => {
     if (status === 422) {
       return {
         success: false,
-        message: err?.response?.data?.message || "Cannot process review",
+        message: err?.response?.data?.message || 'Cannot process review',
       };
     }
 
     // Fallback
     return {
       success: false,
-      message: "Something went wrong while creating the review",
+      message: 'Something went wrong while creating the review',
     };
   }
 };
@@ -78,7 +78,7 @@ export const updateReview = async (id, data) => {
 
     const res = await authApi.put(`/api/admin/reviews/${id}`, data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
@@ -87,7 +87,7 @@ export const updateReview = async (id, data) => {
 
     return {
       success: true,
-      message: res.data?.message || "Review update successfully",
+      message: res.data?.message || 'Review update successfully',
     };
   } catch (err) {
     const status = err?.response?.status;
@@ -96,7 +96,7 @@ export const updateReview = async (id, data) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -105,7 +105,7 @@ export const updateReview = async (id, data) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "Review already exists",
+        message: err?.response?.data?.error || 'Review already exists',
       };
     }
 
@@ -113,18 +113,17 @@ export const updateReview = async (id, data) => {
     if (status === 422) {
       return {
         success: false,
-        message: err?.response?.data?.message || "Cannot process review",
+        message: err?.response?.data?.message || 'Cannot process review',
       };
     }
 
     // Fallback
     return {
       success: false,
-      message: "Something went wrong while creating the review",
+      message: 'Something went wrong while creating the review',
     };
   }
 };
-
 
 /**
  * Deletes a review by ID.
@@ -137,11 +136,14 @@ export async function deleteReview(reviewId) {
     const res = await authApi.delete(`/api/admin/reviews/${reviewId}/`);
 
     // revalidate reviews page
-    revalidatePath("/dashboard/admin/reviews");
+    revalidatePath('/dashboard/admin/reviews');
 
     // Return success
-    return { success: true, message: res?.data?.message || "Deleted successfully" };
+    return {
+      success: true,
+      message: res?.data?.message || 'Deleted successfully',
+    };
   } catch (error) {
-    return { success: false, error: error?.message || "Something went wrong" };
+    return { success: false, error: error?.message || 'Something went wrong' };
   }
 }

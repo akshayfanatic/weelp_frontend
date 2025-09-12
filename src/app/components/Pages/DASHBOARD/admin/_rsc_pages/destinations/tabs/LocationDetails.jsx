@@ -1,12 +1,12 @@
-"use client";
-import React from "react";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useFormContext } from "react-hook-form";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import Select from "react-select";
-import { Select as ShadcnSelect, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CURRENCY, GMT_TIMEZONE, LANGUAGES, LOCAL_CUISINE } from "@/constants/shared";
+'use client';
+import React from 'react';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useFormContext } from 'react-hook-form';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import Select from 'react-select';
+import { Select as ShadcnSelect, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { CURRENCY, GMT_TIMEZONE, LANGUAGES, LOCAL_CUISINE } from '@/constants/shared';
 
 const LocationDetailsTab = () => {
   const form = useFormContext();
@@ -20,12 +20,12 @@ const LocationDetailsTab = () => {
         <FormField
           control={form.control}
           name="location_details.latitude"
-          rules={{ required: "Field Required" }}
+          rules={{ required: 'Field Required' }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Latitude</FormLabel>
               <FormControl>
-                <Input type="number" min="0" step="any"  {...field} />
+                <Input type="number" min="0" step="any" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -36,12 +36,12 @@ const LocationDetailsTab = () => {
         <FormField
           control={form.control}
           name="location_details.longitude"
-          rules={{ required: "Field Required" }}
+          rules={{ required: 'Field Required' }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Longitude</FormLabel>
               <FormControl>
-                <Input type="number" min="0" step="any"  {...field} />
+                <Input type="number" min="0" step="any" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -52,7 +52,7 @@ const LocationDetailsTab = () => {
         <FormField
           control={form.control}
           name="location_details.capital_city"
-          rules={{ required: "Field Required" }}
+          rules={{ required: 'Field Required' }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Capital City</FormLabel>
@@ -68,7 +68,7 @@ const LocationDetailsTab = () => {
         <FormField
           control={form.control}
           name="location_details.population"
-          rules={{ required: "Field Required" }}
+          rules={{ required: 'Field Required' }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Population</FormLabel>
@@ -85,7 +85,7 @@ const LocationDetailsTab = () => {
         <FormField
           control={form.control}
           name="location_details.currency"
-          rules={{ required: "Currency Required" }}
+          rules={{ required: 'Currency Required' }}
           render={({ field }) => (
             <FormItem className="flex flex-col items-start gap-2">
               <FormLabel>Currency</FormLabel>
@@ -116,7 +116,7 @@ const LocationDetailsTab = () => {
         <FormField
           control={form.control}
           name="location_details.timezone"
-          rules={{ required: "Timezone Required" }}
+          rules={{ required: 'Timezone Required' }}
           render={({ field }) => (
             <FormItem className="flex flex-col items-start gap-2">
               <FormLabel>Timezone</FormLabel>
@@ -148,7 +148,7 @@ const LocationDetailsTab = () => {
           <FormField
             control={form.control}
             name="location_details.language"
-            rules={{ required: "Language Requried" }}
+            rules={{ required: 'Language Requried' }}
             render={({ field }) => (
               <FormItem className="flex flex-col items-start gap-2">
                 <FormLabel>Languages</FormLabel>
@@ -158,7 +158,10 @@ const LocationDetailsTab = () => {
                     isMulti
                     options={LANGUAGES}
                     className="w-full"
-                    value={(field.value || []).map((val) => ({ value: val, label: val }))}
+                    value={(field.value || []).map((val) => ({
+                      value: val,
+                      label: val,
+                    }))}
                     onChange={(selected) => field.onChange(selected.map((option) => option.value))}
                     placeholder="Select languages..."
                   />
@@ -174,7 +177,7 @@ const LocationDetailsTab = () => {
           <FormField
             control={form.control}
             name="location_details.local_cuisine"
-            rules={{ required: "Field Required" }}
+            rules={{ required: 'Field Required' }}
             render={({ field }) => (
               <FormItem className="flex flex-col items-start gap-2">
                 <FormLabel>Local Cuisine</FormLabel>
@@ -184,7 +187,10 @@ const LocationDetailsTab = () => {
                     isMulti
                     options={LOCAL_CUISINE}
                     className="w-full"
-                    value={(field.value || []).map((val) => ({ value: val, label: val }))}
+                    value={(field.value || []).map((val) => ({
+                      value: val,
+                      label: val,
+                    }))}
                     onChange={(selected) => field.onChange(selected.map((option) => option.value))}
                     placeholder="Select languages..."
                   />
@@ -198,4 +204,4 @@ const LocationDetailsTab = () => {
     </Card>
   );
 };
-export default LocationDetailsTab
+export default LocationDetailsTab;

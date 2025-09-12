@@ -1,5 +1,5 @@
-import axios from "axios";
-import { auth } from "../lib/auth";
+import axios from 'axios';
+import { auth } from '../lib/auth';
 
 // Public API instance (No auth required)
 export const publicApi = axios.create({
@@ -21,12 +21,12 @@ authApi.interceptors.request.use(
         config.headers.Authorization = `Bearer ${session?.access_token}`;
       }
     } catch (error) {
-      console.error("Error fetching session:", error);
+      console.error('Error fetching session:', error);
     }
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 authApi.interceptors.response.use(
@@ -37,14 +37,14 @@ authApi.interceptors.response.use(
     // }
 
     const status = error?.response?.status;
-    const message = error?.response?.data?.message || error.message || "Unexpected error";
+    const message = error?.response?.data?.message || error.message || 'Unexpected error';
     const url = error?.config?.url;
 
     // Global error log
-    if (process.env.NODE_ENV === "development") {
+    if (process.env.NODE_ENV === 'development') {
       console.error(`[API Error] ${status} @ ${url}: ${message}`, error?.response?.data);
     }
 
     return Promise.reject(error);
-  }
+  },
 );

@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { authApi } from "../axiosInstance";
-import { delay, log } from "../utils";
+import { revalidatePath } from 'next/cache';
+import { authApi } from '../axiosInstance';
+import { delay, log } from '../utils';
 
 /**
  * Method for Create Tags
@@ -12,10 +12,10 @@ import { delay, log } from "../utils";
 export const createTag = async (data) => {
   try {
     await delay(500);
-    const res = await authApi.post("/api/admin/tags/", data);
+    const res = await authApi.post('/api/admin/tags/', data);
 
     // revalidate  path
-    revalidatePath("/dashboard/admin/taxonomies/tags");
+    revalidatePath('/dashboard/admin/taxonomies/tags');
 
     return {
       success: true,
@@ -27,7 +27,7 @@ export const createTag = async (data) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         status: 400,
         errors: err.response.data.errors,
       };
@@ -37,26 +37,23 @@ export const createTag = async (data) => {
       const message = err.response.data.message;
       return {
         success: false,
-        message: "Tags Already Exist",
+        message: 'Tags Already Exist',
       };
     }
 
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
-
-
-
 
 /**
  * Method for Update tag
@@ -82,7 +79,7 @@ export const editTag = async (id, data) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         status: 400,
         errors: err.response.data.errors,
       };
@@ -92,25 +89,23 @@ export const editTag = async (id, data) => {
       const message = err.response.data.message;
       return {
         success: false,
-        message: "Tags Already Exist",
+        message: 'Tags Already Exist',
       };
     }
 
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
-
-
 
 /**
  * Method for Delete Tag
@@ -134,12 +129,12 @@ export const deleteTag = async (id) => {
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };

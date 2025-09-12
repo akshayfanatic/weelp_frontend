@@ -1,9 +1,9 @@
-import React from "react";
-import FilteredReview from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/reviews/FilteredReview";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import Link from "next/link";
+import React from 'react';
+import FilteredReview from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/reviews/FilteredReview';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
+import Link from 'next/link';
 
 const ReviewsPage = () => {
   return (

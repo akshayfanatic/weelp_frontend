@@ -1,7 +1,7 @@
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
-import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategoriesAdmin } from "@/lib/services/global";
-import { CreateActivityForm } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/activities/CreateActivityForm";
+import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategoriesAdmin } from '@/lib/services/global';
+import { CreateActivityForm } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/activities/CreateActivityForm';
 
 // RSC
 const CreateActivity = async () => {

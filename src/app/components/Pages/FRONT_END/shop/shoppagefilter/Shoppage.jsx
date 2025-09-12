@@ -1,9 +1,9 @@
-"use client";
-import React, { useState, useEffect, useReducer } from "react";
-import TopBarFilter from "./TopBarFilter";
-import SideBarFilter from "./SidebarFilter";
-import { fakeData } from "@/app/Data/ShopData";
-import SingleProductCard from "@/app/components/SingleProductCard";
+'use client';
+import React, { useState, useEffect, useReducer } from 'react';
+import TopBarFilter from './TopBarFilter';
+import SideBarFilter from './SidebarFilter';
+import { fakeData } from '@/app/Data/ShopData';
+import SingleProductCard from '@/app/components/SingleProductCard';
 
 // Initial Filter State
 const initialState = {
@@ -14,59 +14,43 @@ const initialState = {
   location: [],
 };
 
-
 // Reducer to manage filter actions
 const filterReducer = (state, action) => {
   switch (action.type) {
-    case "UPDATE_CATEGORY":
+    case 'UPDATE_CATEGORY':
       return {
         ...state,
-        category: state.category.includes(action.payload)
-          ? state.category.filter((cat) => cat !== action.payload)
-          : [...state.category, action.payload],
+        category: state.category.includes(action.payload) ? state.category.filter((cat) => cat !== action.payload) : [...state.category, action.payload],
       };
-    case "UPDATE_PRICE_RANGE":
+    case 'UPDATE_PRICE_RANGE':
       return { ...state, priceRange: action.payload };
-    case "UPDATE_RATING":
+    case 'UPDATE_RATING':
       return { ...state, rating: action.payload };
-    case "UPDATE_AVAILABILITY":
+    case 'UPDATE_AVAILABILITY':
       return { ...state, availability: action.payload };
-    case "UPDATE_LOCATION":
+    case 'UPDATE_LOCATION':
       return {
         ...state,
-        location: state.location.includes(action.payload)
-          ? state.location.filter((loc) => loc !== action.payload)
-          : [...state.location, action.payload],
+        location: state.location.includes(action.payload) ? state.location.filter((loc) => loc !== action.payload) : [...state.location, action.payload],
       };
     default:
       return state;
   }
 };
 
-
 const Shoppage = () => {
   const [isClient, setIsClient] = useState(false);
   const [filters, dispatch] = useReducer(filterReducer, initialState);
   const [filteredData, setFilteredData] = useState(fakeData);
 
-  
-  
   useEffect(() => {
     // Filter the product data whenever filters are updated
     const filtered = fakeData.filter((product) => {
-      const byCategory = filters.category.length
-        ? filters.category.includes(product.category)
-        : true;
+      const byCategory = filters.category.length ? filters.category.includes(product.category) : true;
       const byPrice = product.price <= filters.priceRange;
-      const byRating = filters.rating
-        ? Math.ceil(product.rating) === Number(filters.rating)
-        : true;
-      const byAvailability = filters.availability
-        ? product.availability === filters.availability
-        : true;
-      const byLocation = filters.location.length
-        ? filters.location.includes(product.location)
-        : true;
+      const byRating = filters.rating ? Math.ceil(product.rating) === Number(filters.rating) : true;
+      const byAvailability = filters.availability ? product.availability === filters.availability : true;
+      const byLocation = filters.location.length ? filters.location.includes(product.location) : true;
 
       return byCategory && byPrice && byRating && byAvailability && byLocation;
     });
@@ -90,14 +74,7 @@ const Shoppage = () => {
           {/* Product Data */}
           <div className="flex-[4] flex flex-wrap gap-4">
             {filteredData.map((product) => (
-              <SingleProductCard
-                key={product.id}
-                imgsrc={product.image}
-                productTitle={product.name}
-                productId={product.id}
-                productPrice={product.price}
-                productRating={product.rating}
-              />
+              <SingleProductCard key={product.id} imgsrc={product.image} productTitle={product.name} productId={product.id} productPrice={product.price} productRating={product.rating} />
             ))}
           </div>
         </div>

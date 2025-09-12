@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { NavigationDestinations } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/components/Navigation";
-import { FilterCities } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/destinations_filters/FilterCities";
+import { NavigationDestinations } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/components/Navigation';
+import { FilterCities } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/destinations_filters/FilterCities';
 const CitiesPage = () => {
   return (
     <>

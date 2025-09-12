@@ -1,21 +1,13 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 
-import { auth } from "@/lib/auth";
+import { auth } from '@/lib/auth';
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { SignOut } from "./SignOut";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { SignOut } from './SignOut';
 
-
-
-export  async function UserButton() {
-  const  session  = await auth()
+export async function UserButton() {
+  const session = await auth();
   return (
     <>
       {session?.user?.name}

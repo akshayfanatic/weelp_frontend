@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
-import axios from "axios";
-import { useParams } from "next/navigation";
-import _, { set } from "lodash";
-import ReactRangeSliderInput from "react-range-slider-input";
-import "react-range-slider-input/dist/style.css";
-import { GlobalCard } from "@/app/components/SingleProductCard";
-import { Star } from "lucide-react";
-import { LoadingPage } from "@/app/components/Animation/Cards";
-import { log } from "@/lib/utils";
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import axios from 'axios';
+import { useParams } from 'next/navigation';
+import _, { set } from 'lodash';
+import ReactRangeSliderInput from 'react-range-slider-input';
+import 'react-range-slider-input/dist/style.css';
+import { GlobalCard } from '@/app/components/SingleProductCard';
+import { Star } from 'lucide-react';
+import { LoadingPage } from '@/app/components/Animation/Cards';
+import { log } from '@/lib/utils';
 
 export const RegionFilter = () => {
   const { region } = useParams();
@@ -26,7 +26,6 @@ export const RegionFilter = () => {
     per_page: 10,
   });
   const [isLoading, setIsLoading] = useState(false);
- 
 
   // Fetch Categories
   const fetchCategories = useCallback(() => {
@@ -36,12 +35,12 @@ export const RegionFilter = () => {
         if (response?.status === 200 && response?.data?.data?.length > 0) {
           setCategories(response.data.data);
         } else {
-          console.warn("No categories found or empty response.");
+          console.warn('No categories found or empty response.');
           setCategories([]);
         }
       })
       .catch((error) => {
-        console.error("Error fetching categories:", error);
+        console.error('Error fetching categories:', error);
         setCategories([]);
       });
   }, []);
@@ -53,16 +52,14 @@ export const RegionFilter = () => {
       let query = `?min_price=${priceRange[0]}&max_price=${priceRange[1]}&page=${pagination.current_page}&min_rating=${ratingFilter}`;
 
       if (selectedCategories.length > 0) {
-        query += `&categories=${selectedCategories.join(",")}`;
+        query += `&categories=${selectedCategories.join(',')}`;
       }
 
       axios
-        .get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URLL}api/region/${region}/region-all-items${query}`
-        )
+        .get(`${process.env.NEXT_PUBLIC_API_BASE_URLL}api/region/${region}/region-all-items${query}`)
         .then((response) => {
           setProducts(response.data.data);
-           console.log(response)
+          console.log(response);
           setPagination({
             current_page: response?.data?.current_page ?? 0,
             last_page: response?.data?.last_page ?? 0,
@@ -70,18 +67,12 @@ export const RegionFilter = () => {
             per_page: response?.data?.per_page ?? 0,
           });
         })
-        .catch((error) => console.error("Error fetching products:", error))
+        .catch((error) => console.error('Error fetching products:', error))
         .finally(() => {
           setIsLoading(false);
         });
     }, 500),
-    [
-      priceRange,
-      selectedCategories,
-      pagination.current_page,
-      region,
-      ratingFilter,
-    ]
+    [priceRange, selectedCategories, pagination.current_page, region, ratingFilter],
   );
 
   useEffect(() => {
@@ -94,13 +85,7 @@ export const RegionFilter = () => {
   }, [fetchProducts, fetchCategories]);
 
   const handleCheckboxChange = useCallback((category) => {
-    setSelectedCategories((prevSelected) =>
-      category === "all"
-        ? []
-        : prevSelected.includes(category)
-        ? prevSelected.filter((item) => item !== category)
-        : [...prevSelected, category]
-    );
+    setSelectedCategories((prevSelected) => (category === 'all' ? [] : prevSelected.includes(category) ? prevSelected.filter((item) => item !== category) : [...prevSelected, category]));
   }, []);
 
   const handlePriceRangeChange = useCallback((values) => {
@@ -120,43 +105,31 @@ export const RegionFilter = () => {
   const categoryList = useMemo(
     () =>
       categories.map((category, index) => (
-        <label
-          key={index}
-          className="flex items-center space-x-2 cursor-pointer"
-        >
+        <label key={index} className="flex items-center space-x-2 cursor-pointer">
           <input
             type="checkbox"
             value={category.name}
             checked={selectedCategories.includes(category.name)}
             onChange={() => handleCheckboxChange(category.name)}
-            className={`w-4 h-4 transition-all border-2 rounded cursor-pointer ${
-              selectedCategories.includes(category.name) &&
-              "accent-secondaryDark"
-            }`}
+            className={`w-4 h-4 transition-all border-2 rounded cursor-pointer ${selectedCategories.includes(category.name) && 'accent-secondaryDark'}`}
           />
           <span>{category.name}</span>
         </label>
       )),
-    [categories, selectedCategories, handleCheckboxChange]
+    [categories, selectedCategories, handleCheckboxChange],
   );
 
   const PaginationControls = () => (
     <div className="flex justify-center mt-6 space-x-2 w-full">
-     
       {Array.from({ length: pagination.last_page }, (_, i) => (
         <button
           key={i}
           onClick={() => handlePageChange(i + 1)}
-          className={`px-3 py-2 text-sm rounded ${
-            pagination.current_page === i + 1
-              ? "bg-secondaryDark text-white"
-              : "bg-gray-200 hover:bg-gray-300"
-          }`}
+          className={`px-3 py-2 text-sm rounded ${pagination.current_page === i + 1 ? 'bg-secondaryDark text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
         >
           {i + 1}
         </button>
       ))}
-     
     </div>
   );
 
@@ -166,25 +139,11 @@ export const RegionFilter = () => {
         <h2 className="text-lg font-medium text-[#143042] my-4">Ratings</h2>
         <div className="flex w-fit flex-col gap-4">
           {[3, 4, 5].map((rating) => (
-            <label
-              key={rating}
-              className={`flex cursor-pointer items-center space-x-1 py-1 rounded`}
-            >
-              <input
-                type="radio"
-                name="rating"
-                value={rating}
-                checked={ratingFilter === rating}
-                onChange={() => handleRatingChange(rating)}
-                className={`size-5 checked:accent-secondaryDark`}
-              />
+            <label key={rating} className={`flex cursor-pointer items-center space-x-1 py-1 rounded`}>
+              <input type="radio" name="rating" value={rating} checked={ratingFilter === rating} onChange={() => handleRatingChange(rating)} className={`size-5 checked:accent-secondaryDark`} />
               <div className="flex">
                 {Array.from({ length: rating }).map((_, i) => (
-                  <Star
-                    key={i}
-                    size={20}
-                    className="stroke-none fill-yellow-500"
-                  />
+                  <Star key={i} size={20} className="stroke-none fill-yellow-500" />
                 ))}
               </div>
             </label>
@@ -205,24 +164,16 @@ export const RegionFilter = () => {
               name="category"
               value="all"
               checked={selectedCategories.length === 0}
-              onChange={() => handleCheckboxChange("all")}
+              onChange={() => handleCheckboxChange('all')}
               className="size-5 transition-all border-2 rounded cursor-pointer checked:accent-secondaryDark"
             />
             <span>All Category</span>
           </label>
-          <span className="text-md font-medium text-grayDark">
-            {categoryList}
-          </span>
+          <span className="text-md font-medium text-grayDark">{categoryList}</span>
         </div>
 
         <h2 className="text-lg font-medium text-[#143042] my-4">Price Range</h2>
-        <ReactRangeSliderInput
-          min={100}
-          max={5000}
-          value={priceRange}
-          onInput={handlePriceRangeChange}
-          className="mt-2"
-        />
+        <ReactRangeSliderInput min={100} max={5000} value={priceRange} onInput={handlePriceRangeChange} className="mt-2" />
 
         <StarRatingFilter />
       </div>
@@ -230,8 +181,7 @@ export const RegionFilter = () => {
       <div className="w-full lg:flex-[4] sm:my-12 flex flex-col">
         {isLoading && <LoadingPage />}
         <div className="flex  gap-4 flex-wrap">
-          {!isLoading &&
-          products.length > 0?
+          {!isLoading && products.length > 0 ? (
             products.map((product, index) => (
               <GlobalCard
                 key={index}
@@ -241,8 +191,9 @@ export const RegionFilter = () => {
                 productPrice={product?.pricing?.regular_price ?? product?.base_pricing?.variations[0]?.regular_price}
               />
             ))
-          :<p>Sorry No Product Found</p>
-          }
+          ) : (
+            <p>Sorry No Product Found</p>
+          )}
         </div>
 
         {pagination.last_page > 1 && <PaginationControls />}

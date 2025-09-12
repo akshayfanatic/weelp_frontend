@@ -1,40 +1,40 @@
-"use client";
+'use client';
 
-import { useEffect, useId, useState, useMemo } from "react";
-import { useForm, Controller, useWatch } from "react-hook-form";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Card } from "@/components/ui/card";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar, Clock, Ellipsis,  Plus, SquarePen, Star, Tag, Trash2, Users } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import debounce from "lodash.debounce";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import ReactRangeSliderInput from "react-range-slider-input";
-import "react-range-slider-input/dist/style.css";
-import { CustomPagination } from "@/app/components/Pagination";
-import Link from "next/link";
-import useSWR from "swr"; // for states cache and ui management
-import { fetcher } from "@/lib/fetchers"; // interceptors
-import { useToast } from "@/hooks/use-toast";
-import { Checkbox } from "@/components/ui/checkbox";
+import { useEffect, useId, useState, useMemo } from 'react';
+import { useForm, Controller, useWatch } from 'react-hook-form';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Card } from '@/components/ui/card';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Calendar, Clock, Ellipsis, Plus, SquarePen, Star, Tag, Trash2, Users } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import debounce from 'lodash.debounce';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
+import ReactRangeSliderInput from 'react-range-slider-input';
+import 'react-range-slider-input/dist/style.css';
+import { CustomPagination } from '@/app/components/Pagination';
+import Link from 'next/link';
+import useSWR from 'swr'; // for states cache and ui management
+import { fetcher } from '@/lib/fetchers'; // interceptors
+import { useToast } from '@/hooks/use-toast';
+import { Checkbox } from '@/components/ui/checkbox';
 
-import { deleteItinerary, deleteMultipleItineraries } from "@/lib/actions/itineraries";
+import { deleteItinerary, deleteMultipleItineraries } from '@/lib/actions/itineraries';
 
-const seasons = ["spring", "summer", "winter", "automn"]; // static season
+const seasons = ['spring', 'summer', 'winter', 'automn']; // static season
 
 const sortOptions = [
-  { name: "Price: Low to High", value: "price_asc" },
-  { name: "Price: High to Low", value: "price_desc" },
-  { name: "Name: A to Z", value: "name_asc" },
-  { name: "Name: Z to A", value: "name_desc" },
-  { name: "ID: Oldest First", value: "id_asc" },
-  { name: "ID: Newest First", value: "id_desc" },
-  { name: "Featured First", value: "featured" },
-  { name: "Default (Newest First)", value: "default" },
+  { name: 'Price: Low to High', value: 'price_asc' },
+  { name: 'Price: High to Low', value: 'price_desc' },
+  { name: 'Name: A to Z', value: 'name_asc' },
+  { name: 'Name: Z to A', value: 'name_desc' },
+  { name: 'ID: Oldest First', value: 'id_asc' },
+  { name: 'ID: Newest First', value: 'id_desc' },
+  { name: 'Featured First', value: 'featured' },
+  { name: 'Default (Newest First)', value: 'default' },
 ];
 
 const FilterItinerary = ({ categories = [], difficulties = [], durations = [] }) => {
@@ -42,19 +42,19 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
   const { toast } = useToast(); // intialize toast
   const [selectedItems, setSelectedItems] = useState([]); // selected item for multiple delete case
   const [modalState, setModalState] = useState({
-    openDropdownIndex: "", // string: index as string or "" for none
-    openDialogIndex: "",
+    openDropdownIndex: '', // string: index as string or "" for none
+    openDialogIndex: '',
   });
 
   const { register, setValue, control } = useForm({
     //initalize form
     defaultValues: {
-      name: "",
-      category: "",
-      difficulty_level: "",
-      duration: "",
+      name: '',
+      category: '',
+      difficulty_level: '',
+      duration: '',
       seasons: [],
-      sort_by: "",
+      sort_by: '',
       page: 1,
       price: [50, 2000],
     },
@@ -65,14 +65,14 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
   //  handle delete to open modal
   const handleDeleteClick = (index) => {
     setModalState({
-      openDropdownIndex: "",
+      openDropdownIndex: '',
       openDialogIndex: index,
     });
   };
 
   // colose dialog
   const closeDialog = () => {
-    setModalState((prev) => ({ ...prev, openDialogIndex: "" }));
+    setModalState((prev) => ({ ...prev, openDialogIndex: '' }));
   };
 
   // handle for delete activity
@@ -81,8 +81,8 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
       await deleteItinerary(itemId); // call server action
 
       toast({
-        title: "Itinerary deleted",
-        variant: "success",
+        title: 'Itinerary deleted',
+        variant: 'success',
       });
 
       mutate(); // trigger api
@@ -90,15 +90,15 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
     } catch (error) {
       console.log(error);
       toast({
-        title: "Error deleting item",
-        variant: "destructive",
+        title: 'Error deleting item',
+        variant: 'destructive',
       });
     }
   }
 
   // handle page change
   const handlePageChange = (newPage) => {
-    setValue("page", newPage, { shouldValidate: true, shouldDirty: true }); // through server side pagiantion
+    setValue('page', newPage, { shouldValidate: true, shouldDirty: true }); // through server side pagiantion
   };
 
   const debouncedUpdate = useMemo(
@@ -106,7 +106,7 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
       debounce((newFilters) => {
         setDebouncedFilters(newFilters);
       }, 500),
-    []
+    [],
   );
 
   // side effect for if fiilter change
@@ -119,17 +119,17 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
   const queryParams = useMemo(() => {
     const params = new URLSearchParams();
 
-    if (debouncedFilters.name) params.append("name", debouncedFilters.name);
-    if (debouncedFilters.category) params.append("category", debouncedFilters.category);
-    if (debouncedFilters.difficulty_level) params.append("difficulty_level", debouncedFilters.difficulty_level);
-    if (debouncedFilters.duration) params.append("duration", debouncedFilters.duration);
+    if (debouncedFilters.name) params.append('name', debouncedFilters.name);
+    if (debouncedFilters.category) params.append('category', debouncedFilters.category);
+    if (debouncedFilters.difficulty_level) params.append('difficulty_level', debouncedFilters.difficulty_level);
+    if (debouncedFilters.duration) params.append('duration', debouncedFilters.duration);
     if (debouncedFilters.seasons?.length) {
-      debouncedFilters.seasons.forEach((season) => params.append("season[]", season));
+      debouncedFilters.seasons.forEach((season) => params.append('season[]', season));
     }
-    if (debouncedFilters.sort_by) params.append("sort_by", debouncedFilters.sort_by);
-    if (debouncedFilters.price?.[0]) params.append("min_price", debouncedFilters.price[0]);
-    if (debouncedFilters.price?.[1]) params.append("max_price", debouncedFilters.price[1]);
-    if (debouncedFilters.page) params.append("page", debouncedFilters.page);
+    if (debouncedFilters.sort_by) params.append('sort_by', debouncedFilters.sort_by);
+    if (debouncedFilters.price?.[0]) params.append('min_price', debouncedFilters.price[0]);
+    if (debouncedFilters.price?.[1]) params.append('max_price', debouncedFilters.price[1]);
+    if (debouncedFilters.page) params.append('page', debouncedFilters.page);
 
     return params.toString();
   }, [debouncedFilters]);
@@ -138,14 +138,14 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
   const { data, error, isValidating, mutate } = useSWR(`/api/admin/itineraries?${queryParams}`, fetcher, { revalidateOnFocus: true });
 
   // destructure data
-  const { data: items = [], current_page = "", per_page = "", total: totalItems = "" } = data?.data || {}; // destructure safely
+  const { data: items = [], current_page = '', per_page = '', total: totalItems = '' } = data?.data || {}; // destructure safely
 
   // handle Multiple Delete
   const handleMultpleDelete = async () => {
     try {
       const res = await deleteMultipleItineraries(selectedItems); // delete itineraries
       if (res.success) {
-        toast({ title: "Itineraries deleted", variant: "success" });
+        toast({ title: 'Itineraries deleted', variant: 'success' });
 
         // Force update the UI
         mutate();
@@ -153,10 +153,14 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
         // flush items
         setSelectedItems([]);
       } else {
-        toast({ title: "Delete failed", description: res.error, variant: "destructive" });
+        toast({
+          title: 'Delete failed',
+          description: res.error,
+          variant: 'destructive',
+        });
       }
     } catch (error) {
-      toast({ title: "Something went wrong", variant: "destructive" });
+      toast({ title: 'Something went wrong', variant: 'destructive' });
 
       // flush items
       setSelectedItems([]);
@@ -165,7 +169,7 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
 
   // handle Multiple Export
   const handleMultpleExport = () => {
-    console.log(selectedItems, "delete");
+    console.log(selectedItems, 'delete');
   };
 
   return (
@@ -292,7 +296,7 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
               {seasons.map((season, i) => (
                 <Label key={i} htmlFor={`season_${i}`} className="flex items-center justify-end flex-row-reverse gap-3 p-2 rounded-md hover:bg-gray-50 cursor-pointer">
                   <span className="capitalize text-sm text-gray-700">{season}</span>
-                  <input id={`season_${i}`} type="checkbox" value={season} className="h-4 w-4 accent-secondaryDark" {...register("seasons")} />
+                  <input id={`season_${i}`} type="checkbox" value={season} className="h-4 w-4 accent-secondaryDark" {...register('seasons')} />
                 </Label>
               ))}
             </AccordionContent>
@@ -391,11 +395,11 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
                 {items.map(({ id: itemId, name, media_gallery = [], tags = [], attributes = [] }, index) => (
                   <Card
                     key={index}
-                    className={`group hover:shadow-md ease duration-300 rounded-lg w-full lg:w-fit border relative ${selectedItems?.includes(itemId) && "p-3 border border-secondaryDark"}`}
+                    className={`group hover:shadow-md ease duration-300 rounded-lg w-full lg:w-fit border relative ${selectedItems?.includes(itemId) && 'p-3 border border-secondaryDark'}`}
                   >
                     <img
                       className="w-full lg:w-[326px] h-[183px] rounded-lg aspect-square"
-                      src={`${media_gallery?.[0]?.url ? media_gallery?.[0]?.url : "https://picsum.photos/350/300?random"}`}
+                      src={`${media_gallery?.[0]?.url ? media_gallery?.[0]?.url : 'https://picsum.photos/350/300?random'}`}
                       alt="activity_image"
                     />
 
@@ -407,7 +411,7 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
                         attributes.map(({ attribute_name }, index) => {
                           {
                             return (
-                              attribute_name === "Duration" && ( // Specific attrbutete Value Hai
+                              attribute_name === 'Duration' && ( // Specific attrbutete Value Hai
                                 <span key={index} className="text-gray-500 text-sm flex items-center gap-2">
                                   <Clock size={16} /> 3 Hours
                                 </span>
@@ -420,7 +424,7 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
                       {tags.length > 0 && (
                         <div className="flex gap-2">
                           {tags.map(({ tag_name }, index) => (
-                            <Badge key={index} className={`bg-secondaryDark text-white hover:text-white hover:bg-secondaryDark ${index === 0 && "bg-gray-400"}`}>
+                            <Badge key={index} className={`bg-secondaryDark text-white hover:text-white hover:bg-secondaryDark ${index === 0 && 'bg-gray-400'}`}>
                               {tag_name}
                             </Badge>
                           ))}
@@ -442,7 +446,7 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
                         onOpenChange={(open) => {
                           setModalState((prev) => ({
                             ...prev,
-                            openDropdownIndex: open ? itemId : "",
+                            openDropdownIndex: open ? itemId : '',
                           }));
                         }}
                       >
@@ -510,7 +514,7 @@ const FilterItinerary = ({ categories = [], difficulties = [], durations = [] })
                             (prev) =>
                               prev.includes(itemId)
                                 ? prev.filter((id) => id !== itemId) //
-                                : [...prev, itemId] //
+                                : [...prev, itemId], //
                           );
                         }}
                       />

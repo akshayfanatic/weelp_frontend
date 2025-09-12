@@ -1,6 +1,6 @@
-import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import React from "react";
+import { Card } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import React from 'react';
 
 export const LoadingPage = () => {
   return (
@@ -12,7 +12,7 @@ export const LoadingPage = () => {
 
 export const ProductCardSkelton = ({ className }) => {
   return (
-    <div role="status" className={`${className ?? ""} sm:max-w-xs w-full p-4 border border-gray-200 rounded shadow animate-pulse dark:border-gray-700`}>
+    <div role="status" className={`${className ?? ''} sm:max-w-xs w-full p-4 border border-gray-200 rounded shadow animate-pulse dark:border-gray-700`}>
       <div className="flex items-center justify-center h-48 mb-4 bg-gray-300 rounded dark:bg-gray-700"></div>
       <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
       <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
@@ -33,7 +33,7 @@ export const DestinationCardSkelton = ({ imgHeight, imgWidth, className }) => {
   return (
     <div className={`${className} relative w-full sm:w-fit mx-auto animate-pulse`}>
       {/* Skeleton for Image */}
-      <div className={`bg-gray-300 object-cover w-full ${imgHeight ?? "h-[360px]"} ${imgWidth ?? "sm:w-[220px] lg:w-60"} rounded-lg`}></div>
+      <div className={`bg-gray-300 object-cover w-full ${imgHeight ?? 'h-[360px]'} ${imgWidth ?? 'sm:w-[220px] lg:w-60'} rounded-lg`}></div>
 
       {/* Skeleton for Text Overlay */}
       <div className="absolute bottom-0 w-full p-6 rounded-b-lg bg-gray-200">
@@ -48,7 +48,7 @@ export const DestinationCardSkelton = ({ imgHeight, imgWidth, className }) => {
 
 export const TestimonialCardSkelton = ({ className }) => {
   return (
-    <div className={`${className ?? "flex"}  flex-col gap-4 max-w-sm w-full  rounded-lg p-4 py-6  border-gray-500 shadow-md h-full animate-pulse`}>
+    <div className={`${className ?? 'flex'}  flex-col gap-4 max-w-sm w-full  rounded-lg p-4 py-6  border-gray-500 shadow-md h-full animate-pulse`}>
       <div className="flex gap-4 items-center flex-wrap">
         <div className={`rounded-full w-16 h-16 bg-gray-300 border-gray-500 animate-pulse`} />
 
@@ -79,7 +79,7 @@ export const TestimonialCardSkelton = ({ className }) => {
 
 export const ReviewCardSkelton = ({ className }) => {
   return (
-    <div className={`${className ?? ""}  max-w-full sm:max-w-xs w-full `}>
+    <div className={`${className ?? ''}  max-w-full sm:max-w-xs w-full `}>
       <div className="w-full p-4 bg-white shadow-lg rounded-lg animate-pulse transform transition duration-1000">
         <div className="flex items-center mb-16">
           <div className="h-5 w-24 bg-gray-300 rounded-md"></div>

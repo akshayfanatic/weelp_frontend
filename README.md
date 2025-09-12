@@ -244,13 +244,12 @@ Used in `lib/` to create simplified interfaces for:
 ---
 
 ## 💡 Benefits
+
 - 📈 Highly scalable for growing codebases
 - 🔐 Secure with role-based API structure
 - 🧠 Easier to test and maintain
 - 🚀 Fast developer experience with clean boundaries
 
 ---
-
-
 
     // "dev": "next dev",

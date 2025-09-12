@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import useSWR from "swr";
-import { useForm } from "react-hook-form";
-import { fetcher } from "@/lib/fetchers"; // or use `fetcher`
+import useSWR from 'swr';
+import { useForm } from 'react-hook-form';
+import { fetcher } from '@/lib/fetchers'; // or use `fetcher`
 
-import { DataTableTags } from "./data-table-tags";
-import { CustomPagination } from "@/app/components/Pagination";
-import { TaxonomiesPageTitle } from "../taxonomies_shared";
+import { DataTableTags } from './data-table-tags';
+import { CustomPagination } from '@/app/components/Pagination';
+import { TaxonomiesPageTitle } from '../taxonomies_shared';
 
 export function TagsPageClient() {
   const { control, watch, setValue } = useForm({
@@ -15,7 +15,7 @@ export function TagsPageClient() {
     },
   });
 
-  const page = watch("page"); // watch page value
+  const page = watch('page'); // watch page value
 
   const { data, error, isLoading, mutate } = useSWR(`/api/admin/taxonomies/tags?page=${page}`, fetcher); // fetch data
 
@@ -23,11 +23,11 @@ export function TagsPageClient() {
 
   const response = data?.data || {};
   const { data: tagsData } = response || {};
-  const { data: items = [], current_page = "", per_page = "", total: totalItems = "" } = tagsData || {};
+  const { data: items = [], current_page = '', per_page = '', total: totalItems = '' } = tagsData || {};
 
   // Handle page change
   const handlePageChange = (newPage) => {
-    setValue("page", newPage); // updates the form state and re-triggers SWR
+    setValue('page', newPage); // updates the form state and re-triggers SWR
   };
 
   return (
@@ -35,8 +35,8 @@ export function TagsPageClient() {
       <TaxonomiesPageTitle
         title="tags"
         buttoninfo={{
-          buttonName: "add tag",
-          buttonurl: "/dashboard/admin/taxonomies/tags/new",
+          buttonName: 'add tag',
+          buttonurl: '/dashboard/admin/taxonomies/tags/new',
         }}
       />
       <DataTableTags tags={items} isloading={isLoading} mutate={mutate} />

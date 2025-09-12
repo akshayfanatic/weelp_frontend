@@ -1,32 +1,30 @@
-"use client";
-import React from "react";
-import { Calendar, MessageCircleMore, Phone, Star, Truck, User } from "lucide-react";
-import { actualDate } from "@/lib/utils";
-import Image from "next/image";
-import { Card } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { useFormContext, Controller, useWatch } from "react-hook-form";
-import { useEffect, useState } from "react";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { Country, State, City } from "country-state-city";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import useMiniCartStore from "@/lib/store/useMiniCartStore";
-
+'use client';
+import React from 'react';
+import { Calendar, MessageCircleMore, Phone, Star, Truck, User } from 'lucide-react';
+import { actualDate } from '@/lib/utils';
+import Image from 'next/image';
+import { Card } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { useFormContext, Controller, useWatch } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
+import { Country, State, City } from 'country-state-city';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import useMiniCartStore from '@/lib/store/useMiniCartStore';
 
 export const CheckoutUserDetailCard = ({ userImagesrc, userName, userEmail }) => {
   return (
     <div className="flex gap-4 p-4 items-center hover:bg-[#e9f3ee] cursor-pointer">
-      <Image src={userImagesrc || "/assets/testimonial.png"} alt="userlogo" width={48} height={48} className="rounded-full" />
+      <Image src={userImagesrc || '/assets/testimonial.png'} alt="userlogo" width={48} height={48} className="rounded-full" />
       <div className="flex flex-col">
-        <h3 className="text-[#4D4D4D] font-bold text-sm capitalize">{userName ? userName : "Maya"}</h3>
-        <span className="text-[#4D4D4D] text-base leading-6">{userEmail || "Email: test@test.com"}</span>
+        <h3 className="text-[#4D4D4D] font-bold text-sm capitalize">{userName ? userName : 'Maya'}</h3>
+        <span className="text-[#4D4D4D] text-base leading-6">{userEmail || 'Email: test@test.com'}</span>
       </div>
     </div>
   );
 };
-
 
 // This Module Handle Checkout Items
 export const CheckoutItems = () => {
@@ -47,7 +45,6 @@ export const CheckoutItems = () => {
   );
 };
 
-
 export const CheckoutFields = () => {
   const {
     register,
@@ -64,8 +61,8 @@ export const CheckoutFields = () => {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedState, setSelectedState] = useState(null);
 
-  const watchCountry = useWatch({ control, name: "country" });
-  const watchState = useWatch({ control, name: "state" });
+  const watchCountry = useWatch({ control, name: 'country' });
+  const watchState = useWatch({ control, name: 'state' });
 
   // Load all countries on mount
   useEffect(() => {
@@ -95,7 +92,7 @@ export const CheckoutFields = () => {
       if (watchState) {
         const stillValid = statesList.some((s) => s.name === watchState);
         if (!stillValid) {
-          setValue("state", "");
+          setValue('state', '');
         }
       }
     }
@@ -125,14 +122,14 @@ export const CheckoutFields = () => {
   return (
     <Card className="bg-inherit border-none p-4">
       <h2 className="text-2xl font-semibold">Billing Details</h2>
-      <fieldset className={`grid grid-cols-1 sm:grid-cols-2 gap-4 py-4 ${isSubmitting ? "cursor-not-allowed" : ""}`} disabled={isSubmitting}>
+      <fieldset className={`grid grid-cols-1 sm:grid-cols-2 gap-4 py-4 ${isSubmitting ? 'cursor-not-allowed' : ''}`} disabled={isSubmitting}>
         {/* Country Field */}
         <Label htmlFor="country" className="w-full flex flex-col gap-2 ">
           Country
           <Controller
             name="country"
             control={control}
-            rules={{ required: "Country Field Required" }}
+            rules={{ required: 'Country Field Required' }}
             render={({ field }) => (
               <Select
                 id="country"
@@ -166,7 +163,7 @@ export const CheckoutFields = () => {
           <Controller
             name="state"
             control={control}
-            rules={{ required: "State Field Required" }}
+            rules={{ required: 'State Field Required' }}
             render={({ field }) => (
               <Select
                 id="state"
@@ -200,7 +197,7 @@ export const CheckoutFields = () => {
           <Controller
             name="city"
             control={control}
-            rules={{ required: "City Field Required" }}
+            rules={{ required: 'City Field Required' }}
             render={({ field }) => (
               <Select id="city" value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger>
@@ -226,8 +223,8 @@ export const CheckoutFields = () => {
           <Controller
             name="post_code"
             control={control}
-            rules={{ required: "Postcode Field Required" }}
-            render={({ field }) => <Input {...field} type="number" min="0" placeholder="Enter Postcode" className={errors?.post_code?.message ? "border-red-400" : ""} />}
+            rules={{ required: 'Postcode Field Required' }}
+            render={({ field }) => <Input {...field} type="number" min="0" placeholder="Enter Postcode" className={errors?.post_code?.message ? 'border-red-400' : ''} />}
           />
           {/* Error Message */}
           {errors?.post_code?.message && <span className="text-red-400 px-2">{errors?.post_code?.message}</span>}
@@ -239,8 +236,8 @@ export const CheckoutFields = () => {
           <Controller
             name="phone"
             control={control}
-            rules={{ required: "Phone Field Required" }}
-            render={({ field }) => <Input {...field} type="number" min="0" placeholder="Enter Phone Number" className={errors?.phone?.message ? "border-red-400" : ""} />}
+            rules={{ required: 'Phone Field Required' }}
+            render={({ field }) => <Input {...field} type="number" min="0" placeholder="Enter Phone Number" className={errors?.phone?.message ? 'border-red-400' : ''} />}
           />
           {/* Error Message */}
           {errors?.phone?.message && <span className="text-red-400 px-2">{errors?.phone?.message}</span>}
@@ -252,8 +249,8 @@ export const CheckoutFields = () => {
           <Controller
             name="address_line_1"
             control={control}
-            rules={{ required: "Address Field Required" }}
-            render={({ field }) => <Textarea {...field} min="0" placeholder="Please Enter Your Address" className={` resize-none ${errors?.address_line_1?.message && "border-red-400"} `} />}
+            rules={{ required: 'Address Field Required' }}
+            render={({ field }) => <Textarea {...field} min="0" placeholder="Please Enter Your Address" className={` resize-none ${errors?.address_line_1?.message && 'border-red-400'} `} />}
           />
           {/* Error Message */}
           {errors?.address_line_1?.message && <span className="text-red-400 px-2">{errors?.address_line_1?.message}</span>}
@@ -265,24 +262,23 @@ export const CheckoutFields = () => {
           variant="secondary"
           // className={`${!is disabled:cursor-not-allowed}`}
         >
-          {isSubmitting ? "Please Wait Redirecting to Checkout" : "Proceed to Payment"}
+          {isSubmitting ? 'Please Wait Redirecting to Checkout' : 'Proceed to Payment'}
         </Button>
       </fieldset>
     </Card>
   );
 };
 
-
 export const CheckoutItemCard = ({ itemName, totalPassenger, date }) => {
-  const { adults = "", children = "" } = totalPassenger;
+  const { adults = '', children = '' } = totalPassenger;
   const { from } = date;
   return (
     <div className="bg-white max-w-md flex flex-col rounded-xl p-6 gap-2">
-      <h3 className="text-Blueish font-semibold text-lg">{itemName || "Melaka Wonderland Water Theme Park"}</h3>
+      <h3 className="text-Blueish font-semibold text-lg">{itemName || 'Melaka Wonderland Water Theme Park'}</h3>
 
       <div className="flex items-center gap-2 text-[#5A5A5A] text-sm">
         <User size={20} />
-        <span className="font-medium capitalize">{`${adults} adults , ${children && children + " children "}`}</span>
+        <span className="font-medium capitalize">{`${adults} adults , ${children && children + ' children '}`}</span>
       </div>
 
       <div className="flex items-center gap-2 text-[#5A5A5A] text-sm">
@@ -330,4 +326,3 @@ export const CheckoutReview = () => {
     </div>
   );
 };
-

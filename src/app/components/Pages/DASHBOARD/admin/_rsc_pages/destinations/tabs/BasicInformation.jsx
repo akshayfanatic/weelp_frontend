@@ -1,23 +1,23 @@
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useFormContext } from "react-hook-form";
-import { generateSlug } from "@/lib/utils";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import DynamicSite from "./dynamic_field/DynamicSite";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useFormContext } from 'react-hook-form';
+import { generateSlug } from '@/lib/utils';
+import { Textarea } from '@/components/ui/textarea';
+import { Switch } from '@/components/ui/switch';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import DynamicSite from './dynamic_field/DynamicSite';
 
 const BasicInformationTab = () => {
   const form = useFormContext();
 
   const handleBlur = () => {
-    const name = form.getValues("name");
-    const currentSlug = form.getValues("slug");
+    const name = form.getValues('name');
+    const currentSlug = form.getValues('slug');
     const newSlug = generateSlug(name);
 
     // checking slug
     if (currentSlug !== newSlug) {
-      form.setValue("slug", newSlug);
+      form.setValue('slug', newSlug);
     }
   };
 
@@ -30,7 +30,7 @@ const BasicInformationTab = () => {
         <FormField
           control={form.control}
           name="name"
-          rules={{ required: "Field Required" }}
+          rules={{ required: 'Field Required' }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
@@ -46,7 +46,7 @@ const BasicInformationTab = () => {
         <FormField
           control={form.control}
           name="code"
-          rules={{ required: "Field Required" }}
+          rules={{ required: 'Field Required' }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Code</FormLabel>
@@ -81,7 +81,7 @@ const BasicInformationTab = () => {
           <FormField
             control={form.control}
             name="description"
-            rules={{ required: "Field Required" }}
+            rules={{ required: 'Field Required' }}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Description</FormLabel>

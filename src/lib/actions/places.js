@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { authApi } from "../axiosInstance";
-import { delay, log } from "../utils";
+import { revalidatePath } from 'next/cache';
+import { authApi } from '../axiosInstance';
+import { delay, log } from '../utils';
 
 /**
  * @typedef {Object} Location
@@ -61,13 +61,13 @@ export const createPlace = async (data = {}) => {
   try {
     await delay(500);
 
-    const res = await authApi.post("/api/admin/places", data, {
+    const res = await authApi.post('/api/admin/places', data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
-    revalidatePath("/dashboard/admin/destinations/places"); // revalidate API cache
+    revalidatePath('/dashboard/admin/destinations/places'); // revalidate API cache
 
     return {
       success: true,
@@ -79,7 +79,7 @@ export const createPlace = async (data = {}) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -87,20 +87,20 @@ export const createPlace = async (data = {}) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "places already exists",
+        message: err?.response?.data?.error || 'places already exists',
       };
     }
 
     if (status === 422) {
       return {
         success: false,
-        message: err?.response?.data?.message || "Places already exists",
+        message: err?.response?.data?.message || 'Places already exists',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong while Places",
+      message: 'Something went wrong while Places',
     };
   }
 };
@@ -116,11 +116,11 @@ export const editPlace = async (placeId, data = {}) => {
 
     const res = await authApi.put(`/api/admin/places/${placeId}`, data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
-    revalidatePath("/dashboard/admin/destinations/places"); // revalidate API cache
+    revalidatePath('/dashboard/admin/destinations/places'); // revalidate API cache
 
     return {
       success: true,
@@ -132,7 +132,7 @@ export const editPlace = async (placeId, data = {}) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -140,20 +140,20 @@ export const editPlace = async (placeId, data = {}) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "Place already exists",
+        message: err?.response?.data?.error || 'Place already exists',
       };
     }
 
     if (status === 422) {
       return {
         success: false,
-        message: "Place already exists",
+        message: 'Place already exists',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong while editing Place",
+      message: 'Something went wrong while editing Place',
     };
   }
 };
@@ -167,9 +167,9 @@ export async function deletePlace(placeId) {
   try {
     const res = await authApi.delete(`/api/admin/places/${placeId}/`);
 
-    revalidatePath("/dashboard/admin/destinations/places/"); //revalidating path
+    revalidatePath('/dashboard/admin/destinations/places/'); //revalidating path
     return { success: true, message: res.data?.message };
   } catch (error) {
-    return { success: false, error: "Something went wrong" };
+    return { success: false, error: 'Something went wrong' };
   }
 }

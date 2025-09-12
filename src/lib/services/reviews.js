@@ -1,15 +1,15 @@
-import { authApi } from "../axiosInstance";
-import { log } from "../utils";
+import { authApi } from '../axiosInstance';
+import { log } from '../utils';
 
 /**
  * Get All Reviews Admin
  * @param {string} [search] - Optional search query
  * @returns {Promise<any[]>} - Array of reviews or empty array on error
  */
-export async function getAllReviewsAdmin(search = "") {
+export async function getAllReviewsAdmin(search = '') {
   try {
-    const response = await authApi.get(`/api/admin/reviews/${search ? search : ""}`, {
-      headers: { Accept: "application/json" },
+    const response = await authApi.get(`/api/admin/reviews/${search ? search : ''}`, {
+      headers: { Accept: 'application/json' },
     });
     return response?.data;
   } catch (error) {
@@ -25,15 +25,15 @@ export async function getAllReviewsAdmin(search = "") {
 export async function getSingleReviewAdmin(id) {
   try {
     const response = await authApi.get(`/api/admin/reviews/${id}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     return response?.data;
   } catch (error) {
     if (error.response?.status === 404) {
-      return { success: false, message: "Item Not Found" };
+      return { success: false, message: 'Item Not Found' };
     }
-    return { success: false, message: error.message || "Something went wrong" };
+    return { success: false, message: error.message || 'Something went wrong' };
   }
 }
 
@@ -46,7 +46,7 @@ export async function getSingleReviewAdmin(id) {
 export async function getAllItemsByTypeOptions(itemType) {
   try {
     const response = await authApi.get(`/api/admin/reviews/items/?item_type=${itemType}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {

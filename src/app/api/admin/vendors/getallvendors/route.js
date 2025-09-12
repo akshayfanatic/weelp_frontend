@@ -1,7 +1,7 @@
 // app/api/admin/vendors/getallvendors/route.js
-import { NextResponse } from "next/server";
-import { delay } from "@/lib/utils";
-import { getAllVendorsAdmin } from "@/lib/services/vendors";
+import { NextResponse } from 'next/server';
+import { delay } from '@/lib/utils';
+import { getAllVendorsAdmin } from '@/lib/services/vendors';
 
 export async function GET(req) {
   const query = req.nextUrl.search;

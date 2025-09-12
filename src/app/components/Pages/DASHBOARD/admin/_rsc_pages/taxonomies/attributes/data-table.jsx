@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useReactTable, getCoreRowModel, getPaginationRowModel, flexRender, ColumnDef } from "@tanstack/react-table";
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Edit, Trash, ChevronLeft, ChevronRight } from "lucide-react";
-import Link from "next/link";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { deleteAttribute } from "@/lib/actions/attributes";
-import { useToast } from "@/hooks/use-toast";
+import { useState } from 'react';
+import { useReactTable, getCoreRowModel, getPaginationRowModel, flexRender, ColumnDef } from '@tanstack/react-table';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
+import { MoreHorizontal, Edit, Trash, ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
+import { deleteAttribute } from '@/lib/actions/attributes';
+import { useToast } from '@/hooks/use-toast';
 
 export function DataTableAttributes({ attributes = [], mutate }) {
-  const [selectedId, setSelectedId] = useState(""); // selected id for deletion
+  const [selectedId, setSelectedId] = useState(''); // selected id for deletion
   const [isDialogOpen, setIsDialogOpen] = useState(false); // modal open for delete action
   const { toast } = useToast();
 
@@ -34,7 +34,7 @@ export function DataTableAttributes({ attributes = [], mutate }) {
       //  delete sucess fully
       if (res.success) {
         toast({
-          title: "Category Deleted Successfully",
+          title: 'Category Deleted Successfully',
         });
 
         // trigger api
@@ -42,8 +42,8 @@ export function DataTableAttributes({ attributes = [], mutate }) {
       }
     } catch (error) {
       toast({
-        title: "Something went Wrong",
-        variant: "destructive",
+        title: 'Something went Wrong',
+        variant: 'destructive',
       });
 
       closeDialog();
@@ -52,23 +52,23 @@ export function DataTableAttributes({ attributes = [], mutate }) {
   // default value of columns
   const columns = [
     {
-      accessorKey: "name",
-      header: "Name",
+      accessorKey: 'name',
+      header: 'Name',
     },
-    { accessorKey: "slug", header: "Slug" },
+    { accessorKey: 'slug', header: 'Slug' },
     {
-      accessorKey: "description",
-      header: "Description",
-      cell: ({ getValue }) => getValue() || "N/A",
-    },
-    {
-      accessorKey: "values",
-      header: "Values",
-      cell: ({ getValue }) => getValue() || "N/A",
+      accessorKey: 'description',
+      header: 'Description',
+      cell: ({ getValue }) => getValue() || 'N/A',
     },
     {
-      id: "actions",
-      header: "Actions",
+      accessorKey: 'values',
+      header: 'Values',
+      cell: ({ getValue }) => getValue() || 'N/A',
+    },
+    {
+      id: 'actions',
+      header: 'Actions',
       cell: ({ row }) => {
         const attribute = row.original;
         return (

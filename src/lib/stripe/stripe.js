@@ -1,6 +1,4 @@
-import { loadStripe } from "@stripe/stripe-js";
-
-
+import { loadStripe } from '@stripe/stripe-js';
 
 let stripePromise;
 export const getStripe = () => {
@@ -9,5 +7,3 @@ export const getStripe = () => {
   }
   return stripePromise;
 };
-
-

@@ -1,28 +1,28 @@
-"use client";
+'use client';
 
-import React, { useEffect } from "react";
-import { TaxonomyFormNavigation } from "../taxonomies_shared";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useWatch } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { generateSlug } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
-import { createCategory } from "@/lib/actions/categories";
+import React, { useEffect } from 'react';
+import { TaxonomyFormNavigation } from '../taxonomies_shared';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, useWatch } from 'react-hook-form';
+import { z } from 'zod';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { generateSlug } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
+import { createCategory } from '@/lib/actions/categories';
 
 const formSchema = z.object({
   name: z.string().min(3, {
-    message: "Category name must be at least 3 characters.",
+    message: 'Category name must be at least 3 characters.',
   }),
   slug: z.string().min(3, {
-    message: "Slug is required.",
+    message: 'Slug is required.',
   }),
   description: z.string().min(3, {
-    message: "Please enter a description.",
+    message: 'Please enter a description.',
   }),
 });
 
@@ -32,9 +32,9 @@ export const CreateCategoryPageForm = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      slug: "",
-      description: "",
+      name: '',
+      slug: '',
+      description: '',
     },
   });
 
@@ -42,7 +42,7 @@ export const CreateCategoryPageForm = () => {
     formState: { isSubmitting },
   } = form; // checking form state
 
-  const nameValue = useWatch({ control: form.control, name: "name" });
+  const nameValue = useWatch({ control: form.control, name: 'name' });
 
   // on submit handle
   const onSubmit = async (data) => {
@@ -53,32 +53,31 @@ export const CreateCategoryPageForm = () => {
         // Reset form only if success
         form.reset();
 
-
         // Display success notification
         toast({
-          title: res.message || "Category Created Successfully",
+          title: res.message || 'Category Created Successfully',
         });
 
         // back to category
-        router.back()
+        router.back();
       } else {
         // Display error notification
         toast({
-          variant: "destructive",
-          title: "Failed to create category",
+          variant: 'destructive',
+          title: 'Failed to create category',
           description: res.message,
         });
 
         // Optional: Show validation errors if needed
         if (res.errors) {
-          console.log("Validation Errors:", res.errors);
+          console.log('Validation Errors:', res.errors);
         }
       }
     } catch (error) {
       toast({
-        variant: "destructive",
-        title: "An unexpected error occurred",
-        description: "Please try again later.",
+        variant: 'destructive',
+        title: 'An unexpected error occurred',
+        description: 'Please try again later.',
       });
     }
   };
@@ -90,7 +89,7 @@ export const CreateCategoryPageForm = () => {
       <div className="px-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 bg-white border p-6 shadow-sm rounded-lg">
-          <fieldset className={`flex flex-col gap-4 ${isSubmitting && "cursor-wait"}`} disabled={isSubmitting}>
+            <fieldset className={`flex flex-col gap-4 ${isSubmitting && 'cursor-wait'}`} disabled={isSubmitting}>
               <FormLabel className="font-semibold text-lg">Category Details</FormLabel>
               <FormDescription>Enter the details for the new category.</FormDescription>
 
@@ -106,7 +105,9 @@ export const CreateCategoryPageForm = () => {
                         placeholder="Enter category name"
                         {...field}
                         onBlur={() => {
-                          form.setValue("slug", generateSlug(nameValue), { shouldValidate: true });
+                          form.setValue('slug', generateSlug(nameValue), {
+                            shouldValidate: true,
+                          });
                         }}
                       />
                     </FormControl>
@@ -148,7 +149,7 @@ export const CreateCategoryPageForm = () => {
 
               <p className="flex gap-2">
                 <Button className="w-fit bg-secondaryDark hover:bg-secondaryDark" type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Creating Category" : "Create Category"}
+                  {isSubmitting ? 'Creating Category' : 'Create Category'}
                 </Button>
                 <Button
                   className="w-fit bg-inherit hover:bg-inherit text-black border"

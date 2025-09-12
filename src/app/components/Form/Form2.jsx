@@ -1,27 +1,27 @@
-"use client";
+'use client';
 
 // This Form Is Used in ContinentPage Banner
-import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/dist/style.css";
-import { MapPin, Calendar } from "lucide-react";
+import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import { MapPin, Calendar } from 'lucide-react';
 
 // Zod schema for form validation
 const bookingSchema = z.object({
-  whereTo: z.string().min(1, "Location is required"),
+  whereTo: z.string().min(1, 'Location is required'),
   dateRange: z
     .object({
-      from: z.date().nullable().refine(Boolean, "Start date is required"),
-      to: z.date().nullable().refine(Boolean, "End date is required"),
+      from: z.date().nullable().refine(Boolean, 'Start date is required'),
+      to: z.date().nullable().refine(Boolean, 'End date is required'),
     })
-    .refine((data) => data.from && data.to && data.from <= data.to, "Start date must be before end date"),
+    .refine((data) => data.from && data.to && data.from <= data.to, 'Start date must be before end date'),
 });
 
 export default function BookingForm2() {
-  const [activeSection, setActiveSection] = useState("");
+  const [activeSection, setActiveSection] = useState('');
 
   const {
     control,
@@ -30,18 +30,18 @@ export default function BookingForm2() {
   } = useForm({
     resolver: zodResolver(bookingSchema),
     defaultValues: {
-      whereTo: "",
+      whereTo: '',
       dateRange: { from: null, to: null },
     },
   });
 
   const onSubmit = (data) => {
-    console.log("Form Data:", data);
-    setActiveSection(""); // Close all sections after submission
+    console.log('Form Data:', data);
+    setActiveSection(''); // Close all sections after submission
   };
 
   const toggleSection = (section) => {
-    setActiveSection((prev) => (prev === section ? "" : section));
+    setActiveSection((prev) => (prev === section ? '' : section));
   };
 
   return (
@@ -50,7 +50,7 @@ export default function BookingForm2() {
         {/* Main Input Fields */}
         <div className="flex border rounded-2xl bg-white overflow-hidden">
           {/* Where To */}
-          <div className="flex-1 border-r cursor-pointer p-4" onClick={() => toggleSection("whereTo")}>
+          <div className="flex-1 border-r cursor-pointer p-4" onClick={() => toggleSection('whereTo')}>
             <label className="flex items-center gap-2 text-[#5A5A5A] text-base">
               <MapPin size={20} />
               <span>Where to?</span>
@@ -59,7 +59,7 @@ export default function BookingForm2() {
           </div>
 
           {/* When */}
-          <div className="flex-1 cursor-pointer p-4" onClick={() => toggleSection("when")}>
+          <div className="flex-1 cursor-pointer p-4" onClick={() => toggleSection('when')}>
             <label className="flex items-center gap-2 text-[#5A5A5A] text-base">
               <Calendar size={20} />
               <span>When?</span>
@@ -70,10 +70,10 @@ export default function BookingForm2() {
 
         {/* Expanded Sections */}
         <div className="flex rounded-lg absolute z-[30] pointer-events-auto top-3/4  translate-y-8 w-fit scale-90 sm:scale-[unset]">
-          {activeSection === "whereTo" && (
+          {activeSection === 'whereTo' && (
             <div
               onMouseLeave={(e) => {
-                e.stopPropagation(), setActiveSection("");
+                (e.stopPropagation(), setActiveSection(''));
               }}
               className="flex w-full justify-center sm:justify-start"
             >
@@ -85,22 +85,40 @@ export default function BookingForm2() {
                 render={({ field }) => (
                   <div className="locationController">
                     <ul className="bg-white rounded-xl  w-[220px] overflow-hidden">
-                      <li onClick={() => field.onChange("")} className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-secondaryDark  cursor-pointer hover:bg-[#f2f7f5] ${field.value === "" ? "bg-[#e9f5ed]" : "bg-[#f2f7f5]"}`}>
+                      <li
+                        onClick={() => field.onChange('')}
+                        className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-secondaryDark  cursor-pointer hover:bg-[#f2f7f5] ${field.value === '' ? 'bg-[#e9f5ed]' : 'bg-[#f2f7f5]'}`}
+                      >
                         Suggested
                       </li>
-                      <li onClick={() => field.onChange("London")} className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-[#5a5a5a]  cursor-pointer hover:bg-[#f2f7f5] ${field.value === "London" ? "bg-[#e9f5ed]" : ""}`}>
+                      <li
+                        onClick={() => field.onChange('London')}
+                        className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-[#5a5a5a]  cursor-pointer hover:bg-[#f2f7f5] ${field.value === 'London' ? 'bg-[#e9f5ed]' : ''}`}
+                      >
                         London
                       </li>
-                      <li onClick={() => field.onChange("New York")} className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-[#5a5a5a]  cursor-pointer hover:bg-[#f2f7f5] ${field.value === "New York" ? "bg-[#e9f5ed]" : ""}`}>
+                      <li
+                        onClick={() => field.onChange('New York')}
+                        className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-[#5a5a5a]  cursor-pointer hover:bg-[#f2f7f5] ${field.value === 'New York' ? 'bg-[#e9f5ed]' : ''}`}
+                      >
                         New York
                       </li>
-                      <li onClick={() => field.onChange("China")} className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-[#5a5a5a]  cursor-pointer hover:bg-[#f2f7f5] ${field.value === "China" ? "bg-[#e9f5ed]" : ""}`}>
+                      <li
+                        onClick={() => field.onChange('China')}
+                        className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-[#5a5a5a]  cursor-pointer hover:bg-[#f2f7f5] ${field.value === 'China' ? 'bg-[#e9f5ed]' : ''}`}
+                      >
                         China
                       </li>
-                      <li onClick={() => field.onChange("Europe")} className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-[#5a5a5a]  cursor-pointer hover:bg-[#f2f7f5] ${field.value === "Europe" ? "bg-[#e9f5ed]" : ""}`}>
+                      <li
+                        onClick={() => field.onChange('Europe')}
+                        className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-[#5a5a5a]  cursor-pointer hover:bg-[#f2f7f5] ${field.value === 'Europe' ? 'bg-[#e9f5ed]' : ''}`}
+                      >
                         Europe
                       </li>
-                      <li onClick={() => field.onChange("India")} className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-[#5a5a5a]  cursor-pointer hover:bg-[#f2f7f5] ${field.value === "India" ? "bg-[#e9f5ed]" : ""}`}>
+                      <li
+                        onClick={() => field.onChange('India')}
+                        className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-[#5a5a5a]  cursor-pointer hover:bg-[#f2f7f5] ${field.value === 'India' ? 'bg-[#e9f5ed]' : ''}`}
+                      >
                         India
                       </li>
                     </ul>
@@ -109,10 +127,10 @@ export default function BookingForm2() {
               />
             </div>
           )}
-          {activeSection === "when" && (
+          {activeSection === 'when' && (
             <div
               onMouseLeave={(e) => {
-                e.stopPropagation(), setActiveSection("");
+                (e.stopPropagation(), setActiveSection(''));
               }}
               className="flex w-full justify-start sm:justify-start flex-col -translate-x-8 sm:-translate-x-0  bg-gray-50 p-4 rounded-lg "
             >
@@ -141,7 +159,7 @@ export default function BookingForm2() {
       </form>
 
       {/* Geo Location */}
-      <span className={`absolute z-10  left-[5%] -bottom-[90%] sm:-bottom-[190%] text-base  font-medium text-grayDark ${activeSection ? "invisible" : "visible"}`}>54.5260° N, 15.2551° E</span>
+      <span className={`absolute z-10  left-[5%] -bottom-[90%] sm:-bottom-[190%] text-base  font-medium text-grayDark ${activeSection ? 'invisible' : 'visible'}`}>54.5260° N, 15.2551° E</span>
     </div>
   );
 }

@@ -1,10 +1,10 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import MegaMenu from "../Modals/MegaMenu";
-import { Globe, Headphones, DollarSign, MapPin, UserRound, ChevronRight, ShoppingCart, Search } from "lucide-react";
-import { useUIStore } from "@/lib/store/uiStore";
-import { useIsClient } from "@/hooks/useIsClient";
+'use client';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import MegaMenu from '../Modals/MegaMenu';
+import { Globe, Headphones, DollarSign, MapPin, UserRound, ChevronRight, ShoppingCart, Search } from 'lucide-react';
+import { useUIStore } from '@/lib/store/uiStore';
+import { useIsClient } from '@/hooks/useIsClient';
 
 const Header = () => {
   const isClient = useIsClient(); // hydration
@@ -12,9 +12,9 @@ const Header = () => {
   const { stickyHeader, setStickyHeader } = useUIStore();
 
   useEffect(() => {
-    window.addEventListener("scroll", isSticky);
+    window.addEventListener('scroll', isSticky);
     return () => {
-      window.removeEventListener("scroll", isSticky);
+      window.removeEventListener('scroll', isSticky);
     };
   }, []);
 
@@ -34,12 +34,12 @@ const Header = () => {
 
   if (isClient) {
     return (
-      <header className={`hidden md:block  w-full border-b-2 ${stickyHeader ? "fixed z-[12]" : ""}`}>
+      <header className={`hidden md:block  w-full border-b-2 ${stickyHeader ? 'fixed z-[12]' : ''}`}>
         <div className="relative">
           {/* Top Bar */}
-          <div className={`${stickyHeader ? "hidden" : "flex"} text-black bg-Brightgray px-12 py-4 w-full items-center justify-between `}>
+          <div className={`${stickyHeader ? 'hidden' : 'flex'} text-black bg-Brightgray px-12 py-4 w-full items-center justify-between `}>
             <div className="topheader offer flex space-x-6">
-              <Link href={"/region/asia"}>Country</Link>
+              <Link href={'/region/asia'}>Country</Link>
 
               <a href="/Get Exclusive offer on the App" className="text-Nileblue text-sm">
                 Get Exclusive offer on the App
@@ -103,12 +103,12 @@ const Header = () => {
 export default Header;
 
 /** Account Menu */
-import { createPortal } from "react-dom";
-import Minicart from "../Modals/Minicart";
-import ModalForm from "../Modals/ModalForm";
-import SubmenuAccount from "../Modals/SubmenuAccount";
-import useMiniCartStore from "@/lib/store/useMiniCartStore";
-import { Badge } from "@/components/ui/badge";
+import { createPortal } from 'react-dom';
+import Minicart from '../Modals/Minicart';
+import ModalForm from '../Modals/ModalForm';
+import SubmenuAccount from '../Modals/SubmenuAccount';
+import useMiniCartStore from '@/lib/store/useMiniCartStore';
+import { Badge } from '@/components/ui/badge';
 
 export const HeaderAccount = () => {
   const { isMiniCartOpen, setMiniCartOpen, cartItems } = useMiniCartStore(); //mini cart store
@@ -141,11 +141,7 @@ export const HeaderAccount = () => {
         <li>
           <button className="relative" onClick={handleShowCart}>
             <ShoppingCart className="text-xs" size={20} />
-            {cartItems?.length > 0 && (
-              <Badge className={"absolute bottom-1/4  left-1/2 scale-75 "}>
-                {cartItems?.length}
-              </Badge>
-            )}
+            {cartItems?.length > 0 && <Badge className={'absolute bottom-1/4  left-1/2 scale-75 '}>{cartItems?.length}</Badge>}
           </button>
         </li>
         <li>
@@ -161,7 +157,7 @@ export const HeaderAccount = () => {
             </div>
 
             <ChevronRight
-              className={`transition-transform ease-in-out duration-500 ${showSubmenu ? "rotate-0" : "rotate-90"}`}
+              className={`transition-transform ease-in-out duration-500 ${showSubmenu ? 'rotate-0' : 'rotate-90'}`}
               size={16} // Optional: adjust icon size
             />
           </button>

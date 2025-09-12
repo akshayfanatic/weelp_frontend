@@ -1,40 +1,40 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { editUserAdmin } from "@/lib/actions/userActions";
-import { NavigationUser } from "../components/NavigationUser";
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { editUserAdmin } from '@/lib/actions/userActions';
+import { NavigationUser } from '../components/NavigationUser';
 
 // Updated schema without department field and with proper error messages
 const userFormSchema = z
   .object({
-    name: z.string().min(3, { message: "Username must be at least 3 characters" }).max(50, { message: "Username must be less than 50 characters" }),
-    email: z.string().email({ message: "Please enter a valid email address" }),
+    name: z.string().min(3, { message: 'Username must be at least 3 characters' }).max(50, { message: 'Username must be less than 50 characters' }),
+    email: z.string().email({ message: 'Please enter a valid email address' }),
     password: z
       .string()
-      .min(8, { message: "Password must be at least 8 characters" })
+      .min(8, { message: 'Password must be at least 8 characters' })
       .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).+$/, {
-        message: "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character",
+        message: 'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character',
       }),
     confirm_password: z.string(),
-    role: z.enum(["super_admin", "customer", "admin"], {
-      required_error: "Please select a role",
+    role: z.enum(['super_admin', 'customer', 'admin'], {
+      required_error: 'Please select a role',
     }),
-    status: z.enum(["active", "inactive", "pending"], {
-      required_error: "Please select a status",
+    status: z.enum(['active', 'inactive', 'pending'], {
+      required_error: 'Please select a status',
     }),
   })
   .refine((data) => data.password === data.confirm_password, {
     message: "Passwords don't match",
-    path: ["confirm_password"],
+    path: ['confirm_password'],
   });
 
 export default function EditUserForm({ userData = {} }) {
@@ -44,19 +44,19 @@ export default function EditUserForm({ userData = {} }) {
 
   // Complete defaultValues matching the schema
   const defaultValues = {
-    name: "",
-    email: "",
-    password: "",
-    confirm_password: "",
-    role: "customer",
-    status: "active",
+    name: '',
+    email: '',
+    password: '',
+    confirm_password: '',
+    role: 'customer',
+    status: 'active',
     ...userData,
   };
   // Initialize form with proper resolver and defaultValues
   const form = useForm({
     resolver: zodResolver(userFormSchema),
     defaultValues,
-    mode: "onChange", // Enable real-time validation
+    mode: 'onChange', // Enable real-time validation
   });
 
   // const formstatus
@@ -64,17 +64,17 @@ export default function EditUserForm({ userData = {} }) {
 
   // handle on submit
   async function onSubmit(data) {
-    console.log('form data',data);
+    console.log('form data', data);
     try {
       const response = await editUserAdmin(data);
 
       if (!response.success) {
         // Extract first error message dynamically
-        const msg = response.errors?.email?.[0] ?? response.errors?.password?.[0] ?? response.errors?.username?.[0] ?? "Invalid input provided.";
+        const msg = response.errors?.email?.[0] ?? response.errors?.password?.[0] ?? response.errors?.username?.[0] ?? 'Invalid input provided.';
 
         // Display error toast
         toast({
-          variant: "destructive",
+          variant: 'destructive',
           title: msg,
         });
 
@@ -83,15 +83,15 @@ export default function EditUserForm({ userData = {} }) {
 
       // Success message
       toast({
-        title: response?.data?.message || "User Updated successfully.",
+        title: response?.data?.message || 'User Updated successfully.',
       });
 
       // Reset form after success
       form.reset();
     } catch (error) {
       toast({
-        variant: "destructive",
-        title: "Something went wrong. Please try again.",
+        variant: 'destructive',
+        title: 'Something went wrong. Please try again.',
       });
     }
   }
@@ -106,7 +106,7 @@ export default function EditUserForm({ userData = {} }) {
           <CardDescription>Edit the details for the user account.</CardDescription>
         </CardHeader>
         <Form {...form}>
-          <fieldset disabled={isSubmitting} className={`${isSubmitting ? "cursor-wait" : "cursor-pointer"}`}>
+          <fieldset disabled={isSubmitting} className={`${isSubmitting ? 'cursor-wait' : 'cursor-pointer'}`}>
             {/* Disblae Form on Submiting*/}
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <CardContent className="space-y-6">
@@ -221,11 +221,11 @@ export default function EditUserForm({ userData = {} }) {
                 </div>
               </CardContent>
               <CardFooter className="flex justify-end space-x-2">
-                <Button variant="outline" onClick={() => router.push("/dashboard/admin/users")} type="button">
+                <Button variant="outline" onClick={() => router.push('/dashboard/admin/users')} type="button">
                   Cancel
                 </Button>
                 <Button type="submit" disabled={!isValid}>
-                  {isSubmitting ? "Updating..." : "Update User"}
+                  {isSubmitting ? 'Updating...' : 'Update User'}
                 </Button>
               </CardFooter>
             </form>

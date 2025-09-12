@@ -10,7 +10,7 @@
  */
 export const ApiError = ({ message, status, errors } = {}) => ({
   success: false,
-  message: message || "Something went wrong",
+  message: message || 'Something went wrong',
   status,
   errors,
 });

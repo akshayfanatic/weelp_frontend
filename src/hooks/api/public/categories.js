@@ -1,5 +1,5 @@
-import useSWR from "swr";
-import { fetcher } from "@/lib/fetchers";
+import useSWR from 'swr';
+import { fetcher } from '@/lib/fetchers';
 
 /**
  * Method is For Retrieving Public Categories Using Proxy Api

@@ -1,35 +1,33 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useFieldArray } from "react-hook-form";
-import { z } from "zod";
-import { useToast } from "@/hooks/use-toast";
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { editUserProfileAction } from "@/lib/actions/userActions";
-import { Trash2 } from "lucide-react";
-import { Label } from "@/components/ui/label";
-
-
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, useFieldArray } from 'react-hook-form';
+import { z } from 'zod';
+import { useToast } from '@/hooks/use-toast';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { editUserProfileAction } from '@/lib/actions/userActions';
+import { Trash2 } from 'lucide-react';
+import { Label } from '@/components/ui/label';
 
 export function EditProfile({ user }) {
   const { toast } = useToast();
   const { name, email, meta, profile } = user;
-  console.log(profile)
+  console.log(profile);
 
   // Then use optional chaining and default values
-  const bio = meta?.bio || "";
+  const bio = meta?.bio || '';
   const urls = profile?.urls || [];
 
   const form = useForm({
     defaultValues: {
       username: name,
       email: email,
-      bio: bio ?? " ",
+      bio: bio ?? ' ',
       urls: [
-        { label: "", url: "" }, // At least one item to start
+        { label: '', url: '' }, // At least one item to start
       ],
     },
   });
@@ -43,7 +41,7 @@ export function EditProfile({ user }) {
   // Handling dynamic fields
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "urls",
+    name: 'urls',
   });
   // handle Submission
   const onSubmit = async (data) => {
@@ -55,20 +53,20 @@ export function EditProfile({ user }) {
       // sucesss
       if (success) {
         toast({
-          title: message ?? "Data Submitted SuccessFully",
+          title: message ?? 'Data Submitted SuccessFully',
         });
         return;
       }
       // on failed
       toast({
-        variant: "destructive",
-        title: message ?? "Data not submitted",
+        variant: 'destructive',
+        title: message ?? 'Data not submitted',
       });
     } catch (error) {
       // error
       toast({
-        variant: "destructive",
-        title: "Something Went Wrong",
+        variant: 'destructive',
+        title: 'Something Went Wrong',
       });
     }
   };
@@ -76,7 +74,7 @@ export function EditProfile({ user }) {
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        <fieldset disabled={isSubmitting} className={`${isSubmitting ? "cursor-wait" : "cursor-pointer"}`}>
+        <fieldset disabled={isSubmitting} className={`${isSubmitting ? 'cursor-wait' : 'cursor-pointer'}`}>
           {/* Username */}
           <FormField
             control={control}
@@ -169,14 +167,14 @@ export function EditProfile({ user }) {
               </div>
             ))}
 
-            <Button type="button" className={"bg-white text-black border hover:bg-black hover:text-white"} onClick={() => append("")}>
+            <Button type="button" className={'bg-white text-black border hover:bg-black hover:text-white'} onClick={() => append('')}>
               + Add URL
             </Button>
           </div>
 
           {/* Submit Button */}
-          <Button type="submit" disabled={!isValid} className={"bg-secondaryDark mt-4"}>
-            {isSubmitting ? "Updating Profile" : "Update Profile"}
+          <Button type="submit" disabled={!isValid} className={'bg-secondaryDark mt-4'}>
+            {isSubmitting ? 'Updating Profile' : 'Update Profile'}
           </Button>
         </fieldset>
       </form>

@@ -1,8 +1,8 @@
 // app/api/customer/orders/route.js  handles customer orders
-import { NextResponse } from "next/server";
-import { delay, log } from "@/lib/utils";
+import { NextResponse } from 'next/server';
+import { delay, log } from '@/lib/utils';
 
-import { getAllOrdersCustomer } from "@/lib/services/customer/orders";
+import { getAllOrdersCustomer } from '@/lib/services/customer/orders';
 
 // get all orders
 export async function GET(req) {

@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Elements } from "@stripe/react-stripe-js";
-import { getStripe } from "@/lib/stripe/stripe";
-import CheckoutForm from "./CheckoutForm";
-import { useSession } from "next-auth/react";
-import { CheckoutItems, CheckoutUserDetailCard } from "../CheckoutCards";
-import useMiniCartStore from "@/lib/store/useMiniCartStore";
-import { useUserProfile } from "@/hooks/api/customer/profile";
-import { createPaymentIntent, initializeCheckout } from "@/lib/actions/checkout"; // action for intialize checkout
+import { useEffect, useState } from 'react';
+import { Elements } from '@stripe/react-stripe-js';
+import { getStripe } from '@/lib/stripe/stripe';
+import CheckoutForm from './CheckoutForm';
+import { useSession } from 'next-auth/react';
+import { CheckoutItems, CheckoutUserDetailCard } from '../CheckoutCards';
+import useMiniCartStore from '@/lib/store/useMiniCartStore';
+import { useUserProfile } from '@/hooks/api/customer/profile';
+import { createPaymentIntent, initializeCheckout } from '@/lib/actions/checkout'; // action for intialize checkout
 
 const stripePromise = getStripe(); // import stripe promise
 export default function CheckoutMainManual() {
@@ -19,8 +19,8 @@ export default function CheckoutMainManual() {
   const { price, currency } = item;
 
   const amount = parseInt(price); // convert to number
-  const [clientSecret, setClientSecret] = useState("");
-  const [paymentIntent, setPayMentIntent] = useState("");
+  const [clientSecret, setClientSecret] = useState('');
+  const [paymentIntent, setPayMentIntent] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -30,20 +30,20 @@ export default function CheckoutMainManual() {
       const res = await createPaymentIntent({
         amount,
         currency: String(currency).toLowerCase(),
-        email: session?.user?.email || "",
+        email: session?.user?.email || '',
       });
 
       if (res?.success && res?.clientSecret) {
         setClientSecret(res?.clientSecret);
         setPayMentIntent(res?.paymentIntent);
 
-        sessionStorage.setItem("clientSecret", res?.clientSecret); // create session
-        sessionStorage.setItem("paymentIntent", res?.paymentIntent); // create session
+        sessionStorage.setItem('clientSecret', res?.clientSecret); // create session
+        sessionStorage.setItem('paymentIntent', res?.paymentIntent); // create session
       } else {
-        setError("Client secret not received");
+        setError('Client secret not received');
       }
     } catch (err) {
-      setError(err.message || "Something went wrong");
+      setError(err.message || 'Something went wrong');
     } finally {
       setLoading(false);
     }
@@ -51,7 +51,7 @@ export default function CheckoutMainManual() {
 
   // on mount call generate
   useEffect(() => {
-    const cachedSecret = typeof window !== "undefined" && sessionStorage.getItem("clientSecret");
+    const cachedSecret = typeof window !== 'undefined' && sessionStorage.getItem('clientSecret');
 
     if (cachedSecret) {
       setClientSecret(cachedSecret);

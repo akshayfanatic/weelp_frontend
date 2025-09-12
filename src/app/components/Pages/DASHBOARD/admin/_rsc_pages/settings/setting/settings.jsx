@@ -1,24 +1,24 @@
-"use client";
-import React from "react";
-import { useForm } from "react-hook-form";
-import { PageInfo } from "../settings_shared";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
-import { Sun, Moon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+'use client';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { PageInfo } from '../settings_shared';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import { Sun, Moon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 
 export const Settings = () => {
   const form = useForm({
     defaultValues: {
-      theme: "light",
+      theme: 'light',
       compactMode: false,
-      language: "en",
-      timezone: "UTC",
-      dateFormat: "MM/DD/YYYY",
-      currency: "USD",
+      language: 'en',
+      timezone: 'UTC',
+      dateFormat: 'MM/DD/YYYY',
+      currency: 'USD',
       autoSave: false,
     },
   });
@@ -54,13 +54,13 @@ export const Settings = () => {
                         <SelectValue className="" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem className={""} value="light">
+                        <SelectItem className={''} value="light">
                           <Sun className="mr-2 h-4 w-4" /> Light
                         </SelectItem>
-                        <SelectItem className={""} value="dark">
+                        <SelectItem className={''} value="dark">
                           <Moon className="mr-2 h-4 w-4" /> Dark
                         </SelectItem>
-                        <SelectItem className={""} value="system">
+                        <SelectItem className={''} value="system">
                           System
                         </SelectItem>
                       </SelectContent>
@@ -92,42 +92,42 @@ export const Settings = () => {
             <CardContent className="grid gap-4 md:grid-cols-2">
               {[
                 {
-                  name: "language",
-                  label: "Language",
+                  name: 'language',
+                  label: 'Language',
                   options: {
-                    en: "English",
-                    es: "Spanish",
-                    fr: "French",
-                    de: "German",
+                    en: 'English',
+                    es: 'Spanish',
+                    fr: 'French',
+                    de: 'German',
                   },
                 },
                 {
-                  name: "timezone",
-                  label: "Time Zone",
+                  name: 'timezone',
+                  label: 'Time Zone',
                   options: {
-                    UTC: "UTC",
-                    "America/New_York": "Eastern Time",
-                    "America/Chicago": "Central Time",
-                    "America/Los_Angeles": "Pacific Time",
+                    UTC: 'UTC',
+                    'America/New_York': 'Eastern Time',
+                    'America/Chicago': 'Central Time',
+                    'America/Los_Angeles': 'Pacific Time',
                   },
                 },
                 {
-                  name: "dateFormat",
-                  label: "Date Format",
+                  name: 'dateFormat',
+                  label: 'Date Format',
                   options: {
-                    "MM/DD/YYYY": "MM/DD/YYYY",
-                    "DD/MM/YYYY": "DD/MM/YYYY",
-                    "YYYY-MM-DD": "YYYY-MM-DD",
+                    'MM/DD/YYYY': 'MM/DD/YYYY',
+                    'DD/MM/YYYY': 'DD/MM/YYYY',
+                    'YYYY-MM-DD': 'YYYY-MM-DD',
                   },
                 },
                 {
-                  name: "currency",
-                  label: "Currency",
+                  name: 'currency',
+                  label: 'Currency',
                   options: {
-                    USD: "USD ($)",
-                    EUR: "EUR (€)",
-                    GBP: "GBP (£)",
-                    JPY: "JPY (¥)",
+                    USD: 'USD ($)',
+                    EUR: 'EUR (€)',
+                    GBP: 'GBP (£)',
+                    JPY: 'JPY (¥)',
                   },
                 },
               ].map(({ name, label, options }) => (

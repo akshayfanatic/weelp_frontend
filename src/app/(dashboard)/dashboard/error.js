@@ -1,10 +1,10 @@
-"use client"; // Error boundaries must be Client Components
+'use client'; // Error boundaries must be Client Components
 
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { useEffect } from "react";
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { useEffect } from 'react';
 
-export default function Error({ error, reset  }) {
+export default function Error({ error, reset }) {
   useEffect(() => {
     // Log the error to an error reporting service
     console.log(error);

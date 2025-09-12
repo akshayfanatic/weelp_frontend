@@ -1,15 +1,15 @@
-"use client";
-import React from "react";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useFormContext } from "react-hook-form";
-import { Switch } from "@/components/ui/switch";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import Select from "react-select";
-import { Select as ShadcnSelect, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CURRENCY, GMT_TIMEZONE, LANGUAGES, LOCAL_CUISINE, PUBLIC_TRANSPORTATION } from "@/constants/shared";
-import { Textarea } from "@/components/ui/textarea";
-import { ComboboxMultiple } from "@/components/ui/combobox_multi";
+'use client';
+import React from 'react';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useFormContext } from 'react-hook-form';
+import { Switch } from '@/components/ui/switch';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import Select from 'react-select';
+import { Select as ShadcnSelect, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { CURRENCY, GMT_TIMEZONE, LANGUAGES, LOCAL_CUISINE, PUBLIC_TRANSPORTATION } from '@/constants/shared';
+import { Textarea } from '@/components/ui/textarea';
+import { ComboboxMultiple } from '@/components/ui/combobox_multi';
 
 const TravelInformationTab = () => {
   const form = useFormContext();
@@ -23,7 +23,7 @@ const TravelInformationTab = () => {
         <FormField
           control={form.control}
           name="travel_info.airport"
-          rules={{ required: "Field Required" }}
+          rules={{ required: 'Field Required' }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Airport</FormLabel>
@@ -39,7 +39,7 @@ const TravelInformationTab = () => {
         <FormField
           control={form.control}
           name="travel_info.public_transportation"
-          rules={{ required: "Field Required" }}
+          rules={{ required: 'Field Required' }}
           render={({ field }) => (
             <FormItem className="flex flex-col items-start gap-2">
               <FormLabel>Public Transportation</FormLabel>
@@ -49,7 +49,10 @@ const TravelInformationTab = () => {
                   isMulti
                   options={PUBLIC_TRANSPORTATION}
                   className="w-full"
-                  value={(field.value || []).map((val) => ({ value: val, label: val }))}
+                  value={(field.value || []).map((val) => ({
+                    value: val,
+                    label: val,
+                  }))}
                   onChange={(selected) => field.onChange(selected.map((option) => option.value))}
                   placeholder="Select Transport mediums..."
                 />
@@ -61,7 +64,7 @@ const TravelInformationTab = () => {
 
         {/* taaxi & rental switches */}
         <div className="flex space-x-4">
-          {["taxi_available", "rental_cars_available"].map((value) => (
+          {['taxi_available', 'rental_cars_available'].map((value) => (
             <FormField
               key={value}
               control={form.control}
@@ -71,7 +74,7 @@ const TravelInformationTab = () => {
                   <FormControl>
                     <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-secondaryDark" />
                   </FormControl>
-                  <FormLabel className="capitalize">{value.replace(/_/g, " ")}</FormLabel>
+                  <FormLabel className="capitalize">{value.replace(/_/g, ' ')}</FormLabel>
                   <FormMessage />
                 </FormItem>
               )}
@@ -82,7 +85,7 @@ const TravelInformationTab = () => {
         {/* Accomodation */}
         <CardTitle>Accomodation</CardTitle>
         <div className="grid grid-cols-2 gap-4">
-          {["hotels", "hostels", "apartments", "resorts"].map((value) => (
+          {['hotels', 'hostels', 'apartments', 'resorts'].map((value) => (
             <FormField
               key={value}
               control={form.control}
@@ -92,7 +95,7 @@ const TravelInformationTab = () => {
                   <FormControl>
                     <Switch checked={field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-secondaryDark" />
                   </FormControl>
-                  <FormLabel className="capitalize">{value.replace(/_/g, " ")}</FormLabel>
+                  <FormLabel className="capitalize">{value.replace(/_/g, ' ')}</FormLabel>
                   <FormMessage />
                 </FormItem>
               )}
@@ -100,17 +103,17 @@ const TravelInformationTab = () => {
           ))}
         </div>
 
-        {["visa_requirements", "best_time_to_visit", "travel_tips", "safety_information"].map((value, index) => (
+        {['visa_requirements', 'best_time_to_visit', 'travel_tips', 'safety_information'].map((value, index) => (
           <FormField
             key={value}
             control={form.control}
             name={`travel_info.${value}`}
-            rules={{ required: "Field Required" }}
+            rules={{ required: 'Field Required' }}
             render={({ field }) => (
               <FormItem className="flex flex-col gap-2">
-                <FormLabel className="capitalize">{value.replace(/_/g, " ")}</FormLabel>
+                <FormLabel className="capitalize">{value.replace(/_/g, ' ')}</FormLabel>
                 <FormControl>
-                  <Textarea placeholder={`Enter ${value.replace(/_/g, " ")}`} {...field}  />
+                  <Textarea placeholder={`Enter ${value.replace(/_/g, ' ')}`} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

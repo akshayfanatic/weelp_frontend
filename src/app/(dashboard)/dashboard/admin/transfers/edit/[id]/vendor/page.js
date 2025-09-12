@@ -1,7 +1,7 @@
-import { EditTransferForm } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/transfers/forms/EditTransferForm";
-import { getSingleTransferAdmin } from "@/lib/services/transfers";
-import { isEmpty } from "lodash";
-import { notFound } from "next/navigation";
+import { EditTransferForm } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/transfers/forms/EditTransferForm';
+import { getSingleTransferAdmin } from '@/lib/services/transfers';
+import { isEmpty } from 'lodash';
+import { notFound } from 'next/navigation';
 
 const EditTransferByVendorPage = async ({ params }) => {
   const { id } = await params;

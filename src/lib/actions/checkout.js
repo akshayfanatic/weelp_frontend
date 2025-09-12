@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { publicApi } from "@/lib/axiosInstance";
-import { log } from "@/lib/utils";
-import stripe from "../stripe/stripe-server";
+import { publicApi } from '@/lib/axiosInstance';
+import { log } from '@/lib/utils';
+import stripe from '../stripe/stripe-server';
 
 /**
  * Handle for intialization checkout
@@ -13,7 +13,7 @@ export const initializeCheckout = async (payload = {}) => {
   try {
     const response = await publicApi.post(`/api/stripe/initialize`, payload, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
@@ -46,7 +46,7 @@ export async function checkoutCreateOrder(orderDetail = {}) {
   try {
     const response = await publicApi.post(`/api/stripe/create-order`, orderDetail, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
@@ -56,14 +56,19 @@ export async function checkoutCreateOrder(orderDetail = {}) {
     }
 
     // If not 200,
-    return { success: false, error: `Unexpected status code: ${response?.status}` };
+    return {
+      success: false,
+      error: `Unexpected status code: ${response?.status}`,
+    };
   } catch (error) {
     // log(error?.response);
     const status = error?.response?.status || 500;
-    return { success: false, error: `Server Error Pleaease Try Again: ${status}` };
+    return {
+      success: false,
+      error: `Server Error Pleaease Try Again: ${status}`,
+    };
   }
 }
-
 
 /**
  * Action for Create Payment Intent
@@ -92,5 +97,3 @@ export const createPaymentIntent = async (payload = {}) => {
     };
   }
 };
-
-

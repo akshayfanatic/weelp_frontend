@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { User, House, Heart, Settings, Tags, LogOut } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { LoginForm } from "../Form/LoginForm";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { User, House, Heart, Settings, Tags, LogOut } from 'lucide-react';
+import { signOut, useSession } from 'next-auth/react';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { LoginForm } from '../Form/LoginForm';
 
 const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
   const [open, setOpen] = useState();
@@ -18,7 +18,7 @@ const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
   const { data: session, status } = useSession();
 
   // If session is loading, don't render anything yet to avoid flickering
-  if (status === "loading") {
+  if (status === 'loading') {
     return null; // or a loading spinner if you prefer
   }
 
@@ -61,19 +61,19 @@ const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
                   </button>
                 </DialogTrigger>
               </li>
-              <DialogContent className={"bg-transparent border-none"} aria-describedby={undefined}>
+              <DialogContent className={'bg-transparent border-none'} aria-describedby={undefined}>
                 <DialogTitle className="sr-only">Are you absolutely sure?</DialogTitle>
-                <LoginForm onCloseDialog={() => setOpen(false)} customUrl={dynamicPaths || "/"} />
+                <LoginForm onCloseDialog={() => setOpen(false)} customUrl={dynamicPaths || '/'} />
               </DialogContent>
             </Dialog>
           </>
         ) : (
           <>
             {/* Role Based Links */}
-            {session?.user?.role === "super_admin" ? (
+            {session?.user?.role === 'super_admin' ? (
               <>
                 <li className="p-4 px-8 border-b text-[#5A5A5A]">
-                  <Link href={"/dashboard/admin"}>
+                  <Link href={'/dashboard/admin'}>
                     <button className="text-md leading-5 flex gap-x-2">
                       <House className="size-5" />
                       Dashboard
@@ -81,7 +81,7 @@ const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
                   </Link>
                 </li>
                 <li className="p-4 px-8 border-b text-[#5A5A5A]">
-                  <Link href={"/dashboard/admin/settings"}>
+                  <Link href={'/dashboard/admin/settings'}>
                     <button className="text-md leading-5 flex gap-x-2">
                       <Settings className="size-5" />
                       Settings
@@ -89,7 +89,7 @@ const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
                   </Link>
                 </li>
                 <li className="p-4 px-8 border-b text-[#5A5A5A]">
-                  <Link href={"/dashboard/admin/settings"}>
+                  <Link href={'/dashboard/admin/settings'}>
                     <button className="text-md leading-5 flex gap-x-2">
                       <Tags className="size-5" />
                       Taxonomies
@@ -100,7 +100,7 @@ const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
                   <button
                     className="text-md leading-5 flex gap-x-2"
                     onClick={() => {
-                      signOut({ redirect: false, redirectTo: "/" });
+                      signOut({ redirect: false, redirectTo: '/' });
                     }}
                   >
                     <LogOut className="size-5" />
@@ -112,7 +112,7 @@ const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
               <>
                 {/** For customer link */}
                 <li className="p-4 px-8 border-b text-[#5A5A5A]">
-                  <Link href={"/dashboard/customer"}>
+                  <Link href={'/dashboard/customer'}>
                     <button className="text-md leading-5 flex gap-x-2">
                       <House className="size-5" />
                       Dashboard
@@ -120,7 +120,7 @@ const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
                   </Link>
                 </li>
                 <li className="p-4 px-8 border-b text-[#5A5A5A]">
-                  <Link href={"/dashboard/cusomter"}>
+                  <Link href={'/dashboard/cusomter'}>
                     <button className="text-md leading-5 flex gap-x-2">
                       <Heart className="size-5" />
                       Wishlist
@@ -131,7 +131,7 @@ const SubmenuAccount = ({ showSubmenu, setShowSubmenu }) => {
                   <button
                     className="text-md leading-5 flex gap-x-2"
                     onClick={() => {
-                      signOut({ redirect: false, redirectTo: "/" });
+                      signOut({ redirect: false, redirectTo: '/' });
                     }}
                   >
                     <LogOut className="size-5" />

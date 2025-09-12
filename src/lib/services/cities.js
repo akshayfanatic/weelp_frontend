@@ -1,5 +1,5 @@
-import { publicApi, authApi } from "../axiosInstance";
-import { log } from "../utils";
+import { publicApi, authApi } from '../axiosInstance';
+import { log } from '../utils';
 
 /**
  * Get Single City on Admin side
@@ -9,7 +9,7 @@ import { log } from "../utils";
 export async function getSingleCityAdmin(id) {
   try {
     const response = await authApi.get(`/api/admin/cities/${id}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
     if (response.status === 200) {
       return response.data;
@@ -31,10 +31,10 @@ export async function getSingleCityAdmin(id) {
  * @example
  * const states = await getAllCitiesAdminV2("?name=india&page=2");
  */
-export async function getAllCitiesAdminV2(search = "") {
+export async function getAllCitiesAdminV2(search = '') {
   try {
     const response = await authApi.get(`/api/admin/cities/${search}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
     return response?.data;
   } catch (error) {
@@ -50,7 +50,7 @@ export async function getAllCitiesAdminV2(search = "") {
 export async function getAllCitiesOptionsAdmin() {
   try {
     const response = await authApi.get(`/api/admin/cities/list`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {

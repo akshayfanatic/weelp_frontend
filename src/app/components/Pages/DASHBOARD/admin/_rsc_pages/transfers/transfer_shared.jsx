@@ -1,10 +1,10 @@
-import * as React from "react";
-import { ArrowLeft, Check, ChevronsUpDown, MapPin } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Command, CommandInput, CommandList, CommandItem, CommandGroup } from "@/components/ui/command";
-import { useRouter } from "next/navigation";
+import * as React from 'react';
+import { ArrowLeft, Check, ChevronsUpDown, MapPin } from 'lucide-react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Command, CommandInput, CommandList, CommandItem, CommandGroup } from '@/components/ui/command';
+import { useRouter } from 'next/navigation';
 
 export const NavigationTransfer = ({ title, desciption }) => {
   const router = useRouter();
@@ -26,7 +26,7 @@ export const NavigationTransfer = ({ title, desciption }) => {
  * Combobox for Single Data Select
  * @returns []
  */
-export function ComboboxVendorRoute({ data = [], value, onChange, placeholder = "Select Location..." }) {
+export function ComboboxVendorRoute({ data = [], value, onChange, placeholder = 'Select Location...' }) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -57,7 +57,7 @@ export function ComboboxVendorRoute({ data = [], value, onChange, placeholder = 
                       Base Price:{item?.base_price} | Price Per Km :{item?.price_per_km}
                     </span>
                   </span>
-                  <Check className={cn("ml-auto", value === item.id ? "opacity-100" : "opacity-0")} />
+                  <Check className={cn('ml-auto', value === item.id ? 'opacity-100' : 'opacity-0')} />
                 </CommandItem>
               ))}
             </CommandGroup>
@@ -72,7 +72,7 @@ export function ComboboxVendorRoute({ data = [], value, onChange, placeholder = 
  * Combobox for Single Data Select For Pricing
  * @returns []
  */
-export function ComboboxVendorPricing({ data = [], value, onChange, placeholder = "Select Location..." }) {
+export function ComboboxVendorPricing({ data = [], value, onChange, placeholder = 'Select Location...' }) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -103,7 +103,7 @@ export function ComboboxVendorPricing({ data = [], value, onChange, placeholder 
                       Base Price:{item?.base_price} | Peak: {item?.peak_hour_multiplier}
                     </span>
                   </span>
-                  <Check className={cn("ml-auto", value === item.id ? "opacity-100" : "opacity-0")} />
+                  <Check className={cn('ml-auto', value === item.id ? 'opacity-100' : 'opacity-0')} />
                 </CommandItem>
               ))}
             </CommandGroup>
@@ -118,7 +118,7 @@ export function ComboboxVendorPricing({ data = [], value, onChange, placeholder 
  * Combobox for Single Data Select For Availablity
  * @returns []
  */
-export function ComboboxVendorAvailablity({ data = [], value, onChange, placeholder = "Select Location..." }) {
+export function ComboboxVendorAvailablity({ data = [], value, onChange, placeholder = 'Select Location...' }) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -144,12 +144,12 @@ export function ComboboxVendorAvailablity({ data = [], value, onChange, placehol
                   }}
                 >
                   <span className="flex flex-col w-full text-sm text-center">
-                    {" "}
+                    {' '}
                     Date:{item?.date}
                     <span className="text-xs text-gray-500">Start Time: {item?.start_time}</span>
                   </span>
 
-                  <Check className={cn("ml-auto", value === item.id ? "opacity-100" : "opacity-0")} />
+                  <Check className={cn('ml-auto', value === item.id ? 'opacity-100' : 'opacity-0')} />
                 </CommandItem>
               ))}
             </CommandGroup>

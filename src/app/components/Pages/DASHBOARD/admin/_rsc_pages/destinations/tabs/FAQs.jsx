@@ -1,16 +1,16 @@
-"use client";
-import { useFormContext, useFieldArray, useWatch } from "react-hook-form";
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { X } from "lucide-react";
+'use client';
+import { useFormContext, useFieldArray, useWatch } from 'react-hook-form';
+import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { X } from 'lucide-react';
 
 const FaqTab = ({ currentStep, setCurrentStep }) => {
   const { control, trigger, getValues, setError, clearErrors } = useFormContext();
 
-  const faqs = useWatch({ control, name: "faqs" });
+  const faqs = useWatch({ control, name: 'faqs' });
 
   const {
     fields: faqFields,
@@ -18,10 +18,8 @@ const FaqTab = ({ currentStep, setCurrentStep }) => {
     remove: removeFaqField,
   } = useFieldArray({
     control,
-    name: "faqs",
+    name: 'faqs',
   });
-
-
 
   return (
     <Card className="flex flex-col gap-4 py-4 shadow-none border-none">
@@ -31,7 +29,7 @@ const FaqTab = ({ currentStep, setCurrentStep }) => {
           <CardContent className=" p-0">Add common questions and answers about this package</CardContent>
         </div>
         {/* Add FAQ Button */}
-        <Button type="button" className="bg-white hover:bg-white border text-inherit self-end" onClick={() => addFaqField({ question: "", answer: "" })}>
+        <Button type="button" className="bg-white hover:bg-white border text-inherit self-end" onClick={() => addFaqField({ question: '', answer: '' })}>
           Add Section
         </Button>
       </CardHeader>
@@ -50,7 +48,7 @@ const FaqTab = ({ currentStep, setCurrentStep }) => {
             <FormField
               control={control}
               name={`faqs.${index}.question`}
-              rules={{ required: "Question Required" }}
+              rules={{ required: 'Question Required' }}
               render={({ field }) => (
                 <FormItem className="px-4 space-y-2">
                   <FormLabel>Question</FormLabel>
@@ -66,7 +64,7 @@ const FaqTab = ({ currentStep, setCurrentStep }) => {
             <FormField
               control={control}
               name={`faqs.${index}.answer`}
-              rules={{ required: "Answer Required" }}
+              rules={{ required: 'Answer Required' }}
               render={({ field }) => (
                 <FormItem className="px-4 space-y-2">
                   <FormLabel>Answer</FormLabel>

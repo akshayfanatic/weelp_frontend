@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { useSidebar } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Switch } from "@/components/ui/switch";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Calendar } from "@/components/ui/calendar";
+import React, { useEffect, useState } from 'react';
+import { useSidebar } from '@/components/ui/sidebar';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Switch } from '@/components/ui/switch';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Calendar } from '@/components/ui/calendar';
 import {
   ActivitySearchModal,
   CustomizedEditActivityForm,
@@ -17,27 +17,27 @@ import {
   ItinerarySearchModal,
   NavigationPackage,
   TransferSearchModal,
-} from "./package_shared";
-import { useForm, FormProvider, Controller, useFieldArray, useWatch, useFormContext } from "react-hook-form";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Card } from "@/components/ui/card";
-import { Activity, CalendarIcon, Car, Clock, Cross, Hotel, MapPin, Plane, Plus, Route, RouteIcon, Settings, Trash, Trash2, X } from "lucide-react";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { ComboboxMultiple, ComboboxMultipleAttribute } from "@/components/ui/combobox_multi";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { addCommabetweenString, cn, generateSlug, removeNestedKey } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
-import { format, parse } from "date-fns";
-import { Medialibrary } from "../media/MediaLibrary";
-import { useMediaStore } from "@/lib/store/useMediaStore";
-import { isEmpty } from "lodash";
-import { createPackage } from "@/lib/actions/packages";
-import dynamic from "next/dynamic";
+} from './package_shared';
+import { useForm, FormProvider, Controller, useFieldArray, useWatch, useFormContext } from 'react-hook-form';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Card } from '@/components/ui/card';
+import { Activity, CalendarIcon, Car, Clock, Cross, Hotel, MapPin, Plane, Plus, Route, RouteIcon, Settings, Trash, Trash2, X } from 'lucide-react';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { ComboboxMultiple, ComboboxMultipleAttribute } from '@/components/ui/combobox_multi';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { addCommabetweenString, cn, generateSlug, removeNestedKey } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
+import { format, parse } from 'date-fns';
+import { Medialibrary } from '../media/MediaLibrary';
+import { useMediaStore } from '@/lib/store/useMediaStore';
+import { isEmpty } from 'lodash';
+import { createPackage } from '@/lib/actions/packages';
+import dynamic from 'next/dynamic';
 
-const SharedAddOnMultiSelect = dynamic(() => import("../shared_tabs/addon/SharedAddOn"), { ssr: false });
+const SharedAddOnMultiSelect = dynamic(() => import('../shared_tabs/addon/SharedAddOn'), { ssr: false });
 
 export const CreatePackageForm = ({ categories, attributes, tags, locations = [], allactivities, alltransfers, itineraries }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -48,20 +48,20 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
 
   const methods = useForm({
     shouldUnregister: false,
-    mode: "onSubmit",
+    mode: 'onSubmit',
     defaultValues: {
       information: [],
       schedules: [],
       pricing: {
-        currency: "USD",
-        availability: "available",
-        start_date: "",
-        end_date: "",
+        currency: 'USD',
+        availability: 'available',
+        start_date: '',
+        end_date: '',
       },
       availability: {
         date_based_package: true,
-        start_date: "",
-        end_date: "",
+        start_date: '',
+        end_date: '',
         quantity_based_package: false,
         max_quantity: null,
       },
@@ -70,7 +70,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       blackout_dates: [],
       inclusions_exclusions: [],
       media_gallery: [],
-      addons:[]
+      addons: [],
     },
   });
 
@@ -82,27 +82,27 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
   const steps = [
     {
       id: 1,
-      title: "Basic Information",
+      title: 'Basic Information',
     },
     {
       id: 2,
-      title: "Information",
+      title: 'Information',
     },
     {
       id: 3,
-      title: "Schedule",
+      title: 'Schedule',
     },
     {
       id: 4,
-      title: "Pricing",
+      title: 'Pricing',
     },
     {
       id: 5,
-      title: "Availability",
+      title: 'Availability',
     },
     {
       id: 6,
-      title: "Inclusions",
+      title: 'Inclusions',
     },
     {
       id: 7,
@@ -110,19 +110,19 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
     },
     {
       id: 8,
-      title: "Media",
+      title: 'Media',
     },
     {
       id: 9,
-      title: "Taxonomy",
+      title: 'Taxonomy',
     },
     {
       id: 10,
-      title: "FAQ",
+      title: 'FAQ',
     },
     {
       id: 11,
-      title: "SEO",
+      title: 'SEO',
     },
   ];
 
@@ -138,13 +138,13 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
 
     // handling value when blur
     const handleBlur = () => {
-      const name = getValues("name");
-      const currentSlug = getValues("slug");
+      const name = getValues('name');
+      const currentSlug = getValues('slug');
       const newSlug = generateSlug(name);
 
       // update slug
       if (currentSlug !== newSlug) {
-        setValue("slug", newSlug);
+        setValue('slug', newSlug);
       }
     };
 
@@ -154,13 +154,13 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
 
         <div className="flex w-full gap-4">
           <div className="pb-2 space-y-2 w-full">
-            <Label htmlFor="name" className={`block text-sm font-medium ${errors?.name ? "text-red-400" : "text-black"}`}>
+            <Label htmlFor="name" className={`block text-sm font-medium ${errors?.name ? 'text-red-400' : 'text-black'}`}>
               Package Name
             </Label>
             <Input
               placeholder="Package name"
               id="name"
-              {...register("name", { required: "Name is required" })}
+              {...register('name', { required: 'Name is required' })}
               className="mt-1 p-2 text-sm block w-full rounded-md border border-gray-300 shadow-sm focus-visible:ring-secondaryDark"
               onBlur={handleBlur}
             />
@@ -168,13 +168,13 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
           </div>
 
           <div className="pb-2 space-y-2 w-full">
-            <Label htmlFor="slug" className={`block text-sm font-medium ${errors?.slug ? "text-red-400" : "text-black"}`}>
+            <Label htmlFor="slug" className={`block text-sm font-medium ${errors?.slug ? 'text-red-400' : 'text-black'}`}>
               Slug
             </Label>
             <Input
               placeholder="Enter Url slug"
               id="slug"
-              {...register("slug", { required: "Slug is required" })}
+              {...register('slug', { required: 'Slug is required' })}
               className="mt-1 p-2 text-sm block w-full rounded-md border border-gray-300 shadow-sm focus-visible:ring-secondaryDark"
               onBlur={handleBlur}
             />
@@ -183,14 +183,14 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="description" className={`block text-sm font-medium ${errors?.description ? "text-red-400" : "text-black"}`}>
+          <Label htmlFor="description" className={`block text-sm font-medium ${errors?.description ? 'text-red-400' : 'text-black'}`}>
             Description
           </Label>
           <Textarea
             placeholder="Detailed description"
             id="description"
-            {...register("description", {
-              required: "Description is required",
+            {...register('description', {
+              required: 'Description is required',
             })}
             className="mt-1 p-2 text-sm block w-full rounded-md border border-gray-300 shadow-sm focus-visible:ring-secondaryDark"
           />
@@ -199,19 +199,19 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
 
         {/* destination */}
         <div className="space-y-2">
-          <Label htmlFor={"locations"} className={`block text-sm font-medium ${errors?.locations ? "text-red-400" : "text-black"}`}>
+          <Label htmlFor={'locations'} className={`block text-sm font-medium ${errors?.locations ? 'text-red-400' : 'text-black'}`}>
             Destinations
           </Label>
           <Controller
             control={methods.control}
             name="locations"
             defaultValue={[]}
-            rules={{ required: "Locations Required" }}
+            rules={{ required: 'Locations Required' }}
             render={({ field: { value, onChange } }) => (
               <ComboboxMultiple
-                id={"locations"}
+                id={'locations'}
                 name="locations"
-                type={"locations"} //Required
+                type={'locations'} //Required
                 items={locations} //Required
                 value={value ?? []} //Required
                 onChange={onChange} //Required
@@ -277,7 +277,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
     } = useFormContext();
 
     // local state of schedules
-    const information = useWatch({ control, name: "information" });
+    const information = useWatch({ control, name: 'information' });
 
     // information fields
     const {
@@ -286,26 +286,26 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       remove: removeInformationField,
     } = useFieldArray({
       control,
-      name: "information", // register information field
+      name: 'information', // register information field
     });
 
     // Validate Fields
     const handleValidationInformation = async (e) => {
       e.preventDefault();
 
-      const values = getValues("information"); // get default values
+      const values = getValues('information'); // get default values
 
       // Step 1: Validate if array is empty
       if (!values || values.length === 0) {
-        setError("information", {
-          type: "manual",
-          message: "At least one section is required",
+        setError('information', {
+          type: 'manual',
+          message: 'At least one section is required',
         });
         return;
       }
 
       // Step 2:
-      const isValid = await trigger("information"); // ✅ this checks: information.0.content, etc.
+      const isValid = await trigger('information'); // ✅ this checks: information.0.content, etc.
 
       if (!isValid) {
         // One or more nested fields are invalid
@@ -313,13 +313,13 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       }
 
       // Step 3: All good, proceed
-      clearErrors("information");
+      clearErrors('information');
       setCurrentStep(currentStep + 1);
     };
 
     return (
       <div className="flex flex-col gap-4 py-4 relative">
-        <Button type="button" className="bg-white hover:bg-white border text-inherit self-end" onClick={() => addInformationField({ section_title: "", content: "" })}>
+        <Button type="button" className="bg-white hover:bg-white border text-inherit self-end" onClick={() => addInformationField({ section_title: '', content: '' })}>
           Add Section
         </Button>
 
@@ -332,24 +332,28 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
               </Button>
             </div>
             <div className="px-4 space-y-2">
-              <Label htmlFor={`information.${index}.section_title`} className={errors?.information?.[index]?.section_title?.message && "text-red-400"}>
+              <Label htmlFor={`information.${index}.section_title`} className={errors?.information?.[index]?.section_title?.message && 'text-red-400'}>
                 Section Title
               </Label>
               <Input
                 id={`information.${index}.section_title`}
-                {...register(`information.${index}.section_title`, { required: " Title Required" })}
+                {...register(`information.${index}.section_title`, {
+                  required: ' Title Required',
+                })}
                 placeholder="Enter section title"
                 className="text-xs focus-visible:ring-secondaryDark"
               />
               {errors?.information?.[index]?.section_title && <p className="px-2 text-red-500 text-sm">{errors.information?.[index]?.section_title?.message}</p>}
             </div>
             <div className="px-4 space-y-2">
-              <Label htmlFor={`information.${index}.content`} className={errors?.information?.[index]?.content?.message && "text-red-400"}>
+              <Label htmlFor={`information.${index}.content`} className={errors?.information?.[index]?.content?.message && 'text-red-400'}>
                 Content
               </Label>
               <Textarea
                 id={`information.${index}.content`}
-                {...register(`information.${index}.content`, { required: "Content Required" })}
+                {...register(`information.${index}.content`, {
+                  required: 'Content Required',
+                })}
                 placeholder="Enter section content"
                 className="text-xs focus-visible:ring-secondaryDark"
               />
@@ -363,7 +367,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
           onClick={handleValidationInformation}
           className={`absolute right-0 -bottom-10 ml-auto py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-secondaryDark cursor-pointer`}
         >
-          {isSubmitting ? (currentStep === 7 ? "Submitting..." : "Submit") : currentStep === 7 ? "Submit" : "Next"}
+          {isSubmitting ? (currentStep === 7 ? 'Submitting...' : 'Submit') : currentStep === 7 ? 'Submit' : 'Next'}
         </Button>
       </div>
     );
@@ -372,10 +376,10 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
   // Schedule Booking
   const ScheduleTab = () => {
     const [openDropdownForDay, setOpenDropdownForDay] = useState(null);
-    const [modalContext, setModalContext] = useState({ type: "", day: null });
+    const [modalContext, setModalContext] = useState({ type: '', day: null });
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [handleEdit, setHandleEdit] = useState({
-      type: "",
+      type: '',
       isEditOn: false,
       item: {},
     });
@@ -398,7 +402,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       remove: removeDay,
     } = useFieldArray({
       control,
-      name: "schedules",
+      name: 'schedules',
     });
 
     //  Activitiy Repeater
@@ -409,7 +413,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       remove: removeActivity,
     } = useFieldArray({
       control,
-      name: "activities",
+      name: 'activities',
     });
 
     //  Transfer Repeater
@@ -420,7 +424,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       remove: removeTransfer,
     } = useFieldArray({
       control,
-      name: "transfers",
+      name: 'transfers',
     });
 
     // Itinerary Repeater
@@ -431,14 +435,14 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       remove: removeItinerary,
     } = useFieldArray({
       control,
-      name: "itineraries",
+      name: 'itineraries',
     });
 
     //local state of schedules
-    const schedules = useWatch({ control, name: "schedules" });
-    const activities = useWatch({ control, name: "activities" });
-    const transferss = useWatch({ control, name: "transfers" }); // prefix 's for local states
-    const itinerariess = useWatch({ control, name: "itineraries" }); // prefix 's for local states
+    const schedules = useWatch({ control, name: 'schedules' });
+    const activities = useWatch({ control, name: 'activities' });
+    const transferss = useWatch({ control, name: 'transfers' }); // prefix 's for local states
+    const itinerariess = useWatch({ control, name: 'itineraries' }); // prefix 's for local states
 
     // Add Day with auto-incrementing value
     const handleAddDay = () => {
@@ -452,12 +456,12 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
 
       // check first schedules
       if (!isEmpty(schedules)) {
-        clearErrors("schedules");
+        clearErrors('schedules');
         setCurrentStep(currentStep + 1); //
       } else {
-        setError("schedules", {
-          type: "manual",
-          message: "At least one schedule is required",
+        setError('schedules', {
+          type: 'manual',
+          message: 'At least one schedule is required',
         });
       }
     };
@@ -472,34 +476,34 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
 
     // Close modal
     const handleCloseModal = () => {
-      setModalContext({ type: "", day: "" });
+      setModalContext({ type: '', day: '' });
     };
 
     // DropDown Menu
     const DropDownMenu = [
       {
-        type: "activity",
-        name: "Add Activity",
+        type: 'activity',
+        name: 'Add Activity',
         icon: <Car />,
       },
       {
-        type: "transfer",
-        name: "Add Transfer",
+        type: 'transfer',
+        name: 'Add Transfer',
         icon: <MapPin />,
       },
       {
-        type: "itinerary",
-        name: "Add Itinerary",
+        type: 'itinerary',
+        name: 'Add Itinerary',
         icon: <Route />,
       },
       {
-        type: "hotel",
-        name: "Add Hotel",
+        type: 'hotel',
+        name: 'Add Hotel',
         icon: <Hotel />,
       },
       {
-        type: "flight",
-        name: "Add Flight",
+        type: 'flight',
+        name: 'Add Flight',
         icon: <Plane />,
       },
     ];
@@ -507,24 +511,24 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
     // Delete Activity based on day
     const handleRemoveActivity = ({ activity_id }, day) => {
       setValue(
-        "activities",
-        activities.filter((a) => !(a.activity_id == activity_id && a.day == day))
+        'activities',
+        activities.filter((a) => !(a.activity_id == activity_id && a.day == day)),
       );
     };
 
     // Delete Transfer Based on day
     const handleRemoveTransfer = ({ transfer_id }, day) => {
       setValue(
-        "transfers",
-        transferss.filter((t) => !(t?.transfer_id == transfer_id && t?.day == day))
+        'transfers',
+        transferss.filter((t) => !(t?.transfer_id == transfer_id && t?.day == day)),
       );
     };
 
     // Delete Transfer Based on day
     const hanldeRemoveItinerary = ({ itinerary_id }, day) => {
       setValue(
-        "itineraries",
-        itinerariess.filter((t) => !(t?.itinerary_id == itinerary_id && t?.day == day))
+        'itineraries',
+        itinerariess.filter((t) => !(t?.itinerary_id == itinerary_id && t?.day == day)),
       );
     };
 
@@ -561,13 +565,21 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                   .filter((activity) => activity?.day == item.day) //
                   .map((filteredActivity, activityIndex) => (
                     <div key={activityIndex} className="p-4 flex w-full border rounded-md items-center gap-4">
-                      <img className="  size-24" src={filteredActivity?.activitydata?.media_gallery?.[0]?.url || "https://picsum.photos/100/100"} alt="random" />
+                      <img className="  size-24" src={filteredActivity?.activitydata?.media_gallery?.[0]?.url || 'https://picsum.photos/100/100'} alt="random" />
                       <div className="space-y-2">
                         <p className="font-bold text-base">{filteredActivity?.activitydata?.name}</p>
                         <div className="flex gap-2">
                           <Clock /> {`${filteredActivity?.start_time} - ${filteredActivity?.end_time}`}
                           <Activity /> <b>Activity</b>
-                          <Settings onClick={() => setHandleEdit({ type: "activity", isEditOn: true, item: filteredActivity })} />
+                          <Settings
+                            onClick={() =>
+                              setHandleEdit({
+                                type: 'activity',
+                                isEditOn: true,
+                                item: filteredActivity,
+                              })
+                            }
+                          />
                           <Trash onClick={() => handleRemoveActivity(filteredActivity, item?.day)} className=" cursor-pointer " size={20} />
                         </div>
                       </div>
@@ -583,14 +595,22 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                   .filter((transfer) => transfer?.day == item.day)
                   .map((filteredTransfer, transferIndex) => (
                     <div key={transferIndex} className="p-4 flex w-full border rounded-md items-center gap-4">
-                      <img className="size-24" src={filteredTransfer?.transferData?.media_gallery?.[0]?.url ?? "https://picsum.photos/100/100"} alt="random" />
+                      <img className="size-24" src={filteredTransfer?.transferData?.media_gallery?.[0]?.url ?? 'https://picsum.photos/100/100'} alt="random" />
                       <div className="space-y-2">
                         <p className="font-bold text-base">{filteredTransfer?.transferData?.name}</p>
                         <div className="flex gap-2">
                           <Clock /> {`${filteredTransfer?.start_time} - ${filteredTransfer?.end_time}`}
                           <Car />
                           <b>Transfer</b>
-                          <Settings onClick={() => setHandleEdit({ type: "transfer", isEditOn: true, item: filteredTransfer })} />
+                          <Settings
+                            onClick={() =>
+                              setHandleEdit({
+                                type: 'transfer',
+                                isEditOn: true,
+                                item: filteredTransfer,
+                              })
+                            }
+                          />
                           <Trash onClick={() => handleRemoveTransfer(filteredTransfer, item?.day)} className=" cursor-pointer " size={20} />
                         </div>
                       </div>
@@ -606,14 +626,22 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                   .filter((itinerary) => itinerary?.day == item.day)
                   .map((filteredItinerary, itineraryIndex) => (
                     <div key={itineraryIndex} className="p-4 flex w-full border rounded-md items-center gap-4">
-                      <img className="size-24" src={filteredItinerary?.itineraryData?.media_gallery?.[0]?.url ?? "https://picsum.photos/100/100"} alt="random" />
+                      <img className="size-24" src={filteredItinerary?.itineraryData?.media_gallery?.[0]?.url ?? 'https://picsum.photos/100/100'} alt="random" />
                       <div className="space-y-2">
                         <p className="font-bold text-base">{filteredItinerary?.itineraryData?.name}</p>
                         <div className="flex gap-2">
                           <Clock /> {`${filteredItinerary?.start_time} - ${filteredItinerary?.end_time}`}
                           <RouteIcon />
                           <b>Itinerary</b>
-                          <Settings onClick={() => setHandleEdit({ type: "itinerary", isEditOn: true, item: filteredItinerary })} />
+                          <Settings
+                            onClick={() =>
+                              setHandleEdit({
+                                type: 'itinerary',
+                                isEditOn: true,
+                                item: filteredItinerary,
+                              })
+                            }
+                          />
                           <Trash onClick={() => hanldeRemoveItinerary(filteredItinerary, item?.day)} className=" cursor-pointer " size={20} />
                         </div>
                       </div>
@@ -654,54 +682,54 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
               </div>
 
               {/* Handle Modal  for Creating */}
-              {modalContext.type === "activity" && modalContext.day == item.day && (
+              {modalContext.type === 'activity' && modalContext.day == item.day && (
                 <ActivitySearchModal activities={allactivities} day={item?.day} addActivity={addActivity} onClose={handleCloseModal} />
               )}
               {/* Transfer Modal  */}
-              {modalContext.type === "transfer" && modalContext.day === item.day && (
+              {modalContext.type === 'transfer' && modalContext.day === item.day && (
                 <TransferSearchModal day={item?.day} onClose={handleCloseModal} addTransfer={addTransfer} transfers={alltransfers} />
               )}
 
               {/* Itinerary Modal */}
-              {modalContext.type === "itinerary" && modalContext.day === item.day && (
+              {modalContext.type === 'itinerary' && modalContext.day === item.day && (
                 <ItinerarySearchModal day={item?.day} onClose={handleCloseModal} addItinerary={addItinerary} itineraries={itineraries} />
               )}
             </div>
 
             {/* Edit Form Modal */}
             {/*Activity Edit Form */}
-            {handleEdit?.isEditOn && handleEdit?.type === "activity" && (
+            {handleEdit?.isEditOn && handleEdit?.type === 'activity' && (
               <CustomizedEditActivityForm
                 isEditOn={handleEdit.isEditOn}
                 selectedActivity={handleEdit?.item}
                 day={handleEdit?.item?.day}
                 updateActivity={updateActivity}
                 activities={activities}
-                onClose={() => setHandleEdit({ type: "", isEditOn: false })}
+                onClose={() => setHandleEdit({ type: '', isEditOn: false })}
               />
             )}
 
             {/*Transfer Edit Form */}
-            {handleEdit?.isEditOn && handleEdit?.type === "transfer" && (
+            {handleEdit?.isEditOn && handleEdit?.type === 'transfer' && (
               <CustomizedEditTransferForm
                 isEditOn={handleEdit.isEditOn}
                 selectedTransfer={handleEdit?.item}
                 day={handleEdit?.item?.day}
                 updateTransfer={updateTransfer}
                 transfers={transferss}
-                onClose={() => setHandleEdit({ type: "", isEditOn: false })}
+                onClose={() => setHandleEdit({ type: '', isEditOn: false })}
               />
             )}
 
             {/*Itinerary Edit Form */}
-            {handleEdit?.isEditOn && handleEdit?.type === "itinerary" && (
+            {handleEdit?.isEditOn && handleEdit?.type === 'itinerary' && (
               <CustomizedEditItineraryForm
                 isEditOn={handleEdit.isEditOn}
                 selectedItinerary={handleEdit?.item}
                 day={handleEdit?.item?.day}
                 updateItinerary={updateItinerary}
                 itineraries={itinerariess}
-                onClose={() => setHandleEdit({ type: "", isEditOn: false })}
+                onClose={() => setHandleEdit({ type: '', isEditOn: false })}
               />
             )}
           </div>
@@ -713,7 +741,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
           onClick={handleValidationSchedule}
           className={`absolute right-0 -bottom-10 ml-auto py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-secondaryDark cursor-pointer`}
         >
-          {isSubmitting ? (currentStep === 7 ? "Submitting..." : "Submit") : currentStep === 7 ? "Submit" : "Next"}
+          {isSubmitting ? (currentStep === 7 ? 'Submitting...' : 'Submit') : currentStep === 7 ? 'Submit' : 'Next'}
         </Button>
       </div>
     );
@@ -721,12 +749,12 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
 
   // Pricing Tab
   const PricingTab = () => {
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState('');
     const { control, register, watch, getValues, setValue, setError, clearErrors } = useFormContext();
 
-    const availability = watch("pricing.availability");
-    const startDate = watch("pricing.start_date");
-    const endDate = watch("pricing.end_date");
+    const availability = watch('pricing.availability');
+    const startDate = watch('pricing.start_date');
+    const endDate = watch('pricing.end_date');
 
     // Variations Fields
     const {
@@ -735,7 +763,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       remove: removeVariationField,
     } = useFieldArray({
       control,
-      name: "price_variations",
+      name: 'price_variations',
     });
 
     // Variations Fields
@@ -745,7 +773,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       remove: removeBlackOutField,
     } = useFieldArray({
       control,
-      name: "blackout_dates",
+      name: 'blackout_dates',
     });
 
     return (
@@ -765,14 +793,14 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                 render={({ field }) => (
                   <Select
                     onValueChange={field.onChange}
-                    value={field.value ?? "USD"} //  Ensures it's never undefined
+                    value={field.value ?? 'USD'} //  Ensures it's never undefined
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select a currency" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        {["USD", "EUR", "GBP", "JPY", "INR"].map((val, index) => {
+                        {['USD', 'EUR', 'GBP', 'JPY', 'INR'].map((val, index) => {
                           return (
                             <SelectItem key={index} value={val}>
                               {val}
@@ -796,18 +824,18 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                 defaultValue="available" //
                 control={methods?.control}
                 render={({ field }) => (
-                  <Select onValueChange={field.onChange} value={field.value ?? "available"}>
+                  <Select onValueChange={field.onChange} value={field.value ?? 'available'}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a currency" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
                         {[
-                          { label: "Always Available ", value: "available" },
-                          { label: "Date Range", value: "date_range" },
+                          { label: 'Always Available ', value: 'available' },
+                          { label: 'Date Range', value: 'date_range' },
                         ].map((val, index) => {
                           return (
-                            <SelectItem className={"capitalize"} key={index} value={val.value}>
+                            <SelectItem className={'capitalize'} key={index} value={val.value}>
                               {val.label}
                             </SelectItem>
                           );
@@ -821,23 +849,23 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
           </div>
 
           {/* Date Range Select */}
-          {availability === "date_range" && (
+          {availability === 'date_range' && (
             <div className="flex w-full gap-4">
               {/* Start Date Picker */}
               <div className="flex flex-col gap-2 w-full">
                 <Label htmlFor="start_date">Start Date</Label>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button id="start_date" variant="outline" className={cn("justify-start text-left font-normal", !startDate && "text-muted-foreground")}>
+                    <Button id="start_date" variant="outline" className={cn('justify-start text-left font-normal', !startDate && 'text-muted-foreground')}>
                       <CalendarIcon />
-                      {startDate ? format(new Date(startDate), "yyyy-MM-dd") : <span>Pick a date</span>}
+                      {startDate ? format(new Date(startDate), 'yyyy-MM-dd') : <span>Pick a date</span>}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="p-0" align="start">
                     <Calendar
                       mode="single"
-                      selected={startDate ? format(new Date(startDate), "yyyy-MM-dd") : undefined}
-                      onSelect={(date) => setValue("pricing.start_date", date?.toISOString().split("T")[0])}
+                      selected={startDate ? format(new Date(startDate), 'yyyy-MM-dd') : undefined}
+                      onSelect={(date) => setValue('pricing.start_date', date?.toISOString().split('T')[0])}
                       initialFocus
                     />
                   </PopoverContent>
@@ -849,16 +877,16 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                 <Label htmlFor="end_date">End Date</Label>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button id="end_date" variant="outline" className={cn("justify-start text-left font-normal", !endDate && "text-muted-foreground")}>
+                    <Button id="end_date" variant="outline" className={cn('justify-start text-left font-normal', !endDate && 'text-muted-foreground')}>
                       <CalendarIcon />
-                      {endDate ? format(new Date(endDate), "yyyy-MM-dd") : <span>Pick a date</span>}
+                      {endDate ? format(new Date(endDate), 'yyyy-MM-dd') : <span>Pick a date</span>}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="p-0" align="start">
                     <Calendar
                       mode="single"
-                      selected={endDate ? format(new Date(endDate), "yyyy-MM-dd") : undefined}
-                      onSelect={(date) => setValue("pricing.end_date", date?.toISOString().split("T")[0])}
+                      selected={endDate ? format(new Date(endDate), 'yyyy-MM-dd') : undefined}
+                      onSelect={(date) => setValue('pricing.end_date', date?.toISOString().split('T')[0])}
                       initialFocus
                     />
                   </PopoverContent>
@@ -877,11 +905,11 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
               variant="outline"
               onClick={() =>
                 appendVariationField({
-                  name: "",
-                  regular_price: "",
-                  sale_price: "",
-                  max_guests: "",
-                  description: "",
+                  name: '',
+                  regular_price: '',
+                  sale_price: '',
+                  max_guests: '',
+                  description: '',
                 })
               }
             >
@@ -893,16 +921,23 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
             <div key={item.id} className="border p-4 rounded-xl space-y-4 relative">
               <div className="flex flex-nowwrap gap-6 items-center">
                 <div className="flex flex-col gap-2 w-full">
-                  <Label htmlFor={`price_variations.${index}.name`} className={errors?.price_variations?.[index]?.name ? "text-red-400" : ""}>
+                  <Label htmlFor={`price_variations.${index}.name`} className={errors?.price_variations?.[index]?.name ? 'text-red-400' : ''}>
                     Name
                   </Label>
-                  <Input id={`price_variations.${index}.name`} {...register(`price_variations.${index}.name`, { required: "Name Required" })} type="text" className="w-full" />
+                  <Input
+                    id={`price_variations.${index}.name`}
+                    {...register(`price_variations.${index}.name`, {
+                      required: 'Name Required',
+                    })}
+                    type="text"
+                    className="w-full"
+                  />
 
                   {errors?.price_variations?.[index]?.name && <p className="text-sm text-red-400">{errors?.price_variations[index].name.message}</p>}
                 </div>
 
                 <div className="flex flex-col gap-2 w-full">
-                  <Label htmlFor={`price_variations.${index}.regular_price`} className={errors?.price_variations?.[index]?.regular_price ? "text-red-400" : ""}>
+                  <Label htmlFor={`price_variations.${index}.regular_price`} className={errors?.price_variations?.[index]?.regular_price ? 'text-red-400' : ''}>
                     Regular Price
                   </Label>
                   <Input
@@ -911,7 +946,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                     type="number"
                     className="w-full"
                     {...register(`price_variations.${index}.regular_price`, {
-                      required: "Regular price is required",
+                      required: 'Regular price is required',
                       setValueAs: (value) => {
                         const parsedValue = parseFloat(value);
                         return isNaN(parsedValue) ? 0 : parsedValue.toFixed(2); // Ensure two decimals
@@ -922,14 +957,16 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                 </div>
 
                 <div className="flex flex-col gap-2 w-full">
-                  <Label htmlFor={`price_variations.${index}.sale_price`} className={errors?.price_variations?.[index]?.sale_price ? "text-red-400" : ""}>
+                  <Label htmlFor={`price_variations.${index}.sale_price`} className={errors?.price_variations?.[index]?.sale_price ? 'text-red-400' : ''}>
                     Sale Price
                   </Label>
                   <Input
                     id={`price_variations.${index}.sale_price`}
                     defaultValue="1"
                     min="0"
-                    {...register(`price_variations.${index}.sale_price`, { required: "Sale price is required" })}
+                    {...register(`price_variations.${index}.sale_price`, {
+                      required: 'Sale price is required',
+                    })}
                     type="number"
                     className="w-full"
                   />
@@ -941,7 +978,9 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                   <Input
                     id={`price_variations.${index}.max_guests`}
                     min="1"
-                    {...register(`price_variations.${index}.max_guests`, { required: "Field Required" })}
+                    {...register(`price_variations.${index}.max_guests`, {
+                      required: 'Field Required',
+                    })}
                     type="number"
                     defaultValue="1"
                     className="w-full"
@@ -950,14 +989,14 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                 </div>
 
                 <div className="flex flex-col gap-2 w-full">
-                  <Label htmlFor={`price_variations.${index}.description`} className={`${errors?.price_variations?.[index]?.description?.message ? "text-red-400" : ""}`}>
+                  <Label htmlFor={`price_variations.${index}.description`} className={`${errors?.price_variations?.[index]?.description?.message ? 'text-red-400' : ''}`}>
                     Description
                   </Label>
                   <Input
                     defaultValue=""
                     id={`price_variations.${index}.description`}
                     {...register(`price_variations.${index}.description`, {
-                      required: "Description Required",
+                      required: 'Description Required',
                     })}
                     className="w-full"
                   />
@@ -980,8 +1019,8 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
               variant="outline"
               onClick={() =>
                 appendBlackOutField({
-                  date: "",
-                  reason: "",
+                  date: '',
+                  reason: '',
                 })
               }
             >
@@ -993,19 +1032,19 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
             <div key={item.id} className="space-y-4 border p-4 rounded-xl relative">
               <div className="flex flex-nowwrap gap-6 items-center">
                 <div className="flex flex-col gap-2 w-fit">
-                  <Label htmlFor={`blackout_dates.${index}.date`} className={errors?.blackout_dates?.[index]?.date ? "text-red-400" : ""}>
+                  <Label htmlFor={`blackout_dates.${index}.date`} className={errors?.blackout_dates?.[index]?.date ? 'text-red-400' : ''}>
                     Date
                   </Label>
                   <Controller
                     key={item?.id}
                     name={`blackout_dates.${index}.date`}
                     control={control}
-                    rules={{ required: "Field Required" }}
-                    defaultValue={format(Date.now(), "yyyy-MM-dd")}
+                    rules={{ required: 'Field Required' }}
+                    defaultValue={format(Date.now(), 'yyyy-MM-dd')}
                     render={({ field: { onChange, value } }) => (
                       <Popover>
                         <PopoverTrigger asChild>
-                          <Button variant="outline" className={cn("w-[240px] justify-start text-left font-normal", !value && "text-muted-foreground")}>
+                          <Button variant="outline" className={cn('w-[240px] justify-start text-left font-normal', !value && 'text-muted-foreground')}>
                             <CalendarIcon className="mr-2 h-4 w-4" />
                             {value ? value : <span>Pick a date</span>}
                           </Button>
@@ -1016,7 +1055,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                             selected={value ? new Date(value) : undefined}
                             onSelect={(selectedDate) => {
                               if (selectedDate) {
-                                onChange(format(selectedDate, "yyyy-MM-dd")); // Store it as string in "yyyy-MM-dd"
+                                onChange(format(selectedDate, 'yyyy-MM-dd')); // Store it as string in "yyyy-MM-dd"
                               }
                             }}
                             disabled={
@@ -1059,14 +1098,16 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       formState: { errors },
     } = useFormContext();
 
-    const dateBased = useWatch({ name: "availability.date_based_package" });
-    const quantityBased = useWatch({ name: "availability.quantity_based_package" });
+    const dateBased = useWatch({ name: 'availability.date_based_package' });
+    const quantityBased = useWatch({
+      name: 'availability.quantity_based_package',
+    });
 
     // prevent values datebased switch is not enable
     useEffect(() => {
       if (!dateBased) {
-        setValue("availability.start_date", "");
-        setValue("availability.end_date", "");
+        setValue('availability.start_date', '');
+        setValue('availability.end_date', '');
       }
     }, [dateBased]);
 
@@ -1095,10 +1136,10 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                   rules={{
                     validate: {
                       validate: (value) => {
-                        if (watch("availability.date_based_package")) {
-                          return value?.trim() !== "" || "Start Date is required";
+                        if (watch('availability.date_based_package')) {
+                          return value?.trim() !== '' || 'Start Date is required';
                         } else {
-                          setValue("availability.start_date", "");
+                          setValue('availability.start_date', '');
                         }
                       },
                     },
@@ -1106,16 +1147,16 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                   render={({ field }) => (
                     <Popover>
                       <PopoverTrigger asChild>
-                        <button type="button" className={cn("w-full flex items-center justify-between border rounded-md px-3 py-2 text-sm", !field.value && "text-muted-foreground")}>
-                          {field.value || "Pick an Start date"}
+                        <button type="button" className={cn('w-full flex items-center justify-between border rounded-md px-3 py-2 text-sm', !field.value && 'text-muted-foreground')}>
+                          {field.value || 'Pick an Start date'}
                           <CalendarIcon className="ml-2 h-4 w-4 text-muted-foreground" />
                         </button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
                           mode="single"
-                          selected={field.value ? parse(field.value, "yyyy-MM-dd", new Date()) : undefined}
-                          onSelect={(selectedDate) => field.onChange(selectedDate ? format(selectedDate, "yyyy-MM-dd") : "")}
+                          selected={field.value ? parse(field.value, 'yyyy-MM-dd', new Date()) : undefined}
+                          onSelect={(selectedDate) => field.onChange(selectedDate ? format(selectedDate, 'yyyy-MM-dd') : '')}
                           disabled={{ before: new Date() }}
                           initialFocus
                         />
@@ -1136,10 +1177,10 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                   rules={{
                     validate: {
                       validate: (value) => {
-                        if (watch("availability.date_based_package")) {
-                          return value?.trim() !== "" || "End date is required";
+                        if (watch('availability.date_based_package')) {
+                          return value?.trim() !== '' || 'End date is required';
                         } else {
-                          setValue("availability.end_date", "");
+                          setValue('availability.end_date', '');
                         }
                       },
                     },
@@ -1147,16 +1188,16 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                   render={({ field }) => (
                     <Popover>
                       <PopoverTrigger asChild>
-                        <button type="button" className={cn("w-full flex items-center justify-between border rounded-md px-3 py-2 text-sm", !field.value && "text-muted-foreground")}>
-                          {field.value || "Pick an end date"}
+                        <button type="button" className={cn('w-full flex items-center justify-between border rounded-md px-3 py-2 text-sm', !field.value && 'text-muted-foreground')}>
+                          {field.value || 'Pick an end date'}
                           <CalendarIcon className="ml-2 h-4 w-4 text-muted-foreground" />
                         </button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
                           mode="single"
-                          selected={field.value ? parse(field.value, "yyyy-MM-dd", new Date()) : undefined}
-                          onSelect={(selectedDate) => field.onChange(selectedDate ? format(selectedDate, "yyyy-MM-dd") : "")}
+                          selected={field.value ? parse(field.value, 'yyyy-MM-dd', new Date()) : undefined}
+                          onSelect={(selectedDate) => field.onChange(selectedDate ? format(selectedDate, 'yyyy-MM-dd') : '')}
                           disabled={{ before: new Date() }}
                           initialFocus
                         />
@@ -1184,7 +1225,14 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
           {quantityBased && (
             <div className="flex space-y-2 flex-col">
               <Label htmlFor="max_quantity">Max Quantity</Label>
-              <Input type="number" min="1" id="max_quantity" {...register("availability.max_quantity", { required: "Field Required" })} />
+              <Input
+                type="number"
+                min="1"
+                id="max_quantity"
+                {...register('availability.max_quantity', {
+                  required: 'Field Required',
+                })}
+              />
               {errors?.availability?.max_quantity?.message && <p className="text-sm text-red-400">{errors?.availability?.max_quantity?.message}</p>}
             </div>
           )}
@@ -1205,22 +1253,27 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       move: moveInclusion,
     } = useFieldArray({
       control,
-      name: "inclusions_exclusions",
+      name: 'inclusions_exclusions',
     });
 
     // Type
     const selecType = [
-      { title: "Activity", value: "activity" },
-      { title: "Transfer", value: "transfer" },
-      { title: "Meal", value: "meal" },
-      { title: "Accommodation", value: "accommodation" },
-      { title: "Equipment", value: "equipment" },
-      { title: "Other", value: "other" },
+      { title: 'Activity', value: 'activity' },
+      { title: 'Transfer', value: 'transfer' },
+      { title: 'Meal', value: 'meal' },
+      { title: 'Accommodation', value: 'accommodation' },
+      { title: 'Equipment', value: 'equipment' },
+      { title: 'Other', value: 'other' },
     ];
 
     // Handle For Adding Fields
     const handleAddInclustionField = () => {
-      addInclusionField({ type: "", title: "", description: "", included: false });
+      addInclusionField({
+        type: '',
+        title: '',
+        description: '',
+        included: false,
+      });
     };
 
     console.log(getValues());
@@ -1259,14 +1312,16 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
             </div>
 
             <div className="w-full self-start">
-              <Label htmlFor={`inclusions_exclusions.${index}.title`} className={`${errors?.inclusions_exclusions?.[index]?.title && "text-red-400"}`}>
+              <Label htmlFor={`inclusions_exclusions.${index}.title`} className={`${errors?.inclusions_exclusions?.[index]?.title && 'text-red-400'}`}>
                 Title
               </Label>
               <Input
                 id={`inclusions_exclusions.${index}.title`}
                 className="focus-visible:ring-secondaryDark"
                 placeholder="Enter Title"
-                {...register(`inclusions_exclusions.${index}.title`, { required: "Field Required" })}
+                {...register(`inclusions_exclusions.${index}.title`, {
+                  required: 'Field Required',
+                })}
               />
               {errors?.inclusions_exclusions?.[index]?.title && <p className="text-sm text-red-400 mt-1">{errors?.inclusions_exclusions?.[index]?.title?.message}</p>}
             </div>
@@ -1314,17 +1369,17 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       <div className="space-y-4">
         {/* Categories */}
         <div>
-          <Label htmlFor={"categories"} className="block py-2 text-sm font-medium text-gray-700">
+          <Label htmlFor={'categories'} className="block py-2 text-sm font-medium text-gray-700">
             Categories
           </Label>
           <Controller
             control={methods.control}
             name="categories"
-            rules={{ required: "Categories Required" }}
+            rules={{ required: 'Categories Required' }}
             render={({ field: { value, onChange } }) => (
               <ComboboxMultiple
-                id={"categories"}
-                type={"categories"} //Required
+                id={'categories'}
+                type={'categories'} //Required
                 items={categories} //Required
                 value={value || []} //Required
                 onChange={onChange} //Required
@@ -1336,7 +1391,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
 
         {/* Tags */}
         <div>
-          <Label htmlFor={"tags"} className="block py-2 text-sm font-medium text-gray-700">
+          <Label htmlFor={'tags'} className="block py-2 text-sm font-medium text-gray-700">
             Tags
           </Label>
 
@@ -1344,11 +1399,11 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
           <Controller
             control={methods.control}
             name="tags"
-            rules={{ required: "Tags Required" }}
+            rules={{ required: 'Tags Required' }}
             render={({ field: { value, onChange } }) => (
               <ComboboxMultiple
-                id={"tags"}
-                type={"tags"} // Required
+                id={'tags'}
+                type={'tags'} // Required
                 items={tags} //Required
                 value={value || []} //Required
                 onChange={onChange} //Required
@@ -1361,22 +1416,22 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
 
         {/* Attributes */}
         <div>
-          <Label htmlFor={"attributes"} className="block py-2 text-sm font-medium text-gray-700">
+          <Label htmlFor={'attributes'} className="block py-2 text-sm font-medium text-gray-700">
             Attributes
           </Label>
           <Controller
             name="attributes"
             defaultValue={[]}
             control={methods?.control}
-            rules={{ required: "Please Select Attributes" }}
-            render={({ field: { onChange, value } }) => <ComboboxMultipleAttribute id={"attributes"} attributes={attributes} value={value} onChange={onChange} />}
+            rules={{ required: 'Please Select Attributes' }}
+            render={({ field: { onChange, value } }) => <ComboboxMultipleAttribute id={'attributes'} attributes={attributes} value={value} onChange={onChange} />}
           />
 
           {errors?.attributes && <span className="text-red-400">{errors?.attributes?.message}</span>}
         </div>
 
         <div className="w-full py-2">
-          <Label htmlFor={"difficulty"} className="block text-sm font-medium text-gray-700">
+          <Label htmlFor={'difficulty'} className="block text-sm font-medium text-gray-700">
             Difficulty Level
           </Label>
           <Controller
@@ -1384,12 +1439,12 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
             control={methods.control}
             defaultValue="easy"
             render={({ field }) => (
-              <Select id={"difficulty"} onValueChange={field.onChange} defaultValue={field.value}>
+              <Select id={'difficulty'} onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger className="mt-1 w-full capitalize rounded-md p-2 focus:outline-secondaryDark">
                   <SelectValue placeholder="Select a unit" />
                 </SelectTrigger>
                 <SelectContent>
-                  {["easy", "moderate", "challenging", "experts"].map((val, index) => (
+                  {['easy', 'moderate', 'challenging', 'experts'].map((val, index) => (
                     <SelectItem key={index} value={val} className="capitalize">
                       {val}
                     </SelectItem>
@@ -1416,7 +1471,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
     } = useFormContext();
 
     const media_gallery = useWatch({
-      name: "media_gallery",
+      name: 'media_gallery',
     });
 
     //  Hydarte First if there is already media exist
@@ -1430,7 +1485,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
     useEffect(() => {
       if (selectedMedia.length > 0) {
         // 1. Transform selectedMedia (id → media_id) before adding
-        const transformedMedia = selectedMedia.map((obj) => _.mapKeys(obj, (value, key) => (key === "id" ? "media_id" : key))); // update key to media id
+        const transformedMedia = selectedMedia.map((obj) => _.mapKeys(obj, (value, key) => (key === 'id' ? 'media_id' : key))); // update key to media id
 
         // 2. Push transformed data to local state
         setActivityImages((prev) => [...prev, ...transformedMedia]);
@@ -1441,7 +1496,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
 
     // sycn with form
     useEffect(() => {
-      setValue("media_gallery", activityImages); // sync form
+      setValue('media_gallery', activityImages); // sync form
     }, [activityImages, setValue]);
 
     // handleDelteImage
@@ -1449,7 +1504,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       setActivityImages((prev) => {
         const updatedImages = prev.filter((img) => img.url !== image.url);
         // setActivityImages(updatedImages);
-        setTimeout(() => setValue("media_gallery", updatedImages), 0); //
+        setTimeout(() => setValue('media_gallery', updatedImages), 0); //
         return updatedImages;
       });
     };
@@ -1463,9 +1518,9 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
             name="media_gallery"
             // defaultValue={[]}
             rules={{
-              validate: (val) => val?.length > 0 || "Please upload at least 1 image.",
+              validate: (val) => val?.length > 0 || 'Please upload at least 1 image.',
             }}
-            render={() => ""}
+            render={() => ''}
           />
         </div>
 
@@ -1507,73 +1562,73 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
     //schema types
     const schemaTypes = [
       {
-        value: "Product",
-        label: "Product",
+        value: 'Product',
+        label: 'Product',
         template: {
-          "@context": "https://schema.org",
-          "@type": "Product",
-          name: "",
-          description: "",
-          image: "",
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: '',
+          description: '',
+          image: '',
           offers: {
-            "@type": "Offer",
-            price: "",
-            priceCurrency: "USD",
+            '@type': 'Offer',
+            price: '',
+            priceCurrency: 'USD',
           },
         },
       },
       {
-        value: "TouristAttraction",
-        label: "Tourist Attraction",
+        value: 'TouristAttraction',
+        label: 'Tourist Attraction',
         template: {
-          "@context": "https://schema.org",
-          "@type": "TouristAttraction",
-          name: "",
-          description: "",
-          image: "",
+          '@context': 'https://schema.org',
+          '@type': 'TouristAttraction',
+          name: '',
+          description: '',
+          image: '',
           address: {
-            "@type": "PostalAddress",
-            addressLocality: "",
-            addressRegion: "",
-            addressCountry: "",
+            '@type': 'PostalAddress',
+            addressLocality: '',
+            addressRegion: '',
+            addressCountry: '',
           },
         },
       },
       {
-        value: "TouristTrip",
-        label: "Tourist Trip",
+        value: 'TouristTrip',
+        label: 'Tourist Trip',
         template: {
-          "@context": "https://schema.org",
-          "@type": "TouristTrip",
-          name: "",
-          description: "",
+          '@context': 'https://schema.org',
+          '@type': 'TouristTrip',
+          name: '',
+          description: '',
           touristType: {
-            "@type": "Audience",
-            audienceType: "",
+            '@type': 'Audience',
+            audienceType: '',
           },
           itinerary: {
-            "@type": "ItemList",
+            '@type': 'ItemList',
             itemListElement: [],
           },
         },
       },
       {
-        value: "Service",
-        label: "Service",
+        value: 'Service',
+        label: 'Service',
         template: {
-          "@context": "https://schema.org",
-          "@type": "Service",
-          name: "",
-          description: "",
+          '@context': 'https://schema.org',
+          '@type': 'Service',
+          name: '',
+          description: '',
           provider: {
-            "@type": "Organization",
-            name: "",
+            '@type': 'Organization',
+            name: '',
           },
         },
       },
     ];
 
-    const [openItem, setOpenItem] = useState("item-1"); // set default open
+    const [openItem, setOpenItem] = useState('item-1'); // set default open
     const {
       register,
       control,
@@ -1584,35 +1639,35 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       formState: { errors },
     } = useFormContext();
 
-    const [jsonInput, setJsonInput] = useState("");
+    const [jsonInput, setJsonInput] = useState('');
     const [validationState, setValidationState] = useState({
       isValid: true,
-      message: "",
+      message: '',
       showMessage: false,
     });
 
     // Get selected schema type from form
     const selectedSchemaType = useWatch({
       control,
-      name: "seo.schema_type",
+      name: 'seo.schema_type',
     });
 
     // GET selected schema data from form
     const selectedSchemaData = useWatch({
       control,
-      name: "seo.schema_data",
+      name: 'seo.schema_data',
     });
 
     // Meta Title
     const metaTitle = useWatch({
       control,
-      name: "seo.meta_title",
+      name: 'seo.meta_title',
     });
 
     // Meta Description
     const metaDescription = useWatch({
       control,
-      name: "seo.meta_description",
+      name: 'seo.meta_description',
     });
 
     // Sync selectedSchemaType with JSON template
@@ -1636,11 +1691,11 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       let isValid = true;
       try {
         // Clear any previous errors
-        clearErrors("schema_data");
+        clearErrors('schema_data');
 
         if (jsonInput.trim()) {
           setJsonInput(JSON.parse(jsonInput));
-          setValue("seo.schema_data", JSON.parse(jsonInput));
+          setValue('seo.schema_data', JSON.parse(jsonInput));
         } else {
           isValid = false;
         }
@@ -1651,15 +1706,15 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       // Update validation state
       setValidationState({
         isValid,
-        message: isValid ? "Success! Schema JSON is valid and has been updated." : "Error! Invalid JSON format. Please correct and try again.",
+        message: isValid ? 'Success! Schema JSON is valid and has been updated.' : 'Error! Invalid JSON format. Please correct and try again.',
         showMessage: true,
       });
 
       // If valid, update the hidden schema_markup field in the form
       if (!isValid) {
-        setError("schema_data", {
-          type: "manual",
-          message: "Invalid JSON format. Please fix the syntax.",
+        setError('schema_data', {
+          type: 'manual',
+          message: 'Invalid JSON format. Please fix the syntax.',
         });
       }
 
@@ -1687,36 +1742,46 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
           </AccordionTrigger>
           <AccordionContent className="px-2 space-y-4">
             <div className="space-y-2">
-              <Label className={`${errors?.seo?.meta_title?.message && "text-red-400"}`}>Meta Title</Label>
-              <Input type="text" maxLength="60" placeholder="Enter meta title" className="focus-visible:ring-secondaryDark" {...register("seo.meta_title", { required: "Meta Title Required" })} />
-              <span className="block text-xs p-1 text-gray-500">{`${String(metaTitle || "").length}/60`} Characters</span>
+              <Label className={`${errors?.seo?.meta_title?.message && 'text-red-400'}`}>Meta Title</Label>
+              <Input
+                type="text"
+                maxLength="60"
+                placeholder="Enter meta title"
+                className="focus-visible:ring-secondaryDark"
+                {...register('seo.meta_title', {
+                  required: 'Meta Title Required',
+                })}
+              />
+              <span className="block text-xs p-1 text-gray-500">{`${String(metaTitle || '').length}/60`} Characters</span>
               {errors?.seo?.meta_title && <p className="text-red-400 text-sm">{errors?.seo?.meta_title?.message}</p>}
             </div>
 
             <div className="space-y-2">
-              <Label className={`${errors?.seo?.meta_description?.message && "text-red-400"}`}>Meta Description</Label>
+              <Label className={`${errors?.seo?.meta_description?.message && 'text-red-400'}`}>Meta Description</Label>
               <Input
                 type="text"
                 placeholder="Enter meta description"
                 maxLength="160"
                 className="focus-visible:ring-secondaryDark"
-                {...register("seo.meta_description", { required: "Meta Description Required" })}
+                {...register('seo.meta_description', {
+                  required: 'Meta Description Required',
+                })}
               />
-              <span className="block text-xs p-1 text-gray-500">{`${String(metaDescription || "").length}/160`} Characters</span>
+              <span className="block text-xs p-1 text-gray-500">{`${String(metaDescription || '').length}/160`} Characters</span>
               {errors?.seo?.meta_description && <p className="text-red-400 text-sm">{errors?.seo?.meta_description.message}</p>}
             </div>
 
             <div className="space-y-2">
-              <Label className={`${errors?.seo?.keywords?.message && "text-red-400"}`}>Keywords</Label>
+              <Label className={`${errors?.seo?.keywords?.message && 'text-red-400'}`}>Keywords</Label>
               <Input
                 type="text"
                 placeholder="Enter keywords separated by commas"
                 className="focus-visible:ring-secondaryDark"
-                {...register("seo.keywords", {
-                  required: "Keywords Required",
+                {...register('seo.keywords', {
+                  required: 'Keywords Required',
                   onBlur: (e) => {
                     const formatted = addCommabetweenString(e.target.value);
-                    setValue("seo.keywords", formatted);
+                    setValue('seo.keywords', formatted);
                   },
                 })}
               />
@@ -1724,14 +1789,28 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
             </div>
 
             <div className="space-y-2">
-              <Label className={`${errors?.seo?.og_image_url?.message && "text-red-400"}`}>OG Image Url</Label>
-              <Input type="text" placeholder="Enter OG Image Url" className="focus-visible:ring-secondaryDark" {...register("seo.og_image_url", { required: "og_image_url Required" })} />
+              <Label className={`${errors?.seo?.og_image_url?.message && 'text-red-400'}`}>OG Image Url</Label>
+              <Input
+                type="text"
+                placeholder="Enter OG Image Url"
+                className="focus-visible:ring-secondaryDark"
+                {...register('seo.og_image_url', {
+                  required: 'og_image_url Required',
+                })}
+              />
               {errors?.seo?.og_image_url && <p className="text-red-400 text-sm">{errors?.seo?.og_image_url?.message}</p>}
             </div>
 
             <div className="space-y-2">
-              <Label className={`${errors?.seo?.canonical_url?.message && "text-red-400"}`}>Canonical Url</Label>
-              <Input type="text" placeholder="Enter canonical URL" className="focus-visible:ring-secondaryDark" {...register("seo.canonical_url", { required: "canonical_url Required" })} />
+              <Label className={`${errors?.seo?.canonical_url?.message && 'text-red-400'}`}>Canonical Url</Label>
+              <Input
+                type="text"
+                placeholder="Enter canonical URL"
+                className="focus-visible:ring-secondaryDark"
+                {...register('seo.canonical_url', {
+                  required: 'canonical_url Required',
+                })}
+              />
               {errors?.seo?.canonical_url && <p className="text-red-400 text-sm">{errors?.seo?.canonical_url?.message}</p>}
             </div>
           </AccordionContent>
@@ -1769,13 +1848,13 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
               <div>
                 <Label>Edit JSON-LD</Label>
                 <Textarea
-                  className={`font-mono text-sm h-96 resize-none ${validationState.showMessage ? (validationState.isValid ? "border-green-500" : "border-red-500") : ""}`}
+                  className={`font-mono text-sm h-96 resize-none ${validationState.showMessage ? (validationState.isValid ? 'border-green-500' : 'border-red-500') : ''}`}
                   value={jsonInput}
-                  placeholder={selectedSchemaData ? JSON.stringify(selectedSchemaData, null, 2) : "Schema data will appear here..."}
+                  placeholder={selectedSchemaData ? JSON.stringify(selectedSchemaData, null, 2) : 'Schema data will appear here...'}
                   onChange={(e) => setJsonInput(e.target.value)}
                 />
 
-                <input type="hidden" {...register("seo.schema_data")} />
+                <input type="hidden" {...register('seo.schema_data')} />
               </div>
 
               <Button type="button" onClick={handleJsonUpdate}>
@@ -1783,7 +1862,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
               </Button>
 
               {validationState.showMessage && (
-                <div className={`p-4 rounded-md text-sm ${validationState.isValid ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>{validationState.message}</div>
+                <div className={`p-4 rounded-md text-sm ${validationState.isValid ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>{validationState.message}</div>
               )}
             </Card>
           </AccordionContent>
@@ -1806,7 +1885,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
     } = useFormContext();
 
     // local state of schedules
-    const faqs = useWatch({ control, name: "faqs" });
+    const faqs = useWatch({ control, name: 'faqs' });
 
     // faqs fields
     const {
@@ -1815,39 +1894,39 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
       remove: removefaqField,
     } = useFieldArray({
       control,
-      name: "faqs", // register faq field
+      name: 'faqs', // register faq field
     });
 
     // Validate Fields
     const handleValidationFaq = async (e) => {
       e.preventDefault();
 
-      const values = getValues("faqs"); // get default values
+      const values = getValues('faqs'); // get default values
 
       // Step 1: Validate if array is empty
       if (!values || values.length === 0) {
-        setError("faqs", {
-          type: "manual",
-          message: "At least one section is required",
+        setError('faqs', {
+          type: 'manual',
+          message: 'At least one section is required',
         });
         return;
       }
 
       // Step 2:
-      const isValid = await trigger("faqs"); //  this checks: faqs.0.content, etc.
+      const isValid = await trigger('faqs'); //  this checks: faqs.0.content, etc.
 
       if (!isValid) {
         return;
       }
 
       // Step 3: All good, proceed
-      clearErrors("faqs");
+      clearErrors('faqs');
       setCurrentStep(currentStep + 1);
     };
 
     return (
       <div className="flex flex-col gap-4 py-4 relative">
-        <Button type="button" className="bg-white hover:bg-white border text-inherit self-end" onClick={() => addfaqField({ question: "", answer: "" })}>
+        <Button type="button" className="bg-white hover:bg-white border text-inherit self-end" onClick={() => addfaqField({ question: '', answer: '' })}>
           Add Section
         </Button>
 
@@ -1860,24 +1939,28 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
               </Button>
             </div>
             <div className="px-4 space-y-2">
-              <Label htmlFor={`faqs.${index}.question`} className={errors?.faqs?.[index]?.question?.message && "text-red-400"}>
+              <Label htmlFor={`faqs.${index}.question`} className={errors?.faqs?.[index]?.question?.message && 'text-red-400'}>
                 Question
               </Label>
               <Input
                 id={`faqs.${index}.question`}
-                {...register(`faqs.${index}.question`, { required: "Fields Required" })}
+                {...register(`faqs.${index}.question`, {
+                  required: 'Fields Required',
+                })}
                 placeholder="Enter the Question"
                 className="text-xs focus-visible:ring-secondaryDark"
               />
               {errors?.faqs?.[index]?.question && <p className="px-2 text-red-500 text-sm">{errors.faqs?.[index]?.question?.message}</p>}
             </div>
             <div className="px-4 space-y-2">
-              <Label htmlFor={`faqs.${index}.answer`} className={errors?.faqs?.[index]?.answer?.message && "text-red-400"}>
+              <Label htmlFor={`faqs.${index}.answer`} className={errors?.faqs?.[index]?.answer?.message && 'text-red-400'}>
                 Answer
               </Label>
               <Textarea
                 id={`faqs.${index}.answer`}
-                {...register(`faqs.${index}.answer`, { required: "Answer Required" })}
+                {...register(`faqs.${index}.answer`, {
+                  required: 'Answer Required',
+                })}
                 placeholder="Enter section answer"
                 className="text-xs focus-visible:ring-secondaryDark"
               />
@@ -1944,43 +2027,43 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
     // Cleaning of Data Extra data remove before hit
     const { activities: dirtyActivities, transfers: dirtyTransfers, itineraries: dirtyItineraries } = mergedData;
 
-    const activities = removeNestedKey(dirtyActivities, "activitydata");
-    const transfers = removeNestedKey(dirtyTransfers, "transferData");
-    const itineraries = removeNestedKey(dirtyItineraries, "itineraryData");
+    const activities = removeNestedKey(dirtyActivities, 'activitydata');
+    const transfers = removeNestedKey(dirtyTransfers, 'transferData');
+    const itineraries = removeNestedKey(dirtyItineraries, 'itineraryData');
 
-    let finalData = _.set(mergedData, "activities", activities); // add new activites
-    finalData = _.set(mergedData, "transfers", transfers); // add new transfers
-    finalData = _.set(mergedData, "itineraries", itineraries); // add new itineraries
+    let finalData = _.set(mergedData, 'activities', activities); // add new activites
+    finalData = _.set(mergedData, 'transfers', transfers); // add new transfers
+    finalData = _.set(mergedData, 'itineraries', itineraries); // add new itineraries
 
     // submit full data
     try {
       const res = await createPackage(finalData);
 
       if (res.success) {
-        toast({ title: "Package created successfully!" });
+        toast({ title: 'Package created successfully!' });
 
         // success reset
         reset();
-        router.push("/dashboard/admin/package-builder/");
+        router.push('/dashboard/admin/package-builder/');
       } else {
         toast({
-          title: "Error",
-          description: res.message || "Something went wrong",
-          variant: "destructive",
+          title: 'Error',
+          description: res.message || 'Something went wrong',
+          variant: 'destructive',
         });
       }
     } catch (error) {
       toast({
-        title: "Unexpected Error",
-        description: "Please try again later.",
-        variant: "destructive",
+        title: 'Unexpected Error',
+        description: 'Please try again later.',
+        variant: 'destructive',
       });
     }
   };
 
   return (
     <div className="min-h-screen w-full bg-gray-50 py-12 sm:px-6 lg:px-8">
-      <NavigationPackage title={"Create New Package"} desciption={"Design and configure your travel package"} backurl={"/dashboard/admin/package-builder/"} />
+      <NavigationPackage title={'Create New Package'} desciption={'Design and configure your travel package'} backurl={'/dashboard/admin/package-builder/'} />
       <div className="w-full space-y-4">
         <FormProvider {...methods}>
           <div className="w-full">
@@ -1992,12 +2075,12 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
                       key={step.id}
                       // onClick={() => {setCurrentStep(step?.id)}}
                       className={`flex flex-col items-center w-full space-y-1 cursor-pointer group relative p-4 duration-300 ease-in-out group hover:bg-gray-100 ${
-                        currentStep == step?.id && " bg-gradient-to-t from-[#c7ffc02e] to-slate-50 border-b-secondaryDark border-b-2"
+                        currentStep == step?.id && ' bg-gradient-to-t from-[#c7ffc02e] to-slate-50 border-b-secondaryDark border-b-2'
                       }`}
                     >
                       <div
-                        className={`text-sm font-medium pt-2 w-full text-nowrap duration-300 ease-in-out ${!currentStep == step?.id && " group-hover:text-gray-800"} ${
-                          currentStep == step?.id ? "text-secondaryDark " : "text-grayDark"
+                        className={`text-sm font-medium pt-2 w-full text-nowrap duration-300 ease-in-out ${!currentStep == step?.id && ' group-hover:text-gray-800'} ${
+                          currentStep == step?.id ? 'text-secondaryDark ' : 'text-grayDark'
                         }`}
                       >
                         {step.title}
@@ -2009,7 +2092,7 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
             </div>
           </div>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
-            <fieldset className={`${currentStep === 4 ? "" : "bg-white p-2 px-8 border shadow rounded-lg"} ${isSubmitting && " cursor-wait"}`} disabled={isSubmitting}>
+            <fieldset className={`${currentStep === 4 ? '' : 'bg-white p-2 px-8 border shadow rounded-lg'} ${isSubmitting && ' cursor-wait'}`} disabled={isSubmitting}>
               {renderStep()}
               <div className="flex justify-between pt-4">
                 {currentStep > 1 && (
@@ -2024,20 +2107,20 @@ export const CreatePackageForm = ({ categories, attributes, tags, locations = []
 
                 {/* Prevent Button On Schedules and Information Tab */}
                 {currentStep === 3 || currentStep === 2 || currentStep === 10 ? null : (
-                  <div className={`flex ${currentStep > 10 ? "w-fit gap-4" : "w-full justify-between"}`}>
+                  <div className={`flex ${currentStep > 10 ? 'w-fit gap-4' : 'w-full justify-between'}`}>
                     {(currentStep < 2 || currentStep > 10) && (
                       <Button
                         type="button"
                         onClick={() => {
                           router.back();
                         }}
-                        className={" bg-white text-black border hover:bg-white"}
+                        className={' bg-white text-black border hover:bg-white'}
                       >
                         Cancel
                       </Button>
                     )}
                     <Button type="submit" disabled={isSubmitting} className={`ml-auto py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-secondaryDark cursor-pointer`}>
-                      {isSubmitting ? (currentStep === 11 ? "Submitting..." : "Submit") : currentStep === 11 ? "Submit" : "Next"}
+                      {isSubmitting ? (currentStep === 11 ? 'Submitting...' : 'Submit') : currentStep === 11 ? 'Submit' : 'Next'}
                     </Button>
                   </div>
                 )}

@@ -1,15 +1,15 @@
-import { authApi } from "../axiosInstance";
-import { log } from "../utils";
+import { authApi } from '../axiosInstance';
+import { log } from '../utils';
 
 /**
  * Get All Vendors
  * @param {string} [query] - Optional query string (e.g., ?page=1)
  * @returns {Promise<{ success:boolean,data:[], total:number, current_page:number,per_page:number,total:number }>} - Vendor list data
  */
-export async function getAllVendorsAdmin(query = "") {
+export async function getAllVendorsAdmin(query = '') {
   try {
-    const response = await authApi.get(`/api/admin/vendors${query ? query : ""}`, {
-      headers: { Accept: "application/json" },
+    const response = await authApi.get(`/api/admin/vendors${query ? query : ''}`, {
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {
@@ -29,7 +29,7 @@ export async function getAllVendorsAdmin(query = "") {
 export async function getRoutesByVendorIdAdmin(vendorId, query) {
   try {
     const response = await authApi.get(`/api/admin/vendors/${vendorId}/routes${query}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     // log(response)
@@ -51,7 +51,7 @@ export async function getRoutesByVendorIdAdmin(vendorId, query) {
 export async function getPriceByVendorIdAdmin(vendorId, query) {
   try {
     const response = await authApi.get(`/api/admin/vendors/${vendorId}/pricing-tiers${query}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     // log(response)
@@ -73,7 +73,7 @@ export async function getPriceByVendorIdAdmin(vendorId, query) {
 export async function getAvailabilityByVendorIdAdmin(vendorId, query) {
   try {
     const response = await authApi.get(`/api/admin/vendors/${vendorId}/availability-time-slots${query}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     // log(response)
@@ -95,7 +95,7 @@ export async function getAvailabilityByVendorIdAdmin(vendorId, query) {
 export async function getVehiclesByVendorIdAdmin(vendorId, query) {
   try {
     const response = await authApi.get(`/api/admin/vendors/${vendorId}/vehicles${query}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {
@@ -115,7 +115,7 @@ export async function getVehiclesByVendorIdAdmin(vendorId, query) {
 export async function getDriversByVendorIdAdmin(vendorId, query) {
   try {
     const response = await authApi.get(`/api/admin/vendors/${vendorId}/drivers${query}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {
@@ -135,7 +135,7 @@ export async function getDriversByVendorIdAdmin(vendorId, query) {
 export async function getVendorByIdAdmin(vendorId) {
   try {
     const response = await authApi.get(`/api/admin/vendors/${vendorId}/`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {
@@ -156,7 +156,7 @@ export async function getVendorByIdAdmin(vendorId) {
 export async function getSchedulesByVendorIdAdmin(vendorId, query) {
   try {
     const response = await authApi.get(`/api/admin/vendors/${vendorId}/schedules${query}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
     if (response.status === 200) {
       return response?.data;
@@ -174,7 +174,7 @@ export async function getSchedulesByVendorIdAdmin(vendorId, query) {
 export async function getVehiclesByVendorIdOptions(vendorId) {
   try {
     const response = await authApi.get(`/api/admin/vendors/${vendorId}/vehiclesdropdown`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {
@@ -193,7 +193,7 @@ export async function getVehiclesByVendorIdOptions(vendorId) {
 export async function getDriversByVendorIdOptions(vendorId) {
   try {
     const response = await authApi.get(`/api/admin/vendors/${vendorId}/driversforselect`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {
@@ -213,7 +213,7 @@ export async function getDriversByVendorIdOptions(vendorId) {
 export async function getAllVendorsOptions() {
   try {
     const response = await authApi.get(`/api/admin/vendors/vendor-select`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {
@@ -232,7 +232,7 @@ export async function getAllVendorsOptions() {
 export async function getRoutesByVendorIdOptions(vendorId) {
   try {
     const response = await authApi.get(`/api/admin/vendors/${vendorId}/routes-select`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {
@@ -251,7 +251,7 @@ export async function getRoutesByVendorIdOptions(vendorId) {
 export async function getPriceByVendorIdOptions(vendorId) {
   try {
     const response = await authApi.get(`/api/admin/vendors/${vendorId}/pricing-tiers-select`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {
@@ -263,7 +263,6 @@ export async function getPriceByVendorIdOptions(vendorId) {
   }
 }
 
-
 /**
  * Get Vendor Availablity Tiers  By vendorId *** {dropdowns} Form Oriented ***
  * @returns {Promise<{ success:boolean,data:[] }>} -Api For For All Vendor driver list data for form handling form purpose e.g... {dropdowns, selects,etc}
@@ -271,7 +270,7 @@ export async function getPriceByVendorIdOptions(vendorId) {
 export async function getAvailabilityByVendorIdOptions(vendorId) {
   try {
     const response = await authApi.get(`/api/admin/vendors/${vendorId}/availability-time-slots-select`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {

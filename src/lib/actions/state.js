@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { authApi } from "../axiosInstance";
-import { delay, log } from "../utils";
+import { revalidatePath } from 'next/cache';
+import { authApi } from '../axiosInstance';
+import { delay, log } from '../utils';
 
 /**
  * @typedef {Object} Location
@@ -62,13 +62,13 @@ export const createState = async (data = {}) => {
     await delay(500);
     // log(data);
 
-    const res = await authApi.post("/api/admin/states", data, {
+    const res = await authApi.post('/api/admin/states', data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
-    revalidatePath("/dashboard/admin/destinations/states"); // revalidate API cache
+    revalidatePath('/dashboard/admin/destinations/states'); // revalidate API cache
 
     return {
       success: true,
@@ -80,7 +80,7 @@ export const createState = async (data = {}) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -88,20 +88,20 @@ export const createState = async (data = {}) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "State already exists",
+        message: err?.response?.data?.error || 'State already exists',
       };
     }
 
     if (status === 422) {
       return {
         success: false,
-        message: "State already exists",
+        message: 'State already exists',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong while State",
+      message: 'Something went wrong while State',
     };
   }
 };
@@ -113,13 +113,13 @@ export const editState = async (stateId, data = {}) => {
 
     const res = await authApi.put(`/api/admin/states/${stateId}`, data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
     log(res);
 
-    revalidatePath("/dashboard/admin/destinations/states"); // revalidate API cache
+    revalidatePath('/dashboard/admin/destinations/states'); // revalidate API cache
 
     return {
       success: true,
@@ -131,7 +131,7 @@ export const editState = async (stateId, data = {}) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         errors: err?.response?.data?.errors,
       };
     }
@@ -139,20 +139,20 @@ export const editState = async (stateId, data = {}) => {
     if (status === 409) {
       return {
         success: false,
-        message: err?.response?.data?.error || "State already exists",
+        message: err?.response?.data?.error || 'State already exists',
       };
     }
 
     if (status === 422) {
       return {
         success: false,
-        message: "State already exists",
+        message: 'State already exists',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong while editing state",
+      message: 'Something went wrong while editing state',
     };
   }
 };
@@ -166,9 +166,9 @@ export async function deleteState(stateId) {
   try {
     const res = await authApi.delete(`/api/admin/states/${stateId}/`);
 
-    revalidatePath("/dashboard/admin/destinations/states/"); //revalidating path
+    revalidatePath('/dashboard/admin/destinations/states/'); //revalidating path
     return { success: true, message: res.data?.message };
   } catch (error) {
-    return { success: false, error: "Something went wrong" };
+    return { success: false, error: 'Something went wrong' };
   }
 }

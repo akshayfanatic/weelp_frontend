@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 /**
  * @param {Object} props
@@ -10,13 +10,13 @@ export function Rating({ value = 0, onChange, max = 5 }) {
   const [hovered, setHovered] = useState(0);
 
   return (
-    <div style={{ display: "flex", gap: 4 }}>
+    <div style={{ display: 'flex', gap: 4 }}>
       {Array.from({ length: max }, (_, i) => i + 1).map((star) => (
         <span
           key={star}
           style={{
-            cursor: "pointer",
-            color: star <= (hovered || value) ? "#FFD700" : "#e4e5e9", // gold vs gray
+            cursor: 'pointer',
+            color: star <= (hovered || value) ? '#FFD700' : '#e4e5e9', // gold vs gray
             fontSize: 24,
           }}
           onMouseEnter={() => setHovered(star)}

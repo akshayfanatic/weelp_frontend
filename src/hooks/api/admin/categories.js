@@ -1,6 +1,5 @@
-import useSWR from "swr";
-import { fetcher } from "@/lib/fetchers";
-
+import useSWR from 'swr';
+import { fetcher } from '@/lib/fetchers';
 
 /**
  * Custom React hook to fetch all admin categories from the API.
@@ -16,7 +15,7 @@ import { fetcher } from "@/lib/fetchers";
  * }}
  */
 export function useAllCategoriesAdmin() {
-  const { data, error, isValidating, isLoading, mutate } = useSWR("/api/admin/taxonomies/categories/", fetcher);
+  const { data, error, isValidating, isLoading, mutate } = useSWR('/api/admin/taxonomies/categories/', fetcher);
 
   return {
     categories: data?.data || [],

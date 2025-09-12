@@ -1,13 +1,13 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, Plus } from "lucide-react";
-import { useState } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import dynamic from "next/dynamic";
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import { useRouter } from "next/navigation";
+'use client';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft, Plus } from 'lucide-react';
+import { useState } from 'react';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import dynamic from 'next/dynamic';
+import { Card, CardDescription, CardTitle } from '@/components/ui/card';
+import { useRouter } from 'next/navigation';
 
-const CreateVendorVehicleForm = dynamic(() => import("../vendor_form/CreateVendorVehicleForm"), { ssr: false }); // for lazy load
+const CreateVendorVehicleForm = dynamic(() => import('../vendor_form/CreateVendorVehicleForm'), { ssr: false }); // for lazy load
 
 // Order Navigation
 const CreateVendorVehicleDialog = ({ title, desciption, label }) => {

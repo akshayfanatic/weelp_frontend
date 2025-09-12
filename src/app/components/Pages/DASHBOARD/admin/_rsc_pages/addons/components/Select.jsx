@@ -1,4 +1,4 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 /**
  * @param {Object} props
@@ -7,9 +7,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
  * @param {string} [props.value] - Currently selected value
  * @param {(value: string) => void} [props.onChange] - Callback when value changes
  */
-export const SelectField = ({ data = [], placeholder = "Select...", value, onChange }) => {
+export const SelectField = ({ data = [], placeholder = 'Select...', value, onChange }) => {
   return (
-    <div  className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col gap-2 w-full">
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger>
           <SelectValue placeholder={placeholder} />

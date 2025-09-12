@@ -1,13 +1,13 @@
-"use client";
-import React, { useState } from "react";
-import { Edit, Star } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import dynamic from "next/dynamic";
+'use client';
+import React, { useState } from 'react';
+import { Edit, Star } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import Image from 'next/image';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import dynamic from 'next/dynamic';
 
-const ReviewForm = dynamic(() => import("@/app/components/Pages/DASHBOARD/user/_rsc_pages/reviews/forms/CustomerReviewForm"), { ssr: false }); // lazy load form
+const ReviewForm = dynamic(() => import('@/app/components/Pages/DASHBOARD/user/_rsc_pages/reviews/forms/CustomerReviewForm'), { ssr: false }); // lazy load form
 
 const BookingCard = ({ bookingItem = {} }) => {
   const [open, setOpen] = useState(false); // For Control Dialog
@@ -17,7 +17,7 @@ const BookingCard = ({ bookingItem = {} }) => {
   return (
     <Card className="bg-white rounded-lg p-4 flex flex-col gap-4  shadow-md max-w-lg w-full dark:bg-black">
       <CardHeader className="grid grid-cols-2 py-2 flex-wrap">
-        <CardTitle className={"text-[#143042] text-xl font-semibold"}>{name}</CardTitle>
+        <CardTitle className={'text-[#143042] text-xl font-semibold'}>{name}</CardTitle>
         <span className="text-[#143042] text-base font-normal text-end ">{travel_date}</span>
         <span className="text-grayDark text-base font-normal">{city}</span>
 

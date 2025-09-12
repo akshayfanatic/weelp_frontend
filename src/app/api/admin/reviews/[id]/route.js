@@ -1,6 +1,6 @@
 // /api/admin/reviews/[id]route.js
-import { NextResponse } from "next/server";
-import { getSingleReviewAdmin } from "@/lib/services/reviews";
+import { NextResponse } from 'next/server';
+import { getSingleReviewAdmin } from '@/lib/services/reviews';
 
 export async function GET(req, { params }) {
   try {

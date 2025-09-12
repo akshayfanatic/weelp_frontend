@@ -1,17 +1,17 @@
 // File Handle Shard Component Regarding Itineraries
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
-import { Switch } from "@/components/ui/switch";
-import { Textarea } from "@/components/ui/textarea";
-import { getAllActivitesAdmin } from "@/lib/services/activites";
-import { log } from "@/lib/utils";
-import { isEmpty } from "lodash";
-import { SearchIcon } from "lucide-react";
-import Link from "next/link";
-import { useState } from "react";
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
+import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
+import { getAllActivitesAdmin } from '@/lib/services/activites';
+import { log } from '@/lib/utils';
+import { isEmpty } from 'lodash';
+import { SearchIcon } from 'lucide-react';
+import Link from 'next/link';
+import { useState } from 'react';
 
 export const NavigationItinerary = ({ title, desciption }) => {
   if (title && desciption) {
@@ -32,10 +32,10 @@ export const ActivitySearchModal = ({ day, onClose, activities = [], addActivity
   const [modalOpen, setModalOpen] = useState(false); // for
 
   const [timing, setTiming] = useState({
-    start_time: "",
-    end_time: "",
-    notes: "",
-    price: "",
+    start_time: '',
+    end_time: '',
+    notes: '',
+    price: '',
     included: true,
   });
 
@@ -61,7 +61,7 @@ export const ActivitySearchModal = ({ day, onClose, activities = [], addActivity
       });
       closeModal();
     } else {
-      alert("Please provide both start and end times.");
+      alert('Please provide both start and end times.');
     }
   };
 
@@ -79,7 +79,7 @@ export const ActivitySearchModal = ({ day, onClose, activities = [], addActivity
     <Dialog open onOpenChange={onClose}>
       <DialogContent>
         {/* Your activity search form here */}
-        <div className={`${!modalOpen ? "block" : "hidden"} space-y-4`}>
+        <div className={`${!modalOpen ? 'block' : 'hidden'} space-y-4`}>
           <DialogHeader>
             <DialogTitle>Search Activity</DialogTitle>
             <DialogDescription className="sr-only">Search and add an activity to your schedule.</DialogDescription>
@@ -101,7 +101,7 @@ export const ActivitySearchModal = ({ day, onClose, activities = [], addActivity
                     </li>
                   );
                 })
-              : ""}
+              : ''}
           </ul>
         </div>
 
@@ -110,7 +110,7 @@ export const ActivitySearchModal = ({ day, onClose, activities = [], addActivity
           <div className="modal">
             <div className="modal-content">
               <h2>
-                Customize Activity: {selectedActivity.name} and day is {day}{" "}
+                Customize Activity: {selectedActivity.name} and day is {day}{' '}
               </h2>
 
               {/* Timing Inputs */}
@@ -190,13 +190,13 @@ export const TransferSearchModal = ({ day, onClose, transfers = [], addTransfer 
   const [selectedTransfer, setSelectedTransfer] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [timing, setTiming] = useState({
-    start_time: "",
-    end_time: "",
-    notes: "",
-    price: "",
+    start_time: '',
+    end_time: '',
+    notes: '',
+    price: '',
     included: true,
-    pickup_location: "",
-    dropoff_location: "",
+    pickup_location: '',
+    dropoff_location: '',
   });
 
   /** close modal handle  */
@@ -221,7 +221,7 @@ export const TransferSearchModal = ({ day, onClose, transfers = [], addTransfer 
       });
       closeModal();
     } else {
-      alert("Please provide both start and end times.");
+      alert('Please provide both start and end times.');
     }
   };
 
@@ -236,7 +236,7 @@ export const TransferSearchModal = ({ day, onClose, transfers = [], addTransfer 
   return (
     <Dialog open onOpenChange={onClose}>
       <DialogContent>
-        <div className={`${!modalOpen && isEmpty(selectedTransfer) ? "block" : "hidden"} space-y-4`}>
+        <div className={`${!modalOpen && isEmpty(selectedTransfer) ? 'block' : 'hidden'} space-y-4`}>
           <DialogHeader>
             <DialogTitle>Search Transfer</DialogTitle>
             <DialogDescription className="sr-only">Search and add an Transfer to your schedule.</DialogDescription>
@@ -259,14 +259,14 @@ export const TransferSearchModal = ({ day, onClose, transfers = [], addTransfer 
                   </li>
                 );
               })
-            : ""}
+            : ''}
         </div>
 
         {!isEmpty(selectedTransfer) && (
           <div className="modal">
             <div className="modal-content">
               <h2>
-                Customize Transfer: {selectedTransfer?.name} and day is {day}{" "}
+                Customize Transfer: {selectedTransfer?.name} and day is {day}{' '}
               </h2>
 
               {/* Timing Inputs */}
@@ -337,7 +337,7 @@ export const TransferSearchModal = ({ day, onClose, transfers = [], addTransfer 
 
                 <Label htmlFor="pax" className="flex flex-col w-full space-y-4 ">
                   <span>Pax</span>
-                  <Input id="pax" name="pax" value={timing.pax || ""} onChange={handleTimeChange} className="p-2 border" />
+                  <Input id="pax" name="pax" value={timing.pax || ''} onChange={handleTimeChange} className="p-2 border" />
                 </Label>
               </div>
 
@@ -360,10 +360,10 @@ export const TransferSearchModal = ({ day, onClose, transfers = [], addTransfer 
 /** Edit Form Activity Schedules  */
 export const CustomizedEditActivityForm = ({ isEditOn, updateActivity, day, selectedActivity, onClose, activities }) => {
   const [timing, setTiming] = useState({
-    start_time: selectedActivity?.start_time ?? "",
-    end_time: selectedActivity?.end_time ?? "",
-    notes: selectedActivity?.notes ?? "",
-    price: selectedActivity?.price ?? "",
+    start_time: selectedActivity?.start_time ?? '',
+    end_time: selectedActivity?.end_time ?? '',
+    notes: selectedActivity?.notes ?? '',
+    price: selectedActivity?.price ?? '',
     included: selectedActivity?.included ?? false,
   });
 
@@ -395,10 +395,10 @@ export const CustomizedEditActivityForm = ({ isEditOn, updateActivity, day, sele
 
         updateActivity(updatedActivities); // Assuming you're using useState
       } else {
-        alert("Activity not found for the selected day.");
+        alert('Activity not found for the selected day.');
       }
     } else {
-      alert("Please provide both start and end times.");
+      alert('Please provide both start and end times.');
     }
   };
 
@@ -418,7 +418,7 @@ export const CustomizedEditActivityForm = ({ isEditOn, updateActivity, day, sele
         <div className="modal">
           <div className="modal-content">
             <h2>
-              Customize Activity: {selectedActivity?.name} and day is {day}{" "}
+              Customize Activity: {selectedActivity?.name} and day is {day}{' '}
             </h2>
 
             {/* Timing Inputs */}
@@ -493,14 +493,14 @@ export const CustomizedEditActivityForm = ({ isEditOn, updateActivity, day, sele
 /** Edit Form Transfer Schedules  */
 export const CustomizedEditTransferForm = ({ isEditOn, updateTransfer, day, selectedTransfer, onClose, transfers }) => {
   const [timing, setTiming] = useState({
-    start_time: selectedTransfer?.start_time ?? "",
-    end_time: selectedTransfer?.end_time ?? "",
-    notes: selectedTransfer?.notes ?? "",
-    price: selectedTransfer?.price ?? "",
+    start_time: selectedTransfer?.start_time ?? '',
+    end_time: selectedTransfer?.end_time ?? '',
+    notes: selectedTransfer?.notes ?? '',
+    price: selectedTransfer?.price ?? '',
     included: selectedTransfer.included ?? false,
-    pickup_location: selectedTransfer?.pickup_location ?? "",
-    dropoff_location: selectedTransfer?.dropoff_location ?? "",
-    pax: selectedTransfer?.pax ?? "",
+    pickup_location: selectedTransfer?.pickup_location ?? '',
+    dropoff_location: selectedTransfer?.dropoff_location ?? '',
+    pax: selectedTransfer?.pax ?? '',
   });
   /** handle for input timing change */
   const handleTimeChange = (e) => {
@@ -532,10 +532,10 @@ export const CustomizedEditTransferForm = ({ isEditOn, updateTransfer, day, sele
           dropoff_location: timing?.dropoff_location,
         });
       } else {
-        alert("Activity not found.");
+        alert('Activity not found.');
       }
     } else {
-      alert("Please provide both start and end times.");
+      alert('Please provide both start and end times.');
     }
   };
   return (
@@ -614,7 +614,7 @@ export const CustomizedEditTransferForm = ({ isEditOn, updateTransfer, day, sele
               </Label>
               <Label htmlFor="pax" className="flex flex-col w-full space-y-4 ">
                 <span>Pax</span>
-                <Input id="pax" name="pax" value={timing.pax || ""} onChange={handleTimeChange} className="p-2 border" />
+                <Input id="pax" name="pax" value={timing.pax || ''} onChange={handleTimeChange} className="p-2 border" />
               </Label>
             </div>
             <div className="flex flex-col gap-4 mt-4">

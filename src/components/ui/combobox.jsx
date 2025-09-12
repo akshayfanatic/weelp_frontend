@@ -1,17 +1,17 @@
-import * as React from "react";
-import { Check, ChevronsUpDown, MapPin } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Command, CommandInput, CommandList, CommandItem, CommandGroup } from "@/components/ui/command";
+import * as React from 'react';
+import { Check, ChevronsUpDown, MapPin } from 'lucide-react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Command, CommandInput, CommandList, CommandItem, CommandGroup } from '@/components/ui/command';
 
 /**
  * Combobox for Single Data Select
  * @returns []
  */
-export function Combobox({ data = [], value, onChange, placeholder = "Select Location..." }) {
+export function Combobox({ data = [], value, onChange, placeholder = 'Select Location...' }) {
   const [open, setOpen] = React.useState(false);
-  
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -35,7 +35,7 @@ export function Combobox({ data = [], value, onChange, placeholder = "Select Loc
                   }}
                 >
                   {item.name}
-                  <Check className={cn("ml-auto", value === item.id ? "opacity-100" : "opacity-0")} />
+                  <Check className={cn('ml-auto', value === item.id ? 'opacity-100' : 'opacity-0')} />
                 </CommandItem>
               ))}
             </CommandGroup>

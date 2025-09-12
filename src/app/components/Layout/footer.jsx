@@ -1,6 +1,6 @@
-"use client";
-import React from "react";
-import { useIsClient } from "@/hooks/useIsClient";
+'use client';
+import React from 'react';
+import { useIsClient } from '@/hooks/useIsClient';
 
 const Footer = () => {
   const isClient = useIsClient(); // prevent hydration err
@@ -9,10 +9,10 @@ const Footer = () => {
       <footer
         className="bg-white text-gray-600 px-12 py-8 "
         style={{
-          backgroundImage: "url(/assets/images/Weelp..jpg)", // Update the image path
-          backgroundPosition: "left", // Position the image at the bottom
-          backgroundSize: "auto", // Make sure the image covers the entire footer
-          backgroundRepeat: "no-repeat", // Prevent image repeat
+          backgroundImage: 'url(/assets/images/Weelp..jpg)', // Update the image path
+          backgroundPosition: 'left', // Position the image at the bottom
+          backgroundSize: 'auto', // Make sure the image covers the entire footer
+          backgroundRepeat: 'no-repeat', // Prevent image repeat
         }}
       >
         <div className="grid grid-cols-2 sm:grid-cols-5  gap-8">

@@ -1,7 +1,7 @@
-import { Card } from "@/components/ui/card";
-import { Trash2, X } from "lucide-react";
-import React, { useEffect } from "react";
-import { useFormContext, useWatch } from "react-hook-form";
+import { Card } from '@/components/ui/card';
+import { Trash2, X } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { useFormContext, useWatch } from 'react-hook-form';
 
 export default function SmartGallery({ name, defaultImages = [] }) {
   const { control, setValue } = useFormContext();
@@ -26,9 +26,9 @@ export default function SmartGallery({ name, defaultImages = [] }) {
     <div className="flex flex-wrap gap-4">
       {images.map((file, index) => (
         <div key={index} className="relative size-24 group border rounded-md">
-          <img src={file.url || file.path || file.preview} alt={`gallery-${index}`} className="w-full h-full object-cover rounded-md"/>
+          <img src={file.url || file.path || file.preview} alt={`gallery-${index}`} className="w-full h-full object-cover rounded-md" />
 
-          <button type="button" onClick={() => removeImage(index)} >
+          <button type="button" onClick={() => removeImage(index)}>
             <Trash2 className="absolute  hidden group-hover:block top-3/4 left-3/4 p-1 -m-2 bg-white text-black border-none rounded-md  size-6 cursor-pointer" size={15} />
           </button>
         </div>

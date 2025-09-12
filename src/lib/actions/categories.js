@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { authApi } from "../axiosInstance";
-import { delay, log } from "../utils";
+import { revalidatePath } from 'next/cache';
+import { authApi } from '../axiosInstance';
+import { delay, log } from '../utils';
 
 /**
  * Method for Create Category
@@ -12,10 +12,10 @@ import { delay, log } from "../utils";
 export const createCategory = async (data) => {
   try {
     await delay(500);
-    const res = await authApi.post("/api/admin/categories/", data);
+    const res = await authApi.post('/api/admin/categories/', data);
 
     // revalidate  path
-    revalidatePath("/dashboard/admin/taxonomies/categories");
+    revalidatePath('/dashboard/admin/taxonomies/categories');
 
     return {
       success: true,
@@ -27,7 +27,7 @@ export const createCategory = async (data) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         status: 400,
         errors: err.response.data.errors,
       };
@@ -37,25 +37,23 @@ export const createCategory = async (data) => {
       const message = err.response.data.message;
       return {
         success: false,
-        message: "Category Already Exist",
+        message: 'Category Already Exist',
       };
     }
 
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
-
-
 
 /**
  * Method for Update Category
@@ -81,7 +79,7 @@ export const editCategory = async (id, data) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         status: 400,
         errors: err.response.data.errors,
       };
@@ -91,24 +89,23 @@ export const editCategory = async (id, data) => {
       const message = err.response.data.message;
       return {
         success: false,
-        message: "Category Already Exist",
+        message: 'Category Already Exist',
       };
     }
 
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
-
 
 /**
  * Method for Delete Category
@@ -132,12 +129,12 @@ export const deleteCategory = async (id) => {
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };

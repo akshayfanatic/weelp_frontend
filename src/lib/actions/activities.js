@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { authApi } from "../axiosInstance";
-import { delay, log } from "../utils";
+import { revalidatePath } from 'next/cache';
+import { authApi } from '../axiosInstance';
+import { delay, log } from '../utils';
 
 /**
  * Method for Create  Activity
@@ -13,7 +13,7 @@ export const createActivity = async (data) => {
   try {
     await delay(500);
     log(data);
-    const res = await authApi.post("/api/admin/activities", data);
+    const res = await authApi.post('/api/admin/activities', data);
 
     return {
       success: true,
@@ -24,7 +24,7 @@ export const createActivity = async (data) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         status: 400,
         errors: err.response.data.errors,
       };
@@ -34,20 +34,20 @@ export const createActivity = async (data) => {
       const message = err.response.data.message;
       return {
         success: false,
-        message: "Activity Already Exist",
+        message: 'Activity Already Exist',
       };
     }
 
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -66,7 +66,7 @@ export const editActivity = async (id, data) => {
 
     // revalidate path
     if (res.status == 200) {
-      revalidatePath("/dashboard/admin/activities/edit"); //revalidating path
+      revalidatePath('/dashboard/admin/activities/edit'); //revalidating path
       return {
         success: true,
         message: res.data?.message,
@@ -77,7 +77,7 @@ export const editActivity = async (id, data) => {
     if (status === 400) {
       return {
         success: false,
-        message: err.response.data.message || "validation error",
+        message: err.response.data.message || 'validation error',
         status: 400,
         errors: err.response.data.message,
       };
@@ -87,20 +87,20 @@ export const editActivity = async (id, data) => {
       const message = err.response.data.message;
       return {
         success: false,
-        message: "Activity Already Exist",
+        message: 'Activity Already Exist',
       };
     }
 
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -115,7 +115,7 @@ export async function deleteActivity(activityId) {
     const res = await authApi.delete(`/api/admin/activities/${activityId}/`);
 
     // revalidate path
-    revalidatePath("/dashboard/admin/activities"); //revalidating path
+    revalidatePath('/dashboard/admin/activities'); //revalidating path
     return { success: true, data: res.data };
   } catch (error) {
     return { success: false, error: error.message };
@@ -142,10 +142,10 @@ export async function deleteActivityItems({ activityId, deleted_location_ids = [
 
     // revalidate data
     revalidatePath(`/dashboard/admin/activities/${activityId}`); // revalidate paths
-    return { success: true, data: "Deleted Successfully" };
+    return { success: true, data: 'Deleted Successfully' };
   } catch (error) {
     const status = error?.response?.status;
-    const serverMessage = error?.response?.data?.message || "Something went wrong";
+    const serverMessage = error?.response?.data?.message || 'Something went wrong';
     return {
       success: false,
       error: serverMessage,
@@ -165,7 +165,7 @@ export async function deleteMultipleActivities(activity_ids = []) {
     });
 
     // revalidate path
-    revalidatePath("/dashboard/admin/activities"); //revalidating path
+    revalidatePath('/dashboard/admin/activities'); //revalidating path
     return { success: true, data: res.data };
   } catch (error) {
     return { success: false, error: error.message };

@@ -1,7 +1,7 @@
 // app/api/admin/vendors/[id]/routes/route.js
-import { NextResponse } from "next/server";
-import { delay, log } from "@/lib/utils";
-import { getRoutesByVendorIdAdmin } from "@/lib/services/vendors";
+import { NextResponse } from 'next/server';
+import { delay, log } from '@/lib/utils';
+import { getRoutesByVendorIdAdmin } from '@/lib/services/vendors';
 
 export async function GET(req, { params }) {
   const { vendorId } = await params;

@@ -1,16 +1,16 @@
-"use client";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { LogOut, UserIcon, Settings, Users, ArrowBigLeftDash, Home, User } from "lucide-react";
-import { signOut } from "next-auth/react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
-import Link from "next/link";
-import { useUserProfile } from "@/hooks/api/customer/profile";
+'use client';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { LogOut, UserIcon, Settings, Users, ArrowBigLeftDash, Home, User } from 'lucide-react';
+import { signOut } from 'next-auth/react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
+import Link from 'next/link';
+import { useUserProfile } from '@/hooks/api/customer/profile';
 
 export default function UserMenu() {
   const { user, error, isLoading } = useUserProfile();
 
-  const { name = "", email = "", role = "" } = user; // destructure data
+  const { name = '', email = '', role = '' } = user; // destructure data
 
   return (
     <SidebarMenu>
@@ -24,7 +24,7 @@ export default function UserMenu() {
               </Avatar>
 
               {/* Display Based on Role */}
-              {role === "customer" && (
+              {role === 'customer' && (
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{name}</span>
                   <span className="text-muted-foreground truncate text-xs">{email}</span>

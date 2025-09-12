@@ -1,6 +1,6 @@
-"use client"
-import { NavigationDestinations } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/components/Navigation";
-import { FilterCountries } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/destinations_filters/FilterCountries";
+'use client';
+import { NavigationDestinations } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/components/Navigation';
+import { FilterCountries } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/destinations_filters/FilterCountries';
 
 const CountriesPage = () => {
   return (

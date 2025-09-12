@@ -1,28 +1,28 @@
-"use client";
-import React, { useEffect } from "react";
-import { Form, FormLabel, FormDescription, FormField, FormItem, FormControl, FormMessage } from "@/components/ui/form";
-import { generateSlug } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
-import { useForm, useWatch } from "react-hook-form";
-import { TaxonomyFormNavigation } from "../taxonomies_shared";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { createTag } from "@/lib/actions/tags";
+'use client';
+import React, { useEffect } from 'react';
+import { Form, FormLabel, FormDescription, FormField, FormItem, FormControl, FormMessage } from '@/components/ui/form';
+import { generateSlug } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import { useForm, useWatch } from 'react-hook-form';
+import { TaxonomyFormNavigation } from '../taxonomies_shared';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { createTag } from '@/lib/actions/tags';
 
 // schema
 const formSchema = z.object({
   name: z.string().min(3, {
-    message: "tag name must be at least 3 characters.",
+    message: 'tag name must be at least 3 characters.',
   }),
   slug: z.string().min(3, {
-    message: "Slug is required.",
+    message: 'Slug is required.',
   }),
   description: z.string().min(3, {
-    message: "Please enter a description.",
+    message: 'Please enter a description.',
   }),
 });
 
@@ -32,9 +32,9 @@ export const CreateTagPageForm = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      slug: "",
-      description: "",
+      name: '',
+      slug: '',
+      description: '',
     },
   });
 
@@ -42,7 +42,7 @@ export const CreateTagPageForm = () => {
     formState: { isSubmitting },
   } = form; // checking form state
 
-  const nameValue = useWatch({ control: form.control, name: "name" });
+  const nameValue = useWatch({ control: form.control, name: 'name' });
 
   const onSubmit = async (data) => {
     try {
@@ -54,7 +54,7 @@ export const CreateTagPageForm = () => {
 
         // Display success notification
         toast({
-          title: res.message || "Tag Created Successfully",
+          title: res.message || 'Tag Created Successfully',
         });
 
         // back to tag
@@ -62,33 +62,33 @@ export const CreateTagPageForm = () => {
       } else {
         // Display error notification
         toast({
-          variant: "destructive",
-          title: "Failed to create tag",
+          variant: 'destructive',
+          title: 'Failed to create tag',
           description: res.message,
         });
 
         // Optional: Show validation errors if needed
         if (res.errors) {
-          console.log("Validation Errors:", res.errors);
+          console.log('Validation Errors:', res.errors);
         }
       }
     } catch (error) {
       toast({
-        variant: "destructive",
-        title: "An unexpected error occurred",
-        description: "Please try again later.",
+        variant: 'destructive',
+        title: 'An unexpected error occurred',
+        description: 'Please try again later.',
       });
     }
   };
 
   return (
     <div>
-      <TaxonomyFormNavigation title={"Create Tag"} description={"Add a new tag to organize activities"} url={"/dashboard/admin/taxonomies/categories/"} />
+      <TaxonomyFormNavigation title={'Create Tag'} description={'Add a new tag to organize activities'} url={'/dashboard/admin/taxonomies/categories/'} />
 
       <div className="px-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 bg-white border p-6 shadow-sm rounded-lg">
-            <fieldset className={`flex flex-col gap-4 ${isSubmitting && "cursor-wait"}`} disabled={isSubmitting}>
+            <fieldset className={`flex flex-col gap-4 ${isSubmitting && 'cursor-wait'}`} disabled={isSubmitting}>
               <FormLabel className="font-semibold text-lg">Basic Information</FormLabel>
               <FormDescription>Enter the details for the new tag.</FormDescription>
 
@@ -104,7 +104,9 @@ export const CreateTagPageForm = () => {
                         placeholder="e.g, Family Friendly"
                         {...field}
                         onBlur={() => {
-                          form.setValue("slug", generateSlug(nameValue), { shouldValidate: true });
+                          form.setValue('slug', generateSlug(nameValue), {
+                            shouldValidate: true,
+                          });
                         }}
                       />
                     </FormControl>
@@ -146,7 +148,7 @@ export const CreateTagPageForm = () => {
 
               <p className="flex gap-2">
                 <Button className="w-fit bg-secondaryDark hover:bg-secondaryDark" type="submit">
-                  {isSubmitting ? "Creating Tag" : " Create Tag"}
+                  {isSubmitting ? 'Creating Tag' : ' Create Tag'}
                 </Button>
                 <Button
                   className="w-fit bg-inherit hover:bg-inherit text-black border"

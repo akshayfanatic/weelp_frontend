@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { fetcher } from "@/lib/fetchers";
-import { useForm, useWatch, Controller } from "react-hook-form";
-import useSWR from "swr";
-import { CustomPagination } from "@/app/components/Pagination";
-import { AddOnTable } from "./components/table/Table";
-import { useToast } from "@/hooks/use-toast";
-import { useEffect, useMemo, useState } from "react";
-import { debounce } from "lodash";
-import { deleteAddon } from "@/lib/actions/addOn"; // delete add on action
-import InputFieldSearch from "./components/Input";
-import { SelectField } from "./components/Select";
-import { FORM_ADDON_ITEMTYPE, FORM_ADDON_STATUS } from "@/constants/forms/addon";
+import { fetcher } from '@/lib/fetchers';
+import { useForm, useWatch, Controller } from 'react-hook-form';
+import useSWR from 'swr';
+import { CustomPagination } from '@/app/components/Pagination';
+import { AddOnTable } from './components/table/Table';
+import { useToast } from '@/hooks/use-toast';
+import { useEffect, useMemo, useState } from 'react';
+import { debounce } from 'lodash';
+import { deleteAddon } from '@/lib/actions/addOn'; // delete add on action
+import InputFieldSearch from './components/Input';
+import { SelectField } from './components/Select';
+import { FORM_ADDON_ITEMTYPE, FORM_ADDON_STATUS } from '@/constants/forms/addon';
 
 export const FilteredAddOn = () => {
   const { toast } = useToast();
@@ -19,12 +19,12 @@ export const FilteredAddOn = () => {
   // intialize form
   const form = useForm({
     defaultValues: {
-      name: "",
+      name: '',
       page: 1,
-      type: "all",
-      status: "all",
+      type: 'all',
+      status: 'all',
     },
-    mode: "onChange", // validation triggers on each keystroke
+    mode: 'onChange', // validation triggers on each keystroke
   });
 
   const filters = useWatch({ control: form.control }); // intialize watching
@@ -36,7 +36,7 @@ export const FilteredAddOn = () => {
       debounce((newFilters) => {
         setDebouncedFilters(newFilters);
       }, 500),
-    []
+    [],
   );
 
   // side effect for if fiilter change
@@ -49,10 +49,10 @@ export const FilteredAddOn = () => {
   const queryParams = useMemo(() => {
     const params = new URLSearchParams();
 
-    if (debouncedFilters.name) params.append("name", debouncedFilters.name);
-    if (debouncedFilters.page) params.append("page", debouncedFilters.page);
-    if (debouncedFilters.type !== "all") params.append("type", debouncedFilters.type);
-    if (debouncedFilters.status !== "all") params.append("status", debouncedFilters.status);
+    if (debouncedFilters.name) params.append('name', debouncedFilters.name);
+    if (debouncedFilters.page) params.append('page', debouncedFilters.page);
+    if (debouncedFilters.type !== 'all') params.append('type', debouncedFilters.type);
+    if (debouncedFilters.status !== 'all') params.append('status', debouncedFilters.status);
 
     return params.toString();
   }, [debouncedFilters]);
@@ -68,20 +68,26 @@ export const FilteredAddOn = () => {
       const response = await deleteAddon(deleteId);
 
       if (response.success) {
-        toast({ title: response?.message, variant: "default" });
+        toast({ title: response?.message, variant: 'default' });
 
         mutate(); // mutate data
       } else {
-        toast({ title: response?.message || "Failed to delete", variant: "destructive" });
+        toast({
+          title: response?.message || 'Failed to delete',
+          variant: 'destructive',
+        });
       }
     } catch (error) {
-      toast({ title: error?.message || "Something went wrong", variant: "destructive" });
+      toast({
+        title: error?.message || 'Something went wrong',
+        variant: 'destructive',
+      });
     }
   };
 
   // handle page change
   const handlePageChange = (newPage) => {
-    form.setValue("page", newPage, { shouldValidate: true, shouldDirty: true }); // through server side pagination
+    form.setValue('page', newPage, { shouldValidate: true, shouldDirty: true }); // through server side pagination
   };
 
   return (
@@ -97,7 +103,7 @@ export const FilteredAddOn = () => {
           <Controller
             name="type"
             control={form.control}
-            render={({ field }) => <SelectField value={field.value} onChange={field.onChange} data={[...FORM_ADDON_ITEMTYPE, { label: "All Type", value: "all" }]} />}
+            render={({ field }) => <SelectField value={field.value} onChange={field.onChange} data={[...FORM_ADDON_ITEMTYPE, { label: 'All Type', value: 'all' }]} />}
           />
 
           {/* Status */}

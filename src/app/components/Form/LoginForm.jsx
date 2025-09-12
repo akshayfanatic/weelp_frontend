@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { AtSign, Eye, EyeOff, KeyRound } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
-import Link from "next/link";
-import Image from "next/image";
-import { useIsClient } from "@/hooks/useIsClient";
+import { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@/components/ui/button';
+import { AtSign, Eye, EyeOff, KeyRound } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useIsClient } from '@/hooks/useIsClient';
 
 // Zod schema for validation
 const schema = z.object({
-  email: z.string().email("Invalid email address").nonempty("Email is required"),
-  password: z.string().min(6, "Password must be at least 6 characters").nonempty("Password is required"),
+  email: z.string().email('Invalid email address').nonempty('Email is required'),
+  password: z.string().min(6, 'Password must be at least 6 characters').nonempty('Password is required'),
 });
 
 export function LoginForm({ customUrl, onCloseDialog }) {
@@ -37,7 +37,7 @@ export function LoginForm({ customUrl, onCloseDialog }) {
 
   const onSubmit = async (data) => {
     try {
-      const result = await signIn("credentials", {
+      const result = await signIn('credentials', {
         redirect: false,
         email: data.email,
         password: data.password,
@@ -45,10 +45,10 @@ export function LoginForm({ customUrl, onCloseDialog }) {
 
       // credentials error
       if (result?.error) {
-        if (result?.error === "CredentialsSignin") {
+        if (result?.error === 'CredentialsSignin') {
           toast({
-            variant: "destructive",
-            title: "Email or Password Incorect",
+            variant: 'destructive',
+            title: 'Email or Password Incorect',
           });
         }
         return;
@@ -56,13 +56,13 @@ export function LoginForm({ customUrl, onCloseDialog }) {
 
       if (result?.ok) {
         setTimeout(() => {
-          router.push(customUrl ?? "/dashboard");
+          router.push(customUrl ?? '/dashboard');
         }, 100);
 
         // success toast
         if (!customUrl) {
           toast({
-            title: "Redirecting to dashboard page",
+            title: 'Redirecting to dashboard page',
           });
         }
       }
@@ -72,7 +72,7 @@ export function LoginForm({ customUrl, onCloseDialog }) {
   };
   if (isClient) {
     return (
-      <div className={`space-y-4 bg-white border rounded-xl shadow-md w-full max-w-fit sm:max-w-md pb-8 ${isSubmitting && "cursor-wait"}`}>
+      <div className={`space-y-4 bg-white border rounded-xl shadow-md w-full max-w-fit sm:max-w-md pb-8 ${isSubmitting && 'cursor-wait'}`}>
         <div className="bg-white  rounded-t-xl border-b py-4 px-8">
           <Image width={122} height={42} alt="form_logo" src="/assets/images/SiteLogo.png" />
         </div>
@@ -80,13 +80,13 @@ export function LoginForm({ customUrl, onCloseDialog }) {
           {/* Email Input */}
           <div>
             <h3 className=" font-semibold text-xl">
-              Log In or{" "}
+              Log In or{' '}
               <button
                 type="button"
                 variant="default"
                 onClick={() => {
                   onCloseDialog?.(); // tells parent: close dialog
-                  router.push("/user/signup"); // navigate
+                  router.push('/user/signup'); // navigate
                 }}
                 className="underline"
               >
@@ -99,10 +99,10 @@ export function LoginForm({ customUrl, onCloseDialog }) {
             <label htmlFor="email" className=" flex items-center bg-white shadow-md border p-1 px-2 rounded-md">
               <AtSign className="text-[#5A5A5A] size-4" />
               <input
-                placeholder={"Email ID"}
+                placeholder={'Email ID'}
                 type="email"
                 id="email"
-                {...register("email")}
+                {...register('email')}
                 autoComplete="off"
                 className="mt-1  py-2 px-3 focus:outline-none bg-white placeholder:bg-white text-base w-full"
               />
@@ -115,10 +115,10 @@ export function LoginForm({ customUrl, onCloseDialog }) {
             <label htmlFor="password" className="flex items-center bg-white shadow-md border p-1 px-2 rounded-md relative">
               <KeyRound className="text-[#5A5A5A] size-4" />
               <input
-                type={isHide ? "text" : "password"}
+                type={isHide ? 'text' : 'password'}
                 id="password"
                 placeholder="Password"
-                {...register("password")}
+                {...register('password')}
                 autoComplete="off"
                 className="mt-1  py-2 px-3 focus:outline-none bg-white placeholder:bg-white text-base w-full"
               />
@@ -141,11 +141,11 @@ export function LoginForm({ customUrl, onCloseDialog }) {
             </label>
             {errors.password && <p className="text-sm text-red-600 p-2">{errors.password.message}</p>}
           </div>
-          <Link className="pt-2 block" href={"/user/forgot-password"}>
+          <Link className="pt-2 block" href={'/user/forgot-password'}>
             Forgot Password ?
           </Link>
-          <Button type="submit" disabled={isSubmitting} className={`w-full p-4 rounded-md ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-secondaryDark hover:bg-secondarylight text-white"}`}>
-            {isSubmitting ? "Logging in..." : "Continue"}
+          <Button type="submit" disabled={isSubmitting} className={`w-full p-4 rounded-md ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-secondaryDark hover:bg-secondarylight text-white'}`}>
+            {isSubmitting ? 'Logging in...' : 'Continue'}
           </Button>
         </form>
         <div className="hidden">
@@ -156,7 +156,7 @@ export function LoginForm({ customUrl, onCloseDialog }) {
           </div>
 
           <div className="flex items-center justify-around px-8 pb-8 gap-4 pt-4 font-semibold flex-wrap">
-            <button onClick={() => signIn("google")} className="flex w-fit items-center rounded-md p-2 gap-4 shadow border px-8 text-Nileblue">
+            <button onClick={() => signIn('google')} className="flex w-fit items-center rounded-md p-2 gap-4 shadow border px-8 text-Nileblue">
               <Image src="/assets/images/google.png" className="size-4" alt="google_logo" width={100} height={100} />
               Google
             </button>

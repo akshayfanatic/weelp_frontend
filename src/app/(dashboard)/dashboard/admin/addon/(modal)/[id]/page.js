@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React from "react";
-import { isEmpty } from "lodash";
-import { notFound, useParams } from "next/navigation";
-import useSWR from "swr";
-import { AddOnForm } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/addons/forms/AddOnForm";
-import { fetcher } from "@/lib/fetchers";
+import React from 'react';
+import { isEmpty } from 'lodash';
+import { notFound, useParams } from 'next/navigation';
+import useSWR from 'swr';
+import { AddOnForm } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/addons/forms/AddOnForm';
+import { fetcher } from '@/lib/fetchers';
 
 const EditAddOn = () => {
   const { id } = useParams();

@@ -1,28 +1,28 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { NavigationDestinations } from "../components/Navigation";
-import { useForm, FormProvider } from "react-hook-form";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
-import dynamic from "next/dynamic";
-import { useParams } from "next/navigation";
-import { omit } from "lodash";
-import { useIsClient } from "@/hooks/useIsClient";
-import { FORM_CITY_VALUES_DEFAULT  } from "@/constants/forms/country";
-import { createCity, editCity } from "@/lib/actions/cities"; // actions
+import React, { useState } from 'react';
+import { NavigationDestinations } from '../components/Navigation';
+import { useForm, FormProvider } from 'react-hook-form';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
+import dynamic from 'next/dynamic';
+import { useParams } from 'next/navigation';
+import { omit } from 'lodash';
+import { useIsClient } from '@/hooks/useIsClient';
+import { FORM_CITY_VALUES_DEFAULT } from '@/constants/forms/country';
+import { createCity, editCity } from '@/lib/actions/cities'; // actions
 
 // Lazy Load Client Components
-const BasicInformationTab = dynamic(() => import("../tabs/BasicInformation"));
-const LocationDetailsTab = dynamic(() => import("../tabs/LocationDetails"));
-const TravelInformationTab = dynamic(() => import("../tabs/TravelInformation"));
-const EventSeasonTab = dynamic(() => import("../tabs/EventSeason"));
-const AdditionalInformationTab = dynamic(() => import("../tabs/AdditionalInformation"));
-const FaqTab = dynamic(() => import("../tabs/FAQs"));
-const MediaTab = dynamic(() => import("../tabs/MediaTab"));
-const SeoTab = dynamic(() => import("../tabs/SeoTab"));
+const BasicInformationTab = dynamic(() => import('../tabs/BasicInformation'));
+const LocationDetailsTab = dynamic(() => import('../tabs/LocationDetails'));
+const TravelInformationTab = dynamic(() => import('../tabs/TravelInformation'));
+const EventSeasonTab = dynamic(() => import('../tabs/EventSeason'));
+const AdditionalInformationTab = dynamic(() => import('../tabs/AdditionalInformation'));
+const FaqTab = dynamic(() => import('../tabs/FAQs'));
+const MediaTab = dynamic(() => import('../tabs/MediaTab'));
+const SeoTab = dynamic(() => import('../tabs/SeoTab'));
 
 const CreateCityForm = ({ apiFormData = {} }) => {
   const isClient = useIsClient(); // intialize hydration
@@ -31,7 +31,7 @@ const CreateCityForm = ({ apiFormData = {} }) => {
   const [formData, setFormData] = useState({}); // form data
   const params = useParams(); // intialize params hook
 
-  const cleanCountryData = omit(apiFormData, ["created_at", "updated_at"]);
+  const cleanCountryData = omit(apiFormData, ['created_at', 'updated_at']);
 
   const { id } = params; // destructure id if exist or in edit route page
 
@@ -42,15 +42,15 @@ const CreateCityForm = ({ apiFormData = {} }) => {
       ...cleanCountryData,
       location_details: {
         ...FORM_CITY_VALUES_DEFAULT.location_details,
-        ...omit(cleanCountryData?.location_details, ["created_at", "updated_at"]),
+        ...omit(cleanCountryData?.location_details, ['created_at', 'updated_at']),
       },
       travel_info: {
         ...FORM_CITY_VALUES_DEFAULT.travel_info,
-        ...omit(cleanCountryData?.travel_info, ["created_at", "updated_at"]),
+        ...omit(cleanCountryData?.travel_info, ['created_at', 'updated_at']),
       },
-      seasons: [...FORM_CITY_VALUES_DEFAULT.seasons, ...(cleanCountryData?.seasons || []).map((season) => omit(season, ["created_at", "updated_at"]))],
-      events: [...FORM_CITY_VALUES_DEFAULT.events, ...(cleanCountryData?.events || []).map((event) => omit(event, ["created_at", "updated_at"]))],
-      additional_info: [...FORM_CITY_VALUES_DEFAULT.additional_info, ...(cleanCountryData?.additional_info || []).map((info) => omit(info, ["created_at", "updated_at"]))],
+      seasons: [...FORM_CITY_VALUES_DEFAULT.seasons, ...(cleanCountryData?.seasons || []).map((season) => omit(season, ['created_at', 'updated_at']))],
+      events: [...FORM_CITY_VALUES_DEFAULT.events, ...(cleanCountryData?.events || []).map((event) => omit(event, ['created_at', 'updated_at']))],
+      additional_info: [...FORM_CITY_VALUES_DEFAULT.additional_info, ...(cleanCountryData?.additional_info || []).map((info) => omit(info, ['created_at', 'updated_at']))],
     },
   });
 
@@ -65,35 +65,35 @@ const CreateCityForm = ({ apiFormData = {} }) => {
   const steps = [
     {
       id: 1,
-      title: "Basic Information",
+      title: 'Basic Information',
     },
     {
       id: 2,
-      title: "Locations & Details",
+      title: 'Locations & Details',
     },
     {
       id: 3,
-      title: "Travel Information",
+      title: 'Travel Information',
     },
     {
       id: 4,
-      title: "Event & Seasons",
+      title: 'Event & Seasons',
     },
     {
       id: 5,
-      title: "Additional Information",
+      title: 'Additional Information',
     },
     {
       id: 6,
-      title: "Media",
+      title: 'Media',
     },
     {
       id: 7,
-      title: "FAQs",
+      title: 'FAQs',
     },
     {
       id: 8,
-      title: "SEO",
+      title: 'SEO',
     },
   ];
 
@@ -134,7 +134,7 @@ const CreateCityForm = ({ apiFormData = {} }) => {
       return;
     }
 
-    console.log(mergedData)
+    console.log(mergedData);
     //  controll form
     try {
       let res;
@@ -145,20 +145,22 @@ const CreateCityForm = ({ apiFormData = {} }) => {
       }
 
       if (res.success) {
-        toast({ title: res.message || (id ? "Updated successfully!" : "Created successfully!") });
-        router.push("/dashboard/admin/destinations/cities/"); // back push to states
+        toast({
+          title: res.message || (id ? 'Updated successfully!' : 'Created successfully!'),
+        });
+        router.push('/dashboard/admin/destinations/cities/'); // back push to states
       } else {
         toast({
-          title: "Error",
-          description: res.message || "Something went wrong",
-          variant: "destructive",
+          title: 'Error',
+          description: res.message || 'Something went wrong',
+          variant: 'destructive',
         });
       }
     } catch (error) {
       toast({
-        title: "Unexpected Error",
-        description: "Please try again later.",
-        variant: "destructive",
+        title: 'Unexpected Error',
+        description: 'Please try again later.',
+        variant: 'destructive',
       });
     }
   };
@@ -166,7 +168,7 @@ const CreateCityForm = ({ apiFormData = {} }) => {
   if (isClient) {
     return (
       <div className="min-h-screen w-full bg-gray-50 py-4 sm:px-6 lg:px-8">
-        <NavigationDestinations title={id ? "Edit city" : "New city"} description={`${id ? " Edit" : " Create a new"} city destination with detailed information`} />
+        <NavigationDestinations title={id ? 'Edit city' : 'New city'} description={`${id ? ' Edit' : ' Create a new'} city destination with detailed information`} />
 
         <div className="w-full space-y-4">
           <FormProvider {...methods}>
@@ -179,12 +181,12 @@ const CreateCityForm = ({ apiFormData = {} }) => {
                       key={step.id}
                       // onClick={() => {setCurrentStep(step?.id)}}
                       className={`flex flex-col items-center w-full space-y-1 cursor-pointer group relative p-4 duration-300 ease-in-out group hover:bg-gray-100 ${
-                        currentStep == step?.id && " bg-gradient-to-t from-[#c7ffc02e] to-slate-50 border-b-secondaryDark border-b-2"
+                        currentStep == step?.id && ' bg-gradient-to-t from-[#c7ffc02e] to-slate-50 border-b-secondaryDark border-b-2'
                       }`}
                     >
                       <div
-                        className={`text-sm font-medium pt-2 w-full text-nowrap duration-300 ease-in-out ${!currentStep == step?.id && " group-hover:text-gray-800"} ${
-                          currentStep == step?.id ? "text-secondaryDark " : "text-grayDark"
+                        className={`text-sm font-medium pt-2 w-full text-nowrap duration-300 ease-in-out ${!currentStep == step?.id && ' group-hover:text-gray-800'} ${
+                          currentStep == step?.id ? 'text-secondaryDark ' : 'text-grayDark'
                         }`}
                       >
                         {step.title}
@@ -197,7 +199,7 @@ const CreateCityForm = ({ apiFormData = {} }) => {
 
             {/* Dynamic Tabs */}
             <form onSubmit={methods.handleSubmit(onSubmit)}>
-              <fieldset className={`${currentStep === 3 ? "" : "bg-white p-4 md:px-8 border shadow rounded-lg"} ${isSubmitting && " cursor-wait"}`} disabled={isSubmitting}>
+              <fieldset className={`${currentStep === 3 ? '' : 'bg-white p-4 md:px-8 border shadow rounded-lg'} ${isSubmitting && ' cursor-wait'}`} disabled={isSubmitting}>
                 {renderStep()}
                 <div className="flex justify-between pt-4">
                   {currentStep > 1 && (
@@ -225,7 +227,7 @@ const CreateCityForm = ({ apiFormData = {} }) => {
 
                   <div className="flex gap-4">
                     <Button type="submit" disabled={isSubmitting} className={`ml-auto py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-secondaryDark cursor-pointer`}>
-                      {isSubmitting ? (currentStep === 8 ? "Submitting..." : "Submit") : currentStep === 8 ? "Submit" : "Next"}
+                      {isSubmitting ? (currentStep === 8 ? 'Submitting...' : 'Submit') : currentStep === 8 ? 'Submit' : 'Next'}
                     </Button>
                   </div>
                   {/* )} */}

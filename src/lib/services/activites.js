@@ -1,5 +1,5 @@
-import { publicApi, authApi } from "../axiosInstance";
-import { log } from "../utils";
+import { publicApi, authApi } from '../axiosInstance';
+import { log } from '../utils';
 
 /**
  * Get Single Activity on Client side
@@ -9,7 +9,7 @@ import { log } from "../utils";
 export async function getSingleActivity(activitySlug) {
   try {
     const response = await publicApi.get(`/api/activities/${activitySlug}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
     return response.data;
   } catch (error) {
@@ -25,7 +25,7 @@ export async function getSingleActivity(activitySlug) {
 export async function getSingleActivityAdmin(id) {
   try {
     const response = await authApi.get(`/api/admin/activities/${id}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
     return response.data;
   } catch (error) {
@@ -38,17 +38,16 @@ export async function getSingleActivityAdmin(id) {
  * @param ##
  * @returns {}
  */
-export async function getAllActivitesAdmin(search = "") {
+export async function getAllActivitesAdmin(search = '') {
   try {
-    const response = await authApi.get(`/api/admin/activities/${search ? search : ""}`, {
-      headers: { Accept: "application/json" },
+    const response = await authApi.get(`/api/admin/activities/${search ? search : ''}`, {
+      headers: { Accept: 'application/json' },
     });
     return response?.data;
   } catch (error) {
     return [];
   }
 }
-
 
 /**
  * Returns all Featured Activities
@@ -57,12 +56,12 @@ export async function getAllActivitesAdmin(search = "") {
 export async function getAllFeaturedActivities() {
   try {
     const response = await publicApi.get(`/api/activities/featured-activities`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
-    
+
     return response.data;
   } catch (error) {
-    console.log("Error fetching city data:", error);
+    console.log('Error fetching city data:', error);
     return [];
   }
 }

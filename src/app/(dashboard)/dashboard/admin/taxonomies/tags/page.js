@@ -1,9 +1,7 @@
-import { TagsPageClient } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/taxonomies/tags/tags";
-
+import { TagsPageClient } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/taxonomies/tags/tags';
 
 const TagsPage = async () => {
-
-  return  <TagsPageClient />
+  return <TagsPageClient />;
 };
 
 export default TagsPage;

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { fetcher } from "@/lib/fetchers";
-import React from "react";
-import useSWR from "swr";
-import { notFound, useParams } from "next/navigation";
-import ReviewForm from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/reviews/forms/ReviewForm";
+import { fetcher } from '@/lib/fetchers';
+import React from 'react';
+import useSWR from 'swr';
+import { notFound, useParams } from 'next/navigation';
+import ReviewForm from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/reviews/forms/ReviewForm';
 
 const SingleReviewPage = () => {
   const { id } = useParams();

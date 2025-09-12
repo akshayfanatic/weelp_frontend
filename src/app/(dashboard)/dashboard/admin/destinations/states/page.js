@@ -1,6 +1,6 @@
-"use client";
-import { NavigationDestinations } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/components/Navigation";
-import { FilterStates } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/destinations_filters/FilterStates";
+'use client';
+import { NavigationDestinations } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/components/Navigation';
+import { FilterStates } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/destinations_filters/FilterStates';
 
 const StatesPage = () => {
   return (

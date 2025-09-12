@@ -1,7 +1,7 @@
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/app/components/Pages/DASHBOARD/admin/app-sidebar";
-import AdminHeader from "@/app/components/Pages/DASHBOARD/admin/header";
-import { Toaster } from "@/components/ui/toaster";
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/app/components/Pages/DASHBOARD/admin/app-sidebar';
+import AdminHeader from '@/app/components/Pages/DASHBOARD/admin/header';
+import { Toaster } from '@/components/ui/toaster';
 
 export default function AdminLayout({ children }) {
   return (
@@ -16,7 +16,7 @@ export default function AdminLayout({ children }) {
           </>
           <main className="flex-1 overflow-auto tfc_scroll">
             <div className="container mx-auto p-8 sm:p-12 w-full">{children}</div>
-          </main> 
+          </main>
         </div>
         <Toaster />
       </div>

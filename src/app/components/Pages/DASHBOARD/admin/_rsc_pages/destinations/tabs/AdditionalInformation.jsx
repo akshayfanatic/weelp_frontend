@@ -1,12 +1,12 @@
-"use client";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Plus, X } from "lucide-react";
-import React from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
+'use client';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Plus, X } from 'lucide-react';
+import React from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 
 const AdditionalInformationTab = () => {
   const form = useFormContext(); // intialize form context
@@ -21,13 +21,20 @@ const AdditionalInformationTab = () => {
     remove: removeField,
   } = useFieldArray({
     control,
-    name: "additional_info", // unique name
+    name: 'additional_info', // unique name
   });
   return (
     <Card className="border-none shadow-none ">
       <CardHeader className="flex flex-row justify-between">
         <CardTitle className="text-xl">Additional Information</CardTitle>
-        <span className={buttonVariants({ variant: "outline", size: "sm", className: "cursor-pointer" })} onClick={() => addField({ title: "", content: "" })}>
+        <span
+          className={buttonVariants({
+            variant: 'outline',
+            size: 'sm',
+            className: 'cursor-pointer',
+          })}
+          onClick={() => addField({ title: '', content: '' })}
+        >
           <Plus size={16} /> Add Section
         </span>
       </CardHeader>
@@ -44,7 +51,7 @@ const AdditionalInformationTab = () => {
             <FormField
               control={form.control}
               name={`additional_info.${index}.title`}
-              rules={{ required: "Title Required" }}
+              rules={{ required: 'Title Required' }}
               render={({ field }) => (
                 <FormItem className="px-4 space-y-2">
                   <FormLabel>Section Title</FormLabel>
@@ -59,7 +66,7 @@ const AdditionalInformationTab = () => {
             <FormField
               control={form.control}
               name={`additional_info.${index}.content`}
-              rules={{ required: "Content Required" }}
+              rules={{ required: 'Content Required' }}
               render={({ field }) => (
                 <FormItem className="px-4 space-y-2">
                   <FormLabel>Content</FormLabel>

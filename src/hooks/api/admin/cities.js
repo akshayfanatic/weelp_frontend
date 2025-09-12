@@ -1,8 +1,8 @@
-import useSWR from "swr";
-import { fetcher } from "@/lib/fetchers";
+import useSWR from 'swr';
+import { fetcher } from '@/lib/fetchers';
 
 export function useCitiesOptionsAdmin() {
-  const { data, error, isValidating, isLoading, mutate } = useSWR("/api/admin/destinations/cities/citiesdropdown", fetcher);
+  const { data, error, isValidating, isLoading, mutate } = useSWR('/api/admin/destinations/cities/citiesdropdown', fetcher);
   return {
     cities: data || [],
     isLoading,

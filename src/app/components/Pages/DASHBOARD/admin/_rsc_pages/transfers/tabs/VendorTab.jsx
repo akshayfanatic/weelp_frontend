@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import useSWR from "swr";
-import { fetcher } from "@/lib/fetchers";
-import { ComboboxVendorRoute } from "../transfer_shared";
+import { useEffect } from 'react';
+import { Controller, useFormContext, useWatch } from 'react-hook-form';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import useSWR from 'swr';
+import { fetcher } from '@/lib/fetchers';
+import { ComboboxVendorRoute } from '../transfer_shared';
 
 // VendorTab
 const VendorTab = () => {
@@ -17,10 +17,10 @@ const VendorTab = () => {
     control,
   } = useFormContext(); // form context
 
-  const { data, isLoading, error } = useSWR("/api/admin/vendors/vendorsdropdown", fetcher); // get vendors first
+  const { data, isLoading, error } = useSWR('/api/admin/vendors/vendorsdropdown', fetcher); // get vendors first
   const vendors = data?.data || [];
-  const watchedVendorId = useWatch({ control: control, name: "vendor_id" });
-  const watchedRouteId = useWatch({ control: control, name: "route_id" });
+  const watchedVendorId = useWatch({ control: control, name: 'vendor_id' });
+  const watchedRouteId = useWatch({ control: control, name: 'route_id' });
 
   const { data: routesData } = useSWR(`/api/admin/vendors/${watchedVendorId}/routesdropdown`, fetcher); // get routes based on id
 
@@ -30,7 +30,7 @@ const VendorTab = () => {
 
   // side effect when route changed
   useEffect(() => {
-    setValue("route_id", "");
+    setValue('route_id', '');
   }, [watchedVendorId]);
 
   return (
@@ -46,7 +46,7 @@ const VendorTab = () => {
           <Controller
             name="vendor_id"
             control={control}
-            rules={{ required: "Pickup location required" }}
+            rules={{ required: 'Pickup location required' }}
             render={({ field }) => (
               <Select onValueChange={(val) => field.onChange(Number(val))} value={field.value}>
                 <SelectTrigger>
@@ -74,7 +74,7 @@ const VendorTab = () => {
           <Controller
             name="route_id"
             control={control}
-            rules={{ required: "Route Required" }}
+            rules={{ required: 'Route Required' }}
             render={({ field }) => <ComboboxVendorRoute data={routes} value={field.value} onChange={field.onChange} placeholder="Select Route" />}
           />
           {/* Displaying  Errors */}

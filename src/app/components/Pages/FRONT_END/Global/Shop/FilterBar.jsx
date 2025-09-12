@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { Star } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 
@@ -14,9 +14,7 @@ const FilterBar = ({ filters, setFilters }) => {
   const handleCategoryChange = (event) => {
     const value = event.target.value;
     setFilters((prevFilters) => {
-      const updatedCategories = prevFilters.categories.includes(value)
-        ? prevFilters.categories.filter((category) => category !== value)
-        : [...prevFilters.categories, value];
+      const updatedCategories = prevFilters.categories.includes(value) ? prevFilters.categories.filter((category) => category !== value) : [...prevFilters.categories, value];
       return { ...prevFilters, categories: updatedCategories };
     });
   };
@@ -25,9 +23,7 @@ const FilterBar = ({ filters, setFilters }) => {
   const handleLocationChange = (event) => {
     const value = event.target.value;
     setFilters((prevFilters) => {
-      const updatedLocations = prevFilters.locations.includes(value)
-        ? prevFilters.locations.filter((location) => location !== value)
-        : [...prevFilters.locations, value];
+      const updatedLocations = prevFilters.locations.includes(value) ? prevFilters.locations.filter((location) => location !== value) : [...prevFilters.locations, value];
       return { ...prevFilters, locations: updatedLocations };
     });
   };
@@ -39,7 +35,6 @@ const FilterBar = ({ filters, setFilters }) => {
       priceRange: event.target.value,
     }));
     console.log(event);
-
   };
 
   // Handle rating change
@@ -50,14 +45,13 @@ const FilterBar = ({ filters, setFilters }) => {
     }));
   };
 
-
   // Form On Change
   const handleOnChange = () => {
-    console.log(filters)
+    console.log(filters);
 
     // set Filter Price
-    setPrice(filters.priceRange)
-  }
+    setPrice(filters.priceRange);
+  };
 
   // Return nothing if the component is still mounting to prevent hydration error
   if (!mounted) {
@@ -65,7 +59,7 @@ const FilterBar = ({ filters, setFilters }) => {
   }
 
   return (
-    <div className='flex-1 lg:flex justify-center w-full shop_filter'>
+    <div className="flex-1 lg:flex justify-center w-full shop_filter">
       <form className="p-4 px-8 sm:my-12 bg-white sm:max-w-xs w-full h-fit  shadow-md rounded-lg " onChange={handleOnChange}>
         {/* Category Section */}
         <div>
@@ -117,10 +111,12 @@ const FilterBar = ({ filters, setFilters }) => {
                   checked={filters.rating === rating}
                   onChange={handleRatingChange}
                 />
-                <span className='flex'>
-                  {Array(Number(rating)).fill(0).map((val, id) => {
-                    return <Star key={id} className=' stroke-none fill-yellow-500' />
-                  })}
+                <span className="flex">
+                  {Array(Number(rating))
+                    .fill(0)
+                    .map((val, id) => {
+                      return <Star key={id} className=" stroke-none fill-yellow-500" />;
+                    })}
                 </span>
               </div>
             ))}

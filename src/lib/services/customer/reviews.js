@@ -1,6 +1,6 @@
-import { ApiError } from "@/dto/Error";
-import { authApi } from "@/lib/axiosInstance";
-import { ApiResponse } from "@/dto/Success";
+import { ApiError } from '@/dto/Error';
+import { authApi } from '@/lib/axiosInstance';
+import { ApiResponse } from '@/dto/Success';
 
 /**
  * Get Single Review by Customer
@@ -10,7 +10,7 @@ import { ApiResponse } from "@/dto/Success";
 export async function getSingleReviewByCustomer(reviewId) {
   try {
     const response = await authApi.get(`/api/customer/review/${reviewId}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     // status 200 → return consistent success response
@@ -18,18 +18,18 @@ export async function getSingleReviewByCustomer(reviewId) {
       return ApiResponse({
         data: response.data,
         status: 200,
-        success:true,
+        success: true,
       });
     }
 
     return ApiError({
-      message: response.data?.message || "Unexpected error occurred",
+      message: response.data?.message || 'Unexpected error occurred',
       status: response.status,
       errors: response.data?.errors,
     });
   } catch (error) {
     return ApiError({
-      message: error.response?.data?.message || "Failed to fetch reviews",
+      message: error.response?.data?.message || 'Failed to fetch reviews',
       status: error.response?.status || 500,
       errors: error.response?.data?.errors || error.message,
     });
@@ -41,10 +41,10 @@ export async function getSingleReviewByCustomer(reviewId) {
  * @param {string} [search] - Optional search query
  * @returns {Promise<{success: boolean, data?: any, message?: string, status?: number}>}
  */
-export async function getAllReviewsByCustomer(search = "") {
+export async function getAllReviewsByCustomer(search = '') {
   try {
-    const response = await authApi.get(`/api/customer/review/${search || ""}`, {
-      headers: { Accept: "application/json" },
+    const response = await authApi.get(`/api/customer/review/${search || ''}`, {
+      headers: { Accept: 'application/json' },
     });
 
     // status 200 → return consistent success response
@@ -56,13 +56,13 @@ export async function getAllReviewsByCustomer(search = "") {
     }
 
     return ApiError({
-      message: response.data?.message || "Unexpected error occurred",
+      message: response.data?.message || 'Unexpected error occurred',
       status: response.status,
       errors: response.data?.errors,
     });
   } catch (error) {
     return ApiError({
-      message: error.response?.data?.message || "Failed to fetch reviews",
+      message: error.response?.data?.message || 'Failed to fetch reviews',
       status: error.response?.status || 500,
       errors: error.response?.data?.errors || error.message,
     });

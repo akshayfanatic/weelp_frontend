@@ -1,15 +1,15 @@
-import { authApi } from "@/lib/axiosInstance";
-import { log } from "@/lib/utils";
+import { authApi } from '@/lib/axiosInstance';
+import { log } from '@/lib/utils';
 
 /**
  * Get All Orders By Customer
  * @param {string} search search query if exist
  * @returns {}
  */
-export async function getAllOrdersCustomer(search = "") {
+export async function getAllOrdersCustomer(search = '') {
   try {
-    const res = await authApi.get(`/api/customer/userorders/${search ? search : ""}`, {
-      headers: { Accept: "application/json" },
+    const res = await authApi.get(`/api/customer/userorders/${search ? search : ''}`, {
+      headers: { Accept: 'application/json' },
     });
 
     // for handling diffrent response

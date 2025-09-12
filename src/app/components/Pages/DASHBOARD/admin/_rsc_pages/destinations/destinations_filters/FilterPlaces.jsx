@@ -1,26 +1,26 @@
-"use client";
-import React, { useEffect, useCallback, useState } from "react";
-import { Card } from "@/components/ui/card";
-import { useForm, FormProvider, useWatch } from "react-hook-form";
-import useSWR from "swr";
-import debounce from "lodash.debounce";
-import { fetcher } from "@/lib/fetchers";
-import { SearchBar } from "../components/SearchBar";
-import { RouteCard } from "../components/cards/RouteCard";
-import { CustomPagination } from "@/app/components/Pagination";
+'use client';
+import React, { useEffect, useCallback, useState } from 'react';
+import { Card } from '@/components/ui/card';
+import { useForm, FormProvider, useWatch } from 'react-hook-form';
+import useSWR from 'swr';
+import debounce from 'lodash.debounce';
+import { fetcher } from '@/lib/fetchers';
+import { SearchBar } from '../components/SearchBar';
+import { RouteCard } from '../components/cards/RouteCard';
+import { CustomPagination } from '@/app/components/Pagination';
 
 const FilterPlaces = () => {
-  const methods = useForm({ defaultValues: { query: "", page: 1 } });
+  const methods = useForm({ defaultValues: { query: '', page: 1 } });
   const { control, setValue } = methods;
-  const page = useWatch({ control, name: "page" });
-  const query = useWatch({ control, name: "query" });
+  const page = useWatch({ control, name: 'page' });
+  const query = useWatch({ control, name: 'query' });
 
   const [debouncedQuery, setDebouncedQuery] = useState(query);
 
   // debounce using lodash.debounce
   const debouncedSetQuery = useCallback(
     debounce((val) => setDebouncedQuery(val), 500), // set delay time
-    []
+    [],
   );
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const FilterPlaces = () => {
               </Card>
 
               {/* Pagination */}
-              <CustomPagination totalItems={total} itemsPerPage={perPage} currentPage={currentPage} onPageChange={(newPage) => setValue("page", newPage)} />
+              <CustomPagination totalItems={total} itemsPerPage={perPage} currentPage={currentPage} onPageChange={(newPage) => setValue('page', newPage)} />
             </div>
           )}
         </div>

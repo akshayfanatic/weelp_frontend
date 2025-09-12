@@ -1,17 +1,16 @@
-"use client";
+'use client';
 
 // Main User Page
-import React from "react";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import Link from "next/link";
-import { UserDataTable } from "./UserDataTable";
-import { useAllUsersAdmin } from "@/hooks/api/admin/users";
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import Link from 'next/link';
+import { UserDataTable } from './UserDataTable';
+import { useAllUsersAdmin } from '@/hooks/api/admin/users';
 
 // mock user
 const UsersPageComponent = () => {
-  
   // Fetching All Users
   const {
     users: { users = [], active_users = 0, pending_users = 0, total_users = 0 },
@@ -19,15 +18,14 @@ const UsersPageComponent = () => {
     isLoading,
   } = useAllUsersAdmin();
 
-
   if (isLoading) return <span className="loader"></span>;
   if (error) return <span className="text-red-400">{error}</span>;
 
   // Stats of Users
   const UserStats = [
-    { id: 1, title: "Total Users", stats: total_users || 0 },
-    { id: 2, title: "Active Users", stats: active_users || 0 },
-    { id: 3, title: "Pending Users", stats: pending_users || 0 },
+    { id: 1, title: 'Total Users', stats: total_users || 0 },
+    { id: 2, title: 'Active Users', stats: active_users || 0 },
+    { id: 3, title: 'Pending Users', stats: pending_users || 0 },
   ];
   return (
     <div className="space-y-4 sm:p-8 sm:pt-6">
@@ -38,7 +36,7 @@ const UsersPageComponent = () => {
         </div>
         <div className="flex items-center space-x-2">
           <Link href="/dashboard/admin/users/new">
-            <Button className={"bg-secondaryDark"}>
+            <Button className={'bg-secondaryDark'}>
               <Plus className="mr-2 h-4 w-4" />
               Add User
             </Button>
@@ -66,13 +64,11 @@ const UsersPageComponent = () => {
 
       {/* tables */}
       <Card className="shadow-none  mx-auto p-10 space-y-2">
-        <CardTitle className={"text-base mb-8"}>Users Overview</CardTitle>
+        <CardTitle className={'text-base mb-8'}>Users Overview</CardTitle>
         <UserDataTable data={users} />
       </Card>
     </div>
   );
 };
-
-
 
 export default UsersPageComponent;

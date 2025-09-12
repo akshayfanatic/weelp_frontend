@@ -1,8 +1,8 @@
-import useSWR from "swr";
-import { fetcher } from "@/lib/fetchers";
+import useSWR from 'swr';
+import { fetcher } from '@/lib/fetchers';
 
 export function useAllPackagesAdmin() {
-  const { data, error, isValidating, isLoading, mutate } = useSWR("/api/admin/packages", fetcher);
+  const { data, error, isValidating, isLoading, mutate } = useSWR('/api/admin/packages', fetcher);
 
   return {
     packages: data || [],

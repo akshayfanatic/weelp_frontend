@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import React, { useEffect, useCallback, useRef } from "react";
-import { useForm, FormProvider, Controller, useWatch } from "react-hook-form";
-import { useParams } from "next/navigation";
-import debounce from "lodash.debounce";
+import React, { useEffect, useCallback, useRef } from 'react';
+import { useForm, FormProvider, Controller, useWatch } from 'react-hook-form';
+import { useParams } from 'next/navigation';
+import debounce from 'lodash.debounce';
 
-import ReactRangeSliderInput from "react-range-slider-input";
-import "react-range-slider-input/dist/style.css";
-import { Star } from "lucide-react";
+import ReactRangeSliderInput from 'react-range-slider-input';
+import 'react-range-slider-input/dist/style.css';
+import { Star } from 'lucide-react';
 
-import { useCategories } from "@/hooks/api/public/categories";
-import { useRegionItems } from "@/hooks/api/public/region";
+import { useCategories } from '@/hooks/api/public/categories';
+import { useRegionItems } from '@/hooks/api/public/region';
 
-import { GlobalCard } from "@/app/components/SingleProductCard";
-import { LoadingPage } from "@/app/components/Animation/Cards";
+import { GlobalCard } from '@/app/components/SingleProductCard';
+import { LoadingPage } from '@/app/components/Animation/Cards';
 
 export const RegionFilterNew = () => {
   const ref = useRef();
@@ -30,7 +30,7 @@ export const RegionFilterNew = () => {
   });
 
   const filters = useWatch({ control: methods.control });
-  const priceRange = useWatch({ control: methods.control, name: "price" });
+  const priceRange = useWatch({ control: methods.control, name: 'price' });
 
   // Fetch categories
   const { data: categoryRes = {} } = useCategories();
@@ -42,7 +42,7 @@ export const RegionFilterNew = () => {
     max_price: filters.price[1],
     page: filters.page,
     min_rating: filters.rating,
-    categories: filters.categories.length > 0 ? filters.categories.join(",") : undefined,
+    categories: filters.categories.length > 0 ? filters.categories.join(',') : undefined,
   };
 
   const { data: products = [], isLoading, pagination, mutate } = useRegionItems(region, filterQuery);
@@ -50,7 +50,7 @@ export const RegionFilterNew = () => {
   // Debounced refetch
   const debouncedFetch = useCallback(
     debounce(() => mutate(), 500),
-    []
+    [],
   );
 
   useEffect(() => {
@@ -58,11 +58,11 @@ export const RegionFilterNew = () => {
     return () => debouncedFetch.cancel();
   }, [filters, debouncedFetch]);
 
-  const handlePageChange = (page) => methods.setValue("page", page); // page handle manage
+  const handlePageChange = (page) => methods.setValue('page', page); // page handle manage
 
   // manage price range
   const handlePriceRangeChange = (values) => {
-    methods.setValue("price", values, {
+    methods.setValue('price', values, {
       shouldDirty: true,
       shouldTouch: true,
     });
@@ -154,7 +154,7 @@ export const RegionFilterNew = () => {
     pagination?.lastPage > 1 && (
       <div className="flex justify-center mt-6 space-x-2">
         {Array.from({ length: pagination.lastPage }, (_, i) => (
-          <button key={i} onClick={() => handlePageChange(i + 1)} className={`px-3 py-1 rounded ${pagination.currentPage === i + 1 ? "bg-secondaryDark text-white" : "bg-gray-200 hover:bg-gray-300"}`}>
+          <button key={i} onClick={() => handlePageChange(i + 1)} className={`px-3 py-1 rounded ${pagination.currentPage === i + 1 ? 'bg-secondaryDark text-white' : 'bg-gray-200 hover:bg-gray-300'}`}>
             {i + 1}
           </button>
         ))}

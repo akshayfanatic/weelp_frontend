@@ -1,46 +1,46 @@
-"use client";
+'use client';
 
-import { useEffect, useState, useMemo } from "react";
-import { useForm, Controller, useWatch } from "react-hook-form";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Card } from "@/components/ui/card";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar, Car, Clock, Ellipsis, Plus, SquarePen, Tag, Trash2, User, Users } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import debounce from "lodash.debounce";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import ReactRangeSliderInput from "react-range-slider-input";
-import "react-range-slider-input/dist/style.css";
-import { CustomPagination } from "@/app/components/Pagination";
-import Link from "next/link";
-import useSWR from "swr"; // for states cache and ui management
-import { useToast } from "@/hooks/use-toast"; // toast for notification
-import { Checkbox } from "@/components/ui/checkbox"; //
-import { fetcher } from "@/lib/fetchers"; // interceptors
-import { deleteMultipleTransfers, deleteTransfer } from "@/lib/actions/transfer"; // inline actions
-import { VEHICLE_TYPES } from "@/constants/transfer"; // constants
-import { SORT_BY } from "@/constants/shared"; // filter constants
+import { useEffect, useState, useMemo } from 'react';
+import { useForm, Controller, useWatch } from 'react-hook-form';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Card } from '@/components/ui/card';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Calendar, Car, Clock, Ellipsis, Plus, SquarePen, Tag, Trash2, User, Users } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import debounce from 'lodash.debounce';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
+import ReactRangeSliderInput from 'react-range-slider-input';
+import 'react-range-slider-input/dist/style.css';
+import { CustomPagination } from '@/app/components/Pagination';
+import Link from 'next/link';
+import useSWR from 'swr'; // for states cache and ui management
+import { useToast } from '@/hooks/use-toast'; // toast for notification
+import { Checkbox } from '@/components/ui/checkbox'; //
+import { fetcher } from '@/lib/fetchers'; // interceptors
+import { deleteMultipleTransfers, deleteTransfer } from '@/lib/actions/transfer'; // inline actions
+import { VEHICLE_TYPES } from '@/constants/transfer'; // constants
+import { SORT_BY } from '@/constants/shared'; // filter constants
 
 const FilterTransfer = () => {
   const { toast } = useToast(); // intialize toast
   const [selectedItems, setSelectedItems] = useState([]); // selected item for multiple delete case
   const [modalState, setModalState] = useState({
-    openDropdownIndex: "", //
-    openDialogIndex: "",
+    openDropdownIndex: '', //
+    openDialogIndex: '',
   });
 
   // intialize hook
   const { register, setValue, control } = useForm({
     //initalize form
     defaultValues: {
-      vehicle_type: "",
-      availability_date: "",
-      capacity: "",
+      vehicle_type: '',
+      availability_date: '',
+      capacity: '',
       price: [50, 150],
-      sort_by: "",
+      sort_by: '',
       page: 1,
     },
   });
@@ -51,14 +51,14 @@ const FilterTransfer = () => {
   //  handle delete to open modal
   const handleDeleteClick = (index) => {
     setModalState({
-      openDropdownIndex: "",
+      openDropdownIndex: '',
       openDialogIndex: index,
     });
   };
 
   // colose dialog
   const closeDialog = () => {
-    setModalState((prev) => ({ ...prev, openDialogIndex: "" }));
+    setModalState((prev) => ({ ...prev, openDialogIndex: '' }));
   };
 
   // handle for delete transfer
@@ -67,23 +67,23 @@ const FilterTransfer = () => {
       const res = await deleteTransfer(itemId); // call server action for deletion
 
       toast({
-        title: res.message || "Delete Succesfully",
-        variant: "success",
+        title: res.message || 'Delete Succesfully',
+        variant: 'success',
       });
       mutate(); // trigger api
       closeDialog(); // close your dialog after success
     } catch (error) {
       console.log(error);
       toast({
-        title: "Error deleting item",
-        variant: "destructive",
+        title: 'Error deleting item',
+        variant: 'destructive',
       });
     }
   }
 
   // handle page change
   const handlePageChange = (newPage) => {
-    setValue("page", newPage, { shouldValidate: true, shouldDirty: true }); // through server side pagiantion
+    setValue('page', newPage, { shouldValidate: true, shouldDirty: true }); // through server side pagiantion
   };
 
   const debouncedUpdate = useMemo(
@@ -91,7 +91,7 @@ const FilterTransfer = () => {
       debounce((newFilters) => {
         setDebouncedFilters(newFilters);
       }, 500),
-    []
+    [],
   );
 
   // side effect for if fiilter change
@@ -104,13 +104,13 @@ const FilterTransfer = () => {
   const queryParams = useMemo(() => {
     const params = new URLSearchParams();
 
-    if (debouncedFilters.vehicle_type) params.append("vehicle_type", debouncedFilters.vehicle_type);
-    if (debouncedFilters.availability_date) params.append("availability_date", debouncedFilters.availability_date);
-    if (debouncedFilters.capacity) params.append("capacity", debouncedFilters.capacity);
-    if (debouncedFilters.sort_by) params.append("sort_by", debouncedFilters.sort_by);
-    if (debouncedFilters.price?.[0]) params.append("min_price", debouncedFilters.price[0]);
-    if (debouncedFilters.price?.[1]) params.append("max_price", debouncedFilters.price[1]);
-    if (debouncedFilters.page) params.append("page", debouncedFilters.page);
+    if (debouncedFilters.vehicle_type) params.append('vehicle_type', debouncedFilters.vehicle_type);
+    if (debouncedFilters.availability_date) params.append('availability_date', debouncedFilters.availability_date);
+    if (debouncedFilters.capacity) params.append('capacity', debouncedFilters.capacity);
+    if (debouncedFilters.sort_by) params.append('sort_by', debouncedFilters.sort_by);
+    if (debouncedFilters.price?.[0]) params.append('min_price', debouncedFilters.price[0]);
+    if (debouncedFilters.price?.[1]) params.append('max_price', debouncedFilters.price[1]);
+    if (debouncedFilters.page) params.append('page', debouncedFilters.page);
 
     return params.toString();
   }, [debouncedFilters]);
@@ -119,14 +119,17 @@ const FilterTransfer = () => {
   const { data, error, isValidating, mutate } = useSWR(`/api/admin/transfers?${queryParams}`, fetcher, { revalidateOnFocus: true });
 
   // destructure data
-  const { data: items = [], current_page = "", per_page = "", total: totalItems = "" } = data?.data || {}; // destructure safely
+  const { data: items = [], current_page = '', per_page = '', total: totalItems = '' } = data?.data || {}; // destructure safely
 
   // handle Multiple Delete
   const handleMultpleDelete = async () => {
     try {
       const res = await deleteMultipleTransfers({ transferIds: selectedItems }); // delete itineraries
       if (res.success) {
-        toast({ title: res.message || "Transfers deleted", variant: "success" });
+        toast({
+          title: res.message || 'Transfers deleted',
+          variant: 'success',
+        });
 
         // Force update the UI
         mutate();
@@ -134,11 +137,15 @@ const FilterTransfer = () => {
         // flush items
         setSelectedItems([]);
       } else {
-        toast({ title: "Delete failed", description: res.error, variant: "destructive" });
+        toast({
+          title: 'Delete failed',
+          description: res.error,
+          variant: 'destructive',
+        });
       }
     } catch (error) {
       console.log(error);
-      toast({ title: "Something went wrong", variant: "destructive" });
+      toast({ title: 'Something went wrong', variant: 'destructive' });
 
       // flush items
       setSelectedItems([]);
@@ -147,7 +154,7 @@ const FilterTransfer = () => {
 
   // handle Multiple Export
   const handleMultpleExport = () => {
-    console.log(selectedItems, "delete");
+    console.log(selectedItems, 'delete');
   };
 
   return (
@@ -195,7 +202,7 @@ const FilterTransfer = () => {
               </p>
             </AccordionTrigger>
             <AccordionContent>
-              <Input type="date" {...register("availability_date")} />
+              <Input type="date" {...register('availability_date')} />
             </AccordionContent>
           </AccordionItem>
 
@@ -209,7 +216,7 @@ const FilterTransfer = () => {
             </AccordionTrigger>
             <AccordionContent>
               <div className="flex items-center gap-4">
-                <Input type="number" placeholder="Total Persons" {...register("capacity")} />
+                <Input type="number" placeholder="Total Persons" {...register('capacity')} />
               </div>
             </AccordionContent>
           </AccordionItem>
@@ -307,11 +314,11 @@ const FilterTransfer = () => {
                 {items.map(({ id: itemId, name, media_gallery = [], tags = [], attributes = [], vendor_routes: { is_vendor } = {} }, index) => (
                   <Card
                     key={index}
-                    className={`group hover:shadow-md ease duration-300 rounded-lg w-full lg:w-fit border relative ${selectedItems?.includes(itemId) && "p-3 border border-secondaryDark"}`}
+                    className={`group hover:shadow-md ease duration-300 rounded-lg w-full lg:w-fit border relative ${selectedItems?.includes(itemId) && 'p-3 border border-secondaryDark'}`}
                   >
                     <img
                       className="w-full lg:w-[326px] h-[183px] rounded-lg aspect-square"
-                      src={`${media_gallery?.[0]?.url ? media_gallery?.[0]?.url : "https://picsum.photos/350/300?random"}`}
+                      src={`${media_gallery?.[0]?.url ? media_gallery?.[0]?.url : 'https://picsum.photos/350/300?random'}`}
                       alt="activity_image"
                     />
 
@@ -326,7 +333,7 @@ const FilterTransfer = () => {
                         attributes.map(({ attribute_name }, index) => {
                           {
                             return (
-                              attribute_name === "Duration" && ( // Specific attrbutete Value Hai
+                              attribute_name === 'Duration' && ( // Specific attrbutete Value Hai
                                 <span key={index} className="text-gray-500 text-sm flex items-center gap-2">
                                   <Clock size={16} /> 3 Hours
                                 </span>
@@ -339,7 +346,7 @@ const FilterTransfer = () => {
                       {tags.length > 0 && (
                         <div className="flex gap-2">
                           {tags.map(({ tag_name }, index) => (
-                            <Badge key={index} className={`bg-secondaryDark text-white hover:text-white hover:bg-secondaryDark ${index === 0 && "bg-gray-400"}`}>
+                            <Badge key={index} className={`bg-secondaryDark text-white hover:text-white hover:bg-secondaryDark ${index === 0 && 'bg-gray-400'}`}>
                               {tag_name}
                             </Badge>
                           ))}
@@ -361,7 +368,7 @@ const FilterTransfer = () => {
                         onOpenChange={(open) => {
                           setModalState((prev) => ({
                             ...prev,
-                            openDropdownIndex: open ? itemId : "",
+                            openDropdownIndex: open ? itemId : '',
                           }));
                         }}
                       >
@@ -437,7 +444,7 @@ const FilterTransfer = () => {
                             (prev) =>
                               prev.includes(itemId)
                                 ? prev.filter((id) => id !== itemId) //
-                                : [...prev, itemId] //
+                                : [...prev, itemId], //
                           );
                         }}
                       />

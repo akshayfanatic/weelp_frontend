@@ -5,12 +5,12 @@
 body {
   color: var(--background);
   background: var(--foreground);
-  font-family: var(--font-interTight) "sans-serif ";
+  font-family: var(--font-interTight) 'sans-serif ';
 }
 
 @font-face {
-  font-family: "degular_demo";
-  src: url("/assets/fonts/degular.otf") format("opentype");
+  font-family: 'degular_demo';
+  src: url('/assets/fonts/degular.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
@@ -87,7 +87,6 @@ body {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
-
 
 @layer base {
   * {
@@ -277,7 +276,7 @@ body {
 }
 
 /* Shop Filter */
-.shop_filter div > input[type="checkbox"] {
+.shop_filter div > input[type='checkbox'] {
   border: 2px solid !important;
   padding: 4px;
 }
@@ -304,7 +303,9 @@ body {
   margin: 15px auto;
   position: relative;
   background: #fff;
-  box-shadow: -24px 0 #fff, 24px 0 #fff;
+  box-shadow:
+    -24px 0 #fff,
+    24px 0 #fff;
   box-sizing: border-box;
   animation: shadowPulse 2s linear infinite;
 }
@@ -312,17 +313,23 @@ body {
 @keyframes shadowPulse {
   33% {
     background: #fff;
-    box-shadow: -24px 0 #56947d, 24px 0 #fff;
+    box-shadow:
+      -24px 0 #56947d,
+      24px 0 #fff;
   }
 
   66% {
     background: #56947d;
-    box-shadow: -24px 0 #fff, 24px 0 #fff;
+    box-shadow:
+      -24px 0 #fff,
+      24px 0 #fff;
   }
 
   100% {
     background: #fff;
-    box-shadow: -24px 0 #fff, 24px 0 #56947d;
+    box-shadow:
+      -24px 0 #fff,
+      24px 0 #56947d;
   }
 }
 

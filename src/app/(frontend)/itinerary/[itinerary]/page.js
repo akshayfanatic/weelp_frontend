@@ -1,7 +1,7 @@
-import BannerSection from "@/app/components/Pages/FRONT_END/singleproduct/BannerSection";
-import { TabSectionIterenary } from "@/app/components/Pages/FRONT_END/singleproduct/TabSection";
-import { notFound } from "next/navigation";
-import { getSingleItinerary } from "@/lib/services/itineraries";
+import BannerSection from '@/app/components/Pages/FRONT_END/singleproduct/BannerSection';
+import { TabSectionIterenary } from '@/app/components/Pages/FRONT_END/singleproduct/TabSection';
+import { notFound } from 'next/navigation';
+import { getSingleItinerary } from '@/lib/services/itineraries';
 
 //  Dynamic SEO Itinerary
 export async function generateMetadata({ params }) {
@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
   // itinerary data check
   if (!iterenaryData || iterenaryData.length === 0) {
     return {
-      title: "Itinerary Not Found",
+      title: 'Itinerary Not Found',
     };
   }
 
@@ -22,8 +22,8 @@ export async function generateMetadata({ params }) {
   const { meta_title, meta_description, keywords, schema_type, schema_data } = data.seo || {};
 
   return {
-    title: meta_title || data.name || "Default Title",
-    description: meta_description || "Default description for itinerary page",
+    title: meta_title || data.name || 'Default Title',
+    description: meta_description || 'Default description for itinerary page',
     keywords: keywords || undefined,
   };
 }
@@ -47,14 +47,14 @@ export default async function IterenaryPage({ params }) {
   try {
     schemaJson = seo?.schema_data ? JSON.parse(seo.schema_data) : {};
   } catch (error) {
-    console.log("Invalid JSON schema_data:", error);
+    console.log('Invalid JSON schema_data:', error);
   }
 
   return (
     <>
       <BannerSection activityName={name} />
       <TabSectionIterenary productData={data} />
-      
+
       {/* Inject JSON-LD schema */}
       {schemaJson && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJson) }} />}
     </>

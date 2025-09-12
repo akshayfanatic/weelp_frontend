@@ -1,15 +1,15 @@
-import React from "react";
-import { log } from "@/lib/utils";
-import { notFound } from "next/navigation";
-import { publicApi } from "@/lib/axiosInstance";
-import BannerSection from "@/app/components/Pages/FRONT_END/singleproduct/BannerSection";
-import { TabSectionIterenary, TabSectionPackage } from "@/app/components/Pages/FRONT_END/singleproduct/TabSection";
+import React from 'react';
+import { log } from '@/lib/utils';
+import { notFound } from 'next/navigation';
+import { publicApi } from '@/lib/axiosInstance';
+import BannerSection from '@/app/components/Pages/FRONT_END/singleproduct/BannerSection';
+import { TabSectionIterenary, TabSectionPackage } from '@/app/components/Pages/FRONT_END/singleproduct/TabSection';
 
 // Fetch package data
 async function getPackageData(packagee) {
   try {
     const response = await publicApi.get(`/api/packages/${packagee}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     return response.data;

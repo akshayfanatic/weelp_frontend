@@ -34,8 +34,8 @@ export const TestimonialCarouselAnimation = () => {
       <TestimonialCardSkelton className="hidden lg:flex" />
       <TestimonialCardSkelton className="hidden xl:flex" />
     </div>
-  )
-}
+  );
+};
 
 export const ReviewCardCarouselAnimation = () => {
   return (
@@ -44,28 +44,25 @@ export const ReviewCardCarouselAnimation = () => {
       <ReviewCardSkelton className="hidden sm:block" />
       <ReviewCardSkelton className="hidden md:block" />
     </div>
-  )
-}
+  );
+};
 
 export const ProductGalleryAnimation = () => {
   return (
-    <div className='w-full p-4 bg-gray-100 rounded-md shadow-md flex justify-evenly md:justify-normal gap-4'>
+    <div className="w-full p-4 bg-gray-100 rounded-md shadow-md flex justify-evenly md:justify-normal gap-4">
       <ImageSkeltonCard />
       <ImageSkeltonCard className="hidden sm:block" />
       <ImageSkeltonCard className="hidden md:block" />
     </div>
-  )
-}
+  );
+};
 
-
-
-
-export const DashboardCardAnimation =()=>{
-  return(
-    <div className='w-full p-4 bg-gray-100 rounded-md shadow-md grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4'>
+export const DashboardCardAnimation = () => {
+  return (
+    <div className="w-full p-4 bg-gray-100 rounded-md shadow-md grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
       <DashboardCardSkelton />
       <DashboardCardSkelton className="hidden sm:block" />
       <DashboardCardSkelton className="hidden md:block" />
     </div>
-  )
-}
+  );
+};

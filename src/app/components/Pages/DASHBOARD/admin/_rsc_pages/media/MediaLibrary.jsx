@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Search, Upload } from "lucide-react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Card } from "@/components/ui/card";
-import { usePathname } from "next/navigation";
-import { useMediaStore } from "@/lib/store/useMediaStore";
-import { UploadImagesForm } from "./ImageUploadForm";
-import { ImagePreviewForm } from "./ImagePreviewForm";
-import { isEmpty } from "lodash";
-import { useAllMediaAdmin } from "@/hooks/api/admin/media";
-import { useIsClient } from "@/hooks/useIsClient";
+import React, { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Search, Upload } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Card } from '@/components/ui/card';
+import { usePathname } from 'next/navigation';
+import { useMediaStore } from '@/lib/store/useMediaStore';
+import { UploadImagesForm } from './ImageUploadForm';
+import { ImagePreviewForm } from './ImagePreviewForm';
+import { isEmpty } from 'lodash';
+import { useAllMediaAdmin } from '@/hooks/api/admin/media';
+import { useIsClient } from '@/hooks/useIsClient';
 
 export function Medialibrary() {
   const isClient = useIsClient(); // hydration
@@ -22,7 +22,7 @@ export function Medialibrary() {
   const [uploadImagePop, setUploadImagePopUp] = useState(false); // For Uploading Image Popup
   const pathname = usePathname();
   const { addMedia, selectedMedia } = useMediaStore();
-  const isMediaPage = pathname === "/dashboard/admin/media";
+  const isMediaPage = pathname === '/dashboard/admin/media';
   const { media: data = [], isLoading: loading, isValidating, error, mutate: mutateMedia } = useAllMediaAdmin(); // fetch media by swr
   const images = Array.isArray(data) ? data : []; // safe fallback
 
@@ -78,7 +78,7 @@ export function Medialibrary() {
           ) : error ? (
             <div className="flex items-center justify-center text-red-500">Failed to load media.</div>
           ) : images.length === 0 ? (
-            <div className={`flex items-center justify-center ${isMediaPage ? "h-screen" : "h-fit"}`}>Sorry, no images.</div>
+            <div className={`flex items-center justify-center ${isMediaPage ? 'h-screen' : 'h-fit'}`}>Sorry, no images.</div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {images.map((image, index) => {
@@ -87,7 +87,7 @@ export function Medialibrary() {
                   <Card
                     key={index}
                     className={`group relative aspect-square overflow-hidden rounded-lg bg-muted cursor-pointer  ${
-                      isMediaPage ? "" : selectedImages.some((img) => img.id === image.id) && "border p-4 border-secondaryDark"
+                      isMediaPage ? '' : selectedImages.some((img) => img.id === image.id) && 'border p-4 border-secondaryDark'
                     } `}
                     onClick={() => (isMediaPage ? handleSelectMedia(image) : handleSelect(image))}
                   >

@@ -1,5 +1,5 @@
-import { publicApi, authApi } from "../axiosInstance";
-import { log } from "../utils";
+import { publicApi, authApi } from '../axiosInstance';
+import { log } from '../utils';
 
 /**
  * Get Single Transfer on Admin side
@@ -9,7 +9,7 @@ import { log } from "../utils";
 export async function getSingleCountryAdmin(id) {
   try {
     const response = await authApi.get(`/api/admin/countries/${id}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
     if (response.status === 200) {
       return response.data;
@@ -32,10 +32,10 @@ export async function getSingleCountryAdmin(id) {
  * @example
  * const countries = await getAllCountriesAdmin("?name=india&page=2");
  */
-export async function getAllCountriesAdmin(search = "") {
+export async function getAllCountriesAdmin(search = '') {
   try {
     const response = await authApi.get(`/api/admin/countries/${search}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     return response?.data;
@@ -51,7 +51,7 @@ export async function getAllCountriesAdmin(search = "") {
 export async function getCountriesOptionsAdmin() {
   try {
     const response = await authApi.get(`/api/admin/countries/list`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {

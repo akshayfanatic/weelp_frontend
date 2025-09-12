@@ -1,11 +1,11 @@
-import React from "react";
-import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategoriesAdmin } from "@/lib/services/global";
-import { EditItineraryForm } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/itineraries/EditItineraryForm";
-import { getSingleItineraryAdmin } from "@/lib/services/itineraries";
-import { getAllTransfersAdmin } from "@/lib/services/transfers";
-import { getAllActivitesAdmin } from "@/lib/services/activites";
-import { isEmpty } from "lodash";
-import { notFound } from "next/navigation";
+import React from 'react';
+import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategoriesAdmin } from '@/lib/services/global';
+import { EditItineraryForm } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/itineraries/EditItineraryForm';
+import { getSingleItineraryAdmin } from '@/lib/services/itineraries';
+import { getAllTransfersAdmin } from '@/lib/services/transfers';
+import { getAllActivitesAdmin } from '@/lib/services/activites';
+import { isEmpty } from 'lodash';
+import { notFound } from 'next/navigation';
 
 const EditItinerary = async ({ params }) => {
   const [{ data: tagsData }, { data: locationsData = {} }, { data: attributesData = {} }, { data: categoriesData = {} }, transfers, { data: activitiesData = [] }] = await Promise.all([

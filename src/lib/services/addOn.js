@@ -1,6 +1,6 @@
-import { ApiError } from "@/dto/Error";
-import { authApi } from "../axiosInstance";
-import { log } from "../utils";
+import { ApiError } from '@/dto/Error';
+import { authApi } from '../axiosInstance';
+import { log } from '../utils';
 
 /**
  * Get Single Add On By ID admin
@@ -14,7 +14,7 @@ import { log } from "../utils";
 export async function getSingleAddOnAdmin(id) {
   try {
     const response = await authApi.get(`/api/admin/addons/${id}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200 && response.data) {
@@ -26,7 +26,7 @@ export async function getSingleAddOnAdmin(id) {
 
     return { success: false, data: {} };
   } catch (error) {
-    console.error("Error fetching add-ons:", error?.message || error);
+    console.error('Error fetching add-ons:', error?.message || error);
     return { success: false, data: {} };
   }
 }
@@ -43,10 +43,10 @@ export async function getSingleAddOnAdmin(id) {
  *   per_page?: number
  * }>} - The response containing the list of add-ons and pagination details
  */
-export async function getAllAddOnsAdmin(query = "") {
+export async function getAllAddOnsAdmin(query = '') {
   try {
     const response = await authApi.get(`/api/admin/addons${query}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200 && response.data) {
@@ -58,7 +58,7 @@ export async function getAllAddOnsAdmin(query = "") {
 
     return { success: false, data: {} };
   } catch (error) {
-    console.error("Error fetching add-ons:", error?.message || error);
+    console.error('Error fetching add-ons:', error?.message || error);
     return { success: false, data: {} };
   }
 }
@@ -70,7 +70,7 @@ export async function getAllAddOnsAdmin(query = "") {
 export async function getAddOnOptionsAdmin() {
   try {
     const response = await authApi.get(`/api/admin/addons/list-addon`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {
@@ -84,12 +84,12 @@ export async function getAddOnOptionsAdmin() {
     switch (status) {
       case 422:
         return ApiError({
-          message: err.response.data?.message || "Server side Validation Failed",
+          message: err.response.data?.message || 'Server side Validation Failed',
           status,
         });
       case 500:
         return ApiError({
-          message: err.response.data?.error || "Internal server error",
+          message: err.response.data?.error || 'Internal server error',
           status,
         });
       default:

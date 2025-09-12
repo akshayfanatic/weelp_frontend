@@ -1,4 +1,4 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 /**
  * @typedef {Object} SelectOption
@@ -14,7 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
  * @param {function} props.onChange - Handler on value change
  * @param {string} [props.placeholder] - Placeholder text
  */
-export  function SelectInputTransfer({ value, onChange, options = [], placeholder = "Select..." }) {
+export function SelectInputTransfer({ value, onChange, options = [], placeholder = 'Select...' }) {
   const selected = options.find((val) => val.id === value);
 
   return (
@@ -33,9 +33,6 @@ export  function SelectInputTransfer({ value, onChange, options = [], placeholde
   );
 }
 
-
-
-
 /**
  * @typedef {Object} SelectOption2
  * @property {string} label - The Label of  option
@@ -50,7 +47,7 @@ export  function SelectInputTransfer({ value, onChange, options = [], placeholde
  * @param {function} props.onChange - Handler on value change
  * @param {string} [props.placeholder] - Placeholder text
  */
-export  function SelectInputTransfer2({ value, onChange, options = [], placeholder = "Select..." }) {
+export function SelectInputTransfer2({ value, onChange, options = [], placeholder = 'Select...' }) {
   const selected = options.find((val) => val.id === value);
 
   return (

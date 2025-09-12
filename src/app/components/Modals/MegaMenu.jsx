@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { ChevronRight } from "lucide-react";
-import { DestinationCard2 } from "../DestinationCard";
-import Link from "next/link";
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import { ChevronRight } from 'lucide-react';
+import { DestinationCard2 } from '../DestinationCard';
+import Link from 'next/link';
 
 const MegaMenu = ({ setShowMegaMenu, showmegaMenu }) => {
   const [selectedContinent, setSelectedContinent] = useState(null);
-  const allContinents = ["East Asia", "South East Asia", "Europe", "North America"];
+  const allContinents = ['East Asia', 'South East Asia', 'Europe', 'North America'];
 
   // Handle continent selection
   const handleContinent = (e) => {
@@ -18,7 +18,7 @@ const MegaMenu = ({ setShowMegaMenu, showmegaMenu }) => {
   return (
     <div
       onMouseLeave={(e) => {
-        e.stopPropagation(), setShowMegaMenu(!showmegaMenu);
+        (e.stopPropagation(), setShowMegaMenu(!showmegaMenu));
       }}
       className={`absolute z-20 bg-white text-black top-16 w-[768px] h-fit rounded-lg border flex`}
       onClick={(e) => e.stopPropagation()}
@@ -32,7 +32,7 @@ const MegaMenu = ({ setShowMegaMenu, showmegaMenu }) => {
           <li
             key={index}
             className={`hover:bg-secondaryLight2 text-grayDark hover:text-secondaryDark p-4 capitalize flex items-center gap-2 ${
-              selectedContinent === continent ? "bg-secondaryLight2 text-secondaryDark" : ""
+              selectedContinent === continent ? 'bg-secondaryLight2 text-secondaryDark' : ''
             }`}
             onClick={handleContinent}
           >
@@ -54,7 +54,7 @@ export default MegaMenu;
 const MegaMenuContent = ({ selectedContinent }) => {
   // selected content fetch data
   useEffect(() => {
-    console.log("content fetch with fetch api");
+    console.log('content fetch with fetch api');
   }, [selectedContinent]);
 
   return (

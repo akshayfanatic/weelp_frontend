@@ -1,26 +1,18 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect, useCallback } from "react";
-import { useSearchParams } from "next/navigation";
-import axios from "axios";
-import _ from "lodash";
-import ReactRangeSliderInput from "react-range-slider-input";
-import "react-range-slider-input/dist/style.css";
-import { GlobalCard } from "@/app/components/SingleProductCard";
-import { Star } from "lucide-react";
-import { LoadingPage } from "@/app/components/Animation/Cards";
-import Link from "next/link";
-import { Button, buttonVariants } from "@/components/ui/button";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'next/navigation';
+import axios from 'axios';
+import _ from 'lodash';
+import ReactRangeSliderInput from 'react-range-slider-input';
+import 'react-range-slider-input/dist/style.css';
+import { GlobalCard } from '@/app/components/SingleProductCard';
+import { Star } from 'lucide-react';
+import { LoadingPage } from '@/app/components/Animation/Cards';
+import Link from 'next/link';
+import { Button, buttonVariants } from '@/components/ui/button';
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URLL;
 const PRODUCTS_API = `${API_BASE_URL}api/homesearch`;
@@ -36,18 +28,18 @@ export const SearchPage = () => {
   const [ratingFilter, setRatingFilter] = useState(3);
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [sortby, setSortby] = useState("");
+  const [sortby, setSortby] = useState('');
 
   // Extract values from query params
   useEffect(() => {
-    const defaultLocation = searchParams.get("location") || "";
-    setStartDate(searchParams.get("start_date") || "2025-03-26");
-    setEndDate(searchParams.get("end_date") || "2025-03-28");
-    setQuantity(parseInt(searchParams.get("quantity")) || 1);
+    const defaultLocation = searchParams.get('location') || '';
+    setStartDate(searchParams.get('start_date') || '2025-03-26');
+    setEndDate(searchParams.get('end_date') || '2025-03-28');
+    setQuantity(parseInt(searchParams.get('quantity')) || 1);
 
     axios
       .get(LOCATIONS_API)
@@ -56,19 +48,17 @@ export const SearchPage = () => {
         setLocations(allLocations);
 
         // Set the default location from query params
-        const foundLocation = allLocations.find(
-          (loc) => loc.name.toLowerCase() === defaultLocation.toLowerCase()
-        );
+        const foundLocation = allLocations.find((loc) => loc.name.toLowerCase() === defaultLocation.toLowerCase());
         setSelectedLocation(foundLocation || allLocations[0]);
       })
-      .catch((err) => console.log("Error fetching locations:", err));
+      .catch((err) => console.log('Error fetching locations:', err));
   }, [searchParams]);
 
   useEffect(() => {
     axios
       .get(CATEGORIES_API)
       .then((res) => setCategories(res.data?.data ?? []))
-      .catch((err) => console.log("Error fetching categories:", err));
+      .catch((err) => console.log('Error fetching categories:', err));
   }, []);
 
   const fetchProducts = useCallback(
@@ -88,31 +78,18 @@ export const SearchPage = () => {
       });
 
       if (selectedCategories.length) {
-        queryParams.append("categories", selectedCategories.join(","));
+        queryParams.append('categories', selectedCategories.join(','));
       }
 
       axios
         .get(`${PRODUCTS_API}?${queryParams.toString()}`)
         .then((res) => {
-          setProducts(
-            res.status === 200 && Array.isArray(res.data?.data)
-              ? res.data.data
-              : []
-          );
+          setProducts(res.status === 200 && Array.isArray(res.data?.data) ? res.data.data : []);
         })
-        .catch((err) => console.log("Error fetching products:", err))
+        .catch((err) => console.log('Error fetching products:', err))
         .finally(() => setIsLoading(false));
     }, 500),
-    [
-      priceRange,
-      selectedCategories,
-      ratingFilter,
-      selectedLocation,
-      startDate,
-      endDate,
-      quantity,
-      sortby,
-    ]
+    [priceRange, selectedCategories, ratingFilter, selectedLocation, startDate, endDate, quantity, sortby],
   );
 
   useEffect(() => {
@@ -124,12 +101,12 @@ export const SearchPage = () => {
 
   //sort data
   const sortData = [
-    { name: "Name A to Z", value: "name_asc" },
-    { name: "Name Z to A", value: "name_desc" },
-    { name: "Oldest First", value: "id_asc" },
-    { name: "Newest First", value: "id_desc" },
-    { name: "Price Low to High", value: "price_asc" },
-    { name: "Price High to Low", value: "price_desc" },
+    { name: 'Name A to Z', value: 'name_asc' },
+    { name: 'Name Z to A', value: 'name_desc' },
+    { name: 'Oldest First', value: 'id_asc' },
+    { name: 'Newest First', value: 'id_desc' },
+    { name: 'Price Low to High', value: 'price_asc' },
+    { name: 'Price High to Low', value: 'price_desc' },
   ];
 
   return (
@@ -145,11 +122,7 @@ export const SearchPage = () => {
               <SelectLabel className="hidden">Sorting Options</SelectLabel>
               {sortData &&
                 sortData.map((item) => (
-                  <SelectItem
-                    className="cursor-pointer"
-                    value={item.value}
-                    key={item.value}
-                  >
+                  <SelectItem className="cursor-pointer" value={item.value} key={item.value}>
                     {item.name}
                   </SelectItem>
                 ))}
@@ -163,21 +136,12 @@ export const SearchPage = () => {
           <h2 className="text-lg font-medium text-[#143042] my-4">Category</h2>
           <div className="flex flex-col space-y-2">
             {categories.map((category) => (
-              <label
-                key={category.id}
-                className="flex items-center space-x-2 cursor-pointer"
-              >
+              <label key={category.id} className="flex items-center space-x-2 cursor-pointer">
                 <input
                   type="checkbox"
                   value={category.name}
                   checked={selectedCategories.includes(category.name)}
-                  onChange={() =>
-                    setSelectedCategories((prev) =>
-                      prev.includes(category.name)
-                        ? prev.filter((c) => c !== category.name)
-                        : [...prev, category.name]
-                    )
-                  }
+                  onChange={() => setSelectedCategories((prev) => (prev.includes(category.name) ? prev.filter((c) => c !== category.name) : [...prev, category.name]))}
                   className="size-5 cursor-pointer checked:accent-secondaryDark"
                 />
                 <span>{category.name}</span>
@@ -185,17 +149,8 @@ export const SearchPage = () => {
             ))}
           </div>
 
-          <h2 className="text-lg font-medium text-[#143042] mt-6 mb-4">
-            Price Range
-          </h2>
-          <ReactRangeSliderInput
-            min={100}
-            max={5000}
-            step={10}
-            value={priceRange}
-            onInput={setPriceRange}
-            className="w-full"
-          />
+          <h2 className="text-lg font-medium text-[#143042] mt-6 mb-4">Price Range</h2>
+          <ReactRangeSliderInput min={100} max={5000} step={10} value={priceRange} onInput={setPriceRange} className="w-full" />
           <div className="flex justify-between text-sm text-gray-600 mt-2">
             <span>${priceRange[0]}</span>
             <span>${priceRange[1]}</span>
@@ -204,25 +159,11 @@ export const SearchPage = () => {
           <h2 className="text-lg font-medium text-[#143042] my-4">Ratings</h2>
           <div className="flex flex-col gap-4">
             {[3, 4, 5].map((rating) => (
-              <label
-                key={rating}
-                className="flex cursor-pointer items-center space-x-1"
-              >
-                <input
-                  type="radio"
-                  name="rating"
-                  value={rating}
-                  checked={ratingFilter === rating}
-                  onChange={() => setRatingFilter(rating)}
-                  className="size-5 checked:accent-secondaryDark"
-                />
+              <label key={rating} className="flex cursor-pointer items-center space-x-1">
+                <input type="radio" name="rating" value={rating} checked={ratingFilter === rating} onChange={() => setRatingFilter(rating)} className="size-5 checked:accent-secondaryDark" />
                 <div className="flex">
                   {Array.from({ length: rating }).map((_, i) => (
-                    <Star
-                      key={i}
-                      size={20}
-                      className="fill-yellow-500 stroke-yellow-400"
-                    />
+                    <Star key={i} size={20} className="fill-yellow-500 stroke-yellow-400" />
                   ))}
                 </div>
               </label>
@@ -231,10 +172,7 @@ export const SearchPage = () => {
 
           <h2 className="text-lg font-medium text-[#143042] my-4">Location</h2>
           {locations.map((location) => (
-            <label
-              key={location.id}
-              className="flex items-center space-x-2 pb-2 cursor-pointer"
-            >
+            <label key={location.id} className="flex items-center space-x-2 pb-2 cursor-pointer">
               <input
                 type="radio"
                 name="location"
@@ -261,10 +199,7 @@ export const SearchPage = () => {
                   <GlobalCard
                     key={index}
                     productTitle={product?.name}
-                    productPrice={
-                      product?.pricing?.regular_price ??
-                      product?.base_pricing?.variations[0]?.regular_price
-                    }
+                    productPrice={product?.pricing?.regular_price ?? product?.base_pricing?.variations[0]?.regular_price}
                     item_type={product?.item_type}
                     productSlug={product?.slug}
                   />
@@ -273,7 +208,7 @@ export const SearchPage = () => {
                 <div className="grid h-full  ">
                   <span className="text-gray-500">Sorry No Items</span>
                   <Button asChild>
-                    <Link className={"bg-secondaryDark"} href={"/shop"}>
+                    <Link className={'bg-secondaryDark'} href={'/shop'}>
                       Back To Shop
                     </Link>
                   </Button>

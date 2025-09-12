@@ -1,9 +1,8 @@
-
-import { Card,CardContent,  CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Download, MapPin } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Download, MapPin } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 /**
  * DestinationListCard component displaying the DestinationListCard component
  * @param {{label:string, icon:string, items:number ,description:string, url:string}} props label,icons,items,description,url

@@ -1,8 +1,7 @@
-"use server";
+'use server';
 
-import { authApi } from "../axiosInstance";
-import { log } from "../utils";
-
+import { authApi } from '../axiosInstance';
+import { log } from '../utils';
 
 /**
  * Get Single Attribute on Admin side
@@ -12,16 +11,14 @@ import { log } from "../utils";
 export async function getSingleAttributeAdmin(attributeId) {
   try {
     const response = await authApi.get(`/api/admin/attributes/${attributeId}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
-
 
     return response?.data;
   } catch (error) {
     return [];
   }
 }
-
 
 /**
  * Get Attribute By Slug on Admin side
@@ -31,12 +28,12 @@ export async function getSingleAttributeAdmin(attributeId) {
 export async function getAttributeBySlugAdmin(slug) {
   try {
     const response = await authApi.get(`/api/admin/attributes/slug/${slug}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     return response?.data?.data || [];
   } catch (error) {
-    console.log("catetch ", error?.response);
+    console.log('catetch ', error?.response);
     return [];
   }
 }

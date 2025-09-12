@@ -1,8 +1,6 @@
-"use server";
-import { authApi, publicApi } from "../axiosInstance";
-import { log } from "../utils";
-
-
+'use server';
+import { authApi, publicApi } from '../axiosInstance';
+import { log } from '../utils';
 
 /**
  * Get Single Package on Admin side
@@ -12,7 +10,7 @@ import { log } from "../utils";
 export const getSinglePackageAdmin = async (id) => {
   try {
     const response = await authApi.get(`/api/admin/packages/${id}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
     return response.data;
   } catch (error) {
@@ -20,25 +18,21 @@ export const getSinglePackageAdmin = async (id) => {
   }
 };
 
-
-
 /**
  * Get All Packages Admin
  * @param {string} search
  * @returns {}
  */
-export async function getAllPackagesAdmin(search = "") {
+export async function getAllPackagesAdmin(search = '') {
   try {
-    const response = await authApi.get(`/api/admin/packages/${search ? search : ""}`, {
-      headers: { Accept: "application/json" },
+    const response = await authApi.get(`/api/admin/packages/${search ? search : ''}`, {
+      headers: { Accept: 'application/json' },
     });
     return response?.data;
   } catch (error) {
-    return { success: false, data: [], message: "Failed to fetch Packages" };
+    return { success: false, data: [], message: 'Failed to fetch Packages' };
   }
 }
-
-
 
 /**
  * Get Citites BY Region Public Api
@@ -48,9 +42,8 @@ export async function getAllPackagesAdmin(search = "") {
 export const getPackageDataByRegion = async (region) => {
   try {
     const response = await publicApi.get(`/api/region/${region}/region-packages`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
-
 
     if (response.status === 200) {
       return response?.data;

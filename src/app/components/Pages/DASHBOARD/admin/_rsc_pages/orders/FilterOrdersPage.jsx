@@ -1,17 +1,17 @@
-"use client";
-import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
-import { ChevronDown, Clock, MoreHorizontal, Trash } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
-import { deleteOrder } from "@/lib/actions/orders";
+'use client';
+import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
+import { ChevronDown, Clock, MoreHorizontal, Trash } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useState } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/hooks/use-toast';
+import { deleteOrder } from '@/lib/actions/orders';
 
 export function FilterOrdersPage({ data = {}, mutateOrders }) {
-  const [sorting, setSorting] = useState("");
+  const [sorting, setSorting] = useState('');
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
@@ -25,39 +25,39 @@ export function FilterOrdersPage({ data = {}, mutateOrders }) {
       const { success, message } = await deleteOrder(id);
 
       if (success) {
-        toast({ title: message || "Order deleted successfully." });
+        toast({ title: message || 'Order deleted successfully.' });
         mutateOrders(); // Refetch updated data
       } else {
-        toast({ title: message || "Failed to delete order." });
+        toast({ title: message || 'Failed to delete order.' });
       }
     } catch (error) {
-      toast({ title: "Something went wrong.", variant: "destructive" });
+      toast({ title: 'Something went wrong.', variant: 'destructive' });
     }
   };
 
   // columns
   const columns = [
     {
-      accessorKey: "id",
-      header: "ORDER",
-      cell: ({ row }) => <div className="capitalize">{row.getValue("id")}</div>,
+      accessorKey: 'id',
+      header: 'ORDER',
+      cell: ({ row }) => <div className="capitalize">{row.getValue('id')}</div>,
     },
     {
-      header: "CUSTOMER NAME",
-      accessorFn: (row) => row.user?.name?.toUpperCase() || "Unknown",
-      id: "customerName",
+      header: 'CUSTOMER NAME',
+      accessorFn: (row) => row.user?.name?.toUpperCase() || 'Unknown',
+      id: 'customerName',
     },
     {
-      accessorKey: "status",
-      header: "STATUS",
+      accessorKey: 'status',
+      header: 'STATUS',
       cell: ({ row }) => {
         const item = row.original;
         return (
           <div className="flex justify-start">
             <Badge
-              className={` flex gap-2 items-center justify-center p-2 w-fit  ${item.status === "pending" && "bg-amber-100 hover:bg-amber-100 text-amber-500 hover:text-amber-500"} ${
-                item.status === "cancelled" && "bg-red-100 hover:bg-red-100 text-dangerSecondary hover:text-dangerSecondary "
-              } ${item.status === "confirmed" && "bg-green-50 hover:bg-green-50 text-secondaryDark hover:text-secondaryDark "}`}
+              className={` flex gap-2 items-center justify-center p-2 w-fit  ${item.status === 'pending' && 'bg-amber-100 hover:bg-amber-100 text-amber-500 hover:text-amber-500'} ${
+                item.status === 'cancelled' && 'bg-red-100 hover:bg-red-100 text-dangerSecondary hover:text-dangerSecondary '
+              } ${item.status === 'confirmed' && 'bg-green-50 hover:bg-green-50 text-secondaryDark hover:text-secondaryDark '}`}
             >
               <Clock size={14} />
               {item.status}
@@ -67,27 +67,27 @@ export function FilterOrdersPage({ data = {}, mutateOrders }) {
       },
     },
     {
-      header: "ITEM NAME",
-      accessorFn: (row) => row.orderable?.name?.toUpperCase() || "Unknown",
+      header: 'ITEM NAME',
+      accessorFn: (row) => row.orderable?.name?.toUpperCase() || 'Unknown',
     },
     {
-      header: "ITEM TYPE",
+      header: 'ITEM TYPE',
       accessorFn: (row) => row.orderable?.item_type,
-      id: "activityName",
+      id: 'activityName',
     },
     {
-      header: "TOTAL AMOUNT",
+      header: 'TOTAL AMOUNT',
       accessorFn: (row) => `$${Number(row.payment?.total_amount).toLocaleString()}`,
-      id: "totalAmount",
+      id: 'totalAmount',
     },
     {
-      header: "EMERGENCY CONTACT",
+      header: 'EMERGENCY CONTACT',
       accessorFn: (row) => `${row.emergency_contact?.contact_name} (${row.emergency_contact?.relationship})`,
-      id: "emergencyContact",
+      id: 'emergencyContact',
     },
 
     {
-      id: "actions",
+      id: 'actions',
       enableHiding: false,
       cell: ({ row }) => {
         const item = row.original;
@@ -137,8 +137,8 @@ export function FilterOrdersPage({ data = {}, mutateOrders }) {
       <div className="flex items-center py-4 flex-wrap gap-2">
         <Input
           placeholder="Filter By status..."
-          value={table.getColumn("status")?.getFilterValue() ?? ""}
-          onChange={(event) => table.getColumn("status")?.setFilterValue(event.target.value)}
+          value={table.getColumn('status')?.getFilterValue() ?? ''}
+          onChange={(event) => table.getColumn('status')?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
 
@@ -177,7 +177,7 @@ export function FilterOrdersPage({ data = {}, mutateOrders }) {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell className="capitalize text-grayDark" key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}

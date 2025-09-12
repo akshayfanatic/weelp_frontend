@@ -12,10 +12,10 @@ const HereSection = () => {
         backgroundPosition: 'center',
       }}
     >
-      <div className='w-full sm:px-4'>
-        <div className='flex flex-col gap-3 pb-4'>
-          <h1 className='font-bold  text-xl sm:text-4xl text-center'>Plan and Book</h1>
-          <p className='text-gray-500 mx-auto text-center  text-sm sm:text-2xl font-medium capitalize'>The best experiences around you.</p>
+      <div className="w-full sm:px-4">
+        <div className="flex flex-col gap-3 pb-4">
+          <h1 className="font-bold  text-xl sm:text-4xl text-center">Plan and Book</h1>
+          <p className="text-gray-500 mx-auto text-center  text-sm sm:text-2xl font-medium capitalize">The best experiences around you.</p>
         </div>
         <Form />
       </div>

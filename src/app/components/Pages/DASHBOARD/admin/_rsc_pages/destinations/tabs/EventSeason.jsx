@@ -1,17 +1,17 @@
-"use client";
-import React from "react";
-import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Calendar, Plus, Trash2 } from "lucide-react";
-import { useFieldArray, useFormContext } from "react-hook-form";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import { format, parseISO } from "date-fns";
-import Select from "react-select";
-import { Textarea } from "@/components/ui/textarea";
-import { CALENDAR_MONTHS, EVENT_TYPES, SEASON_ACTIVITIES } from "@/constants/shared";
+'use client';
+import React from 'react';
+import { buttonVariants } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { Calendar, Plus, Trash2 } from 'lucide-react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
+import { format, parseISO } from 'date-fns';
+import Select from 'react-select';
+import { Textarea } from '@/components/ui/textarea';
+import { CALENDAR_MONTHS, EVENT_TYPES, SEASON_ACTIVITIES } from '@/constants/shared';
 
 const EventSeasonTab = () => {
   const form = useFormContext(); // intialize form context
@@ -26,7 +26,7 @@ const EventSeasonTab = () => {
     remove: removeSeason,
   } = useFieldArray({
     control,
-    name: "seasons", // unique name
+    name: 'seasons', // unique name
   });
 
   // intialize repeater for events
@@ -36,7 +36,7 @@ const EventSeasonTab = () => {
     remove: removeEvent,
   } = useFieldArray({
     control,
-    name: "events", // unique name
+    name: 'events', // unique name
   });
 
   return (
@@ -50,8 +50,8 @@ const EventSeasonTab = () => {
           </div>
 
           {/* Add Season  */}
-          <span className={buttonVariants({ variant: "outline", size: "sm" })} onClick={addSeason}>
-            <Plus size={16} /> Add Season{" "}
+          <span className={buttonVariants({ variant: 'outline', size: 'sm' })} onClick={addSeason}>
+            <Plus size={16} /> Add Season{' '}
           </span>
         </CardHeader>
         <CardContent>
@@ -61,7 +61,7 @@ const EventSeasonTab = () => {
             {seasonFields.map((season, index) => (
               <div key={index} className="relative grid grid-cols-1 xl:grid-cols-2 gap-4 rounded-lg border bg-card text-card-foreground shadow-sm p-4 pt-8  ">
                 {/* Remove Season  */}
-                <span className={cn(buttonVariants({ variant: "ghost", size: "sm" }), " absolute max-w-fit cursor-pointer right-8 top-4")} onClick={() => removeSeason(index)}>
+                <span className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), ' absolute max-w-fit cursor-pointer right-8 top-4')} onClick={() => removeSeason(index)}>
                   <Trash2 className="text-red-400" size={16} />
                 </span>
 
@@ -69,7 +69,7 @@ const EventSeasonTab = () => {
                 <FormField
                   control={form.control}
                   name={`seasons.${index}.name`}
-                  rules={{ required: "Field Required" }}
+                  rules={{ required: 'Field Required' }}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Name</FormLabel>
@@ -85,7 +85,7 @@ const EventSeasonTab = () => {
                 <FormField
                   control={form.control}
                   name={`seasons.${index}.months`}
-                  rules={{ required: "Field Required" }}
+                  rules={{ required: 'Field Required' }}
                   render={({ field }) => (
                     <FormItem className="flex flex-col items-start gap-2">
                       <FormLabel>
@@ -97,7 +97,10 @@ const EventSeasonTab = () => {
                           isMulti
                           options={CALENDAR_MONTHS}
                           className="w-full"
-                          value={(field.value || []).map((val) => ({ value: val, label: val }))}
+                          value={(field.value || []).map((val) => ({
+                            value: val,
+                            label: val,
+                          }))}
                           onChange={(selected) => field.onChange(selected.map((option) => option.value))}
                           placeholder="Select Months..."
                         />
@@ -111,7 +114,7 @@ const EventSeasonTab = () => {
                 <FormField
                   control={form.control}
                   name={`seasons.${index}.weather`}
-                  rules={{ required: "Field Required" }}
+                  rules={{ required: 'Field Required' }}
                   render={({ field }) => (
                     <FormItem className="flex flex-col items-start gap-2 xl:col-span-2">
                       <FormLabel>Weather</FormLabel>
@@ -127,7 +130,7 @@ const EventSeasonTab = () => {
                 <FormField
                   control={form.control}
                   name={`seasons.${index}.activities`}
-                  rules={{ required: "Field Required" }}
+                  rules={{ required: 'Field Required' }}
                   render={({ field }) => (
                     <FormItem className="flex flex-col items-start gap-2 xl:col-span-2">
                       <FormLabel>
@@ -172,7 +175,7 @@ const EventSeasonTab = () => {
             <CardDescription className="text-sm">Add notable events and festivals</CardDescription>
           </div>
           {/* Add Events  */}
-          <span className={buttonVariants({ variant: "outline", size: "sm" })} onClick={addEvent}>
+          <span className={buttonVariants({ variant: 'outline', size: 'sm' })} onClick={addEvent}>
             <Plus size={16} /> Add Events
           </span>
         </CardHeader>
@@ -184,7 +187,7 @@ const EventSeasonTab = () => {
             {eventFields.map((event, index) => (
               <div key={index} className="relative grid grid-cols-1 xl:grid-cols-2 gap-4 rounded-lg border bg-card text-card-foreground shadow-sm p-4 pt-8  ">
                 {/* Remove Season  */}
-                <span className={cn(buttonVariants({ variant: "ghost", size: "sm" }), " absolute max-w-fit cursor-pointer right-8 top-4")} onClick={() => removeEvent(index)}>
+                <span className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), ' absolute max-w-fit cursor-pointer right-8 top-4')} onClick={() => removeEvent(index)}>
                   <Trash2 className="text-red-400" size={16} />
                 </span>
 
@@ -192,7 +195,7 @@ const EventSeasonTab = () => {
                 <FormField
                   control={control}
                   name={`events.${index}.name`}
-                  rules={{ required: "Field Required" }}
+                  rules={{ required: 'Field Required' }}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Name</FormLabel>
@@ -208,7 +211,7 @@ const EventSeasonTab = () => {
                 <FormField
                   control={form.control}
                   name={`events.${index}.type`}
-                  rules={{ required: "Field Required" }}
+                  rules={{ required: 'Field Required' }}
                   render={({ field }) => (
                     <FormItem className="flex flex-col items-start gap-2">
                       <FormLabel>
@@ -234,12 +237,12 @@ const EventSeasonTab = () => {
                 <FormField
                   control={form.control}
                   name={`events.${index}.date`}
-                  rules={{ required: "Field Required" }}
+                  rules={{ required: 'Field Required' }}
                   render={({ field }) => (
                     <FormItem className="flex flex-col items-start gap-2 xl:col-span-2">
                       <FormLabel>Date</FormLabel>
                       <FormControl>
-                        <Input type="date" {...field} value={field.value ? format(parseISO(field.value), "yyyy-MM-dd") : ""} onChange={(e) => field.onChange(e.target.value)} />
+                        <Input type="date" {...field} value={field.value ? format(parseISO(field.value), 'yyyy-MM-dd') : ''} onChange={(e) => field.onChange(e.target.value)} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -250,7 +253,7 @@ const EventSeasonTab = () => {
                 <FormField
                   control={form.control}
                   name={`events.${index}.location`}
-                  rules={{ required: "Field Required" }}
+                  rules={{ required: 'Field Required' }}
                   render={({ field }) => (
                     <FormItem className="flex flex-col items-start gap-2 xl:col-span-2">
                       <FormLabel>Location</FormLabel>
@@ -266,7 +269,7 @@ const EventSeasonTab = () => {
                 <FormField
                   control={control}
                   name={`events.${index}.description`}
-                  rules={{ required: "Field Required" }}
+                  rules={{ required: 'Field Required' }}
                   render={({ field }) => (
                     <FormItem className="flex flex-col items-start gap-2 xl:col-span-2">
                       <FormLabel>Description</FormLabel>

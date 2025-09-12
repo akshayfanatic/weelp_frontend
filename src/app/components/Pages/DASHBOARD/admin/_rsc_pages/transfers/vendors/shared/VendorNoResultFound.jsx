@@ -1,4 +1,4 @@
-export const VendorNoResultFound = ({ text = "" }) => {
+export const VendorNoResultFound = ({ text = '' }) => {
   if (!text) {
     return (
       <div className="h-[50vh] flex items-center flex-col justify-center gap-4">

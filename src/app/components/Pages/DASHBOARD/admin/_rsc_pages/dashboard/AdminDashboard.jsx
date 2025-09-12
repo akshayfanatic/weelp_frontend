@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Overview } from "./overview";
-import { Button } from "@/components/ui/button";
-import { QuickActions } from "./quick-actions";
-import { MetricCards } from "./metric-cards";
-import { RecentSales } from "./recent-sales";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Overview } from './overview';
+import { Button } from '@/components/ui/button';
+import { QuickActions } from './quick-actions';
+import { MetricCards } from './metric-cards';
+import { RecentSales } from './recent-sales';
 
 export function AdminDashboardPage() {
   return (

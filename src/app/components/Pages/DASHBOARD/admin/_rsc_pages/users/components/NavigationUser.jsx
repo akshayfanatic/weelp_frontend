@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
+import React from 'react';
 
 export const NavigationUser = ({ title, content }) => {
   // check if title and content are missing

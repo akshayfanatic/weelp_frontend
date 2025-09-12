@@ -1,9 +1,9 @@
-import React from "react";
-import { FilteredAddOn } from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/addons/FilteredAddOn";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import React from 'react';
+import { FilteredAddOn } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/addons/FilteredAddOn';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
 
 const AddOnPage = () => {
   return (

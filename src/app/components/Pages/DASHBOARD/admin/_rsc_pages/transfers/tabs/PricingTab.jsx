@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { fetcher } from "@/lib/fetchers";
-import { useFormContext, Controller, useWatch } from "react-hook-form";
-import useSWR from "swr";
-import { ComboboxVendorAvailablity, ComboboxVendorPricing } from "../transfer_shared";
+import { useEffect } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { fetcher } from '@/lib/fetchers';
+import { useFormContext, Controller, useWatch } from 'react-hook-form';
+import useSWR from 'swr';
+import { ComboboxVendorAvailablity, ComboboxVendorPricing } from '../transfer_shared';
 
 // Pricing Tab
 const PricingTab = () => {
@@ -16,7 +16,7 @@ const PricingTab = () => {
     formState: { errors },
   } = useFormContext();
 
-  const watchedVendorId = useWatch({ control: control, name: "vendor_id" }); // watchedVendorId
+  const watchedVendorId = useWatch({ control: control, name: 'vendor_id' }); // watchedVendorId
   const { data: priceData } = useSWR(`/api/admin/vendors/${watchedVendorId}/pricesdropdown`, fetcher); // get pricing tier based on vendorId
   const prices = priceData?.data || [];
 
@@ -25,10 +25,10 @@ const PricingTab = () => {
 
   // side effect when route changed
   useEffect(() => {
-    setValue("pricing_tier_id", "");
-    setValue("availability_id", "");
+    setValue('pricing_tier_id', '');
+    setValue('availability_id', '');
   }, [watchedVendorId]);
-  
+
   return (
     <Card>
       <CardHeader className="py-4">
@@ -42,7 +42,7 @@ const PricingTab = () => {
           <Controller
             name="pricing_tier_id"
             control={control}
-            rules={{ required: "Pricing Required" }}
+            rules={{ required: 'Pricing Required' }}
             render={({ field }) => <ComboboxVendorPricing data={prices} value={field.value} onChange={field.onChange} placeholder="Select a Pricing Tier" />}
           />
 
@@ -56,7 +56,7 @@ const PricingTab = () => {
           <Controller
             name="availability_id"
             control={control}
-            rules={{ required: "Availablility Required" }}
+            rules={{ required: 'Availablility Required' }}
             render={({ field }) => <ComboboxVendorAvailablity data={availabilitys} value={field.value} onChange={field.onChange} placeholder="Select Availability..." />}
           />
 

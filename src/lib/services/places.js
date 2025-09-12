@@ -1,5 +1,5 @@
-import { authApi } from "../axiosInstance";
-import { log } from "../utils";
+import { authApi } from '../axiosInstance';
+import { log } from '../utils';
 
 /**
  * Get Destination Places *** {dropdowns} Form Oriented ***
@@ -8,7 +8,7 @@ import { log } from "../utils";
 export async function getPlacesByAdminOptions() {
   try {
     const response = await authApi.get(`/api/admin/places/list`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status === 200) {
@@ -17,8 +17,8 @@ export async function getPlacesByAdminOptions() {
 
     return {};
   } catch (error) {
-    console.error("Service Error:", error);
-    throw new Error("Failed to fetch data from backend server");
+    console.error('Service Error:', error);
+    throw new Error('Failed to fetch data from backend server');
   }
 }
 
@@ -32,10 +32,10 @@ export async function getPlacesByAdminOptions() {
  * @example
  * const states = await getAllPlacesAdmin("?name=india&page=2");
  */
-export async function getAllPlacesAdmin(search = "") {
+export async function getAllPlacesAdmin(search = '') {
   try {
     const response = await authApi.get(`/api/admin/places/${search}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
     return response?.data;
   } catch (error) {

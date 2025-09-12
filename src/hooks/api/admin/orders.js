@@ -1,8 +1,7 @@
-import useSWR from "swr";
-import { fetcher } from "@/lib/fetchers";
+import useSWR from 'swr';
+import { fetcher } from '@/lib/fetchers';
 
-
-export function useAllOrdersAdmin(query="") {
+export function useAllOrdersAdmin(query = '') {
   const { data, error, isValidating, isLoading, mutate } = useSWR(`/api/admin/orders${query}`, fetcher);
   return {
     orders: data || [],

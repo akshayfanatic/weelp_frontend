@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 const useMiniCartStore = create(
   persist(
@@ -9,16 +9,13 @@ const useMiniCartStore = create(
       totalPrice: 0, // Store total price
 
       // Toggle MiniCart
-      toggleMiniCart: () =>
-        set((state) => ({ isMiniCartOpen: !state.isMiniCartOpen })),
+      toggleMiniCart: () => set((state) => ({ isMiniCartOpen: !state.isMiniCartOpen })),
       setMiniCartOpen: (value) => set({ isMiniCartOpen: value }),
 
       // Add item to cart with quantity handling
       addItem: (newItem) =>
         set((state) => {
-          const existingItemIndex = state.cartItems.findIndex(
-            (item) => item.id === newItem.id
-          );
+          const existingItemIndex = state.cartItems.findIndex((item) => item.id === newItem.id);
 
           let updatedCart;
 
@@ -38,7 +35,7 @@ const useMiniCartStore = create(
           // Calculate new total price correctly by converting price to a number
           const updatedTotalPrice = updatedCart.reduce(
             (acc, item) => acc + Number(item.price), // Convert to number before adding
-            0
+            0,
           );
 
           return { cartItems: updatedCart, totalPrice: updatedTotalPrice };
@@ -51,7 +48,7 @@ const useMiniCartStore = create(
           // Calculate new total price correctly by converting price to a number
           const updatedTotalPrice = updatedCart.reduce(
             (acc, item) => acc + Number(item.price), // Convert to number before adding
-            0
+            0,
           );
 
           return { cartItems: updatedCart, totalPrice: updatedTotalPrice };
@@ -61,9 +58,9 @@ const useMiniCartStore = create(
       clearCart: () => set({ cartItems: [], totalPrice: 0 }),
     }),
     {
-      name: "cart-store",
-    }
-  )
+      name: 'cart-store',
+    },
+  ),
 );
 
 export default useMiniCartStore;

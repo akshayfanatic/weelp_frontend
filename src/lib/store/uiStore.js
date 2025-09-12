@@ -1,13 +1,13 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { log } from "../utils";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { log } from '../utils';
 
 export const useUIStore = create(
   persist(
     (set) => ({
       // Initial state
-      theme: "light",
-      font: "Inter",
+      theme: 'light',
+      font: 'Inter',
       stickyHeader: false, // sticky header global state
 
       // Actions
@@ -20,13 +20,13 @@ export const useUIStore = create(
       },
 
       //toggle actions
-     setStickyHeader: (value) => {
+      setStickyHeader: (value) => {
         set((state) => ({ stickyHeader: value }));
       },
     }),
     {
-      name: "ui-settings", // Key in localStorage
+      name: 'ui-settings', // Key in localStorage
       getStorage: () => localStorage, // Correct way to use localStorage
-    }
-  )
+    },
+  ),
 );

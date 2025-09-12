@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import dynamic from "next/dynamic";
-import { useState, useEffect } from "react";
-import { useMediaStore } from "@/lib/store/useMediaStore";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import dynamic from 'next/dynamic';
+import { useState, useEffect } from 'react';
+import { useMediaStore } from '@/lib/store/useMediaStore';
+import { Controller, useFormContext, useWatch } from 'react-hook-form';
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Trash2 } from 'lucide-react';
 
-const Medialibrary = dynamic(() => import("../../media/MediaLibrary").then((mod) => mod.Medialibrary), { ssr: false }); // dynamically import model
+const Medialibrary = dynamic(() => import('../../media/MediaLibrary').then((mod) => mod.Medialibrary), { ssr: false }); // dynamically import model
 
 // Media Tab
 const MediaTab = () => {
@@ -24,7 +24,7 @@ const MediaTab = () => {
   } = useFormContext();
 
   const media = useWatch({
-    name: "media_gallery",
+    name: 'media_gallery',
   });
 
   //  Hydarte First if there is already media exist
@@ -38,7 +38,7 @@ const MediaTab = () => {
   useEffect(() => {
     if (selectedMedia.length > 0) {
       // 1. Transform selectedMedia (id → media_id) before adding
-      const transformedMedia = selectedMedia.map((obj) => _.mapKeys(obj, (value, key) => (key === "id" ? "media_id" : key))); // update key to media id
+      const transformedMedia = selectedMedia.map((obj) => _.mapKeys(obj, (value, key) => (key === 'id' ? 'media_id' : key))); // update key to media id
 
       // 2. Push transformed data to local state
       setActivityImages((prev) => [...prev, ...transformedMedia]);
@@ -49,7 +49,7 @@ const MediaTab = () => {
 
   // sycn with form
   useEffect(() => {
-    setValue("media_gallery", activityImages); // sync form
+    setValue('media_gallery', activityImages); // sync form
   }, [activityImages, setValue]);
 
   // handleDelteImage
@@ -57,7 +57,7 @@ const MediaTab = () => {
     setActivityImages((prev) => {
       const updatedImages = prev.filter((img) => img.url !== image.url);
       // setActivityImages(updatedImages);
-      setTimeout(() => setValue("media_gallery", updatedImages), false); //
+      setTimeout(() => setValue('media_gallery', updatedImages), false); //
       return updatedImages;
     });
   };
@@ -70,9 +70,9 @@ const MediaTab = () => {
           name="media_gallery"
           // defaultValue={[]}
           rules={{
-            validate: (val) => val?.length > 0 || "Please upload at least 1 image.",
+            validate: (val) => val?.length > 0 || 'Please upload at least 1 image.',
           }}
-          render={() => ""}
+          render={() => ''}
         />
       </div>
 

@@ -1,5 +1,5 @@
-import { publicApi, authApi } from "../axiosInstance";
-import { log } from "../utils";
+import { publicApi, authApi } from '../axiosInstance';
+import { log } from '../utils';
 
 /**
  * Get All Transfers Admin
@@ -9,7 +9,7 @@ import { log } from "../utils";
 export async function getAllTransfersAdmin() {
   try {
     const response = await authApi.get(`/api/admin/transfers/`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
     return response?.data?.data;
   } catch (error) {
@@ -28,10 +28,10 @@ export async function getAllTransfersAdmin() {
  * @example
  * const transfers = await getAllTransfersAdmin("?vehicle_type=sedan&capacity=5&page=2");
  */
-export async function getAllTransfersAdminn(search = "") {
+export async function getAllTransfersAdminn(search = '') {
   try {
-    const response = await authApi.get(`/api/admin/transfers/${search ? search : ""}`, {
-      headers: { Accept: "application/json" },
+    const response = await authApi.get(`/api/admin/transfers/${search ? search : ''}`, {
+      headers: { Accept: 'application/json' },
     });
 
     return response?.data;
@@ -45,10 +45,10 @@ export async function getAllTransfersAdminn(search = "") {
  * @param {Number} transferId
  * @returns {Promise<Object|Array>} Returns the API response data if successful, otherwise returns an empty array.
  */
-export async function getSingleTransferAdmin(transferId = "") {
+export async function getSingleTransferAdmin(transferId = '') {
   try {
     const response = await authApi.get(`/api/admin/transfers/${transferId}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
 
     if (response.status == 200) {

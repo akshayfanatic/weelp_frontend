@@ -1,5 +1,5 @@
-import useSWR from "swr";
-import { fetcher } from "@/lib/fetchers";
+import useSWR from 'swr';
+import { fetcher } from '@/lib/fetchers';
 
 /**
  * Custom React hook to fetch attribute data by slug from the admin API.

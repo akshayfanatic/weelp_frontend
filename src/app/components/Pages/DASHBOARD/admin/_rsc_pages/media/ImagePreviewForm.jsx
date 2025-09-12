@@ -1,14 +1,14 @@
-import React from "react";
-import { Card } from "@/components/ui/card";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { deleteMediaImageById, updateMediaImage } from "@/lib/actions/media";
-import { useToast } from "@/hooks/use-toast";
-import { Trash2 } from "lucide-react";
+import React from 'react';
+import { Card } from '@/components/ui/card';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { deleteMediaImageById, updateMediaImage } from '@/lib/actions/media';
+import { useToast } from '@/hooks/use-toast';
+import { Trash2 } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,12 +19,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from '@/components/ui/alert-dialog';
 
 // schema for name
 const formSchema = z.object({
   name: z.string().min(3, {
-    message: "Username must be at least 3 characters.",
+    message: 'Username must be at least 3 characters.',
   }),
   alt_text: z.string().optional(), // alt_text is optional, but if provided, it must be a string
   id: z.number().optional(), // id is also optional and a string
@@ -34,7 +34,7 @@ export const ImagePreviewForm = ({ isDialogOpen, setIsDialogOpen, selectedImage 
   const { toast } = useToast();
   console.log(selectedImage);
 
-  const { id = "", name = "", alt_text = "" } = selectedImage;
+  const { id = '', name = '', alt_text = '' } = selectedImage;
 
   // intialize form
   const form = useForm({
@@ -56,23 +56,23 @@ export const ImagePreviewForm = ({ isDialogOpen, setIsDialogOpen, selectedImage 
 
       if (res.success) {
         toast({
-          title: "Image Updated Successfully",
+          title: 'Image Updated Successfully',
         });
 
         // close dialog
         setIsDialogOpen(!isDialogOpen);
-        mutateMedia("/api/dashboard/media"); // trigger fetch
+        mutateMedia('/api/dashboard/media'); // trigger fetch
       } else {
         toast({
-          title: "Updating Failed",
-          description: res.error || "Something went wrong.",
+          title: 'Updating Failed',
+          description: res.error || 'Something went wrong.',
         });
       }
     } catch (error) {
-      console.log("Error during update:", error?.response || error);
+      console.log('Error during update:', error?.response || error);
       toast({
-        title: "Updating Failed",
-        description: error?.message || "An error occurred while uupdating.",
+        title: 'Updating Failed',
+        description: error?.message || 'An error occurred while uupdating.',
       });
     }
   };
@@ -88,17 +88,17 @@ export const ImagePreviewForm = ({ isDialogOpen, setIsDialogOpen, selectedImage 
 
       // delete message toast
       toast({
-        title: "Image deleted Successfully",
+        title: 'Image deleted Successfully',
       });
 
       // close dialog
       setIsDialogOpen(!isDialogOpen);
-      mutateMedia("/api/dashboard/media"); // trigger fetch
+      mutateMedia('/api/dashboard/media'); // trigger fetch
     } catch (error) {
-      console.log("Error during update:", error?.response || error);
+      console.log('Error during update:', error?.response || error);
       toast({
-        title: "Updating Failed",
-        description: error?.message || "An error occurred while uupdating.",
+        title: 'Updating Failed',
+        description: error?.message || 'An error occurred while uupdating.',
       });
     }
   };
@@ -111,7 +111,7 @@ export const ImagePreviewForm = ({ isDialogOpen, setIsDialogOpen, selectedImage 
 
           <Form {...form}>
             <form onSubmit={form?.handleSubmit(onSubmit)} className="space-y-4">
-              <fieldset className={`${isSubmitting ? "cursor-wait" : "cursor-pointer"}`} disabled={isSubmitting}>
+              <fieldset className={`${isSubmitting ? 'cursor-wait' : 'cursor-pointer'}`} disabled={isSubmitting}>
                 <FormField
                   control={form.control}
                   name="name"
@@ -142,7 +142,7 @@ export const ImagePreviewForm = ({ isDialogOpen, setIsDialogOpen, selectedImage 
                 />
                 <div className="flex justify-between items-center">
                   <Button type="submit" className="bg-secondaryDark">
-                    {isSubmitting ? "Submitting" : "Submit"}
+                    {isSubmitting ? 'Submitting' : 'Submit'}
                   </Button>
 
                   {/* Delete Photo */}

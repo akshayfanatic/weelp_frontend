@@ -1,34 +1,28 @@
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardDescription,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Activity, Box, DollarSign, TrendingUp, Users } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Activity, Box, DollarSign, TrendingUp, Users } from 'lucide-react';
 
 const metricCardsdata = [
   {
-    title: "total revenue",
+    title: 'total revenue',
     icon: <DollarSign size={18} className="text-gray-500" />,
     total: 45321,
     change: 20,
   },
   {
-    title: "total bookings",
+    title: 'total bookings',
     icon: <Box size={18} className="text-gray-500" />,
     total: 2350,
     change: 180,
   },
   {
-    title: "active tours",
+    title: 'active tours',
     icon: <Activity size={18} className="text-gray-500" />,
     total: 45321,
     change: 19,
   },
   {
-    title: "active users",
+    title: 'active users',
     icon: <Users size={18} className="text-gray-500" />,
     total: 573,
     change: 10,
@@ -45,15 +39,14 @@ export const MetricCards = () => {
               {item.icon}
             </CardTitle>
             <div className="text-2xl mt-4 block font-bold">
-              {index === 0 && "$"}
+              {index === 0 && '$'}
               {item.total.toLocaleString()}
             </div>
           </CardHeader>
           <CardContent>
             <p className="text-green-500 text-[12px] flex flex-wrap gap-1 items-center">
               <TrendingUp size={16} />
-              {item.change}{" "}
-              <span className="text-gray-400 font-medium">from last month</span>
+              {item.change} <span className="text-gray-400 font-medium">from last month</span>
             </p>
           </CardContent>
         </Card>

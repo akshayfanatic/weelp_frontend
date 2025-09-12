@@ -1,8 +1,8 @@
-import React, { useState, useCallback } from "react";
-import { Button } from "@/components/ui/button";
-import { useDropzone } from "react-dropzone";
-import { uploadMedia } from "@/lib/actions/media";
-import { useToast } from "@/hooks/use-toast";
+import React, { useState, useCallback } from 'react';
+import { Button } from '@/components/ui/button';
+import { useDropzone } from 'react-dropzone';
+import { uploadMedia } from '@/lib/actions/media';
+import { useToast } from '@/hooks/use-toast';
 
 export const UploadImagesForm = ({ uploadImagePop, setUploadImagePopUp, mutateMedia }) => {
   const [files, setFiles] = useState([]); // For TotalFiles
@@ -21,8 +21,8 @@ export const UploadImagesForm = ({ uploadImagePop, setUploadImagePopUp, mutateMe
     onDrop,
     maxSize,
     accept: {
-      "image/png": [".png"],
-      "image/jpeg": [".jpg", ".jpeg"],
+      'image/png': ['.png'],
+      'image/jpeg': ['.jpg', '.jpeg'],
     },
     multiple: true,
   });
@@ -37,21 +37,21 @@ export const UploadImagesForm = ({ uploadImagePop, setUploadImagePopUp, mutateMe
     const formData = new FormData();
 
     for (const file of files) {
-      formData.append("file[]", file);
+      formData.append('file[]', file);
     }
 
     try {
       const res = await uploadMedia(formData); // uploading files
       if (res.success) {
         toast({
-          title: "Image Uploaded Successfully",
+          title: 'Image Uploaded Successfully',
         });
         mutateMedia(); // trigger fetch
       } else {
         toast({
-          title: "Upload Failed",
-          variant: "destructive",
-          description: res.error || "Something went wrong.",
+          title: 'Upload Failed',
+          variant: 'destructive',
+          description: res.error || 'Something went wrong.',
         });
       }
 
@@ -60,11 +60,11 @@ export const UploadImagesForm = ({ uploadImagePop, setUploadImagePopUp, mutateMe
       //setloading
       setLoading(false);
     } catch (error) {
-      console.log("Error during upload:", error?.response || error);
+      console.log('Error during upload:', error?.response || error);
       toast({
-        title: "Upload Failed",
-        variant: "destructive",
-        description: error?.message || "An error occurred while uploading.",
+        title: 'Upload Failed',
+        variant: 'destructive',
+        description: error?.message || 'An error occurred while uploading.',
       });
 
       //setloading
@@ -101,15 +101,15 @@ export const UploadImagesForm = ({ uploadImagePop, setUploadImagePopUp, mutateMe
 
         <div className="flex flex-col">
           <span className="text-sm font-bold">Max File Size 500KB {files?.length > 0 && <b>: {files?.length} File</b>}</span>
-          <Button variant="outline" type="button" className={"w-fit"}>
+          <Button variant="outline" type="button" className={'w-fit'}>
             Choose Images
           </Button>
         </div>
       </div>
 
-      <div className={`flex gap-4 ${isloading && " cursor-wait"}`}>
+      <div className={`flex gap-4 ${isloading && ' cursor-wait'}`}>
         <Button type="submit" className="bg-secondaryDark" onClick={handleSubmitImage} disabled={isloading || files.length === 0 || fileRejections.length > 0}>
-          {isloading ? "Uploading" : "Upload"}
+          {isloading ? 'Uploading' : 'Upload'}
         </Button>
         {!isloading && (
           <Button type="button" variant="destructive" onClick={handleUploadCancel}>

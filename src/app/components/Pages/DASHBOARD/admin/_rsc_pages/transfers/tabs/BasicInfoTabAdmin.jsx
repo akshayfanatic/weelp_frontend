@@ -1,17 +1,17 @@
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { generateSlug } from "@/lib/utils";
-import { Controller, useFormContext } from "react-hook-form";
-import useSWR from "swr";
-import { fetcher } from "@/lib/fetchers";
-import { SelectInputTransfer, SelectInputTransfer2 } from "../components/SelectForm";
-import { VEHICLE_TYPES , TRANSFER_TYPES } from "@/constants/transfer"; // constants
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { generateSlug } from '@/lib/utils';
+import { Controller, useFormContext } from 'react-hook-form';
+import useSWR from 'swr';
+import { fetcher } from '@/lib/fetchers';
+import { SelectInputTransfer, SelectInputTransfer2 } from '../components/SelectForm';
+import { VEHICLE_TYPES, TRANSFER_TYPES } from '@/constants/transfer'; // constants
 
 // Basic Information
 const BasicInfoTabAdmin = () => {
-  const { data, error, isLoading } = useSWR("/api/admin/destinations/places/placesdropdown/", fetcher); // fetch places
+  const { data, error, isLoading } = useSWR('/api/admin/destinations/places/placesdropdown/', fetcher); // fetch places
 
   const places = data?.data || [];
 
@@ -27,12 +27,12 @@ const BasicInfoTabAdmin = () => {
 
   // handling value when blur
   const handleBlur = () => {
-    const name = getValues("name");
-    const currentSlug = getValues("slug");
+    const name = getValues('name');
+    const currentSlug = getValues('slug');
     const newSlug = generateSlug(name);
 
     if (currentSlug !== newSlug) {
-      setValue("slug", newSlug);
+      setValue('slug', newSlug);
     }
   };
 
@@ -47,13 +47,13 @@ const BasicInfoTabAdmin = () => {
 
       {/* Name */}
       <div className="pb-2 space-y-2 w-full">
-        <Label htmlFor="name" className={`block text-sm font-medium ${errors?.name ? "text-red-400" : "text-black"}`}>
+        <Label htmlFor="name" className={`block text-sm font-medium ${errors?.name ? 'text-red-400' : 'text-black'}`}>
           Name
         </Label>
         <Input
           placeholder="Enter Transfer Name"
           id="name"
-          {...register("name", { required: "Name is required" })}
+          {...register('name', { required: 'Name is required' })}
           className="mt-1 p-2 text-sm block w-full rounded-md border border-gray-300 shadow-sm focus-visible:ring-secondaryDark"
           onBlur={handleBlur}
         />
@@ -61,13 +61,13 @@ const BasicInfoTabAdmin = () => {
       </div>
 
       <div className="pb-2 space-y-2 w-full">
-        <Label htmlFor="slug" className={`block text-sm font-medium ${errors?.slug ? "text-red-400" : "text-black"}`}>
+        <Label htmlFor="slug" className={`block text-sm font-medium ${errors?.slug ? 'text-red-400' : 'text-black'}`}>
           Slug
         </Label>
         <Input
           placeholder="Enter Url slug"
           id="slug"
-          {...register("slug", { required: "Slug is required" })}
+          {...register('slug', { required: 'Slug is required' })}
           className="mt-1 p-2 text-sm block w-full rounded-md border border-gray-300 shadow-sm focus-visible:ring-secondaryDark"
           onBlur={handleBlur}
         />
@@ -76,13 +76,13 @@ const BasicInfoTabAdmin = () => {
 
       {/* Transfer Type */}
       <div className="space-y-2">
-        <Label htmlFor="transfer_type" className={`block text-sm font-medium ${errors?.transfer_type ? "text-red-400" : "text-black"}`}>
+        <Label htmlFor="transfer_type" className={`block text-sm font-medium ${errors?.transfer_type ? 'text-red-400' : 'text-black'}`}>
           Transfer Type
         </Label>
         <Controller
           name="transfer_type"
           control={control}
-          rules={{ required: "Field Required" }}
+          rules={{ required: 'Field Required' }}
           render={({ field }) => <SelectInputTransfer2 value={field.value} onChange={field.onChange} options={TRANSFER_TYPES} placeholder="Select pickup location..." />}
         />
         {errors?.transfer_type && <p className="text-red-500 text-sm mt-1">{errors?.transfer_type?.message}</p>}
@@ -90,13 +90,13 @@ const BasicInfoTabAdmin = () => {
 
       {/* Vehicle Type */}
       <div className="space-y-2">
-        <Label htmlFor="vehicle_type" className={`block text-sm font-medium ${errors?.vehicle_type ? "text-red-400" : "text-black"}`}>
+        <Label htmlFor="vehicle_type" className={`block text-sm font-medium ${errors?.vehicle_type ? 'text-red-400' : 'text-black'}`}>
           Vehicle Type
         </Label>
         <Controller
           name="vehicle_type"
           control={control}
-          rules={{ required: "Field Required" }}
+          rules={{ required: 'Field Required' }}
           render={({ field }) => <SelectInputTransfer2 value={field.value} onChange={field.onChange} options={VEHICLE_TYPES} placeholder="Select pickup location..." />}
         />
         {errors?.vehicle_type && <p className="text-red-500 text-sm mt-1">{errors?.vehicle_type?.message}</p>}
@@ -122,7 +122,7 @@ const BasicInfoTabAdmin = () => {
             control={control}
             defaultValue=""
             rules={{
-              validate: (value) => value !== watch("pickup_location") || "Pickup and Dropoff location cannot be the same",
+              validate: (value) => value !== watch('pickup_location') || 'Pickup and Dropoff location cannot be the same',
             }}
             render={({ field }) => <SelectInputTransfer value={field.value} onChange={field.onChange} options={places} placeholder="Select dropoff location..." />}
           />
@@ -133,14 +133,14 @@ const BasicInfoTabAdmin = () => {
 
       {/* Description */}
       <div className="space-y-2">
-        <Label htmlFor="description" className={`block text-sm font-medium ${errors?.description ? "text-red-400" : "text-black"}`}>
+        <Label htmlFor="description" className={`block text-sm font-medium ${errors?.description ? 'text-red-400' : 'text-black'}`}>
           Description
         </Label>
         <Textarea
           placeholder="Detailed description"
           id="description"
-          {...register("description", {
-            required: "Description is required",
+          {...register('description', {
+            required: 'Description is required',
           })}
           className="mt-1 p-2 text-sm block w-full rounded-md border border-gray-300 shadow-sm focus-visible:ring-secondaryDark"
         />
@@ -149,14 +149,14 @@ const BasicInfoTabAdmin = () => {
 
       {/* Inclusions */}
       <div className="space-y-2">
-        <Label htmlFor="inclusion" className={`block text-sm font-medium ${errors?.inclusion ? "text-red-400" : "text-black"}`}>
+        <Label htmlFor="inclusion" className={`block text-sm font-medium ${errors?.inclusion ? 'text-red-400' : 'text-black'}`}>
           Inclusion
         </Label>
         <Textarea
           placeholder="Detailed inclusion"
           id="inclusion"
-          {...register("inclusion", {
-            required: "inclusion is required",
+          {...register('inclusion', {
+            required: 'inclusion is required',
           })}
           className="mt-1 p-2 text-sm block w-full rounded-md border border-gray-300 shadow-sm focus-visible:ring-secondaryDark"
         />

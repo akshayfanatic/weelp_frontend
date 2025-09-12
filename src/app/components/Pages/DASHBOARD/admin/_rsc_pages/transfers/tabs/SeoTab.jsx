@@ -1,86 +1,86 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { addCommabetweenString } from "@/lib/utils";
-import { useEffect, useState } from "react";
-import { Card } from "@/components/ui/card";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { addCommabetweenString } from '@/lib/utils';
+import { useEffect, useState } from 'react';
+import { Card } from '@/components/ui/card';
+import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
 // SEO Tab
 const SeoTab = () => {
   //schema types
   const schemaTypes = [
     {
-      value: "Product",
-      label: "Product",
+      value: 'Product',
+      label: 'Product',
       template: {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        name: "",
-        description: "",
-        image: "",
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: '',
+        description: '',
+        image: '',
         offers: {
-          "@type": "Offer",
-          price: "",
-          priceCurrency: "USD",
+          '@type': 'Offer',
+          price: '',
+          priceCurrency: 'USD',
         },
       },
     },
     {
-      value: "TouristAttraction",
-      label: "Tourist Attraction",
+      value: 'TouristAttraction',
+      label: 'Tourist Attraction',
       template: {
-        "@context": "https://schema.org",
-        "@type": "TouristAttraction",
-        name: "",
-        description: "",
-        image: "",
+        '@context': 'https://schema.org',
+        '@type': 'TouristAttraction',
+        name: '',
+        description: '',
+        image: '',
         address: {
-          "@type": "PostalAddress",
-          addressLocality: "",
-          addressRegion: "",
-          addressCountry: "",
+          '@type': 'PostalAddress',
+          addressLocality: '',
+          addressRegion: '',
+          addressCountry: '',
         },
       },
     },
     {
-      value: "TouristTrip",
-      label: "Tourist Trip",
+      value: 'TouristTrip',
+      label: 'Tourist Trip',
       template: {
-        "@context": "https://schema.org",
-        "@type": "TouristTrip",
-        name: "",
-        description: "",
+        '@context': 'https://schema.org',
+        '@type': 'TouristTrip',
+        name: '',
+        description: '',
         touristType: {
-          "@type": "Audience",
-          audienceType: "",
+          '@type': 'Audience',
+          audienceType: '',
         },
         itinerary: {
-          "@type": "ItemList",
+          '@type': 'ItemList',
           itemListElement: [],
         },
       },
     },
     {
-      value: "Service",
-      label: "Service",
+      value: 'Service',
+      label: 'Service',
       template: {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        name: "",
-        description: "",
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name: '',
+        description: '',
         provider: {
-          "@type": "Organization",
-          name: "",
+          '@type': 'Organization',
+          name: '',
         },
       },
     },
   ];
 
-  const [openItem, setOpenItem] = useState("item-1"); // set default open
+  const [openItem, setOpenItem] = useState('item-1'); // set default open
   const {
     register,
     control,
@@ -91,35 +91,35 @@ const SeoTab = () => {
     formState: { errors },
   } = useFormContext();
 
-  const [jsonInput, setJsonInput] = useState("");
+  const [jsonInput, setJsonInput] = useState('');
   const [validationState, setValidationState] = useState({
     isValid: true,
-    message: "",
+    message: '',
     showMessage: false,
   });
 
   // Get selected schema type from form
   const selectedSchemaType = useWatch({
     control,
-    name: "seo.schema_type",
+    name: 'seo.schema_type',
   });
 
   // GET selected schema data from form
   const selectedSchemaData = useWatch({
     control,
-    name: "seo.schema_data",
+    name: 'seo.schema_data',
   });
 
   // Meta Title
   const metaTitle = useWatch({
     control,
-    name: "seo.meta_title",
+    name: 'seo.meta_title',
   });
 
   // Meta Description
   const metaDescription = useWatch({
     control,
-    name: "seo.meta_description",
+    name: 'seo.meta_description',
   });
 
   // Sync selectedSchemaType with JSON template
@@ -143,11 +143,11 @@ const SeoTab = () => {
     let isValid = true;
     try {
       // Clear any previous errors
-      clearErrors("schema_data");
+      clearErrors('schema_data');
 
       if (String(jsonInput).trim()) {
         setJsonInput(JSON.parse(jsonInput));
-        setValue("seo.schema_data", JSON.parse(jsonInput));
+        setValue('seo.schema_data', JSON.parse(jsonInput));
       } else {
         isValid = false;
       }
@@ -158,15 +158,15 @@ const SeoTab = () => {
     // Update validation state
     setValidationState({
       isValid,
-      message: isValid ? "Success! Schema JSON is valid and has been updated." : "Error! Invalid JSON format. Please correct and try again.",
+      message: isValid ? 'Success! Schema JSON is valid and has been updated.' : 'Error! Invalid JSON format. Please correct and try again.',
       showMessage: true,
     });
 
     // If valid, update the hidden schema_markup field in the form
     if (!isValid) {
-      setError("schema_data", {
-        type: "manual",
-        message: "Invalid JSON format. Please fix the syntax.",
+      setError('schema_data', {
+        type: 'manual',
+        message: 'Invalid JSON format. Please fix the syntax.',
       });
     }
 
@@ -178,8 +178,6 @@ const SeoTab = () => {
       }));
     }, 3000);
   };
-
-
 
   return (
     <Accordion
@@ -196,36 +194,46 @@ const SeoTab = () => {
         </AccordionTrigger>
         <AccordionContent className="px-2 space-y-4">
           <div className="space-y-2">
-            <Label className={`${errors?.seo?.meta_title?.message && "text-red-400"}`}>Meta Title</Label>
-            <Input type="text" maxLength="60" placeholder="Enter meta title" className="focus-visible:ring-secondaryDark" {...register("seo.meta_title", { required: "Meta Title Required" })} />
-            <span className="block text-xs p-1 text-gray-500">{`${String(metaTitle || "").length}/60`} Characters</span>
+            <Label className={`${errors?.seo?.meta_title?.message && 'text-red-400'}`}>Meta Title</Label>
+            <Input
+              type="text"
+              maxLength="60"
+              placeholder="Enter meta title"
+              className="focus-visible:ring-secondaryDark"
+              {...register('seo.meta_title', {
+                required: 'Meta Title Required',
+              })}
+            />
+            <span className="block text-xs p-1 text-gray-500">{`${String(metaTitle || '').length}/60`} Characters</span>
             {errors?.seo?.meta_title && <p className="text-red-400 text-sm">{errors?.seo?.meta_title?.message}</p>}
           </div>
 
           <div className="space-y-2">
-            <Label className={`${errors?.seo?.meta_description?.message && "text-red-400"}`}>Meta Description</Label>
+            <Label className={`${errors?.seo?.meta_description?.message && 'text-red-400'}`}>Meta Description</Label>
             <Input
               type="text"
               placeholder="Enter meta description"
               maxLength="160"
               className="focus-visible:ring-secondaryDark"
-              {...register("seo.meta_description", { required: "Meta Description Required" })}
+              {...register('seo.meta_description', {
+                required: 'Meta Description Required',
+              })}
             />
-            <span className="block text-xs p-1 text-gray-500">{`${String(metaDescription || "").length}/160`} Characters</span>
+            <span className="block text-xs p-1 text-gray-500">{`${String(metaDescription || '').length}/160`} Characters</span>
             {errors?.seo?.meta_description && <p className="text-red-400 text-sm">{errors?.seo?.meta_description.message}</p>}
           </div>
 
           <div className="space-y-2">
-            <Label className={`${errors?.seo?.keywords?.message && "text-red-400"}`}>Keywords</Label>
+            <Label className={`${errors?.seo?.keywords?.message && 'text-red-400'}`}>Keywords</Label>
             <Input
               type="text"
               placeholder="Enter keywords separated by commas"
               className="focus-visible:ring-secondaryDark"
-              {...register("seo.keywords", {
-                required: "Keywords Required",
+              {...register('seo.keywords', {
+                required: 'Keywords Required',
                 onBlur: (e) => {
                   const formatted = addCommabetweenString(e.target.value);
-                  setValue("seo.keywords", formatted);
+                  setValue('seo.keywords', formatted);
                 },
               })}
             />
@@ -233,14 +241,28 @@ const SeoTab = () => {
           </div>
 
           <div className="space-y-2">
-            <Label className={`${errors?.seo?.og_image_url?.message && "text-red-400"}`}>OG Image Url</Label>
-            <Input type="text" placeholder="Enter OG Image Url" className="focus-visible:ring-secondaryDark" {...register("seo.og_image_url", { required: "og_image_url Required" })} />
+            <Label className={`${errors?.seo?.og_image_url?.message && 'text-red-400'}`}>OG Image Url</Label>
+            <Input
+              type="text"
+              placeholder="Enter OG Image Url"
+              className="focus-visible:ring-secondaryDark"
+              {...register('seo.og_image_url', {
+                required: 'og_image_url Required',
+              })}
+            />
             {errors?.seo?.og_image_url && <p className="text-red-400 text-sm">{errors?.seo?.og_image_url?.message}</p>}
           </div>
 
           <div className="space-y-2">
-            <Label className={`${errors?.seo?.canonical_url?.message && "text-red-400"}`}>Canonical Url</Label>
-            <Input type="text" placeholder="Enter canonical URL" className="focus-visible:ring-secondaryDark" {...register("seo.canonical_url", { required: "canonical_url Required" })} />
+            <Label className={`${errors?.seo?.canonical_url?.message && 'text-red-400'}`}>Canonical Url</Label>
+            <Input
+              type="text"
+              placeholder="Enter canonical URL"
+              className="focus-visible:ring-secondaryDark"
+              {...register('seo.canonical_url', {
+                required: 'canonical_url Required',
+              })}
+            />
             {errors?.seo?.canonical_url && <p className="text-red-400 text-sm">{errors?.seo?.canonical_url?.message}</p>}
           </div>
         </AccordionContent>
@@ -278,13 +300,13 @@ const SeoTab = () => {
             <div>
               <Label>Edit JSON-LD</Label>
               <Textarea
-                className={`font-mono text-sm h-96 resize-none ${validationState.showMessage ? (validationState.isValid ? "border-green-500" : "border-red-500") : ""}`}
+                className={`font-mono text-sm h-96 resize-none ${validationState.showMessage ? (validationState.isValid ? 'border-green-500' : 'border-red-500') : ''}`}
                 value={jsonInput}
-                placeholder={selectedSchemaData ? JSON.stringify(selectedSchemaData, null, 2) : "Schema data will appear here..."}
+                placeholder={selectedSchemaData ? JSON.stringify(selectedSchemaData, null, 2) : 'Schema data will appear here...'}
                 onChange={(e) => setJsonInput(e.target.value)}
               />
 
-              <input type="hidden" {...register("seo.schema_data")} />
+              <input type="hidden" {...register('seo.schema_data')} />
             </div>
 
             <Button type="button" onClick={handleJsonUpdate}>
@@ -292,7 +314,7 @@ const SeoTab = () => {
             </Button>
 
             {validationState.showMessage && (
-              <div className={`p-4 rounded-md text-sm ${validationState.isValid ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>{validationState.message}</div>
+              <div className={`p-4 rounded-md text-sm ${validationState.isValid ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>{validationState.message}</div>
             )}
           </Card>
         </AccordionContent>

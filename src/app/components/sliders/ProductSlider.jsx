@@ -1,12 +1,12 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import { ProductCarouselAnimation } from "../Animation/ProductAnimation";
-import { GlobalCard } from "../SingleProductCard"; // global card for items
-import { useIsClient } from "@/hooks/useIsClient";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { ProductCarouselAnimation } from '../Animation/ProductAnimation';
+import { GlobalCard } from '../SingleProductCard'; // global card for items
+import { useIsClient } from '@/hooks/useIsClient';
 
 const ProductSlider = ({ data }) => {
   const isClient = useIsClient(); // intialize hydration

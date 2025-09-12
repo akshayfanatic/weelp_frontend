@@ -1,4 +1,4 @@
-import { authApi } from "../axiosInstance";
+import { authApi } from '../axiosInstance';
 
 /**
  * Get Single Category on Admin side
@@ -8,7 +8,7 @@ import { authApi } from "../axiosInstance";
 export async function getSingleCategoryAdmin(categoryId) {
   try {
     const response = await authApi.get(`/api/admin/categories/${categoryId}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: 'application/json' },
     });
     return response.data;
   } catch (error) {

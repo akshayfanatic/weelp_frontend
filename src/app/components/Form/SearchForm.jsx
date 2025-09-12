@@ -1,14 +1,14 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { Crosshair, Frown, LoaderCircle, Search } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { delay } from "@/lib/utils";
-import Image from "next/image";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { Crosshair, Frown, LoaderCircle, Search } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { delay } from '@/lib/utils';
+import Image from 'next/image';
 
 export const SearchFormCreator = () => {
   const [initialize, setInitialize] = useState(false);
   const [response, setResponse] = useState({
-    message: "",
+    message: '',
     data: [], // Default to an empty array, not string
   });
 
@@ -20,11 +20,11 @@ export const SearchFormCreator = () => {
 
     setInitialize(true);
 
-    document.body.addEventListener("click", handleClickOutside);
+    document.body.addEventListener('click', handleClickOutside);
 
     // Cleanup the event listener when the component unmounts
     return () => {
-      document.body.removeEventListener("click", handleClickOutside);
+      document.body.removeEventListener('click', handleClickOutside);
     };
   }, []);
 
@@ -36,16 +36,16 @@ export const SearchFormCreator = () => {
     reset,
   } = useForm({
     defaultValues: {
-      query: "",
+      query: '',
     },
   });
 
   const onSubmit = async (data) => {
     try {
       await delay(1000); // Simulate delay
-      const api = await fetch("/api/search/creator", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const api = await fetch('/api/search/creator', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
@@ -64,29 +64,29 @@ export const SearchFormCreator = () => {
         });
       }
     } catch (error) {
-      console.log("Request failed:", error);
+      console.log('Request failed:', error);
     }
   };
 
   if (initialize) {
     return (
       <div className="flex flex-col max-w-[30rem] w-full mx-auto">
-        <form onKeyUp={handleSubmit(onSubmit)} className={`w-full bg-white flex items-center justify-evenly rounded shadow ${errors?.query?.message ? "border-red-400 border" : null}`}>
+        <form onKeyUp={handleSubmit(onSubmit)} className={`w-full bg-white flex items-center justify-evenly rounded shadow ${errors?.query?.message ? 'border-red-400 border' : null}`}>
           <input
             id="query"
             autoComplete="off"
             type="text"
-            {...register("query", {
-              required: "Field Required",
-              minLength: { value: 3, message: "Minimum 3 characters required" },
+            {...register('query', {
+              required: 'Field Required',
+              minLength: { value: 3, message: 'Minimum 3 characters required' },
             })}
-            placeholder={"What`s on your Bucket list?"}
+            placeholder={'What`s on your Bucket list?'}
             className="w-10/12 p-4 focus-visible:outline-none placeholder:text-grayDark"
           />
           <div>{isSubmitting ? <LoaderCircle size={16} className="animate-spin duration-1000" /> : <Search size={16} />}</div>
         </form>
 
-        <span className={`${errors?.query?.message ? "flex" : "hidden"} items-center  gap-1 mx-4 p-2 text-base text-red-400 `}>
+        <span className={`${errors?.query?.message ? 'flex' : 'hidden'} items-center  gap-1 mx-4 p-2 text-base text-red-400 `}>
           <b>Error: </b> {errors?.query?.message}
         </span>
 
@@ -122,7 +122,7 @@ export const SearchFormCreator = () => {
 export const SearchFormBlogs = () => {
   const [initialize, setInitialize] = useState(false);
   const [response, setResponse] = useState({
-    message: "",
+    message: '',
     data: [], // Default to an empty array, not string
   });
 
@@ -135,11 +135,11 @@ export const SearchFormBlogs = () => {
     // Initialize form once
     setInitialize(true);
 
-    document.body.addEventListener("click", handleClickOutside);
+    document.body.addEventListener('click', handleClickOutside);
 
     // Cleanup the event listener when the component unmounts
     return () => {
-      document.body.removeEventListener("click", handleClickOutside);
+      document.body.removeEventListener('click', handleClickOutside);
     };
   }, []);
   // Using react-hook-form
@@ -150,16 +150,16 @@ export const SearchFormBlogs = () => {
     reset,
   } = useForm({
     defaultValues: {
-      query: "",
+      query: '',
     },
   });
 
   const onSubmit = async (data) => {
     try {
       await delay(1000); // Simulate delay
-      const api = await fetch("/api/search/creator", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const api = await fetch('/api/search/creator', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
@@ -178,29 +178,29 @@ export const SearchFormBlogs = () => {
         });
       }
     } catch (error) {
-      console.log("Request failed:", error);
+      console.log('Request failed:', error);
     }
   };
 
   if (initialize) {
     return (
       <div className="flex flex-col max-w-[30rem] w-full mx-auto">
-        <form onKeyUp={handleSubmit(onSubmit)} className={`w-full bg-white flex items-center justify-evenly rounded shadow ${errors?.query?.message ? "border-red-400 border" : null}`}>
+        <form onKeyUp={handleSubmit(onSubmit)} className={`w-full bg-white flex items-center justify-evenly rounded shadow ${errors?.query?.message ? 'border-red-400 border' : null}`}>
           <input
             id="query"
             autoComplete="off"
             type="text"
-            {...register("query", {
-              required: "Field Required",
-              minLength: { value: 3, message: "Minimum 3 characters required" },
+            {...register('query', {
+              required: 'Field Required',
+              minLength: { value: 3, message: 'Minimum 3 characters required' },
             })}
-            placeholder={"What`s your want to read ?"}
+            placeholder={'What`s your want to read ?'}
             className="w-10/12 p-4 focus-visible:outline-none placeholder:text-grayDark"
           />
           <div>{isSubmitting ? <LoaderCircle size={16} className="animate-spin duration-1000" /> : <Search size={16} />}</div>
         </form>
 
-        <span className={`${errors?.query?.message ? "flex" : "hidden"} items-center  gap-1 mx-4 p-2 text-base text-red-400 `}>
+        <span className={`${errors?.query?.message ? 'flex' : 'hidden'} items-center  gap-1 mx-4 p-2 text-base text-red-400 `}>
           <b>Error: </b> {errors?.query?.message}
         </span>
 

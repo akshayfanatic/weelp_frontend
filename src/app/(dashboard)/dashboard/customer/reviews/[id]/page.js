@@ -1,9 +1,9 @@
-import { CustomerEditReviewForm } from "@/app/components/Pages/DASHBOARD/user/_rsc_pages/reviews/forms/CustomerReviewForm";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { getSingleReviewByCustomer } from "@/lib/services/customer/reviews";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+import { CustomerEditReviewForm } from '@/app/components/Pages/DASHBOARD/user/_rsc_pages/reviews/forms/CustomerReviewForm';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import { getSingleReviewByCustomer } from '@/lib/services/customer/reviews';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 const ReviewPage = async ({ params }) => {
   const { id } = await params;

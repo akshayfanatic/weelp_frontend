@@ -1,5 +1,5 @@
-import useSWR from "swr";
-import { fetcher } from "@/lib/fetchers";
+import useSWR from 'swr';
+import { fetcher } from '@/lib/fetchers';
 
 // fetcher function for SWR GET REQUEST FOR ONLY AUTOMATE MANUAL CHECKOUT
 export function useOrderThankyou(payment_intent) {

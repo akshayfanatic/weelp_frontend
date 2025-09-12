@@ -1,7 +1,7 @@
-"use server";
-import { revalidatePath } from "next/cache";
-import { authApi } from "../axiosInstance";
-import { delay, log } from "../utils";
+'use server';
+import { revalidatePath } from 'next/cache';
+import { authApi } from '../axiosInstance';
+import { delay, log } from '../utils';
 
 /**
  * Method for Create  Itinerary
@@ -9,10 +9,10 @@ import { delay, log } from "../utils";
  * @returns {}
  */
 export const createItinerary = async (data) => {
-  log(data)
+  log(data);
   try {
     await delay(500);
-    const res = await authApi.post("/api/admin/itineraries", data);
+    const res = await authApi.post('/api/admin/itineraries', data);
     return {
       success: true,
       message: res.data?.message,
@@ -25,7 +25,7 @@ export const createItinerary = async (data) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         status: 400,
         // errors: err.response.data.errors,
       };
@@ -35,20 +35,20 @@ export const createItinerary = async (data) => {
     if (status === 422) {
       return {
         success: false,
-        message: "Itinerary Already Exist",
+        message: 'Itinerary Already Exist',
       };
     }
 
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -67,7 +67,7 @@ export const editItinerary = async (id, data) => {
 
     // revalidate path
     if (res.status == 200) {
-      revalidatePath("/dashboard/admin/itineraries/edit"); //revalidating path
+      revalidatePath('/dashboard/admin/itineraries/edit'); //revalidating path
       return {
         success: true,
         message: res.data?.message,
@@ -79,7 +79,7 @@ export const editItinerary = async (id, data) => {
     if (status === 400) {
       return {
         success: false,
-        message: err.response.data.message || "validation error",
+        message: err.response.data.message || 'validation error',
         status: 400,
         errors: err.response.data.message,
       };
@@ -89,20 +89,20 @@ export const editItinerary = async (id, data) => {
       const message = err.response.data.message;
       return {
         success: false,
-        message: "Activity Already Exist",
+        message: 'Activity Already Exist',
       };
     }
 
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -124,11 +124,18 @@ export async function deleteItineraryItems({
 }) {
   try {
     const res = await authApi.delete(`/api/admin/itineraries/${itineraryId}/partial-delete/`, {
-      data: { deleted_schedule_ids, deleted_activity_ids, deleted_transfer_ids, deleted_price_variation_ids, deleted_blackout_date_ids, deleted_inclusion_exclusion_ids },
+      data: {
+        deleted_schedule_ids,
+        deleted_activity_ids,
+        deleted_transfer_ids,
+        deleted_price_variation_ids,
+        deleted_blackout_date_ids,
+        deleted_inclusion_exclusion_ids,
+      },
     });
 
     // revalidate data
-    revalidatePath("/dashboard/admin/itineraries/edit"); // also add itinerary specific revalidate by id {/itineraryid}
+    revalidatePath('/dashboard/admin/itineraries/edit'); // also add itinerary specific revalidate by id {/itineraryid}
     return { success: true, data: res.data };
   } catch (error) {
     log(error);
@@ -150,7 +157,6 @@ export async function deleteItinerary(itineraryId) {
   }
 }
 
-
 /**
  * Action to delete multiple Itinerary
  * @param {[]} itinerary_ids
@@ -163,7 +169,7 @@ export async function deleteMultipleItineraries(itinerary_ids = []) {
     });
 
     // revalidate path
-    revalidatePath("/dashboard/admin/itineraries"); //revalidating path
+    revalidatePath('/dashboard/admin/itineraries'); //revalidating path
     return { success: true, data: res.data };
   } catch (error) {
     return { success: false, error: error.message };

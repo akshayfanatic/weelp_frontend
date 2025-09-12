@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import React from "react";
-import { SelectField, SelectField2 } from "../components/SelectField";
-import { useForm, useWatch } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import { Rating } from "@/app/components/Ratings";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import MediaComponent from "../components/MediaComponent";
-import useSWR from "swr";
-import { fetcher } from "@/lib/fetchers";
-import { createReview, updateReview } from "@/lib/actions/reviews";
-import { useToast } from "@/hooks/use-toast";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { FORM_REVIEW_ITEM_TYPE, FORM_REVIEWS_VALUES_DEFAULT, REVIEW_STATUS } from "@/constants/forms/review";
-import { useAllUsersAdmin } from "@/hooks/api/admin/users";
-import { useRouter } from "next/navigation";
-import { Textarea } from "@/components/ui/textarea";
+import React from 'react';
+import { SelectField, SelectField2 } from '../components/SelectField';
+import { useForm, useWatch } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
+import { Rating } from '@/app/components/Ratings';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import MediaComponent from '../components/MediaComponent';
+import useSWR from 'swr';
+import { fetcher } from '@/lib/fetchers';
+import { createReview, updateReview } from '@/lib/actions/reviews';
+import { useToast } from '@/hooks/use-toast';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { FORM_REVIEW_ITEM_TYPE, FORM_REVIEWS_VALUES_DEFAULT, REVIEW_STATUS } from '@/constants/forms/review';
+import { useAllUsersAdmin } from '@/hooks/api/admin/users';
+import { useRouter } from 'next/navigation';
+import { Textarea } from '@/components/ui/textarea';
 
-const ReviewForm = ({ reviewData = {}, id = "" }) => {
+const ReviewForm = ({ reviewData = {}, id = '' }) => {
   const { users, isLoading: isLoadingUsers, error: isErrorUser } = useAllUsersAdmin(); // all users
   const { toast } = useToast(); // intialize toaster
   const router = useRouter(); // intialize route
@@ -27,13 +27,19 @@ const ReviewForm = ({ reviewData = {}, id = "" }) => {
 
   // default value in edit
   const user_id = reviewData?.user?.id ?? null;
-  const item_type = reviewData?.item?.type || "";
+  const item_type = reviewData?.item?.type || '';
   const item_id = reviewData?.item?.id || null;
 
   // intialize form
   const form = useForm({
-    defaultValues: { ...FORM_REVIEWS_VALUES_DEFAULT, ...reviewData, user_id, item_type, item_id },
-    mode: "onSubmit",
+    defaultValues: {
+      ...FORM_REVIEWS_VALUES_DEFAULT,
+      ...reviewData,
+      user_id,
+      item_type,
+      item_id,
+    },
+    mode: 'onSubmit',
   });
 
   const {
@@ -42,7 +48,7 @@ const ReviewForm = ({ reviewData = {}, id = "" }) => {
   } = form; // destructure form
 
   // watch itemType
-  const watchItemType = useWatch({ control, name: "item_type" });
+  const watchItemType = useWatch({ control, name: 'item_type' });
   const { data: items, isLoading: isLoadingItems, error: isErrorItems } = useSWR(`/api/admin/reviews/items/${watchItemType}`, fetcher); // all items dynamic
 
   // submit form form
@@ -63,27 +69,30 @@ const ReviewForm = ({ reviewData = {}, id = "" }) => {
       }
 
       if (response.success) {
-        toast({ title: response.message || "Submited Succesfully", variant: "default" });
+        toast({
+          title: response.message || 'Submited Succesfully',
+          variant: 'default',
+        });
 
         // close route
         router.back();
       }
     } catch (error) {
-      toast({ title: "Something went wrong", variant: "destructive" });
+      toast({ title: 'Something went wrong', variant: 'destructive' });
     }
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <fieldset className={isSubmitting ? "cursor-wait space-y-8" : "cursor-auto space-y-8"}>
+        <fieldset className={isSubmitting ? 'cursor-wait space-y-8' : 'cursor-auto space-y-8'}>
           {/* Display User */}
           {isLoadingUsers && <span className="loader"></span>}
           {!isLoadingUsers && !isErrorUser && (
             <FormField
               control={form.control}
               name="user_id"
-              rules={{ required: "Field Required" }}
+              rules={{ required: 'Field Required' }}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Select User</FormLabel>
@@ -102,7 +111,7 @@ const ReviewForm = ({ reviewData = {}, id = "" }) => {
             <FormField
               control={form.control}
               name="item_type"
-              rules={{ required: "Field Required" }}
+              rules={{ required: 'Field Required' }}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Content type</FormLabel>
@@ -120,7 +129,7 @@ const ReviewForm = ({ reviewData = {}, id = "" }) => {
               <FormField
                 control={form.control}
                 name="item_id"
-                rules={{ required: "Field Required" }}
+                rules={{ required: 'Field Required' }}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Content Item</FormLabel>
@@ -139,7 +148,7 @@ const ReviewForm = ({ reviewData = {}, id = "" }) => {
           <FormField
             control={form.control}
             name="rating"
-            rules={{ required: "Field Required" }}
+            rules={{ required: 'Field Required' }}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Select User</FormLabel>
@@ -169,7 +178,7 @@ const ReviewForm = ({ reviewData = {}, id = "" }) => {
           <FormField
             control={form.control}
             name="status"
-            rules={{ required: "Field Required" }}
+            rules={{ required: 'Field Required' }}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Status</FormLabel>
@@ -192,7 +201,7 @@ const ReviewForm = ({ reviewData = {}, id = "" }) => {
           <MediaComponent />
 
           <Button type="submit" disabled={isErrorItems || isErrorUser || isSubmitting}>
-            {isSubmitting ? "Submiting" : "Submit"}
+            {isSubmitting ? 'Submiting' : 'Submit'}
           </Button>
         </fieldset>
       </form>

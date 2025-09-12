@@ -1,18 +1,18 @@
-"use client";
-import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { useBookingData } from "@/hooks/api/public/checkout";
-import useMiniCartStore from "@/lib/store/useMiniCartStore";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { formatCurrency } from "@/lib/utils";
-import Link from "next/link";
-import { useSession } from "next-auth/react";
+'use client';
+import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useBookingData } from '@/hooks/api/public/checkout';
+import useMiniCartStore from '@/lib/store/useMiniCartStore';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { formatCurrency } from '@/lib/utils';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 export default function PaymentSuccess() {
   const searchParams = useSearchParams();
-  const session_id = searchParams.get("session_id"); // retrieve session id
+  const session_id = searchParams.get('session_id'); // retrieve session id
   const { clearCart } = useMiniCartStore(); // clear cart
   const session = useSession(); // prevent user to page
 
@@ -46,11 +46,11 @@ export default function PaymentSuccess() {
   }
 
   const { user_detail = {}, item_detail = {}, order = {} } = bookingData?.data || {}; // destructuring data
-  const dashboardUrl = session?.user?.role === "admin" ? "/dashboar/admin" : "/dashboard/user"; // session based linking
+  const dashboardUrl = session?.user?.role === 'admin' ? '/dashboar/admin' : '/dashboard/user'; // session based linking
   const amount = parseFloat(order?.payment.amount || 0);
-  const currency = order?.payment?.currency || "";
+  const currency = order?.payment?.currency || '';
   const priceAmount = formatCurrency(amount, currency); // actuall price amount
-  const tableRowClass = ""; // table row class
+  const tableRowClass = ''; // table row class
 
   return (
     <div className="min-h-[85vh] bg-gray-50 py-10 px-4 flex justify-center items-center">
@@ -114,7 +114,7 @@ export default function PaymentSuccess() {
 
             {/* Navigation */}
             <div className="flex justify-between w-full">
-              <Link href="/" className={"bg-white text-black border p-2 rounded-2xl text-sm font-medium px-4"}>
+              <Link href="/" className={'bg-white text-black border p-2 rounded-2xl text-sm font-medium px-4'}>
                 Back to Home
               </Link>
               <Link href={dashboardUrl} className="bg-[#163b4e] text-white border p-2 px-4 rounded-2xl text-sm font-medium">

@@ -1,7 +1,7 @@
-"use server";
-import { revalidatePath } from "next/cache";
-import { authApi } from "../axiosInstance";
-import { delay, log } from "../utils";
+'use server';
+import { revalidatePath } from 'next/cache';
+import { authApi } from '../axiosInstance';
+import { delay, log } from '../utils';
 
 /**
  * Method for Create Order
@@ -11,9 +11,9 @@ import { delay, log } from "../utils";
 export const createOrder = async (data) => {
   try {
     await delay(500);
-    const res = await authApi.post("/api/admin/orders", data);
+    const res = await authApi.post('/api/admin/orders', data);
 
-    revalidatePath("/dashboard/admin/orders/"); // revalidate path of orders
+    revalidatePath('/dashboard/admin/orders/'); // revalidate path of orders
     return {
       success: true,
       message: res.data?.message,
@@ -25,7 +25,7 @@ export const createOrder = async (data) => {
     if (status === 400) {
       return {
         success: false,
-        message: "Validation error",
+        message: 'Validation error',
         status: 400,
         // errors: err.response.data.errors,
       };
@@ -35,20 +35,20 @@ export const createOrder = async (data) => {
     if (status === 422) {
       return {
         success: false,
-        message: "Order Already Exist",
+        message: 'Order Already Exist',
       };
     }
 
     if (status === 500) {
       return {
         success: false,
-        message: err.response.data.error || "Server error",
+        message: err.response.data.error || 'Server error',
       };
     }
 
     return {
       success: false,
-      message: "Something went wrong",
+      message: 'Something went wrong',
     };
   }
 };
@@ -64,14 +64,14 @@ export async function deleteOrder(orderId) {
 
     // On successful
     if (res.data?.success) {
-      revalidatePath("/dashboard/admin/orders"); // Revalidating Orders
+      revalidatePath('/dashboard/admin/orders'); // Revalidating Orders
       return { success: true, message: res.data.message };
     }
 
     // Return server response in case of known error
     return {
       success: false,
-      message: res.data?.message || "Failed to delete order.",
+      message: res.data?.message || 'Failed to delete order.',
     };
   } catch (error) {
     return { success: false, error: error.message };

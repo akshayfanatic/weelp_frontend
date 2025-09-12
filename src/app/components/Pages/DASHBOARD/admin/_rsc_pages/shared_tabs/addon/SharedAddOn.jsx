@@ -1,8 +1,8 @@
-import React from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import { ComboboxMultiple } from "@/components/ui/combobox_multi";
-import { Label } from "@/components/ui/label";
-import { useAddOnOptionsAdmin } from "@/hooks/api/admin/addon";
+import React from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+import { ComboboxMultiple } from '@/components/ui/combobox_multi';
+import { Label } from '@/components/ui/label';
+import { useAddOnOptionsAdmin } from '@/hooks/api/admin/addon';
 
 const SmartAddOnMultiSelect = () => {
   const {
@@ -25,8 +25,8 @@ const SmartAddOnMultiSelect = () => {
       </Label>
       <Controller
         control={control}
-        name={"addons"}
-        rules={{ required: "Add On Required" }}
+        name={'addons'}
+        rules={{ required: 'Add On Required' }}
         render={({ field: { value, onChange } }) => <ComboboxMultiple id="addons" type="Add On" items={apiData} value={value || []} onChange={onChange} />}
       />
 

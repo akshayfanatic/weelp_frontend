@@ -1,8 +1,8 @@
-import useSWR from "swr";
-import { fetcher } from "@/lib/fetchers";
+import useSWR from 'swr';
+import { fetcher } from '@/lib/fetchers';
 
 export function useAllItinerariesAdmin() {
-  const { data, error, isValidating, isLoading, mutate } = useSWR("/api/admin/itineraries", fetcher);
+  const { data, error, isValidating, isLoading, mutate } = useSWR('/api/admin/itineraries', fetcher);
 
   return {
     itineraries: data || [],

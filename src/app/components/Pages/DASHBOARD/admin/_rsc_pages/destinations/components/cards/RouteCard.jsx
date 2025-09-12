@@ -1,19 +1,19 @@
-"use client";
-import SafeImage from "@/app/components/Image";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { useToast } from "@/hooks/use-toast";
-import { Ellipsis, Pencil, Star, Trash2 } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
-import { useSWRConfig } from "swr";
+'use client';
+import SafeImage from '@/app/components/Image';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardTitle } from '@/components/ui/card';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { useToast } from '@/hooks/use-toast';
+import { Ellipsis, Pencil, Star, Trash2 } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useSWRConfig } from 'swr';
 
 // actions to delete
-import { deleteCountry } from "@/lib/actions/country";
-import { deleteState } from "@/lib/actions/state";
-import { deleteCity } from "@/lib/actions/cities";
-import { deletePlace } from "@/lib/actions/places";
+import { deleteCountry } from '@/lib/actions/country';
+import { deleteState } from '@/lib/actions/state';
+import { deleteCity } from '@/lib/actions/cities';
+import { deletePlace } from '@/lib/actions/places';
 
 /**
  * DestinationRouteCard component displaying the DestinationRouteCard component
@@ -23,7 +23,7 @@ import { deletePlace } from "@/lib/actions/places";
 export const RouteCard = ({ id, type, name, code, description, featured_destination, media_gallery = [] }) => {
   const router = useRouter(); // intialize route
   const pathname = usePathname(); // intialize pathname
-  const { url = "", alt_text = "" } = media_gallery.at(0) || {}; // extract first image
+  const { url = '', alt_text = '' } = media_gallery.at(0) || {}; // extract first image
   const { mutate } = useSWRConfig(); // mutate
   const { toast } = useToast(); // intialize toaster
 
@@ -34,46 +34,51 @@ export const RouteCard = ({ id, type, name, code, description, featured_destinat
 
   // Handle Delete
   const handleDelete = async (itemId, type) => {
-    if (!itemId || !type) return console.warn("Missing id or type", { itemId, type });
+    if (!itemId || !type) return console.warn('Missing id or type', { itemId, type });
 
     try {
       let res;
-      let apiPath = "";
+      let apiPath = '';
 
       switch (type) {
-        case "country":
+        case 'country':
           res = await deleteCountry(itemId); // Action to Delete Country
-          apiPath = "/api/admin/destinations/countries";
+          apiPath = '/api/admin/destinations/countries';
           break;
 
-        case "state":
+        case 'state':
           res = await deleteState(itemId); // Action to State Country
-          apiPath = "/api/admin/destinations/states";
+          apiPath = '/api/admin/destinations/states';
           break;
 
-        case "city":
+        case 'city':
           res = await deleteCity(itemId); // Action to City Country
-          apiPath = "/api/admin/destinations/cities";
+          apiPath = '/api/admin/destinations/cities';
           break;
 
-        case "place":
+        case 'place':
           res = await deletePlace(itemId); // Action to place Country
-          apiPath = "/api/admin/destinations/places";
+          apiPath = '/api/admin/destinations/places';
           break;
 
         default:
-          return console.warn("Unknown type", type);
+          return console.warn('Unknown type', type);
       }
 
       if (res?.success) {
-        mutate((key) => key.startsWith(apiPath), undefined, { revalidate: true });
-        toast({ title: res.message || "Deleted Successfully" });
+        mutate((key) => key.startsWith(apiPath), undefined, {
+          revalidate: true,
+        });
+        toast({ title: res.message || 'Deleted Successfully' });
         return;
       }
 
-      toast({ title: res?.error || "Something went wrong", variant: "destructive" });
+      toast({
+        title: res?.error || 'Something went wrong',
+        variant: 'destructive',
+      });
     } catch (err) {
-      toast({ title: "Something went wrong", variant: "destructive" });
+      toast({ title: 'Something went wrong', variant: 'destructive' });
       console.error(`Failed to delete ${type}`, err);
     }
   };

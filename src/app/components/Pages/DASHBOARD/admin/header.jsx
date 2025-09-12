@@ -1,9 +1,9 @@
-"use client";
-import React from "react";
-import { Input } from "@/components/ui/input";
-import { useSidebar } from "@/components/ui/sidebar";
-import { Menu, User } from "lucide-react";
-import UserMenu from "../UserMenu";
+'use client';
+import React from 'react';
+import { Input } from '@/components/ui/input';
+import { useSidebar } from '@/components/ui/sidebar';
+import { Menu, User } from 'lucide-react';
+import UserMenu from '../UserMenu';
 
 const AdminHeader = () => {
   const { isMobile, toggleSidebar } = useSidebar();

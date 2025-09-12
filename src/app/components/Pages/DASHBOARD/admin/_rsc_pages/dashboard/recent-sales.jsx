@@ -1,13 +1,37 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const recentSales = [
-    { username: "John Doe", email: "john@email.com", amount: 1299, icon: "https://picsum.photos/40?random=1" },
-    { username: "Jane Smith", email: "jane@email.com", amount: 899, icon: "https://picsum.photos/40?random=2" },
-    { username: "Michael Johnson", email: "michael@email.com", amount: 1599, icon: "https://picsum.photos/40?random=3" },
-    { username: "Emily Brown", email: "emily@email.com", amount: 749, icon: "https://picsum.photos/40?random=4" },
-    { username: "David Wilson", email: "david@email.com", amount: 1899, icon: "https://picsum.photos/40?random=5" },
-  ];
-  
+  {
+    username: 'John Doe',
+    email: 'john@email.com',
+    amount: 1299,
+    icon: 'https://picsum.photos/40?random=1',
+  },
+  {
+    username: 'Jane Smith',
+    email: 'jane@email.com',
+    amount: 899,
+    icon: 'https://picsum.photos/40?random=2',
+  },
+  {
+    username: 'Michael Johnson',
+    email: 'michael@email.com',
+    amount: 1599,
+    icon: 'https://picsum.photos/40?random=3',
+  },
+  {
+    username: 'Emily Brown',
+    email: 'emily@email.com',
+    amount: 749,
+    icon: 'https://picsum.photos/40?random=4',
+  },
+  {
+    username: 'David Wilson',
+    email: 'david@email.com',
+    amount: 1899,
+    icon: 'https://picsum.photos/40?random=5',
+  },
+];
 
 export function RecentSales() {
   return (
@@ -21,9 +45,7 @@ export function RecentSales() {
             </Avatar>
             <div className="ml-4 space-y-1">
               <p className="text-sm font-medium leading-none">{item.username}</p>
-              <p className="text-sm text-muted-foreground">
-                {item.email}
-              </p>
+              <p className="text-sm text-muted-foreground">{item.email}</p>
             </div>
             <div className="sm:ml-auto font-medium">+${item.amount.toLocaleString()}</div>
           </div>

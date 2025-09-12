@@ -1,6 +1,5 @@
-"use server";
-import { publicApi } from "../axiosInstance";
-
+'use server';
+import { publicApi } from '../axiosInstance';
 
 /**
  * This method return the region details
@@ -12,7 +11,7 @@ export const fetchRegionDetails = async (region) => {
     const response = await publicApi(`api/region/${region}`);
     return response?.data?.data;
   } catch (error) {
-    console.error("Error fetching region details:", error);
+    console.error('Error fetching region details:', error);
     return [];
   }
 };
@@ -25,17 +24,15 @@ export const fetchRegionDetails = async (region) => {
 export const getCitiesByRegion = async (region) => {
   try {
     const response = await publicApi.get(`/api/region/${region}/cities/`, {
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
     return response.data;
   } catch (error) {
-    console.error("Error fetching city data:");
+    console.error('Error fetching city data:');
 
     return [];
   }
 };
-
-
 
 /**
  * Get Region All Items
@@ -44,14 +41,14 @@ export const getCitiesByRegion = async (region) => {
  * @return {}
  */
 
-export const getItemsByRegion = async (region, query = "") => {
+export const getItemsByRegion = async (region, query = '') => {
   try {
     const response = await publicApi.get(`/api/region/${region}/region-all-items${query}/`, {
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
     return response.data;
   } catch (error) {
-    console.error("Error fetching city data:");
+    console.error('Error fetching city data:');
 
     return {};
   }

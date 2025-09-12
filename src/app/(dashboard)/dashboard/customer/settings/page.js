@@ -1,8 +1,6 @@
-import ProfilePage from './profile/page'
+import ProfilePage from './profile/page';
 const SettingPage = () => {
-  return (
-    <ProfilePage />
-  )
-}
+  return <ProfilePage />;
+};
 
-export default SettingPage
+export default SettingPage;

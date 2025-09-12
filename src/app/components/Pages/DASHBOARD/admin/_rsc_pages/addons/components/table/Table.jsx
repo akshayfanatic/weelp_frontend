@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ArrowRightLeft, Coins, Edit, LucideBox, LucideMap, LucideRoute, Star, Trash2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
-import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useIsClient } from "@/hooks/useIsClient";
-import { CardDescription, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { ArrowRightLeft, Coins, Edit, LucideBox, LucideMap, LucideRoute, Star, Trash2 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
+import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { useIsClient } from '@/hooks/useIsClient';
+import { CardDescription, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 
 export function AddOnTable({ data = [], onDelete }) {
   const isClient = useIsClient(); // hydration errors
@@ -15,8 +15,8 @@ export function AddOnTable({ data = [], onDelete }) {
   // Columns Structure
   const columns = [
     {
-      accessorKey: "name",
-      header: "Name",
+      accessorKey: 'name',
+      header: 'Name',
       cell: ({ row }) => {
         const name = row?.original?.name;
         const description = row?.original?.description;
@@ -24,14 +24,14 @@ export function AddOnTable({ data = [], onDelete }) {
           <div className="flex flex-col">
             {name && (
               <CardTitle aschild="true">
-                {" "}
+                {' '}
                 <span className="text-nowrap text-base">{name}</span>
               </CardTitle>
             )}
 
             {description && (
               <CardDescription aschild="true">
-                {" "}
+                {' '}
                 <span className="text-nowrap text-sm">{description}</span>
               </CardDescription>
             )}
@@ -40,46 +40,46 @@ export function AddOnTable({ data = [], onDelete }) {
       },
     },
     {
-      accessorKey: "type",
-      header: "Type",
+      accessorKey: 'type',
+      header: 'Type',
       cell: ({ row }) => {
         const type = row?.original?.type;
         return (
           <div className="capitalize">
-            {type === "itinerary" && (
+            {type === 'itinerary' && (
               <Badge className="text-xs gap-2" variant="success">
                 <LucideRoute size={16} />
                 {type}
               </Badge>
             )}
-            {type === "activity" && (
+            {type === 'activity' && (
               <Badge className="text-xs gap-2" variant="warning">
                 <LucideMap size={16} />
                 {type}
               </Badge>
             )}
-            {type === "transfer" && (
+            {type === 'transfer' && (
               <Badge className="text-xs gap-2" variant="outline">
                 <ArrowRightLeft size={16} />
                 {type}
               </Badge>
             )}
 
-            {type === "package" && (
+            {type === 'package' && (
               <Badge className="text-xs gap-2" variant="destructive">
                 <LucideBox size={16} />
                 {type}
               </Badge>
             )}
-            {!["itinerary", "activity", "transfer", "package"].includes(type) && <Badge variant="default">{type}</Badge>}
+            {!['itinerary', 'activity', 'transfer', 'package'].includes(type) && <Badge variant="default">{type}</Badge>}
           </div>
         );
       },
     },
 
     {
-      accessorKey: "price",
-      header: "Price",
+      accessorKey: 'price',
+      header: 'Price',
       cell: ({ row }) => {
         const price = row?.original?.price; // get user from row data
         return (
@@ -91,8 +91,8 @@ export function AddOnTable({ data = [], onDelete }) {
     },
 
     {
-      accessorKey: "active_status",
-      header: "Status",
+      accessorKey: 'active_status',
+      header: 'Status',
       cell: ({ row }) => {
         const isActive = row?.original?.active_status; // get user from row data
         return (
@@ -105,13 +105,13 @@ export function AddOnTable({ data = [], onDelete }) {
       },
     },
     {
-      accessorKey: "id",
-      header: "Actions",
+      accessorKey: 'id',
+      header: 'Actions',
       cell: ({ row }) => {
         const addOnId = row?.original?.id;
         return (
           <div className="flex gap-4">
-            <Link aschild={"true"} href={`/dashboard/admin/addon/${addOnId}`}>
+            <Link aschild={'true'} href={`/dashboard/admin/addon/${addOnId}`}>
               <Edit size={16} />
             </Link>
             <Trash2
@@ -150,7 +150,7 @@ export function AddOnTable({ data = [], onDelete }) {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell className="p-2 px-4" key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}

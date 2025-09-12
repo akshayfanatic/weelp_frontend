@@ -1,6 +1,6 @@
-import { buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
-import clsx from "clsx";
+import { buttonVariants } from '@/components/ui/button';
+import Link from 'next/link';
+import clsx from 'clsx';
 /**
  * A reusable component that displays a "Not Found" message
  * and provides a navigation button to redirect users.
@@ -19,12 +19,12 @@ import clsx from "clsx";
  * // Custom redirect to a specific route
  * <NotFoundComponent url="/products" />
  */
-export function NotFoundComponent({ url = "/" }) {
+export function NotFoundComponent({ url = '/' }) {
   return (
     <div className="h-[50vh] flex flex-col items-center justify-center gap-4 text-center">
       <h2 className="text-blueish font-semibold text-lg sm:text-2xl">Not Found</h2>
       <p className="text-muted-foreground text-sm sm:text-base">Could not find the requested resource</p>
-      <Link href={url} className={clsx(buttonVariants({ variant: "default" }), "bg-secondaryDark")}>
+      <Link href={url} className={clsx(buttonVariants({ variant: 'default' }), 'bg-secondaryDark')}>
         Click Here to Go Back
       </Link>
     </div>

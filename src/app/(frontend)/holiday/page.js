@@ -1,6 +1,6 @@
-import BannerSection from '@/app/components/Pages/FRONT_END/holiday/BannerSection'
-import TrendingSection from '@/app/components/Pages/FRONT_END/holiday/TrendingSection'
-import React from 'react'
+import BannerSection from '@/app/components/Pages/FRONT_END/holiday/BannerSection';
+import TrendingSection from '@/app/components/Pages/FRONT_END/holiday/TrendingSection';
+import React from 'react';
 
 const HolidayPage = () => {
   return (
@@ -8,7 +8,7 @@ const HolidayPage = () => {
       <BannerSection />
       <TrendingSection />
     </>
-  )
-}
+  );
+};
 
-export default HolidayPage
+export default HolidayPage;
