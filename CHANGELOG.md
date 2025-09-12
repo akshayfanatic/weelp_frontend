@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.15.0...v0.15.1) (2025-09-12)
+
+
+### 🐛 Bug Fixes
+
+* **serverActions:** Fix Issue Regarding Body Size Limit Server Actions ([1c606a8](https://github.com/akshayfanatic/weelp_frontend/commit/1c606a8b327b231acf7c95dfa63324029b22ebd2))
+
 ## [0.15.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.14.0...v0.15.0) (2025-09-11)
 
 
