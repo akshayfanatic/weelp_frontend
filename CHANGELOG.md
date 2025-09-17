@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.16.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.15.2...v0.16.0) (2025-09-17)
+
+
+### ✨ Features
+
+* restore updates from stash and finalize changes ([1ce45ae](https://github.com/akshayfanatic/weelp_frontend/commit/1ce45ae5fd3753de006ace8eb93eabafccab988b))
+
 ### [0.15.2](https://github.com/akshayfanatic/weelp_frontend/compare/v0.15.1...v0.15.2) (2025-09-12)
 
 ### 🎨 Code Style Changes
