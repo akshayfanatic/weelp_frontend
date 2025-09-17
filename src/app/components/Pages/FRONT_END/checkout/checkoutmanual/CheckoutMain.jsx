@@ -1,5 +1,6 @@
 'use client';
 
+import { createPaymentIntent, initializeCheckout } from '@/lib/actions/checkout'; // action for intialize checkout
 import { useEffect, useState } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { getStripe } from '@/lib/stripe/stripe';
@@ -8,7 +9,6 @@ import { useSession } from 'next-auth/react';
 import { CheckoutItems, CheckoutUserDetailCard } from '../CheckoutCards';
 import useMiniCartStore from '@/lib/store/useMiniCartStore';
 import { useUserProfile } from '@/hooks/api/customer/profile';
-import { createPaymentIntent, initializeCheckout } from '@/lib/actions/checkout'; // action for intialize checkout
 
 const stripePromise = getStripe(); // import stripe promise
 export default function CheckoutMainManual() {
@@ -51,7 +51,7 @@ export default function CheckoutMainManual() {
 
   // on mount call generate
   useEffect(() => {
-    const cachedSecret = typeof window !== 'undefined' && sessionStorage.getItem('clientSecret');
+    const cachedSecret = sessionStorage.getItem('clientSecret');
 
     if (cachedSecret) {
       setClientSecret(cachedSecret);

@@ -76,7 +76,7 @@ export async function checkoutCreateOrder(orderDetail = {}) {
  * @returns {object} {success , clientSecret}
  */
 export const createPaymentIntent = async (payload = {}) => {
-  // log(payload)
+  log(payload)
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: payload.amount,
@@ -84,6 +84,7 @@ export const createPaymentIntent = async (payload = {}) => {
       receipt_email: payload.email,
     });
 
+    log(paymentIntent);
     return {
       success: true,
       clientSecret: paymentIntent.client_secret,

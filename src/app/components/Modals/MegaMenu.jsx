@@ -1,20 +1,31 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
-import { ChevronRight } from 'lucide-react';
-import { DestinationCard2 } from '../DestinationCard';
 import Link from 'next/link';
+import useSWR from 'swr';
+import { fetcher } from '@/lib/fetchers';
+
+import { useRegions } from '@/hooks/api/public/region/region';
+import { DestinationCard2 } from '../DestinationCard';
 
 const MegaMenu = ({ setShowMegaMenu, showmegaMenu }) => {
-  const [selectedContinent, setSelectedContinent] = useState(null);
-  const allContinents = ['East Asia', 'South East Asia', 'Europe', 'North America'];
+  const [selectedContinent, setSelectedContinent] = useState({
+    name: '',
+    slug: '',
+  });
+  const { data, isLoading: isRegionLoading, error: isRegionError } = useRegions(); // fetch region through api
+
+  if (isRegionError) return <span className="text-red-400">Someting went wrong</span>;
+  if (isRegionLoading) return <span className="loader"></span>;
+
+  const regions = data?.data || [];
 
   // Handle continent selection
-  const handleContinent = (e) => {
-    const continent = e.target.textContent;
-    if (continent !== selectedContinent) {
-      setSelectedContinent(continent);
-    }
+  const handleContinent = (name, slug) => {
+    setSelectedContinent((prev) => {
+      return { ...prev, name, slug };
+    });
   };
+
   return (
     <div
       onMouseLeave={(e) => {
@@ -25,25 +36,22 @@ const MegaMenu = ({ setShowMegaMenu, showmegaMenu }) => {
     >
       {/* Left Section: List of Continents */}
       <ul className="flex flex-1 flex-col justify-between h-full pb-8">
-        <li className="hover:bg-secondaryLight2 text-grayDark hover:text-secondaryDark p-4 capitalize flex items-center gap-2">
-          Trending Destination <ChevronRight size={18} />
-        </li>
-        {allContinents.map((continent, index) => (
+        {regions.map(({ name, slug }, index) => (
           <li
             key={index}
             className={`hover:bg-secondaryLight2 text-grayDark hover:text-secondaryDark p-4 capitalize flex items-center gap-2 ${
-              selectedContinent === continent ? 'bg-secondaryLight2 text-secondaryDark' : ''
+              selectedContinent.name === name ? 'bg-secondaryLight2 text-secondaryDark' : '' ? 'bg-secondaryLight2 text-secondaryDark' : ''
             }`}
-            onClick={handleContinent}
+            onClick={() => handleContinent(name, slug)}
           >
-            {continent}
+            {name}
           </li>
         ))}
       </ul>
 
       {/* Right Section: Dynamic Content */}
       <div className="border-l flex-[2] pb-8">
-        <MegaMenuContent selectedContinent={selectedContinent} />
+        <MegaMenuContent selectedContinent={selectedContinent?.slug} />
       </div>
     </div>
   );
@@ -51,32 +59,41 @@ const MegaMenu = ({ setShowMegaMenu, showmegaMenu }) => {
 export default MegaMenu;
 
 // Dynamic Mega Menu Content
-const MegaMenuContent = ({ selectedContinent }) => {
-  // selected content fetch data
-  useEffect(() => {
-    console.log('content fetch with fetch api');
-  }, [selectedContinent]);
+const MegaMenuContent = ({ selectedContinent = '' }) => {
+  const { data: cityData, isLoading: isCityLoading, error: cityError } = useSWR(selectedContinent ? `/api/public/region/${selectedContinent}/getcities/` : null, fetcher);
+
+  if (cityError) return <span className="text-red-400">Something Went Wrong</span>;
+  if (isCityLoading) return <span className="loader"></span>;
+
+  const citiesList = cityData?.data || [];
 
   return (
     <div className="flex flex-col h-full">
-      <div className="grid grid-cols-3 gap-4 items-center border-b p-4">
-        {/* Dynamically render destination cards based on selected continent */}
-        <DestinationCard2 />
-        <DestinationCard2 />
-        <DestinationCard2 />
-      </div>
-      <div className="mt-4">
-        {/* Dynamics Destination Links  */}
-        <ul className="grid grid-cols-4">
-          {Array.from({ length: 12 }).map((_, index) => {
-            return (
-              <li key={index} className="p-4 text-[#5A5A5A] text-sm">
-                <Link href="/region/europe/city/london/destination/stpark">{selectedContinent}</Link>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      {selectedContinent && (
+        <>
+          <div className="grid grid-cols-3 gap-4 items-center border-b p-4">
+            {/* Dynamically render destination cards based on selected continent */}
+            <DestinationCard2 />
+            <DestinationCard2 />
+            <DestinationCard2 />
+          </div>
+          <div className="mt-4">
+            <CityList citiesList={citiesList} />
+          </div>
+        </>
+      )}
     </div>
+  );
+};
+
+const CityList = ({ citiesList = [] }) => {
+  return (
+    <ul className="grid grid-cols-4">
+      {citiesList.map(({ slug, name }) => (
+        <li key={slug} className="p-4 text-[#5A5A5A] text-sm">
+          <Link href={`/city/${slug}`}>{name}</Link>
+        </li>
+      ))}
+    </ul>
   );
 };

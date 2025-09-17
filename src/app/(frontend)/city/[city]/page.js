@@ -10,7 +10,6 @@ import GuideSection from '@/app/components/Pages/FRONT_END/Global/GuideSection';
 import ProductSliderSection, { ProductSliderSectionItinerary } from '@/app/components/Pages/FRONT_END/Global/ProductSliderSection';
 import { publicApi } from '@/lib/axiosInstance';
 import { notFound } from 'next/navigation';
-import { log } from '@/lib/utils';
 import { CityFilter } from '@/app/components/Pages/FRONT_END/city/city_filter';
 
 // fetch Page Data

@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import MegaMenu from '../Modals/MegaMenu';
@@ -8,6 +9,7 @@ import { useIsClient } from '@/hooks/useIsClient';
 
 const Header = () => {
   const isClient = useIsClient(); // hydration
+  const isMobile = useIsMobile(); //
   const [showmegaMenu, setShowMegaMenu] = useState(false);
   const { stickyHeader, setStickyHeader } = useUIStore();
 
@@ -34,8 +36,10 @@ const Header = () => {
 
   if (isClient) {
     return (
-      <header className={`hidden md:block  w-full border-b-2 ${stickyHeader ? 'fixed z-[12]' : ''}`}>
-        <div className="relative">
+      <header className={`block w-full border-b-2 ${stickyHeader ? 'fixed z-[12]' : ''}`}>
+        
+        {/* Desktop Topbar */}
+        <div className="relative hidden lg:block">
           {/* Top Bar */}
           <div className={`${stickyHeader ? 'hidden' : 'flex'} text-black bg-Brightgray px-12 py-4 w-full items-center justify-between `}>
             <div className="topheader offer flex space-x-6">
@@ -69,7 +73,7 @@ const Header = () => {
                 <img src="/assets/images/SiteLogo.png" alt="Logo" className="h-10" />
               </Link>
             </div>
-            <nav className=" menu flex flex-grow justify-center space-x-10 flex-wrap">
+            <nav className="flex menu flex-grow justify-center space-x-10 flex-wrap">
               <button className="relative flex items-center text-Bluewhale font-medium" onClick={handleMegaMenu}>
                 {/* This is Mega Menu Handle */}
                 <MapPin className="mr-2" />
@@ -95,6 +99,28 @@ const Header = () => {
             <HeaderAccount />
           </div>
         </div>
+
+        {/* Mobile Topbar */}
+        <div className="relative lg:hidden">
+          <div className={`${stickyHeader ? 'hidden' : 'flex'} text-black bg-Brightgray px-12 py-4 w-full items-center justify-between `}>
+            <Link href="/Helpline" className="flex items-center text-Nileblue text-sm">
+              <Headphones className="mr-2" />
+              Helpline
+            </Link>
+
+            <div className="topheader-language flex space-x-6">
+              <Link href="/Get Exclusive offer on the App" className="flex items-center text-Nileblue text-sm">
+                <Globe className="mr-2" />
+                English
+              </Link>
+            </div>
+          </div>
+
+          {/* Mobile Menu */}
+          <div className="p-2 bg-white">
+            <MobileMenuSlider />
+          </div>
+        </div>
       </header>
     );
   }
@@ -109,6 +135,8 @@ import ModalForm from '../Modals/ModalForm';
 import SubmenuAccount from '../Modals/SubmenuAccount';
 import useMiniCartStore from '@/lib/store/useMiniCartStore';
 import { Badge } from '@/components/ui/badge';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { MobileMenuSlider } from './MobileMenu';
 
 export const HeaderAccount = () => {
   const { isMiniCartOpen, setMiniCartOpen, cartItems } = useMiniCartStore(); //mini cart store

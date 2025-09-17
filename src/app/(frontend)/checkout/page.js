@@ -35,7 +35,7 @@ const CheckoutPage = () => {
     );
   }
 
-  // return <StripeContainer />; // Hosted Checkout Component
+  // return <p>Checkout Page </p>
   return <CheckoutMainManual />;
 };
 
