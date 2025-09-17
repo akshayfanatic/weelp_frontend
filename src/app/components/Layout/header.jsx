@@ -37,7 +37,6 @@ const Header = () => {
   if (isClient) {
     return (
       <header className={`block w-full border-b-2 ${stickyHeader ? 'fixed z-[12]' : ''}`}>
-        
         {/* Desktop Topbar */}
         <div className="relative hidden lg:block">
           {/* Top Bar */}
