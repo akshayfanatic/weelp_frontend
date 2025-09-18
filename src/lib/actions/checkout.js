@@ -83,8 +83,7 @@ export const createPaymentIntent = async (payload = {}) => {
       currency: payload.currency,
       receipt_email: payload.email,
     });
-
-    log(paymentIntent);
+    
     return {
       success: true,
       clientSecret: paymentIntent.client_secret,

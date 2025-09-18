@@ -1,6 +1,5 @@
 'use client';
 
-import { createPaymentIntent, initializeCheckout } from '@/lib/actions/checkout'; // action for intialize checkout
 import { useEffect, useState } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { getStripe } from '@/lib/stripe/stripe';
@@ -9,8 +8,10 @@ import { useSession } from 'next-auth/react';
 import { CheckoutItems, CheckoutUserDetailCard } from '../CheckoutCards';
 import useMiniCartStore from '@/lib/store/useMiniCartStore';
 import { useUserProfile } from '@/hooks/api/customer/profile';
-
+import { createPaymentIntent } from '@/lib/actions/checkout'; // action for intent
+import axios from 'axios';
 const stripePromise = getStripe(); // import stripe promise
+
 export default function CheckoutMainManual() {
   const { data: session } = useSession(); // session retrieve
   const { cartItems = [] } = useMiniCartStore(); // store items
@@ -26,13 +27,16 @@ export default function CheckoutMainManual() {
 
   // initialize paymnet
   const initializePaymentIntent = async () => {
+
     try {
+      // console.log('wrogin')
       const res = await createPaymentIntent({
         amount,
         currency: String(currency).toLowerCase(),
         email: session?.user?.email || '',
       });
 
+      // console.log(res)
       if (res?.success && res?.clientSecret) {
         setClientSecret(res?.clientSecret);
         setPayMentIntent(res?.paymentIntent);
@@ -47,6 +51,39 @@ export default function CheckoutMainManual() {
     } finally {
       setLoading(false);
     }
+
+    // client secret
+    // try {
+    //   // POST request to your test API route
+    //   const res = await axios.post('/api/public/checkout/create-intent', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       amount, // from cart item
+    //       currency: String(currency).toLowerCase(),
+    //       email: session?.user?.email || '',
+    //     }),
+    //   });
+
+    //   const data = await res?.data
+
+    //   if (data?.success && data?.clientSecret) {
+    //     setClientSecret(data.clientSecret);
+    //     setPayMentIntent(data.paymentIntent);
+
+    //     // store in session storage
+    //     sessionStorage.setItem('clientSecret', data.clientSecret);
+    //     sessionStorage.setItem('paymentIntent', data.paymentIntent);
+    //   } else {
+    //     setError(data?.error || 'Client secret not received');
+    //   }
+    // } catch (err) {
+    //   setError(err.message || 'Something went wrong');
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   // on mount call generate
