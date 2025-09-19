@@ -7,7 +7,7 @@ import stripe from '../stripe/stripe-server';
 /**
  * Handle for intialization checkout
  * IN THIS INTENT IS CREATED BY LARAVEL
- * @param {object} payload { amount and currency } required is handled 
+ * @param {object} payload { amount and currency } required is handled
  * @returns {object}
  */
 export const initializeCheckout = async (payload = {}) => {

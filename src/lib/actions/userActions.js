@@ -45,7 +45,6 @@ export const editUserProfileAction = async (formData) => {
   }
 };
 
-
 /**
  * Action to Edit User Super Admin
  * @param {number} userId

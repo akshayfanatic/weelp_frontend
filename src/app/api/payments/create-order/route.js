@@ -11,7 +11,6 @@ export async function POST(req) {
 
     const profileResponse = await checkoutCreateOrder(orderData);
 
-    
     return NextResponse.json({
       success: true,
       data: profileResponse,
