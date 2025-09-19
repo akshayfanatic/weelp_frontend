@@ -14,15 +14,14 @@ import useMiniCartStore from '@/lib/store/useMiniCartStore';
 import { Button } from '@/components/ui/button';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useToast } from '@/hooks/use-toast';
-import { editUserProfileAction } from '@/lib/actions/userActions';
-import { checkoutCreateOrder } from '@/lib/actions/checkout';
+import { editUserProfileAction } from '@/lib/actions/userActions'; // actions not working
+import { checkoutCreateOrder } from '@/lib/actions/checkout'; // actions not working
+import axios from 'axios';
 
 const CheckoutForm = ({ clientSecret = '', paymentIntentId = '' }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useUserProfile(); // client side fetch user
-
-  console.log('client user', user);
   const { cartItems = [] } = useMiniCartStore(); // store items
   const { toast } = useToast(); // intialize toast
 
@@ -67,8 +66,13 @@ const CheckoutForm = ({ clientSecret = '', paymentIntentId = '' }) => {
       }
 
       // Create or update user profile
-      const profileResponse = await editUserProfileAction(profileData);
-      if (!profileResponse?.success) {
+      const profileResponse = await axios.post('/api/payments/edit-profile', profileData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!profileResponse.data?.success) {
         toast({
           title: 'Failed to update profile. Please try again.',
           variant: 'destructive',
@@ -100,8 +104,12 @@ const CheckoutForm = ({ clientSecret = '', paymentIntentId = '' }) => {
       };
 
       // Create order
-      const orderResponse = await checkoutCreateOrder(orderData);
-      if (!orderResponse?.success) {
+      const orderResponse = await axios.post('/api/payments/create-order', orderData, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      // Check response
+      if (!orderResponse.data?.success) {
         toast({
           title: 'Failed to create order. Please try again.',
           variant: 'destructive',
@@ -109,7 +117,7 @@ const CheckoutForm = ({ clientSecret = '', paymentIntentId = '' }) => {
         return;
       }
 
-      // Confirm payment
+      // // Confirm payment
       const result = await stripe.confirmPayment({
         elements,
         confirmParams: {

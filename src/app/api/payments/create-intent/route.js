@@ -1,3 +1,5 @@
+// /api/payments/create-intent
+
 import { publicApi } from '@/lib/axiosInstance';
 import { NextResponse } from 'next/server';
 import { log } from '@/lib/utils';

@@ -6,7 +6,8 @@ import stripe from '../stripe/stripe-server';
 
 /**
  * Handle for intialization checkout
- * @param {object} payload { amount and currency } required
+ * IN THIS INTENT IS CREATED BY LARAVEL
+ * @param {object} payload { amount and currency } required is handled 
  * @returns {object}
  */
 export const initializeCheckout = async (payload = {}) => {
@@ -76,14 +77,13 @@ export async function checkoutCreateOrder(orderDetail = {}) {
  * @returns {object} {success , clientSecret}
  */
 export const createPaymentIntent = async (payload = {}) => {
-  log(payload);
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: payload.amount,
       currency: payload.currency,
       receipt_email: payload.email,
     });
-    
+
     return {
       success: true,
       clientSecret: paymentIntent.client_secret,

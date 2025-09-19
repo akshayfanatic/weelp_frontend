@@ -1,8 +1,7 @@
 'use server';
-import { publicApi } from "@/lib/axiosInstance";
+import { publicApi } from '@/lib/axiosInstance';
 import { log } from '@/lib/utils';
-import stripe from "@/lib/stripe/stripe-server";
-
+import stripe from '@/lib/stripe/stripe-server';
 
 /**
  * Action for Create Payment Intent
@@ -16,7 +15,7 @@ export const createPaymentIntent = async (payload = {}) => {
       currency: payload.currency,
       receipt_email: payload.email,
     });
-    
+
     return {
       success: true,
       clientSecret: paymentIntent.client_secret,
@@ -30,7 +29,6 @@ export const createPaymentIntent = async (payload = {}) => {
     };
   }
 };
-
 
 export const testAction = async () => {
   return { ok: true };

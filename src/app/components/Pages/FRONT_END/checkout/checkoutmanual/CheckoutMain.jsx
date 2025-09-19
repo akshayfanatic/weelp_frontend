@@ -27,63 +27,61 @@ export default function CheckoutMainManual() {
 
   // initialize paymnet
   const initializePaymentIntent = async () => {
-
-    try {
-      // console.log('wrogin')
-      const res = await createPaymentIntent({
-        amount,
-        currency: String(currency).toLowerCase(),
-        email: session?.user?.email || '',
-      });
-
-      // console.log(res)
-      if (res?.success && res?.clientSecret) {
-        setClientSecret(res?.clientSecret);
-        setPayMentIntent(res?.paymentIntent);
-
-        sessionStorage.setItem('clientSecret', res?.clientSecret); // create session
-        sessionStorage.setItem('paymentIntent', res?.paymentIntent); // create session
-      } else {
-        setError('Client secret not received');
-      }
-    } catch (err) {
-      setError(err.message || 'Something went wrong');
-    } finally {
-      setLoading(false);
-    }
-
-    // client secret
     // try {
-    //   // POST request to your test API route
-    //   const res = await axios.post('/api/public/checkout/create-intent', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       amount, // from cart item
-    //       currency: String(currency).toLowerCase(),
-    //       email: session?.user?.email || '',
-    //     }),
+    //   // console.log('wrogin')
+    //   const res = await createPaymentIntent({
+    //     amount,
+    //     currency: String(currency).toLowerCase(),
+    //     email: session?.user?.email || '',
     //   });
 
-    //   const data = await res?.data
+    //   // console.log(res)
+    //   if (res?.success && res?.clientSecret) {
+    //     setClientSecret(res?.clientSecret);
+    //     setPayMentIntent(res?.paymentIntent);
 
-    //   if (data?.success && data?.clientSecret) {
-    //     setClientSecret(data.clientSecret);
-    //     setPayMentIntent(data.paymentIntent);
-
-    //     // store in session storage
-    //     sessionStorage.setItem('clientSecret', data.clientSecret);
-    //     sessionStorage.setItem('paymentIntent', data.paymentIntent);
+    //     sessionStorage.setItem('clientSecret', res?.clientSecret); // create session
+    //     sessionStorage.setItem('paymentIntent', res?.paymentIntent); // create session
     //   } else {
-    //     setError(data?.error || 'Client secret not received');
+    //     setError('Client secret not received');
     //   }
     // } catch (err) {
     //   setError(err.message || 'Something went wrong');
     // } finally {
     //   setLoading(false);
     // }
+
+    // client secret
+    try {
+      // POST request to your test API route
+      const res = await axios.post('/api/payments/create-intent', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount, // from cart item
+          currency: String(currency).toLowerCase(),
+          email: session?.user?.email || '',
+        }),
+      });
+
+      const data = await res?.data;
+
+      if (data?.success && data?.clientSecret) {
+        setClientSecret(data.clientSecret);
+        setPayMentIntent(data.paymentIntent);
+
+        // store in session storage
+        sessionStorage.setItem('clientSecret', data.clientSecret);
+        sessionStorage.setItem('paymentIntent', data.paymentIntent);
+      } else {
+        setError(data?.error || 'Client secret not received');
+      }
+    } catch (err) {
+      setError(err.message || 'Something went wrong');
+    } finally {
+      setLoading(false);
+    }
   };
 
   // on mount call generate
