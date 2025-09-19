@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.17.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.16.0...v0.17.0) (2025-09-19)
+
+
+### 🐛 Bug Fixes
+
+* **checkout:** Implement proxy route to fix server action failures on checkout page ([9b8f869](https://github.com/akshayfanatic/weelp_frontend/commit/9b8f869a703c64886f7a92649f1896c68ca76297))
+
 ## [0.16.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.15.2...v0.16.0) (2025-09-17)
 
 ### ✨ Features
