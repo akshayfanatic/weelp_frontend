@@ -22,19 +22,19 @@ export const GlobalCard = ({ productId, item_type, productSlug, imgsrc, productR
           <h3 className="text-black text-lg font-semibold">{productTitle || 'Evening Dessert - Premium'}</h3>
           <hr className=" border-t border-dashed border-gray-300 mb-1" />
           <div className="flex justify-between flex-wrap gap-2">
-            <h5 className="flex flex-col  text-gray-500 font-semibold">
+            <h5 className="flex flex-col  text-gray-500 font-semibold space-y-4">
               {/* Display Price Based on ItemType */}
 
               {/* For activity */}
               {item_type === 'activity' && (
                 <>
-                  <span className="font-normal">From</span>
+                  <span className="font-normal text-xs">From</span>
 
                   {productPrice && currency ? (
                     <>{formatCurrency(parseInt(productPrice), currency)}</>
                   ) : (
                     <>
-                      <span className="font-normal">{`$${productPrice}`}</span>
+                      <span className="font-bold text-[#5A5A5A]">{`$${productPrice}`}</span>
                     </>
                   )}
                 </>

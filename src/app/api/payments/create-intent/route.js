@@ -9,6 +9,7 @@ export async function POST(req) {
   try {
     const { body } = await req.json();
 
+    log(body)
     const response = await createPaymentIntent(JSON.parse(body));
     return NextResponse.json({ ...response });
   } catch (error) {

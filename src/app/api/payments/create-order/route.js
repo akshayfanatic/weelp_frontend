@@ -9,11 +9,11 @@ export async function POST(req) {
   try {
     const orderData = await req.json(); // ✅ Directly get parsed JSON
 
-    const profileResponse = await checkoutCreateOrder(orderData);
+    const orderResponse = await checkoutCreateOrder(orderData);
 
     return NextResponse.json({
       success: true,
-      data: profileResponse,
+      data: orderResponse,
     });
   } catch (error) {
     console.error('Edit Profile API Error:', error);

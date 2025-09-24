@@ -1,7 +1,8 @@
 import React from 'react';
+import { LoadingPage } from '@/app/components/Animation/Cards';
 
 const Loading = () => {
-  return <div className="loader"></div>;
+  return <LoadingPage />;
 };
 
 export default Loading;

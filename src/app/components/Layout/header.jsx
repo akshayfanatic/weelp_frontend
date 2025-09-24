@@ -36,17 +36,17 @@ const Header = () => {
 
   if (isClient) {
     return (
-      <header className={`block w-full border-b-2 ${stickyHeader ? 'fixed z-[12]' : ''}`}>
+      <header className={`block w-full border-b-[1px] ${stickyHeader ? 'fixed z-[12]' : ''}`}>
         {/* Desktop Topbar */}
         <div className="relative hidden lg:block">
           {/* Top Bar */}
-          <div className={`${stickyHeader ? 'hidden' : 'flex'} text-black bg-Brightgray px-12 py-4 w-full items-center justify-between `}>
-            <div className="topheader offer flex space-x-6">
-              <Link href={'/region/asia'}>Country</Link>
+          <div className={`${stickyHeader ? 'hidden' : 'flex'} text-black bg-[#EAEAEA] px-12 py-3 w-full items-center justify-between `}>
+            <div className="topheader offer flex space-x-3 items-center">
+              {/* <Link href={'/region/asia'}>Country</Link> */}
 
-              <a href="/Get Exclusive offer on the App" className="text-Nileblue text-sm">
+              <Link href="/Get Exclusive offer on the App" className="text-Nileblue text-sm">
                 Get Exclusive offer on the App
-              </a>
+              </Link>
               <a href="/Helpline" className="flex items-center text-Nileblue text-sm">
                 <Headphones className="mr-2" />
                 Helpline
@@ -129,13 +129,13 @@ export default Header;
 
 /** Account Menu */
 import { createPortal } from 'react-dom';
-import Minicart from '../Modals/Minicart';
 import ModalForm from '../Modals/ModalForm';
 import SubmenuAccount from '../Modals/SubmenuAccount';
 import useMiniCartStore from '@/lib/store/useMiniCartStore';
 import { Badge } from '@/components/ui/badge';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { MobileMenuSlider } from './MobileMenu';
+import MiniCartNew from '../Modals/MiniCartNew';
 
 export const HeaderAccount = () => {
   const { isMiniCartOpen, setMiniCartOpen, cartItems } = useMiniCartStore(); //mini cart store
@@ -199,7 +199,11 @@ export const HeaderAccount = () => {
       <ModalForm showForm={showForm} setShowForm={setShowForm} handleShowForm={handleShowForm} />
 
       {/* Mini Cart With React Portal */}
-      {isMiniCartOpen && createPortal(<Minicart showCart={isMiniCartOpen} setShowCart={setMiniCartOpen} />, document.body)}
+      {/* {isMiniCartOpen && createPortal(<Minicart showCart={isMiniCartOpen} setShowCart={setMiniCartOpen} />, document.body)} */}
+
+      {isMiniCartOpen && createPortal(<MiniCartNew />, document.body)}
+
+      {/* <MiniCartNew/> */}
     </div>
   );
 };

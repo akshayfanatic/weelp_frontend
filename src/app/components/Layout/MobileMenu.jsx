@@ -7,10 +7,10 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '@/compon
 import Image from 'next/image';
 import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
-import Minicart from '../Modals/Minicart';
-import useMiniCartStore from '@/lib/store/useMiniCartStore';
 import { createPortal } from 'react-dom';
 import { Badge } from '@/components/ui/badge';
+import MiniCartNew from '../Modals/MiniCartNew';
+import useMiniCartStore from '@/lib/store/useMiniCartStore';
 
 export function MobileMenuSlider() {
   return (
@@ -118,7 +118,7 @@ const HeaderAccountMobile = () => {
       </div>
 
       {/* Minicart */}
-      {isMiniCartOpen && createPortal(<Minicart showCart={isMiniCartOpen} setShowCart={setMiniCartOpen} />, document.body)}
+      {isMiniCartOpen && createPortal(<MiniCartNew />, document.body)}
     </div>
   );
 };

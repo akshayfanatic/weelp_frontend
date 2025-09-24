@@ -78,10 +78,19 @@ export async function checkoutCreateOrder(orderDetail = {}) {
  */
 export const createPaymentIntent = async (payload = {}) => {
   try {
+    
+    //  Stripe customer create per user
+    const customer = await stripe.customers.create({
+      email: payload.email,
+      name: payload.name,
+    });
+
+    // Create Intent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: payload.amount,
       currency: payload.currency,
       receipt_email: payload.email,
+      customer: customer.id,
     });
 
     return {

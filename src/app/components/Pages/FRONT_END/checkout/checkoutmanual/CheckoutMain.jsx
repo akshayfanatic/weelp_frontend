@@ -25,6 +25,11 @@ export default function CheckoutMainManual() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  console.log(user);
+
+  const name = user?.name;
+  const email = user?.email;
+
   // initialize paymnet
   const initializePaymentIntent = async () => {
     // try {
@@ -61,7 +66,9 @@ export default function CheckoutMainManual() {
         body: JSON.stringify({
           amount, // from cart item
           currency: String(currency).toLowerCase(),
-          email: session?.user?.email || '',
+          email: email,
+          name: name,
+          user,
         }),
       });
 

@@ -1,5 +1,7 @@
 import { LoadingPage } from '@/app/components/Animation/Cards';
-export default function Loading() {
-  // You can add any UI inside Loading, including a Skeleton.
+import { delay } from '@/lib/utils';
+
+export default async function Loading() {
+  await delay(5000);
   return <LoadingPage />;
 }
