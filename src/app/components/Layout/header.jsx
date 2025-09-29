@@ -16,7 +16,6 @@ const Header = () => {
   const [showmegaMenu, setShowMegaMenu] = useState(false);
   const { stickyHeader, setStickyHeader } = useUIStore();
 
-  
   useEffect(() => {
     window.addEventListener('scroll', isSticky);
     return () => {
@@ -99,7 +98,7 @@ const Header = () => {
             </nav>
 
             {/* <nav className="menu z-20"> */}
-              <NavigationMenu />
+            <NavigationMenu />
             {/* </nav> */}
 
             {/* Account  */}

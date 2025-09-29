@@ -4,20 +4,17 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.17.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.17.0...v0.17.1) (2025-09-29)
 
-
 ### 🐛 Bug Fixes
 
-* **checkout:** Fix Checkout Regarding Create Order with Proxy Route ([4a1d214](https://github.com/akshayfanatic/weelp_frontend/commit/4a1d214dcddc19f6045d3d673c934b8c2bd7952a))
-
+- **checkout:** Fix Checkout Regarding Create Order with Proxy Route ([4a1d214](https://github.com/akshayfanatic/weelp_frontend/commit/4a1d214dcddc19f6045d3d673c934b8c2bd7952a))
 
 ### ✨ Features
 
-* **MiniCart:** Created New MiniCart Based on Shadcn Sheet ([8545bbb](https://github.com/akshayfanatic/weelp_frontend/commit/8545bbb0844cf5fc54b8e6e11c10aecf6225b418))
-
+- **MiniCart:** Created New MiniCart Based on Shadcn Sheet ([8545bbb](https://github.com/akshayfanatic/weelp_frontend/commit/8545bbb0844cf5fc54b8e6e11c10aecf6225b418))
 
 ### ♻️ Code Refactoring
 
-* **forms:** improve UI and structure for better UX ([e06ce61](https://github.com/akshayfanatic/weelp_frontend/commit/e06ce6156f808233092aee1860fe76f8b06dc22c))
+- **forms:** improve UI and structure for better UX ([e06ce61](https://github.com/akshayfanatic/weelp_frontend/commit/e06ce6156f808233092aee1860fe76f8b06dc22c))
 
 ## [0.17.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.16.0...v0.17.0) (2025-09-19)
 

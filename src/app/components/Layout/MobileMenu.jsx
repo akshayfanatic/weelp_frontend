@@ -15,7 +15,6 @@ import { CityList } from '../Modals/MegaMenu/MegaMenu';
 
 const MiniCartNew = dynamic(() => import('../Modals/MiniCartNew', { ssr: false })); // lazy load minicart
 
-
 // import {
 //   Accordion,
 //   AccordionContent,
@@ -77,9 +76,6 @@ const MiniCartNew = dynamic(() => import('../Modals/MiniCartNew', { ssr: false }
 //     </Accordion>
 //   )
 // }
-
-
-
 
 export function MobileMenuSlider() {
   const { data, error, isLoading } = useRegions(); // get regions

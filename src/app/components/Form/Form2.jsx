@@ -81,7 +81,7 @@ export default function BookingForm2() {
           {activeSection === 'whereTo' && (
             <div
               onMouseLeave={(e) => {
-                e.stopPropagation(), setActiveSection('');
+                (e.stopPropagation(), setActiveSection(''));
               }}
               className="flex w-full justify-center sm:justify-start"
             >
@@ -140,7 +140,7 @@ export default function BookingForm2() {
           {activeSection === 'when' && (
             <div
               onMouseLeave={(e) => {
-                e.stopPropagation(), setActiveSection('');
+                (e.stopPropagation(), setActiveSection(''));
               }}
               className="flex w-full justify-start sm:justify-start flex-col -translate-x-8 sm:-translate-x-0  bg-gray-50 p-4 rounded-lg "
             >

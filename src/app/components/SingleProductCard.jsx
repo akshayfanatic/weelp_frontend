@@ -6,7 +6,6 @@ import { useParams } from 'next/navigation';
 import { formatCurrency } from '@/lib/utils';
 
 export const GlobalCard = ({ productId, item_type, productSlug, imgsrc, productRating, productTitle, productPrice, currency }) => {
-  
   return (
     <div className={`${'product_' + productId} bg-white  rounded-lg p-4 gap-3 shadow-md sm:max-w-fit max-w-full min-h-[360px] h-fit w-full sm:mx-0`}>
       <Link href={`/${item_type}/${productSlug}`}>

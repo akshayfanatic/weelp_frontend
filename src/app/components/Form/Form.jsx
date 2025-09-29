@@ -174,8 +174,6 @@ export default function BookingForm() {
     }
   };
 
-
-
   // display form based on data
   if (locations && locations.length > 0) {
     return (
@@ -236,7 +234,7 @@ export default function BookingForm() {
             {showLocation && (
               <div
                 onMouseLeave={(e) => {
-                  e.stopPropagation(), setShowLocation(!showLocation);
+                  (e.stopPropagation(), setShowLocation(!showLocation));
                 }}
                 className="flex w-full justify-center sm:justify-start"
               >
@@ -273,7 +271,7 @@ export default function BookingForm() {
             {showCalendar && (
               <div
                 onMouseLeave={(e) => {
-                  e.stopPropagation(), setShowCalendar(!showCalendar);
+                  (e.stopPropagation(), setShowCalendar(!showCalendar));
                 }}
                 className="flex justify-center mx-auto bg-white w-fit rounded-2xl p-2"
               >
@@ -289,7 +287,7 @@ export default function BookingForm() {
                       }}
                       onSelect={(value) => field.onChange(value)}
                       className="scale-90"
-                      classNames={{today:"text-black"}}
+                      classNames={{ today: 'text-black' }}
                     />
                   )}
                 />
@@ -299,7 +297,7 @@ export default function BookingForm() {
             {showHowMany && (
               <div
                 onMouseLeave={(e) => {
-                  e.stopPropagation(), setShowHowMany(!showHowMany);
+                  (e.stopPropagation(), setShowHowMany(!showHowMany));
                 }}
                 className="text-nowrap flex flex-col gap-4  w-full items-center sm:items-end"
               >
