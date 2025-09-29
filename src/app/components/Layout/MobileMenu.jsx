@@ -11,7 +11,7 @@ import { createPortal } from 'react-dom';
 import { Badge } from '@/components/ui/badge';
 import useMiniCartStore from '@/lib/store/useMiniCartStore';
 import dynamic from 'next/dynamic';
-import { CityList } from '../Modals/MegaMenu/MegaMenu';
+import { CityList } from '../Modals/MegaMenu/MegaMenuComponents';
 
 const MiniCartNew = dynamic(() => import('../Modals/MiniCartNew', { ssr: false })); // lazy load minicart
 

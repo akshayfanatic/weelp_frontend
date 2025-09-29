@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.17.2](https://github.com/akshayfanatic/weelp_frontend/compare/v0.17.1...v0.17.2) (2025-09-29)
 
-
 ### ♻️ Code Refactoring
 
-* **MegaMenu,Forms:** Optimize code structure and add lazy loading ([c495952](https://github.com/akshayfanatic/weelp_frontend/commit/c495952820c6246d4192bced1ca7333864f1c301))
+- **MegaMenu,Forms:** Optimize code structure and add lazy loading ([c495952](https://github.com/akshayfanatic/weelp_frontend/commit/c495952820c6246d4192bced1ca7333864f1c301))
 
 ### [0.17.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.17.0...v0.17.1) (2025-09-29)
 
