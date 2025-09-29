@@ -99,7 +99,7 @@ export const CityFilter = () => {
   const categoryList = useMemo(
     () =>
       categories.map((category, index) => (
-        <label key={index} className="flex items-center space-x-2 cursor-pointer text-md font-medium text-grayDark">
+        <label key={index} className="flex items-center space-x-2 cursor-pointer text-md font-medium text-grayDark ">
           <input
             type="checkbox"
             value={category?.name}
@@ -137,7 +137,7 @@ export const CityFilter = () => {
       {/* Sidebar Filter */}
       <div className="w-full flex-2 p-4 px-8 sm:my-12 sm:max-w-xs bg-white h-fit shadow-md rounded-lg">
         <h2 className="text-lg font-medium text-[#143042] my-4">Category</h2>
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-2 h-48 overflow-x-hidden overflow-auto">
           <label className="flex items-center space-x-2 cursor-pointer text-md font-medium text-grayDark">
             <input
               type="checkbox"

@@ -1,18 +1,22 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import MegaMenu from '../Modals/MegaMenu';
 import { Globe, Headphones, DollarSign, MapPin, UserRound, ChevronRight, ShoppingCart, Search } from 'lucide-react';
 import { useUIStore } from '@/lib/store/uiStore';
 import { useIsClient } from '@/hooks/useIsClient';
 
+// Lazy Loaded Compnent
+const SubmenuAccount = dynamic(() => import('../Modals/SubmenuAccount'), { ssr: false });
+const MegaMenu = dynamic(() => import('../Modals/MegaMenu/MegaMenu'), { ssr: false });
+
 const Header = () => {
   const isClient = useIsClient(); // hydration
-  const isMobile = useIsMobile(); //
   const [showmegaMenu, setShowMegaMenu] = useState(false);
   const { stickyHeader, setStickyHeader } = useUIStore();
 
+  
   useEffect(() => {
     window.addEventListener('scroll', isSticky);
     return () => {
@@ -66,13 +70,13 @@ const Header = () => {
           </div>
 
           {/* Menu Bar */}
-          <div className="flex text-black px-12 py-4 w-full items-center bg-white">
+          <div className="flex text-black px-12 py-4 w-full items-center justify-between bg-white">
             <div className="logo">
               <Link href="/">
                 <img src="/assets/images/SiteLogo.png" alt="Logo" className="h-10" />
               </Link>
             </div>
-            <nav className="flex menu flex-grow justify-center space-x-10 flex-wrap">
+            <nav className="hidden menu flex-grow justify-center space-x-10 flex-wrap">
               <button className="relative flex items-center text-Bluewhale font-medium" onClick={handleMegaMenu}>
                 {/* This is Mega Menu Handle */}
                 <MapPin className="mr-2" />
@@ -93,6 +97,10 @@ const Header = () => {
                 Explore
               </Link>
             </nav>
+
+            {/* <nav className="menu z-20"> */}
+              <NavigationMenu />
+            {/* </nav> */}
 
             {/* Account  */}
             <HeaderAccount />
@@ -130,12 +138,11 @@ export default Header;
 /** Account Menu */
 import { createPortal } from 'react-dom';
 import ModalForm from '../Modals/ModalForm';
-import SubmenuAccount from '../Modals/SubmenuAccount';
 import useMiniCartStore from '@/lib/store/useMiniCartStore';
 import { Badge } from '@/components/ui/badge';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { MobileMenuSlider } from './MobileMenu';
 import MiniCartNew from '../Modals/MiniCartNew';
+import NavigationMenu from './NavigationMenu';
 
 export const HeaderAccount = () => {
   const { isMiniCartOpen, setMiniCartOpen, cartItems } = useMiniCartStore(); //mini cart store
@@ -199,8 +206,6 @@ export const HeaderAccount = () => {
       <ModalForm showForm={showForm} setShowForm={setShowForm} handleShowForm={handleShowForm} />
 
       {/* Mini Cart With React Portal */}
-      {/* {isMiniCartOpen && createPortal(<Minicart showCart={isMiniCartOpen} setShowCart={setMiniCartOpen} />, document.body)} */}
-
       {isMiniCartOpen && createPortal(<MiniCartNew />, document.body)}
 
       {/* <MiniCartNew/> */}

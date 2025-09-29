@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { MapPin, Calendar } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 // Zod schema for form validation
 const bookingSchema = z.object({
@@ -21,6 +22,7 @@ const bookingSchema = z.object({
 });
 
 export default function BookingForm2() {
+  const router = useRouter();
   const [activeSection, setActiveSection] = useState('');
 
   const {
@@ -36,7 +38,13 @@ export default function BookingForm2() {
   });
 
   const onSubmit = (data) => {
-    console.log('Form Data:', data);
+    // Convert dates to YYYY-MM-DD format
+    const startDate = data?.dateRange?.from ? data.dateRange.from.toISOString().split('T')[0] : '';
+    const endDate = data?.dateRange?.to ? data.dateRange.to.toISOString().split('T')[0] : '';
+
+    // Construct query string
+    router.push(`/search?location=${String(data?.whereTo).toLowerCase()}&start_date=${startDate}&end_date=${endDate}`);
+
     setActiveSection(''); // Close all sections after submission
   };
 
@@ -48,23 +56,23 @@ export default function BookingForm2() {
     <div className="w-full sm:w-[520px] rounded-2xl relative shadow-sm bannerForm ">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         {/* Main Input Fields */}
-        <div className="flex border rounded-2xl bg-white overflow-hidden">
+        <div className="flex border rounded-2xl bg-white overflow-hidden ">
           {/* Where To */}
-          <div className="flex-1 border-r cursor-pointer p-4" onClick={() => toggleSection('whereTo')}>
-            <label className="flex items-center gap-2 text-[#5A5A5A] text-base">
+          <div className="flex-1 border-r cursor-pointer p-2 px-4 text-nowrap sm:p-4 " onClick={() => toggleSection('whereTo')}>
+            <label className="flex items-center gap-2 text-[#5A5A5A] text-sm sm:text-base h-full">
               <MapPin size={20} />
               <span>Where to?</span>
             </label>
-            {errors.whereTo && <p className="text-red-500 text-sm  ">{errors.whereTo.message}</p>}
+            {errors.whereTo && <p className="text-red-500 text-xs">{errors?.whereTo?.message}</p>}
           </div>
 
           {/* When */}
-          <div className="flex-1 cursor-pointer p-4" onClick={() => toggleSection('when')}>
-            <label className="flex items-center gap-2 text-[#5A5A5A] text-base">
+          <div className="flex-1 cursor-pointer p-2 px-4 sm:p-4" onClick={() => toggleSection('when')}>
+            <label className="flex items-center gap-2 text-[#5A5A5A] text-base ">
               <Calendar size={20} />
               <span>When?</span>
             </label>
-            {errors.dateRange && <p className="text-red-500 text-sm ">{errors.dateRange.message}</p>}
+            {errors.dateRange && <p className="text-red-500 text-sm ">{errors?.dateRange?.message}</p>}
           </div>
         </div>
 
@@ -73,7 +81,7 @@ export default function BookingForm2() {
           {activeSection === 'whereTo' && (
             <div
               onMouseLeave={(e) => {
-                (e.stopPropagation(), setActiveSection(''));
+                e.stopPropagation(), setActiveSection('');
               }}
               className="flex w-full justify-center sm:justify-start"
             >
@@ -87,7 +95,9 @@ export default function BookingForm2() {
                     <ul className="bg-white rounded-xl  w-[220px] overflow-hidden">
                       <li
                         onClick={() => field.onChange('')}
-                        className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-secondaryDark  cursor-pointer hover:bg-[#f2f7f5] ${field.value === '' ? 'bg-[#e9f5ed]' : 'bg-[#f2f7f5]'}`}
+                        className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-secondaryDark  cursor-pointer hover:bg-[#f2f7f5] ${
+                          field.value === '' ? 'bg-[#e9f5ed]' : 'bg-[#f2f7f5]'
+                        }`}
                       >
                         Suggested
                       </li>
@@ -130,7 +140,7 @@ export default function BookingForm2() {
           {activeSection === 'when' && (
             <div
               onMouseLeave={(e) => {
-                (e.stopPropagation(), setActiveSection(''));
+                e.stopPropagation(), setActiveSection('');
               }}
               className="flex w-full justify-start sm:justify-start flex-col -translate-x-8 sm:-translate-x-0  bg-gray-50 p-4 rounded-lg "
             >

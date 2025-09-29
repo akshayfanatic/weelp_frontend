@@ -8,7 +8,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
 import { log } from '@/lib/utils';
 import { getCitiesRegions } from '@/lib/services/global';
 
@@ -32,13 +31,13 @@ export default function BookingForm() {
   const router = useRouter(); // for navigation
 
   const [allLocations, setAllLocations] = useState([]);
-  const [formData, setFormData] = useState([]);
   const [showLocation, setShowLocation] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showHowMany, setShowHowMany] = useState(false);
   const [showResponse, setShowResponse] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState('');
-  const [isOpen, setIsOpen] = useState();
+  const [filteredLocations, setFilteredLocations] = useState(allLocations || []);
+  const [inputValue, setInputValue] = useState(''); // input for filtering
+  const [hasTyped, setHasTyped] = useState(false); // track if user typed
 
   const [howMany, setHowMany] = useState({
     adults: 1,
@@ -151,6 +150,32 @@ export default function BookingForm() {
   //all location
   const { data: locations = [] } = allLocations;
 
+  // onchange handle
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+    setHasTyped(true); // user has typed
+
+    if (value.trim() === '') {
+      setFilteredLocations(locations); // show full list if input empty
+      setHasTyped(false); // no longer considered typed
+    } else {
+      const filtered = locations.filter((loc) => loc.name.toLowerCase().includes(value.toLowerCase()));
+      setFilteredLocations(filtered);
+    }
+  };
+
+  // handle Input Click
+  const handleInputClick = () => {
+    setShowLocation(true);
+    if (!hasTyped) {
+      // first time click → show all locations
+      setFilteredLocations(locations);
+    }
+  };
+
+
+
   // display form based on data
   if (locations && locations.length > 0) {
     return (
@@ -162,7 +187,16 @@ export default function BookingForm() {
               <div className="p-2 sm:p-4">
                 <label className="flex cursor-pointer justify-center items-center gap-2 text-Bluewhale text-[12px] sm:text-base" onClick={toggleLocation}>
                   <MapPin size={20} />
-                  <span>{watchedWhereTo || 'Where to'}</span>
+                  {/* <input onChange={handleInputChange} value={watchedWhereTo || ''} placeholder="Where to" type="text" /> */}
+                  <input
+                    type="text"
+                    placeholder="Where to"
+                    value={inputValue} // input only tracks user typing
+                    onChange={handleInputChange} // filter locations
+                    onClick={handleInputClick}
+                    className="w-full bg-inherit focus-visible:outline-none rounded px-3 py-2 placeholder:text-inherit"
+                  />
+                  {/* <span>{watchedWhereTo || 'Where to'}</span> */}
                 </label>
                 {errors.whereTo && <p className="text-red-500 text-sm text-center">{errors.whereTo.message}</p>}
               </div>
@@ -202,7 +236,7 @@ export default function BookingForm() {
             {showLocation && (
               <div
                 onMouseLeave={(e) => {
-                  (e.stopPropagation(), setShowLocation(!showLocation));
+                  e.stopPropagation(), setShowLocation(!showLocation);
                 }}
                 className="flex w-full justify-center sm:justify-start"
               >
@@ -212,27 +246,25 @@ export default function BookingForm() {
                   control={control}
                   defaultValue="" // Default value for the select
                   render={({ field }) => (
-                    <div className="locationController">
-                      <ul className="bg-white rounded-xl  w-[220px] overflow-hidden">
-                        <li
-                          onClick={() => field.onChange('')}
-                          className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-secondaryDark  cursor-pointer hover:bg-[#f2f7f5] ${field.value === '' ? 'bg-[#e9f5ed]' : 'bg-[#f2f7f5]'}`}
-                        >
-                          Suggested
-                        </li>
-                        {locations.map((val, index) => {
-                          return (
-                            <li
-                              key={index}
-                              onClick={() => field.onChange(val?.name)}
-                              className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-[#5a5a5a]  cursor-pointer hover:bg-[#f2f7f5] ${field.value === `${val?.name}` ? 'bg-[#e9f5ed]' : ''}`}
-                            >
-                              {val?.name}
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
+                    <ul className="absolute bg-white rounded-xl w-[220px] max-h-48 overflow-y-auto border mt-1 z-50">
+                      {filteredLocations.length > 0 ? (
+                        filteredLocations.map((loc, idx) => (
+                          <li
+                            key={idx}
+                            onClick={() => {
+                              setValue('whereTo', loc.name); // update form value
+                              setInputValue(loc.name); // update input display
+                              setShowLocation(false); // close dropdown
+                            }}
+                            className={`px-4 py-2 cursor-pointer hover:bg-gray-100 ${watchedWhereTo === loc.name ? 'bg-green-100' : ''}`}
+                          >
+                            {loc.name}
+                          </li>
+                        ))
+                      ) : (
+                        <li className="px-4 py-2 text-gray-500 cursor-default">No locations found</li>
+                      )}
+                    </ul>
                   )}
                 />
               </div>
@@ -241,7 +273,7 @@ export default function BookingForm() {
             {showCalendar && (
               <div
                 onMouseLeave={(e) => {
-                  (e.stopPropagation(), setShowCalendar(!showCalendar));
+                  e.stopPropagation(), setShowCalendar(!showCalendar);
                 }}
                 className="flex justify-center mx-auto bg-white w-fit rounded-2xl p-2"
               >
@@ -256,7 +288,8 @@ export default function BookingForm() {
                         before: new Date(),
                       }}
                       onSelect={(value) => field.onChange(value)}
-                      className=" scale-90"
+                      className="scale-90"
+                      classNames={{today:"text-black"}}
                     />
                   )}
                 />
@@ -266,7 +299,7 @@ export default function BookingForm() {
             {showHowMany && (
               <div
                 onMouseLeave={(e) => {
-                  (e.stopPropagation(), setShowHowMany(!showHowMany));
+                  e.stopPropagation(), setShowHowMany(!showHowMany);
                 }}
                 className="text-nowrap flex flex-col gap-4  w-full items-center sm:items-end"
               >
@@ -302,12 +335,6 @@ export default function BookingForm() {
                 </div>
               </div>
             )}
-
-            {/* {showResponse && formData && Object.keys(formData).length > 0 ?
-                        <div className="text-nowrap flex flex-col gap-4  w-full items-center border shadow-lg rounded-xl">
-                            <pre>{JSON.stringify(formData, null, 2)}</pre>
-                        </div>
-                        : null} */}
           </div>
         </form>
       </div>

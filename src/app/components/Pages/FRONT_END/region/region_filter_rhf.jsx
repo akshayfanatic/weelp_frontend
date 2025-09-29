@@ -4,14 +4,11 @@ import React, { useEffect, useCallback, useRef } from 'react';
 import { useForm, FormProvider, Controller, useWatch } from 'react-hook-form';
 import { useParams } from 'next/navigation';
 import debounce from 'lodash.debounce';
-
 import ReactRangeSliderInput from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import { Star } from 'lucide-react';
-
 import { useCategories } from '@/hooks/api/public/categories';
 import { useRegionItems } from '@/hooks/api/public/region';
-
 import { GlobalCard } from '@/app/components/SingleProductCard';
 import { LoadingPage } from '@/app/components/Animation/Cards';
 
@@ -68,18 +65,17 @@ export const RegionFilterNew = () => {
     });
   };
 
-  // ----- UI Components -----
-
   const CategoryFilter = () => (
     <Controller
       name="categories"
       control={methods.control}
       render={({ field }) => (
-        <div className="space-y-2">
+        <div className="space-y-2 h-48 overflow-x-hidden overflow-auto">
           <label className="flex items-center space-x-2">
             <input
               type="checkbox"
               checked={field.value.length === 0}
+              className="size-5 transition-all border-2 rounded cursor-pointer checked:accent-secondaryDark"
               onChange={() => field.onChange([])} // selecting "All" clears all categories
             />
             <span>All Categories</span>
@@ -90,6 +86,7 @@ export const RegionFilterNew = () => {
                 type="checkbox"
                 value={cat.name}
                 checked={field.value.includes(cat.name)}
+                className="size-5 transition-all border-2 rounded cursor-pointer checked:accent-secondaryDark"
                 onChange={(e) => {
                   const checked = e.target.checked;
                   const next = checked ? [...field.value, cat.name] : field.value.filter((c) => c !== cat.name);
@@ -163,9 +160,9 @@ export const RegionFilterNew = () => {
 
   return (
     <FormProvider {...methods}>
-      <div className="flex flex-col sm:flex-row sm:gap-4 lg:gap-8 p-4">
+      <div className="flex flex-col sm:flex-row sm:gap-4 lg:gap-8 p-4 ">
         {/* Sidebar */}
-        <aside className="w-full sm:max-w-xs p-6 bg-white rounded shadow">
+        <aside className="w-full sm:max-w-xs p-6 bg-white rounded shadow h-fit">
           <h2 className="text-lg font-semibold mb-4">Category</h2>
           <CategoryFilter />
 

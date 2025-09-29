@@ -134,7 +134,7 @@ export const SearchPage = () => {
         {/* Sidebar Filters */}
         <div className="w-full sm:max-w-xs p-4 bg-white shadow-md rounded-lg">
           <h2 className="text-lg font-medium text-[#143042] my-4">Category</h2>
-          <div className="flex flex-col space-y-2">
+          <div className="flex flex-col space-y-2 h-48 overflow-scroll overflow-x-hidden">
             {categories.map((category) => (
               <label key={category.id} className="flex items-center space-x-2 cursor-pointer">
                 <input

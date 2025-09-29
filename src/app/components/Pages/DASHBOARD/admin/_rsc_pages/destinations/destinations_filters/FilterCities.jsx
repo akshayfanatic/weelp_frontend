@@ -31,8 +31,11 @@ export const FilterCities = () => {
 
   const { data, error, isValidating } = useSWR(`/api/admin/destinations/cities?name=${debouncedQuery}&page=${page}`, fetcher); // city
 
+
   // destructure API response
   const { data: cities = [], total = 0, per_page: perPage = 0, last_page: lastPage = 1, current_page: currentPage = 1 } = data || {};
+
+  console.log(cities)
 
   return (
     <FormProvider {...methods}>

@@ -85,7 +85,6 @@ export default async function Region({ params }) {
       <BannerSection />
       {/* <CitySection data={whiteCardData} /> */}
 
-      {/* Show Section Only If Data Exists */}
       {cityData.length > 0 && <DestinationSliderSection sliderTitle="Must Visit Cities" data={cityData} />}
 
       <BreakSection />
