@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.17.4](https://github.com/akshayfanatic/weelp_frontend/compare/v0.17.3...v0.17.4) (2025-09-30)
+
+
+### 🐛 Bug Fixes
+
+* **ProductCard:** Fix Margin of Product Card According To Design ([b2465ef](https://github.com/akshayfanatic/weelp_frontend/commit/b2465ef655c521543ca4661f304d315f6f3fede1))
+
 ### [0.17.3](https://github.com/akshayfanatic/weelp_frontend/compare/v0.17.2...v0.17.3) (2025-09-29)
 
 ### [0.17.2](https://github.com/akshayfanatic/weelp_frontend/compare/v0.17.1...v0.17.2) (2025-09-29)
