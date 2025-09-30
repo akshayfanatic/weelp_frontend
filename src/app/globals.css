@@ -121,7 +121,7 @@ body {
   .productDestination .swiper-button-prev,
   .reviewSlider .swiper-button-prev,
   .singleproduct_reviewslider .swiper-button-prev {
-    @apply bg-white absolute top-[5%] shadow-xl rounded-[10px] size-8 border-[2px];
+    @apply bg-white absolute top-[5%] shadow-xl rounded-[10px] size-10 border-[2px];
 
     @media (max-width: 639px) {
       left: 70%;
@@ -150,7 +150,7 @@ body {
 .productDestination .swiper-button-next,
 .reviewSlider .swiper-button-next,
 .singleproduct_reviewslider .swiper-button-next {
-  @apply bg-white absolute top-[5%] shadow-xl rounded-[10px] size-8 border-[2px];
+  @apply bg-white absolute top-[5%] shadow-xl rounded-[10px] size-10 border-[2px];
 }
 
 .productSlider .swiper-button-prev::after,
@@ -303,9 +303,7 @@ body {
   margin: 15px auto;
   position: relative;
   background: #fff;
-  box-shadow:
-    -24px 0 #fff,
-    24px 0 #fff;
+  box-shadow: -24px 0 #fff, 24px 0 #fff;
   box-sizing: border-box;
   animation: shadowPulse 2s linear infinite;
 }
@@ -313,23 +311,17 @@ body {
 @keyframes shadowPulse {
   33% {
     background: #fff;
-    box-shadow:
-      -24px 0 #56947d,
-      24px 0 #fff;
+    box-shadow: -24px 0 #56947d, 24px 0 #fff;
   }
 
   66% {
     background: #56947d;
-    box-shadow:
-      -24px 0 #fff,
-      24px 0 #fff;
+    box-shadow: -24px 0 #fff, 24px 0 #fff;
   }
 
   100% {
     background: #fff;
-    box-shadow:
-      -24px 0 #fff,
-      24px 0 #56947d;
+    box-shadow: -24px 0 #fff, 24px 0 #56947d;
   }
 }
 
