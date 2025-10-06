@@ -19,7 +19,7 @@ export const GlobalCard = ({ productId, item_type, productSlug, imgsrc, productR
             <span className="text-[#5A5A5A]" dangerouslySetInnerHTML={{ __html: '(3.4K)' }} />
           </div>
           <h3 className="text-black text-lg font-semibold">{productTitle || 'Evening Dessert - Premium'}</h3>
-          <hr className=" border-t border-dashed border-gray-300 mb-3"/>
+          <hr className=" border-t border-dashed border-gray-300 mb-3" />
           <div className="flex justify-between flex-wrap gap-2">
             <h5 className="flex flex-col  text-gray-500 font-semibold space-y-4">
               {/* For activity */}

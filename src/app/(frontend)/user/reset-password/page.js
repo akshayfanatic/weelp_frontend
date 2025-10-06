@@ -1,5 +1,5 @@
 import React from 'react';
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/auth/auth';
 import { redirect } from 'next/navigation';
 import { FormResetPassword } from '@/app/components/Form/FormResetPassword';
 

@@ -1,87 +1,46 @@
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { MenuIcon, ShoppingCart, UserRound } from 'lucide-react';
+import { ChevronDown, Globe, Headphones, MenuIcon, ShoppingCart, UserRound } from 'lucide-react';
 import Link from 'next/link';
-import { useRegions } from '@/hooks/api/public/region/region';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '@/components/ui/navigation-menu';
 import Image from 'next/image';
-import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Badge } from '@/components/ui/badge';
 import useMiniCartStore from '@/lib/store/useMiniCartStore';
 import dynamic from 'next/dynamic';
-import { CityList } from '../Modals/MegaMenu/MegaMenuComponents';
+import { useNavigationMenu } from '@/hooks/api/public/menu/menu';
+import { NAV_MENU_ITEMS } from '@/constants/shared';
 
 const MiniCartNew = dynamic(() => import('../Modals/MiniCartNew', { ssr: false })); // lazy load minicart
 
-// import {
-//   Accordion,
-//   AccordionContent,
-//   AccordionItem,
-//   AccordionTrigger,
-// } from "@/components/ui/accordion"
+const MobileMenu = ({ stickyHeader }) => {
+  return (
+    <div className="relative lg:hidden">
+      {/* Top Bar */}
+      <div className={`${stickyHeader ? 'hidden' : 'flex'} text-black bg-Brightgray px-12 py-4 w-full items-center justify-between `}>
+        <Link href="/Helpline" className="flex items-center text-Nileblue text-sm">
+          <Headphones className="mr-2" />
+          Helpline
+        </Link>
 
-// export function AccordionDemo() {
-//   return (
-//     <Accordion
-//       type="single"
-//       collapsible
-//       className="w-full"
-//       defaultValue="item-1"
-//     >
-//       <AccordionItem value="item-1">
-//         <AccordionTrigger>Product Information</AccordionTrigger>
-//         <AccordionContent className="flex flex-col gap-4 text-balance">
-//           <p>
-//             Our flagship product combines cutting-edge technology with sleek
-//             design. Built with premium materials, it offers unparalleled
-//             performance and reliability.
-//           </p>
-//           <p>
-//             Key features include advanced processing capabilities, and an
-//             intuitive user interface designed for both beginners and experts.
-//           </p>
-//         </AccordionContent>
-//       </AccordionItem>x
-//       <AccordionItem value="item-2">
-//         <AccordionTrigger>Shipping Details</AccordionTrigger>
-//         <AccordionContent className="flex flex-col gap-4 text-balance">
-//           <p>
-//             We offer worldwide shipping through trusted courier partners.
-//             Standard delivery takes 3-5 business days, while express shipping
-//             ensures delivery within 1-2 business days.
-//           </p>
-//           <p>
-//             All orders are carefully packaged and fully insured. Track your
-//             shipment in real-time through our dedicated tracking portal.
-//           </p>
-//         </AccordionContent>
-//       </AccordionItem>
-//       <AccordionItem value="item-3">
-//         <AccordionTrigger>Return Policy</AccordionTrigger>
-//         <AccordionContent className="flex flex-col gap-4 text-balance">
-//           <p>
-//             We stand behind our products with a comprehensive 30-day return
-//             policy. If you&apos;re not completely satisfied, simply return the
-//             item in its original condition.
-//           </p>
-//           <p>
-//             Our hassle-free return process includes free return shipping and
-//             full refunds processed within 48 hours of receiving the returned
-//             item.
-//           </p>
-//         </AccordionContent>
-//       </AccordionItem>
-//     </Accordion>
-//   )
-// }
+        <div className="topheader-language flex space-x-6">
+          <Link href="/Get Exclusive offer on the App" className="flex items-center text-Nileblue text-sm">
+            <Globe className="mr-2" />
+            English
+          </Link>
+        </div>
+      </div>
 
-export function MobileMenuSlider() {
-  const { data, error, isLoading } = useRegions(); // get regions
+      {/* Mobile Menu */}
+      <div className="p-2 bg-white">
+        <MobileMenuSlider />
+      </div>
+    </div>
+  );
+};
 
-  const menu = data?.data; // get menus
-
+const MobileMenuSlider = () => {
   return (
     <Sheet>
       <div className="flex justify-between items-center">
@@ -119,60 +78,63 @@ export function MobileMenuSlider() {
       </SheetContent>
     </Sheet>
   );
-}
+};
 
 // Nav Items
 const NavigationMenuMobile = () => {
-  const { data, isLoading: isRegionLoading, error: isRegionError } = useRegions(); // fetch region through api
-  const [menuList, setMenuList] = useState('');
-
-  if (isRegionError) return <span className="text-red-400">Someting went wrong</span>;
-  if (isRegionLoading) return <span className="loader"></span>;
-
+  const [selectedItem, setSelectedItem] = useState('');
+  const { data, isLoading: isNavMenuLoading, error: isNavMenuError } = useNavigationMenu(); // fetch region through api
+  if (isNavMenuError) return <span className="text-red-400">Someting went wrong</span>;
+  if (isNavMenuLoading) return <span className="loader"></span>;
   const regions = data?.data || [];
 
-  console.log(regions);
-
-  // navigation
-  const staticNavigation = [
-    {
-      title: 'Home',
-      href: '/',
-    },
-    {
-      title: 'Hover Card',
-      href: '/docs/primitives/hover-card',
-    },
-    {
-      title: 'Progress',
-      href: '/docs/primitives/progress',
-    },
-  ];
+  // Handle Selcted Item
+  const handleSelectedItem = (region) => {
+    if (region === selectedItem) {
+      setSelectedItem('');
+    } else {
+      setSelectedItem(region);
+    }
+  };
 
   return (
-    <NavigationMenu className="flex-col">
-      <NavigationMenuList className="flex-col items-start w-full gap-2">
-        {staticNavigation.map(({ title, href }, index) => {
+    <NavigationMenu className="flex-col items-start py-4 w-full min-w-full">
+      <NavigationMenuList className="flex-col items-start w-full gap-2 min-w-full p-2">
+        <NavigationMenuItem key={'home'} className="!ml-0">
+          <Link href="/" className="text-2xl">
+            Home
+          </Link>
+        </NavigationMenuItem>
+
+        {regions.map(({ region, cities }, index) => {
+          return (
+            <NavigationMenuItem key={region} className="!ml-0 w-full relative" onClick={() => handleSelectedItem(region)}>
+              <span className="text-2xl w-full">{region}</span>
+
+              <ChevronDown size={20} className={`absolute left-full sm:left-[150%] top-4 transition-transform ${selectedItem === region ? 'rotate-180' : 'rotate-0'}`} />
+              {selectedItem === region && cities?.length > 0 && (
+                <ul className="px-4 w-full flex flex-col text-sm">
+                  {cities.map((city, index) => (
+                    <Link key={city.id || index} href={`/city/${city?.slug}`}>
+                      {city.name}
+                    </Link>
+                  ))}
+                </ul>
+              )}
+            </NavigationMenuItem>
+          );
+        })}
+
+        {NAV_MENU_ITEMS.map(({ title, href }, index) => {
           return (
             <NavigationMenuItem key={index} className="!ml-0">
-              <Link href={href} className="text-xl ">
+              <Link href={href} className="text-2xl">
                 {title}
               </Link>
             </NavigationMenuItem>
           );
         })}
-
-        {regions.map((item) => {
-          return (
-            <NavigationMenuItem key={item?.slug} className="!ml-0">
-              <span className="text-xl ">{item?.name}</span>
-            </NavigationMenuItem>
-          );
-        })}
       </NavigationMenuList>
-
-      {/* Seprator */}
-      <Separator />
     </NavigationMenu>
   );
 };
@@ -203,14 +165,4 @@ const HeaderAccountMobile = () => {
   );
 };
 
-// Dynamic Mega Menu Content
-const MenuItemList = ({ selectedContinent = '' }) => {
-  const { data: cityData, isLoading: isCityLoading, error: cityError } = useSWR(selectedContinent ? `/api/public/region/${selectedContinent}/getcities/` : null, fetcher);
-
-  if (cityError) return <span className="text-red-400">Something Went Wrong</span>;
-  if (isCityLoading) return <span className="loader"></span>;
-
-  const citiesList = cityData?.data || [];
-
-  return <CityList citiesList={citiesList} />;
-};
+export default MobileMenu;

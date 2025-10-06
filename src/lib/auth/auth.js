@@ -1,6 +1,7 @@
 import NextAuth, { CredentialsSignin } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { jwtDecode } from 'jwt-decode';
+import { redirect } from 'next/navigation';
 
 export const {
   handlers: { GET, POST },
@@ -53,7 +54,8 @@ export const {
             expiresAt: decodedToken.exp * 1000,
           };
         } catch (error) {
-          console.log('Authorization error:', error);
+          console.error('Authorization error:', error);
+
           return null;
         }
       },

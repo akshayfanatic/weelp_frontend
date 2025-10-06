@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 
 const MiniCartNew = () => {
   const router = useRouter(); // intialize route
-  const { cartItems, removeItem, totalPrice, clearCart, isMiniCartOpen, setMiniCartOpen } = useMiniCartStore();
+  const { cartItems, totalPrice, isMiniCartOpen, setMiniCartOpen } = useMiniCartStore();
   return (
     <Sheet open={isMiniCartOpen} onOpenChange={setMiniCartOpen}>
       <SheetContent className="!max-w-[485px] w-full h-full p-6 bg-[#F3F5F6] rounded-t-xl shadow-xl">
@@ -66,7 +66,7 @@ const MiniCartNew = () => {
                     </div>
                     <button
                       onClick={() => {
-                        (router.push('/checkout'), setMiniCartOpen(false));
+                        router.push('/checkout'), setMiniCartOpen(false);
                       }}
                       className="w-full capitalize rounded-md bg-secondaryDark text-[#ffffff] text-base font-medium"
                     >

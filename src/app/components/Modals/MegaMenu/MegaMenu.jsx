@@ -11,7 +11,7 @@ const MegaMenu = () => {
     name: '',
     cities: [],
   });
-  
+
   const { data: menuData, isLoading, isValidating, error } = useNavigationMenu(); // menu list
 
   const navItems = menuData?.data || []; // navigationItems

@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { auth } from '../lib/auth';
+import { auth } from './auth/auth';
 
 // Public API instance (No auth required)
 export const publicApi = axios.create({
   baseURL: `${process.env.API_BASE_URL}`,
 });
 
-// // Authenticated API instance
+// Authenticated API instance
 export const authApi = axios.create({
   baseURL: `${process.env.API_BASE_URL}`,
 });

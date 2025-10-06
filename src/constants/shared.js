@@ -112,4 +112,24 @@ const EVENT_TYPES = [
   { value: 'religious', label: 'Religious' },
 ];
 
-export { SORT_BY, LANGUAGES, CURRENCY, GMT_TIMEZONE, LOCAL_CUISINE, PUBLIC_TRANSPORTATION, CALENDAR_MONTHS, SEASON_ACTIVITIES, EVENT_TYPES };
+
+const NAV_MENU_ITEMS = [
+  {
+    title: 'Tour & Experience',
+    href: '/',
+  },
+  {
+    title: 'Transfer & Holidays',
+    href: '/transfers',
+  },
+  {
+    title: 'Trips',
+    href: '/holiday',
+  },
+  {
+    title: 'Explore',
+    href: '/',
+  },
+];
+
+export { SORT_BY, LANGUAGES, CURRENCY, GMT_TIMEZONE, LOCAL_CUISINE, PUBLIC_TRANSPORTATION, CALENDAR_MONTHS, SEASON_ACTIVITIES, EVENT_TYPES, NAV_MENU_ITEMS };
