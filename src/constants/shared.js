@@ -112,7 +112,6 @@ const EVENT_TYPES = [
   { value: 'religious', label: 'Religious' },
 ];
 
-
 const NAV_MENU_ITEMS = [
   {
     title: 'Tour & Experience',

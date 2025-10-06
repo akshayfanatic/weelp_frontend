@@ -66,7 +66,7 @@ const MiniCartNew = () => {
                     </div>
                     <button
                       onClick={() => {
-                        router.push('/checkout'), setMiniCartOpen(false);
+                        (router.push('/checkout'), setMiniCartOpen(false));
                       }}
                       className="w-full capitalize rounded-md bg-secondaryDark text-[#ffffff] text-base font-medium"
                     >
