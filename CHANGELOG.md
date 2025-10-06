@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.18.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.17.4...v0.18.0) (2025-10-06)
+
+
+### ♻️ Code Refactoring
+
+* **auth:** Create Seprate Dedicated Folder For Auth ([99f5659](https://github.com/akshayfanatic/weelp_frontend/commit/99f56599f6ca84a59009d0ee816931fa5c966bb7))
+
+
+### ✨ Features
+
+* **auth:** Create Dedicated Folder For Auth ([254dbc9](https://github.com/akshayfanatic/weelp_frontend/commit/254dbc96aaba382da34b1704a393f4e4ea27a03c))
+
 ### [0.17.4](https://github.com/akshayfanatic/weelp_frontend/compare/v0.17.3...v0.17.4) (2025-09-30)
 
 ### 🐛 Bug Fixes
