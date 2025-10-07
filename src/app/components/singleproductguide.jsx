@@ -11,7 +11,7 @@ const Singleproductguide = ({ imageSrc, postTitle, subtitle }) => {
         <img src={imageSrc || '/assets/images/8597548-ai 1.jpg'} alt={'China'} className="object-cover w-full rounded-lg h-60" />
         <div className="text-white bg-white p-4 rounded-md">
           <h2 className="text-[16px] font-medium text-blackish">{postTitle || 'Solo'}</h2>
-          <p className="text-[20px] font-medium text-black">{modifiedSubtitle || 'Best Places for Solo Travel'}</p>
+          <p className="text-[20px] font-medium text-[#142A38]">{modifiedSubtitle || 'Best Places for Solo Travel'}</p>
         </div>
       </Link>
     </div>

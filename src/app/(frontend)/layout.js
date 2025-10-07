@@ -16,6 +16,7 @@ const interTight = Inter_Tight({
 export default function RootLayout({ children }) {
   const isClient = useIsClient(); // hydration
   const { stickyHeader } = useUIStore(); // sticky header
+
   return (
     <html>
       <body className={`${interTight.className} antialiased tfc_scroll`} suppressHydrationWarning={true} suppressContentEditableWarning={true}>

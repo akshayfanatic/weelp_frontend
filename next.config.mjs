@@ -19,6 +19,7 @@ const nextConfig = {
     serverActions: {
       bodySizeLimit: '3mb',
     },
+    globalNotFound:true,
   },
 };
 

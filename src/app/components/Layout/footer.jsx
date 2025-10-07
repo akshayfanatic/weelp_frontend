@@ -1,6 +1,9 @@
 'use client';
 import React from 'react';
 import { useIsClient } from '@/hooks/useIsClient';
+import Link from 'next/link';
+import { FOOTER_NAVIGATION } from '@/constants/navigations/footer';
+import Image from 'next/image';
 
 const Footer = () => {
   const isClient = useIsClient(); // prevent hydration err
@@ -16,119 +19,15 @@ const Footer = () => {
         }}
       >
         <div className="grid grid-cols-2 sm:grid-cols-5  gap-8">
-          {/* Features Column */}
-          <div>
-            <h3 className="font-semibold text-gray-800 mb-4">Features</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="/whats-new" className="hover:text-gray-800">
-                  What&apos;s New
-                </a>
-              </li>
-              <li>
-                <a href="/curator" className="hover:text-gray-800">
-                  Curator
-                </a>
-              </li>
-              <li>
-                <a href="/planner" className="hover:text-gray-800">
-                  Planner
-                </a>
-              </li>
-              <li>
-                <a href="/ai-buddy" className="hover:text-gray-800">
-                  AI Buddy
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Resources Column */}
-          <div>
-            <h3 className="font-semibold text-gray-800 mb-4">Resources</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="/platforms" className="hover:text-gray-800">
-                  Platforms
-                </a>
-              </li>
-              <li>
-                <a href="/docs" className="hover:text-gray-800">
-                  Docs
-                </a>
-              </li>
-              <li>
-                <a href="/help-center" className="hover:text-gray-800">
-                  Help Center
-                </a>
-              </li>
-              <li>
-                <a href="/support" className="hover:text-gray-800">
-                  Support
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* About Weelp Column */}
-          <div>
-            <h3 className="font-semibold text-gray-800 mb-4">About Weelp</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="/about-us" className="hover:text-gray-800">
-                  About us
-                </a>
-              </li>
-              <li>
-                <a href="/career" className="hover:text-gray-800">
-                  Career <span className="text-green-600 text-sm ml-2">We are hiring</span>
-                </a>
-              </li>
-              <li>
-                <a href="/contact-us" className="hover:text-gray-800">
-                  Contact us
-                </a>
-              </li>
-              <li>
-                <a href="/become-partner" className="hover:text-gray-800">
-                  Become a Partner
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Partner with us Column */}
-          <div>
-            <h3 className="font-semibold text-gray-800 mb-4">Partner with us</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="/about-us" className="hover:text-gray-800">
-                  About us
-                </a>
-              </li>
-              <li>
-                <a href="/career" className="hover:text-gray-800">
-                  Career <span className="text-green-600 text-sm ml-2">We are hiring</span>
-                </a>
-              </li>
-              <li>
-                <a href="/contact-us" className="hover:text-gray-800">
-                  Contact us
-                </a>
-              </li>
-              <li>
-                <a href="/become-partner" className="hover:text-gray-800">
-                  Become a Partner
-                </a>
-              </li>
-            </ul>
-          </div>
+          {FOOTER_NAVIGATION.map(({ title, links = [] }, index) => {
+            return <FooterNavigation key={index} title={title} footerLink={links} />;
+          })}
 
           {/* Payment Partners Column */}
           <div>
             <h3 className="font-semibold text-gray-800 mb-4">Payment Partners</h3>
             <div className="">
-              <img src="/assets/images/payments.jpg" alt="JCB" className="" />
+              <Image src="/assets/images/payments.jpg" alt="JCB" width={400} height={200} sizes="(max-width: 768px) 100vw, 33vw" />
             </div>
           </div>
         </div>
@@ -163,4 +62,23 @@ const Footer = () => {
   }
 };
 
+const FooterNavigation = ({ title = '', footerLink = [] }) => {
+  if (!title && !footerLink.length > 0) return null;
+  return (
+    <div>
+      <h3 className="font-semibold text-gray-800 mb-4">{title}</h3>
+      <ul className="space-y-2">
+        {footerLink.map(({ name, url ,badge }, index) => {
+          return (
+            <li key={index}>
+              <Link href={url} className="hover:text-gray-800">
+                {name} {badge && <span className='text-secondaryDark text-sm'>{badge}</span>}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
 export default Footer;

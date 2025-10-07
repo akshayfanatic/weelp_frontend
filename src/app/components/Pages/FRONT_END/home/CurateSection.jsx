@@ -11,7 +11,7 @@ const CurateSection = () => {
     { id: 6, image: '/assets/images/testimonial.png' },
   ];
   return (
-    <section style={{ backgroundImage: `url(${'/assets/images/greenimage.png'})` }} className="w-full h-96 py-4 sm:my-6 bg-center">
+    <section style={{ backgroundImage: `url(${'/assets/images/greenimage.png'})` }} className="w-full h-96 bg-center">
       {/* Main Content */}
       <div className="relative z-10 flex flex-col items-center mt-10 min-h-[300px] px-4">
         {/* Profile pictures row */}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DollarSign, Globe, Headphones, UserRound, ChevronRight, ShoppingCart, Search } from 'lucide-react';
+import { DollarSign, Globe, Headphones, UserRound, ChevronRight, ShoppingCart, Search, Smartphone } from 'lucide-react';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -22,6 +22,7 @@ const DesktopMenu = ({ stickyHeader }) => {
         <div className="topheader offer flex space-x-3 items-center">
           {/* <Link href={'/region/asia'}>Country</Link> */}
 
+          <Smartphone size={20} className='text-grayDark' />
           <Link href="/Get Exclusive offer on the App" className="text-Nileblue text-sm">
             Get Exclusive offer on the App
           </Link>
@@ -64,9 +65,9 @@ const NavMenuDesktop = () => {
   return (
     <NavigationMenu viewport={'false'} className="w-fit menu z-20">
       <NavigationMenuList className="flex gap-2">
-        <NavigationMenuItem className="!text-Bluewhale font-medium">
+        <NavigationMenuItem className="!text-Bluewhale font-medium text-base">
           <NavigationMenuTrigger>Home</NavigationMenuTrigger>
-          <NavigationMenuContent>
+          <NavigationMenuContent >
             <MegaMenu />
           </NavigationMenuContent>
         </NavigationMenuItem>

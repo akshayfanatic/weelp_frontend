@@ -1,6 +1,7 @@
 import { buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
 import clsx from 'clsx';
+
 /**
  * A reusable component that displays a "Not Found" message
  * and provides a navigation button to redirect users.

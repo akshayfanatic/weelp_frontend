@@ -37,7 +37,7 @@ const MegaMenu = () => {
   // Handling Error
   if (error) {
     return (
-      <div className="w-[768px] !h-52 rounded-lg grid place-items-center">
+      <div className="w-[768px] !h-52 rounded-xl grid place-items-center">
         <span className="text-red-400">Something went Wrong.. {JSON.stringify(error)}</span>
       </div>
     );
@@ -53,7 +53,7 @@ const MegaMenu = () => {
   }
 
   return (
-    <div className="bg-white text-black w-[768px] h-fit rounded-lg border flex">
+    <div className="bg-white text-black w-[768px] h-fit rounded-lg flex">
       <div className="flex w-full flex-row">
         <RegionList selectedContinent={selectedContinent} navItems={navItems} handleContinent={handleContinent} />
         <MegaMenuContent selectedContinent={selectedContinent.name} citiesList={selectedContinent.cities} />

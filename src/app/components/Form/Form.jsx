@@ -182,7 +182,7 @@ export default function BookingForm() {
           <div className="flex border-y-[1px]  shadow-sm border w-full bg-white rounded-l-xl rounded-r-xl">
             {/* Where To? */}
             <div className="flex flex-col items-center border-x border-l-0 w-full  justify-center">
-              <div className="p-2 sm:p-4">
+              <div className="p-2 sm:py-2 sm:px-4">
                 <label className="flex cursor-pointer justify-center items-center gap-2 text-Bluewhale text-[12px] sm:text-base" onClick={toggleLocation}>
                   <MapPin size={20} />
                   {/* <input onChange={handleInputChange} value={watchedWhereTo || ''} placeholder="Where to" type="text" /> */}
@@ -202,7 +202,7 @@ export default function BookingForm() {
 
             {/* When? */}
             <div className="flex flex-col items-center border-x border-l-0 w-full  justify-center">
-              <div className="p-2 sm:p-4">
+              <div className="p-2 sm:py-2 sm:px-4">
                 <label className="flex cursor-pointer justify-center items-center gap-2 text-Bluewhale text-[12px] sm:text-base" onClick={toggleCalendar}>
                   <Calendar size={20} />
                   {watchedFrom?.from && watchedFrom?.to
@@ -219,7 +219,7 @@ export default function BookingForm() {
 
             {/* How Many? */}
             <div className="flex flex-col items-center border-x border-r-0 w-full  justify-center">
-              <div className="p-2 sm:p-4">
+              <div className="p-2 sm:py-2 sm:px-4">
                 <label className="flex cursor-pointer justify-center items-center gap-2 text-Bluewhale text-[12px] sm:text-base" onClick={toggleHowMany}>
                   <Users size={20} />
                   <span>{total ?? 'How Many?'}</span>
@@ -254,7 +254,7 @@ export default function BookingForm() {
                               setInputValue(loc.name); // update input display
                               setShowLocation(false); // close dropdown
                             }}
-                            className={`px-4 py-2 cursor-pointer hover:bg-gray-100 ${watchedWhereTo === loc.name ? 'bg-green-100' : ''}`}
+                            className={`px-6 py-2 cursor-pointer hover:bg-gray-100 ${watchedWhereTo === loc.name ? 'bg-green-100' : ''}`}
                           >
                             {loc.name}
                           </li>
