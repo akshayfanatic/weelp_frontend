@@ -68,11 +68,11 @@ const FooterNavigation = ({ title = '', footerLink = [] }) => {
     <div>
       <h3 className="font-semibold text-gray-800 mb-4">{title}</h3>
       <ul className="space-y-2">
-        {footerLink.map(({ name, url ,badge }, index) => {
+        {footerLink.map(({ name, url, badge }, index) => {
           return (
             <li key={index}>
               <Link href={url} className="hover:text-gray-800">
-                {name} {badge && <span className='text-secondaryDark text-sm'>{badge}</span>}
+                {name} {badge && <span className="text-secondaryDark text-sm">{badge}</span>}
               </Link>
             </li>
           );

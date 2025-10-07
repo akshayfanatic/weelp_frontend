@@ -22,7 +22,7 @@ const DesktopMenu = ({ stickyHeader }) => {
         <div className="topheader offer flex space-x-3 items-center">
           {/* <Link href={'/region/asia'}>Country</Link> */}
 
-          <Smartphone size={20} className='text-grayDark' />
+          <Smartphone size={20} className="text-grayDark" />
           <Link href="/Get Exclusive offer on the App" className="text-Nileblue text-sm">
             Get Exclusive offer on the App
           </Link>
@@ -67,7 +67,7 @@ const NavMenuDesktop = () => {
       <NavigationMenuList className="flex gap-2">
         <NavigationMenuItem className="!text-Bluewhale font-medium text-base">
           <NavigationMenuTrigger>Home</NavigationMenuTrigger>
-          <NavigationMenuContent >
+          <NavigationMenuContent>
             <MegaMenu />
           </NavigationMenuContent>
         </NavigationMenuItem>
