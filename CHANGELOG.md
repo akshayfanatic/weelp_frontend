@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.19.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.18.1...v0.19.0) (2025-10-07)
+
+
+### ✨ Features
+
+* **global not found page:** Create global 404 page for all route ([da22ccf](https://github.com/akshayfanatic/weelp_frontend/commit/da22ccf04ed52e8e060b72b21d0afd246fdb120f))
+
 ### [0.18.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.18.0...v0.18.1) (2025-10-07)
 
 ### 🐛 Bug Fixes
