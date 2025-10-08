@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.19.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.19.0...v0.19.1) (2025-10-08)
+
+
+### 🐛 Bug Fixes
+
+* **citypage:** Fix Compnents Based On City Route ([582c98b](https://github.com/akshayfanatic/weelp_frontend/commit/582c98ba74707892dcfa730f52f61f1f88a51adc))
+
 ## [0.19.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.18.1...v0.19.0) (2025-10-07)
 
 ### ✨ Features
