@@ -1,12 +1,10 @@
 'use client';
 import React from 'react';
-import WhatAbout, { WhatAboutCity, WhatAboutRegion } from '../../../WhatAbout';
+import { WhatAboutCity, WhatAboutRegion } from '../../../WhatAbout';
 import ReviewSlider from '../../../sliders/ReviewSlider';
 import TotalReviews from '../../../TotalReviews';
 import Accordion from '../../../Faq';
-
 import { faqItems, destinationInfo } from '@/app/Data/ShopData'; //static data
-import { log } from '@/lib/utils';
 
 const bgImage = '/assets/images/whatabout.png';
 
@@ -21,7 +19,7 @@ const bgStyle = {
 // Review Section City Page
 export const ReviewSectionCity = ({ cityData }) => {
   return (
-    <section className="flex flex-wrap  mt-8">
+    <section className="flex flex-wrap mt-8">
       {/* if values exist inoobjects */}
       {cityData?.location_details && Object.keys(cityData.location_details).length > 0 && (
         <div className="w-full xl:w-1/3 bg-[#f4f5f7]" style={bgStyle}>

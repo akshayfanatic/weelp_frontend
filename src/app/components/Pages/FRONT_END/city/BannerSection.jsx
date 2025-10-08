@@ -31,14 +31,12 @@ const BannerSection = () => {
     setInitialize(true);
   }, [city]);
 
-  const { success } = cityDetails;
-
   if (initialize) {
     // get details
     const { data = [] } = cityDetails;
     const { name, description } = data;
     return (
-      <section className="flex lg:h-[60vh] py-6 relative page_city_banner" style={{ background: 'linear-gradient(to bottom, #FFFFFF, #EAF1EE)' }}>
+      <section className="flex lg:h-[60vh] py-12 relative page_city_banner" style={{ background: 'linear-gradient(to bottom, #FFFFFF, #EAF1EE)' }}>
         <div className="flex flex-col lg:flex-row container mx-auto gap-4 p-6">
           <div className="relative flex-1 w-full lg:w-1/3 py-4 ">
             <h2 className="text-2xl font-medium text-[#143042] mb-4 capitalize">Things to do In</h2>

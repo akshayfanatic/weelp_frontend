@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useRouter } from 'next/navigation';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -59,11 +58,11 @@ const GallerySlider = ({ data }) => {
               slidesPerView: 3,
             },
           }}
-          className="main-slider w-full relative"
+          className="main-slider w-full relative has-[.swiper-slide-active]:odd:rounded-xl"
         >
           {imageData.map((val, index) => (
             <SwiperSlide key={index}>
-              <img src={val.image} alt={`Slide ${index + 1}`} className="max-w-full xs:max-w-80 w-full h-[400px] object-cover rounded-xl" />
+              <img src={val.image} alt={`Slide ${index + 1}`} className="max-w-full xs:max-w-80 w-full h-[400px] object-cover " />
             </SwiperSlide>
           ))}
 

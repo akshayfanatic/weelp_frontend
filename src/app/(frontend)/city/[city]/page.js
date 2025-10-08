@@ -99,7 +99,6 @@ export default async function CityPage({ params }) {
   const { city } = await params;
 
   const { data: citydata = [] } = await getCityData(city);
-
   const { data: activitesData = [] } = await getActivitisDataByCity(city);
   const { data: itineraryData = [] } = await getItineraryDataByCity(city);
   const { data: packageData = [], tag_list = [] } = await getPackageDataByCity(city);
