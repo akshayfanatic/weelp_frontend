@@ -101,7 +101,7 @@ export default function TransferForm() {
 
   return (
     <div className="p-4 sm:p-6 px-6 sm:px-0  mx-auto md:w-[560px] w-full relative bannerForm">
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-around items-center gap-4 w-full">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-around items-center gap-8 w-full">
         <div className="flex border-y-[1px]  shadow-sm border w-full bg-white rounded-l-xl rounded-r-xl">
           {/* Where To? */}
           <div className="flex flex-col items-center border-x border-l-0 w-full  justify-center">

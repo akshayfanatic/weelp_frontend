@@ -18,7 +18,7 @@ const DesktopMenu = ({ stickyHeader }) => {
   return (
     <div className="relative hidden lg:block">
       {/* Top Bar */}
-      <div className={`${stickyHeader ? 'hidden' : 'flex'} text-black bg-[#EAEAEA] px-12 py-3 w-full items-center justify-between `}>
+      <div className={`${stickyHeader ? 'hidden' : 'flex'} text-black bg-[#EAEAEA] px-12 py-3 w-full items-center justify-between`}>
         <div className="topheader offer flex space-x-3 items-center">
           {/* <Link href={'/region/asia'}>Country</Link> */}
 
@@ -63,9 +63,9 @@ const DesktopMenu = ({ stickyHeader }) => {
 
 const NavMenuDesktop = () => {
   return (
-    <NavigationMenu viewport={'false'} className="w-fit menu z-20">
+    <NavigationMenu viewport='false' className="w-fit menu z-20">
       <NavigationMenuList className="flex gap-2">
-        <NavigationMenuItem className="!text-Bluewhale font-medium text-base">
+        <NavigationMenuItem className="!text-Bluewhale font-medium">
           <NavigationMenuTrigger>Home</NavigationMenuTrigger>
           <NavigationMenuContent>
             <MegaMenu />

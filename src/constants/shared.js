@@ -127,7 +127,7 @@ const NAV_MENU_ITEMS = [
   },
   {
     title: 'Explore',
-    href: '/',
+    href: '/explore',
   },
 ];
 

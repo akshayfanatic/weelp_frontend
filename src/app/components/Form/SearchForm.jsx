@@ -185,7 +185,7 @@ export const SearchFormBlogs = () => {
   if (initialize) {
     return (
       <div className="flex flex-col max-w-[30rem] w-full mx-auto">
-        <form onKeyUp={handleSubmit(onSubmit)} className={`w-full bg-white flex items-center justify-evenly rounded shadow ${errors?.query?.message ? 'border-red-400 border' : null}`}>
+        <form onKeyUp={handleSubmit(onSubmit)} className={`w-full bg-white border  flex items-center justify-evenly rounded-xl shadow ${errors?.query?.message ? 'border-red-400 border' : null}`}>
           <input
             id="query"
             autoComplete="off"
