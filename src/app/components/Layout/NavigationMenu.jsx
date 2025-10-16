@@ -63,7 +63,7 @@ const DesktopMenu = ({ stickyHeader }) => {
 
 const NavMenuDesktop = () => {
   return (
-    <NavigationMenu viewport='false' className="w-fit menu z-20">
+    <NavigationMenu viewport="false" className="w-fit menu z-20">
       <NavigationMenuList className="flex gap-2">
         <NavigationMenuItem className="!text-Bluewhale font-medium">
           <NavigationMenuTrigger>Home</NavigationMenuTrigger>

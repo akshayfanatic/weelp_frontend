@@ -62,7 +62,7 @@ const GallerySlider = ({ data }) => {
         >
           {imageData.map((val, index) => (
             <SwiperSlide key={index}>
-              <img src={val.image} alt={`Slide ${index + 1}`} className="max-w-full xs:max-w-80 w-full h-[400px] object-cover " />
+              <img src={val.image} alt={`Slide ${index + 1}`} className="max-w-full xs:max-w-80 w-full h-[400px] object-cover" />
             </SwiperSlide>
           ))}
 

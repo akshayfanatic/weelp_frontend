@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import throttle from 'lodash/throttle';
-
 import {
   OverViewPanel,
   WhatIncludedPanel,
@@ -68,7 +67,7 @@ export const TabSectionActivity = ({ productId, base_price, productData }) => {
   };
 
   return (
-    <section className="w-full border-2 bg-mainBackground singleProduct_tabSection">
+    <section className="w-full  bg-mainBackground singleProduct_tabSection">
       {/* Sticky Tab Bar */}
       <div className={`${fixedTab ? 'fixed top-0 z-20' : ''} flex flex-col w-full  shadow-md bg-mainBackground`}>
         <ul className="flex items-center justify-center sm:gap-x-12 container mx-auto ">
@@ -92,7 +91,7 @@ export const TabSectionActivity = ({ productId, base_price, productData }) => {
       {/* Content */}
       <div className={`flex flex-col  xl:flex-row justify-between pt-4   mx-auto`}>
         <div className={`w-full xl:w-3/5  flex ${fixedTab ? 'mt-12' : ''}`}>
-          <div className={`flex flex-col gap-8 p-6 lg:p-12 max-w-fit w-full xl:w-4/5  ml-auto `}>
+          <div className={`flex flex-col gap-8 p-6 lg:p-12 max-w-fit w-full xl:w-[85%] ml-auto `}>
             <div id="tab_1" ref={(el) => (sectionRefs.current['tab_1'] = el)}>
               <OverViewPanel description={productData?.description} />
             </div>

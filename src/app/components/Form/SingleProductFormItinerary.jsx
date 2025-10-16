@@ -230,6 +230,7 @@ export default function SingleProductFormItinerary({ productData }) {
                           }}
                           onSelect={(value) => field.onChange(value)}
                           className="scale-90"
+                          classNames={{ today: 'text-black' }}
                         />
                       )}
                     />

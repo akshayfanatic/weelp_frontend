@@ -8,9 +8,9 @@ import { allReviews } from '@/app/Data/ShopData';
 export const SingleProductReview = () => {
   return (
     <div className="flex flex-col gap-4">
-      <TotalReviews /> {/**Only Total Review Count */}
-      <SingleProductPhotoGallery photos={allReviews?.at(0)?.galleryImages} /> {/** Display Only Gallery */}
-      <SingleProductReviewSlider /> {/** Review Slider For Single Product */}
+      <TotalReviews /> {/*Only Total Review Count */}
+      <SingleProductPhotoGallery photos={allReviews?.at(0)?.galleryImages} /> {/* Display Only Gallery */}
+      <SingleProductReviewSlider /> {/* Review Slider For Single Product */}
       <SingleProductAllReview />
     </div>
   );
@@ -99,7 +99,7 @@ const SingleProductAllReview = () => {
         <div className="flex justify-end sm:justify-between">
           <ul className="hidden sm:flex gap-4 flex-wrap">
             {buttonItems.map((val, index) => {
-              return <TabButton key={index} text={val} className={'text-sm'} />;
+              return <TabButton key={index} text={val} className={' border-none bg-inherit first:bg-graycolor'} />;
             })}
           </ul>
 

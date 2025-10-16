@@ -5,10 +5,10 @@ const FilterVendorRoutePage = dynamic(() => import('../vendor_filters/FilterVend
 
 const CreateVendorPageRoute = () => {
   return (
-    <div>
+    <>
       <CreateVendorRouteDialog title={'Routes'} desciption={'Manage your transfer routes and pricing'} label={'Add Route'} />
       <FilterVendorRoutePage />
-    </div>
+    </>
   );
 };
 

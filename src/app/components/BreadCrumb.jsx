@@ -27,7 +27,7 @@ const BreadCrumb = ({ className }) => {
             return (
               <React.Fragment key={index}>
                 <BreadcrumbSeparator />
-                <BreadcrumbItem className={'capitalize text-[#566872] text-base font-medium last:font-bold last:text-[#566872]'}>{val}</BreadcrumbItem>
+                <BreadcrumbItem className={'capitalize text-[#566872] text-base font-medium last:font-semibold last:text-[#566872]'}>{val}</BreadcrumbItem>
               </React.Fragment>
             );
           })}

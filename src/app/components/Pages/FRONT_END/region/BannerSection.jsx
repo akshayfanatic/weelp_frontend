@@ -36,11 +36,11 @@ const BannerSection = () => {
   return (
     <section className="flex h-[60vh] page_country_banner" style={{ background: 'linear-gradient(to bottom, #FFFFFF, #EAF1EE)' }}>
       <div className="flex mx-auto w-full h-full items-center relative">
-        <div className="flex flex-col flex-[1] p-6 lg:p-20 items-start self-center justify-center gap-4">
-          <div className="xl:translate-x-20 flex flex-col gap-4">
+        <div className="flex flex-col flex-[1] p-6 lg:p-20 items-start  gap-4">
+          <div className="xl:translate-x-20 flex flex-col gap-4 justify-start">
             <h1 className="text-2xl sm:text-5xl  font-semibold text-Nileblue capitalize">{name}</h1>
             <p className="text-grayDark text-lg mb-8 font-medium">{description}</p>
-            <BookingForm2 />
+            {/* <BookingForm2 /> */}
           </div>
         </div>
         <Icons.Vector1 className={'hidden xl:block absolute left-[48%] z-10 '} />

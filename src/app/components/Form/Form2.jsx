@@ -142,7 +142,7 @@ export default function BookingForm2() {
               onMouseLeave={(e) => {
                 (e.stopPropagation(), setActiveSection(''));
               }}
-              className="flex w-full justify-start sm:justify-start flex-col -translate-x-8 sm:-translate-x-0  bg-gray-50 p-4 rounded-lg "
+              className="flex w-full justify-start sm:justify-start flex-col -translate-x-8 sm:-translate-x-0  bg-gray-50 p-4 rounded-lg"
             >
               <Controller
                 name="dateRange"

@@ -25,7 +25,7 @@ export default ReviewCard;
 
 export const ReviewCard2 = ({ userImageSrc, userName, galleryImages, date, title, rating, comment }) => {
   return (
-    <div className={`bg-white p-6 sm:py-7 sm:px-6 rounded-xl shadow-md flex flex-col gap-2 justify-evenly w-full ${galleryImages && galleryImages.length > 0 ? 'h-full' : 'h-[300px]'}`}>
+    <div className={`bg-white p-6 sm:py-7 sm:px-6 rounded-xl shadow-sm border flex flex-col gap-2 justify-evenly w-full ${galleryImages && galleryImages.length > 0 ? 'h-full' : 'h-[300px]'}`}>
       <div className="flex gap-4">
         {userImageSrc ? <img className="size-12 rounded-full" alt="userImage" src={`${userImageSrc}`} /> : <UserRound size={42} className="stroke-gray-400 border-gray-400 border-2 rounded-full" />}
         {userName ? (

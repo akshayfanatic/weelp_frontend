@@ -32,9 +32,9 @@ authApi.interceptors.request.use(
 authApi.interceptors.response.use(
   (response) => response,
   (error) => {
-    // if (error.response?.status === 401) {
-    //   console.log("Unauthorized! Logging out...");
-    // }
+    if (error.response?.status === 401) {
+      console.error("Unauthorized! Logging out...");
+    }
 
     const status = error?.response?.status;
     const message = error?.response?.data?.message || error.message || 'Unexpected error';

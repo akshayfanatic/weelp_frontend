@@ -16,8 +16,8 @@ function Accordion({ items }) {
       {!pathName === '/booking' && <h2 className="text-lg sm:text-[28px] font-medium text-Nileblue py-6">FAQs</h2>}
 
       {items.map((item, index) => (
-        <div key={index} className="mb-4 border-b border-gray-300 bg-white rounded-lg shadow-sm">
-          <div className="w-full flex items-center justify-between text-left p-4 font-semibold text-gray-800 cursor-pointer" onClick={() => handleToggle(index)}>
+        <div key={index} className="mb-4 border-b border-gray-300 bg-white rounded-2xl shadow-sm border border-inherit">
+          <div className="w-full flex items-center justify-between text-left p-4 font-semibold text-Nileblue cursor-pointer" onClick={() => handleToggle(index)}>
             {item.title}
             <ChevronRight className={`transition-transform duration-700 ${openIndex === index ? 'rotate-90' : ''}`} size={16} />
           </div>
@@ -27,7 +27,7 @@ function Accordion({ items }) {
               transition: 'max-height 0.3s ease-in-out, opacity 0.3s ease-in-out',
             }}
           >
-            <div className="p-4 text-black-600">{item.content}</div>
+            <div className="p-4 pt-0 text-black-600">{item.content}</div>
           </div>
         </div>
       ))}
