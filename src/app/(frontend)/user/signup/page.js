@@ -10,11 +10,7 @@ const SignUpPage = async () => {
     redirect('/dashboard');
   }
 
-  return (
-    <div className="min-h-[85vh] flex items-center justify-center bg-gray-100 px-6">
-      <RegisterForm />
-    </div>
-  );
+  return <RegisterForm />;
 };
 
 export default SignUpPage;

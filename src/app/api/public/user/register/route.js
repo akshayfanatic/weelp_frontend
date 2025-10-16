@@ -3,12 +3,13 @@ import axios from 'axios';
 
 export async function POST(req) {
   try {
-    const { name, email, password } = await req.json();
+    const { name, email, password, password_confirmation } = await req.json();
 
     const response = await axios.post(`${process.env.API_BASE_URL}api/register`, {
       name,
       email,
       password,
+      password_confirmation,
     });
 
     // status 201

@@ -8,11 +8,7 @@ const ForgotPassword = async () => {
   if (session?.user) {
     redirect('/dashboard');
   }
-  return (
-    <div className="min-h-[85vh] flex items-center justify-center bg-gray-100 px-6">
-      <FormForgotPassword />
-    </div>
-  );
+  return <FormForgotPassword />;
 };
 
 export default ForgotPassword;

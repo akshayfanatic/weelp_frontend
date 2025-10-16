@@ -12,6 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useIsClient } from '@/hooks/useIsClient';
+import { useTogglePassword } from '@/hooks/useTogglePassword';
 
 // Zod schema for validation
 const schema = z.object({
@@ -22,7 +23,7 @@ const schema = z.object({
 export function LoginForm({ customUrl, onCloseDialog }) {
   const { toast } = useToast();
   const isClient = useIsClient(); // custom hook for hydration
-  const [isHide, setHide] = useState(false);
+  const { visible, toggle } = useTogglePassword(); // toggle password hook
 
   const {
     register,
@@ -115,7 +116,7 @@ export function LoginForm({ customUrl, onCloseDialog }) {
             <label htmlFor="password" className="flex items-center bg-white shadow-md border p-1 px-2 rounded-md relative">
               <KeyRound className="text-[#5A5A5A] size-4" />
               <input
-                type={isHide ? 'text' : 'password'}
+                type={visible ? 'text' : 'password'}
                 id="password"
                 placeholder="Password"
                 {...register('password')}
@@ -123,20 +124,10 @@ export function LoginForm({ customUrl, onCloseDialog }) {
                 className="mt-1  py-2 px-3 focus:outline-none bg-white placeholder:bg-white text-base w-full"
               />
 
-              {isHide ? (
-                <EyeOff
-                  onClick={() => {
-                    setHide(!isHide);
-                  }}
-                  className="text-[#5A5A5A] size-5 absolute right-6 cursor-pointer"
-                />
+              {visible ? (
+                <EyeOff onClick={toggle} className="text-[#5A5A5A] size-5 absolute right-6 cursor-pointer" />
               ) : (
-                <Eye
-                  onClick={() => {
-                    setHide(!isHide);
-                  }}
-                  className="text-[#5A5A5A] size-5 absolute right-6 cursor-pointer"
-                />
+                <Eye onClick={toggle} className="text-[#5A5A5A] size-5 absolute right-6 cursor-pointer" />
               )}
             </label>
             {errors.password && <p className="text-sm text-red-600 p-2">{errors.password.message}</p>}

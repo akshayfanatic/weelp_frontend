@@ -1,31 +1,41 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
-import { AtSign, KeyRound, User } from 'lucide-react';
+import { AtSign, Eye, EyeClosed, KeyRound, User } from 'lucide-react';
 import Link from 'next/link';
 import axios from 'axios';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
+import { useTogglePassword } from '@/hooks/useTogglePassword';
 
 // Zod schema for validation
-const schema = z.object({
-  name: z.string().nonempty('Name is required').min(3, 'Name must be greater than 3 characters'),
-  email: z.string().email('Invalid email address').nonempty('Email is required'),
-  password: z
-    .string()
-    .min(8, 'Must be at least 8 characters long')
-    .regex(/[A-Za-z]/, 'Must contain at least one letter')
-    .regex(/[@#$%^&+=]/, 'Must contain at least one special character (@, #, $, etc.)')
-    .regex(/\d/, 'Must contain at least one number')
-    .nonempty('Password Required'),
-});
+const schema = z
+  .object({
+    name: z.string().nonempty('Name is required').min(3, 'Name must be greater than 3 characters'),
+
+    email: z.string().nonempty('Email is required').email('Invalid email address'),
+
+    password: z
+      .string()
+      .nonempty('Password Required')
+      .min(8, 'Must be at least 8 characters long')
+      .regex(/[A-Za-z]/, 'Must contain at least one letter')
+      .regex(/\d/, 'Must contain at least one number')
+      .regex(/[@#$%^&+=]/, 'Must contain at least one special character (@, #, $, etc.)'),
+
+    password_confirmation: z.string().nonempty('Please confirm your password'),
+  })
+  .refine((data) => data.password === data.password_confirmation, {
+    path: ['password_confirmation'],
+    message: 'Passwords do not match',
+  });
 
 export function RegisterForm() {
+  const { visible, toggle } = useTogglePassword(); // toggle password hook
   const router = useRouter();
   const { toast } = useToast();
 
@@ -39,13 +49,14 @@ export function RegisterForm() {
   });
 
   const onSubmit = async (data) => {
-    const { name, email, password } = data;
+    const { name, email, password, password_confirmation } = data;
 
     try {
       const response = await axios.post('/api/public/user/register', {
         name,
         email,
         password,
+        password_confirmation,
       });
       if (response.status === 201) {
         const {
@@ -128,19 +139,36 @@ export function RegisterForm() {
           </div>
 
           {/* Password Input */}
-          <div>
+          <div className="border relative">
             <label htmlFor="password" className="flex items-center bg-white shadow-md border p-1 px-2 rounded-md">
               <KeyRound className="text-[#5A5A5A] size-4" />
               <input
-                type="password"
+                type={visible ? 'text' : 'password'}
                 id="password"
                 placeholder="Password"
                 {...register('password')}
                 autoComplete="off"
                 className="mt-1 py-2 px-3 focus:outline-none bg-white placeholder:bg-white text-base"
               />
+
+              {!visible ? <Eye size={20} className="absolute right-4" onClick={toggle} /> : <EyeClosed size={20} className="absolute right-4" onClick={toggle} />}
             </label>
             {errors.password && <p className="text-sm text-red-600 pt-2">{errors.password.message}</p>}
+          </div>
+
+          <div>
+            <label htmlFor="password_confirmation" className="flex items-center bg-white shadow-md border p-1 px-2 rounded-md">
+              <KeyRound className="text-[#5A5A5A] size-4" />
+              <input
+                type="text"
+                id="password_confirmation"
+                placeholder="Confirm Password"
+                {...register('password_confirmation')}
+                autoComplete="off"
+                className="mt-1 py-2 px-3 focus:outline-none bg-white placeholder:bg-white text-base"
+              />
+            </label>
+            {errors.password_confirmation && <p className="text-sm text-red-600 pt-2">{errors.password_confirmation.message}</p>}
           </div>
 
           {/* Submit Button */}

@@ -1,17 +1,16 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { useIsClient } from '@/hooks/useIsClient';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { Key } from 'lucide-react';
+import { Key, CheckCircle, UserX } from 'lucide-react';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
-import { LoadingPage } from '../Animation/Cards';
 import axios from 'axios';
-import Image from 'next/image';
 
 // Zod schema for validation
 const schema = z
@@ -37,15 +36,24 @@ const schema = z
     path: ['password_confirmation'], // Error will be associated with password_confirmation
   });
 
-export const FormResetPassword = () => {
-  const [intialize, setInitialize] = useState(false);
+export const FormVerifyEmail = () => {
+  const isClient = useIsClient(); // intialize for prevent hydraiton errors
   const searchParams = useSearchParams();
+
+  // set response
+  const [response, setResponse] = useState({
+    message: '',
+    success: false,
+    email: '',
+  });
+
   const router = useRouter();
   const { toast } = useToast();
-  const [error, setError] = useState('');
   const token = searchParams.get('token');
 
-  //Create Form
+  /**
+   * Intialize Form
+   */
   const {
     register,
     handleSubmit,
@@ -55,21 +63,35 @@ export const FormResetPassword = () => {
     resolver: zodResolver(schema),
   });
 
-  //check first token
+  /**
+   * Check Token When Mount
+   */
   useEffect(() => {
     // check token
     if (!token) {
-      router.push('/user/forgot-password'); // Redirect to the forgot password page
+      router.push('/user/login'); // Redirect to the forgot password page
     }
 
+    handleVerifyEmail(token);
     // intialize form
-    setInitialize(true);
   }, [token, router]);
 
-  // handle if token available
-  if (!token) {
-    return <LoadingPage />;
-  }
+  /**
+   * Handle For Managing Verify Email
+   * @param {string|number} token Email Token of the User
+   */
+  const handleVerifyEmail = async (token) => {
+    try {
+      const response = await axios.get(`/api/public/user/email/verify-email?token=${token}`);
+
+      const data = response.data;
+
+      // get response
+      setResponse((prev) => ({ ...prev, ...data }));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const onSubmit = async (data) => {
     // setError("");
@@ -114,13 +136,11 @@ export const FormResetPassword = () => {
       });
     }
   };
-  if (intialize) {
+
+  if (isClient) {
     return (
       <div className={`space-y-4 bg-white border rounded-xl shadow-md w-full max-w-fit sm:max-w-md pb-8 ${isSubmitting && 'cursor-wait'}`}>
-        <div className="bg-white rounded-t-xl border-b py-4 px-8">
-          <Image src="/assets/images/SiteLogo.png" alt="Site Logo" width={122} height={42} />
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 bg-white px-8 py-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 bg-white px-8 py-4 hidden">
           <div>
             <h3 className="font-semibold text-xl">
               Reset Password or back to{' '}
@@ -168,7 +188,58 @@ export const FormResetPassword = () => {
             {isSubmitting ? 'Processing...' : 'Continue'}
           </Button>
         </form>
+
+        {/* Handle Email Verified */}
+        {response?.success && <EmailVerifiedCard emailaddress={response?.email} />}
+
+        {/* TOken is invalid or expired */}
+        {!response?.success && <InvalidExpiredToken />}
       </div>
     );
   }
 };
+
+function EmailVerifiedCard({ emailaddress = '' }) {
+  return (
+    <div className="max-w-sm mx-auto bg-white rounded-2xl p-8 text-center">
+      {/* Icon */}
+      <div className="flex items-center justify-center size-20 mx-auto rounded-full bg-secondaryDark mb-6">
+        <CheckCircle className="w-10 h-10 text-white" />
+      </div>
+
+      {/* Title */}
+      <h2 className="text-2xl font-semibold text-gray-900 mb-2">Email Verified!</h2>
+
+      {/* Description */}
+      <p className="text-gray-500 mb-6">Your Email has been successfully verified. </p>
+      <p className="text-gray-500 mb-6 font-bold">{emailaddress}</p>
+      {/* Button */}
+      <Button asChild>
+        <Link href="/user/login" className="bg-secondaryDark">
+          Click Here To Login
+        </Link>
+      </Button>
+    </div>
+  );
+}
+
+function InvalidExpiredToken({ message = '' }) {
+  return (
+    <div className="max-w-sm mx-auto bg-white rounded-2xl p-8 text-center">
+      {/* Icon */}
+      <div className="flex items-center justify-center size-20 mx-auto rounded-full bg-secondaryDark mb-6">
+        <UserX className="w-10 h-10 text-white" />
+      </div>
+
+      {/* Title */}
+      <h2 className="text-2xl font-semibold text-gray-900 mb-2">Invalid or Expired Token!</h2>
+
+      {/* Button */}
+      <Button asChild>
+        <Link href="/user/email/revalidate" className="bg-secondaryDark">
+          Click Here To Verify Your Email
+        </Link>
+      </Button>
+    </div>
+  );
+}
