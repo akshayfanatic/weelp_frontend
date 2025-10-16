@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.19.4](https://github.com/akshayfanatic/weelp_frontend/compare/v0.19.3...v0.19.4) (2025-10-16)
 
-
 ### 🐛 Bug Fixes
 
-* **axios:** Redirect users when unauthorized to login page ([7926780](https://github.com/akshayfanatic/weelp_frontend/commit/7926780f295f1558cad39f220b27b57e7cadd662))
+- **axios:** Redirect users when unauthorized to login page ([7926780](https://github.com/akshayfanatic/weelp_frontend/commit/7926780f295f1558cad39f220b27b57e7cadd662))
 
 ### [0.19.3](https://github.com/akshayfanatic/weelp_frontend/compare/v0.19.2...v0.19.3) (2025-10-16)
 

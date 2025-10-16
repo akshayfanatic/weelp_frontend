@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { auth } from './auth/auth';
 
-// Public API instance (No auth required)
 export const publicApi = axios.create({
   baseURL: `${process.env.API_BASE_URL}`,
 });
@@ -33,7 +32,7 @@ authApi.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      console.error('Unauthorized! Logging out...');
+      redirectToLogin();
     }
 
     const status = error?.response?.status;
@@ -48,3 +47,9 @@ authApi.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+
+const redirectToLogin = () => {
+  if (typeof window !== 'undefined') {
+    window.location.href = '/user/login';
+  }
+};
