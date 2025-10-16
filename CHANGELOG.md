@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.19.5](https://github.com/akshayfanatic/weelp_frontend/compare/v0.19.4...v0.19.5) (2025-10-16)
+
+
+### 🐛 Bug Fixes
+
+* **axios:** Add Redirection for Unauthorized user if they are unauthorized ([e9b7199](https://github.com/akshayfanatic/weelp_frontend/commit/e9b719928728e06dd56cdd56ded0f085bbc113fd))
+
 ### [0.19.4](https://github.com/akshayfanatic/weelp_frontend/compare/v0.19.3...v0.19.4) (2025-10-16)
 
 ### 🐛 Bug Fixes
