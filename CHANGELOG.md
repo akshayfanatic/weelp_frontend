@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [0.20.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.19.5...v0.20.0) (2025-10-16)
 
-
 ### ✨ Features
 
-* **Verification Email:** Create Verification Email Feature and create hook for toggling password ([3112e7f](https://github.com/akshayfanatic/weelp_frontend/commit/3112e7fed7ce5780174f7023bf660cb967d231c5))
+- **Verification Email:** Create Verification Email Feature and create hook for toggling password ([3112e7f](https://github.com/akshayfanatic/weelp_frontend/commit/3112e7fed7ce5780174f7023bf660cb967d231c5))
 
 ### [0.19.5](https://github.com/akshayfanatic/weelp_frontend/compare/v0.19.4...v0.19.5) (2025-10-16)
 

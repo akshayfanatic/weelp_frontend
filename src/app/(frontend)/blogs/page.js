@@ -5,6 +5,13 @@ import BlogSliderSection from '@/app/components/Pages/FRONT_END/Global/BlogSlide
 import DestinationSliderSection from '@/app/components/Pages/FRONT_END/Global/DestinationSection';
 import BlogList from '@/app/components/Pages/FRONT_END/Global/BlogFilter/BlogList';
 
+export async function generateMetadata() {
+  return {
+    title: 'Blogs Page',
+    description: 'Description of the Blog',
+  };
+}
+
 const BlogsPage = () => {
   return (
     <>

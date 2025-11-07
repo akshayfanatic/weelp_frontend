@@ -14,8 +14,8 @@ export const {
     CredentialsProvider({
       // Add credentials configuration
       credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' },
+        email: { label: 'Email', type: 'email', placeholder: 'your@email.com' },
+        password: { label: 'Password', type: 'password', placeholder: '******' },
       },
       async authorize(credentials) {
         try {

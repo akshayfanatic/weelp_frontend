@@ -28,7 +28,7 @@ const BannerSection = ({ activityName }) => {
               </ul>
               <span className="text-[#5A5A5A]  capitalize text-sm sm:text-base font-medium">3.4k reviews</span>
             </li>
-            <li className="flex items-center text-secondaryDark px-4 gap-2 justify-center border-0 border-r-2 last:border-0    ">
+            <li className="flex items-center text-secondaryDark px-4 gap-2 justify-center border-0 border-r-2 last:border-0">
               <CircleCheckBig size={20} /> <span className="text-[#5A5A5A]  capitalize text-sm sm:text-base font-medium">3M+ booked</span>
             </li>
             <li className="flex items-center text-secondaryDark px-4 gap-2 justify-center border-0 border-r-2 last:border-0">

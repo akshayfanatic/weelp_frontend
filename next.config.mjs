@@ -1,3 +1,5 @@
+import createMDX from '@next/mdx';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -20,7 +22,13 @@ const nextConfig = {
       bodySizeLimit: '3mb',
     },
     globalNotFound: true,
+    mdxRs: true,
   },
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+});
+
+export default withMDX(nextConfig);

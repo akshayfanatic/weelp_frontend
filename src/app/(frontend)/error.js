@@ -13,7 +13,7 @@ export default function Error({ error, reset }) {
   return (
     <div className="flex justify-center items-center h-screen">
       <Card className="flex justify-center items-center shadow-none border-none flex-col gap-2">
-        <h2>Something went wrong! in Dashoard</h2>
+        <h2>Something went wrong!</h2>
         <Button
           onClick={
             // Attempt to recover by trying to re-render the segment
@@ -26,5 +26,3 @@ export default function Error({ error, reset }) {
     </div>
   );
 }
-
-

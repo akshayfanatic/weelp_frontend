@@ -2,8 +2,14 @@ import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/app/components/Pages/DASHBOARD/admin/app-sidebar';
 import AdminHeader from '@/app/components/Pages/DASHBOARD/admin/header';
 import { Toaster } from '@/components/ui/toaster';
+import { auth } from '@/lib/auth/auth';
+import { LoginForm } from '@/app/components/Form/LoginForm';
 
-export default function AdminLayout({ children }) {
+const AdminLayout = async ({ children }) => {
+  const session = await auth();
+
+  console.log(session)
+
   return (
     <SidebarProvider>
       <div className="flex h-screen bg-gray-50 w-full">
@@ -22,4 +28,6 @@ export default function AdminLayout({ children }) {
       </div>
     </SidebarProvider>
   );
-}
+};
+
+export default AdminLayout;

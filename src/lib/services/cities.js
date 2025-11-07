@@ -42,6 +42,7 @@ export async function getAllCitiesAdminV2(search = '') {
   }
 }
 
+
 /**
  * Get Cities Options
  * @returns {Promise<{ success:boolean,data:[], total:number, current_page:number,per_page:number,total:number }>}

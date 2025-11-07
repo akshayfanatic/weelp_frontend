@@ -5,10 +5,23 @@ import { TabSectionActivity } from '@/app/components/Pages/FRONT_END/singleprodu
 import { notFound } from 'next/navigation';
 import { getSingleActivity } from '@/lib/services/activites';
 import { isEmpty } from 'lodash';
-import { publicApi } from '@/lib/axiosInstance';
-import { log } from '@/lib/utils';
 
-export default async function DestinationPage({ params }) {
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+
+  const { data: activityData = [] } = await getSingleActivity(slug);
+
+  if (!isEmpty(activityData)) {
+    const { name, description } = activityData;
+
+    return {
+      title: name,
+      description,
+    };
+  }
+}
+
+export default async function SingleActivityPage({ params }) {
   const { slug } = await params;
 
   const { data: activityData = [] } = await getSingleActivity(slug);
@@ -40,6 +53,7 @@ export default async function DestinationPage({ params }) {
 
       {/* Add JSON-LD to your page */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {/* <Script type="application/ld+json" strategy='beforeInteractive' dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd)}} /> */}
     </>
   );
 }

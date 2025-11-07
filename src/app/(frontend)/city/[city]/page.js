@@ -7,7 +7,7 @@ import { TourSection } from '@/app/components/Pages/FRONT_END/Global/TourSection
 import ShopSection from '@/app/components/Pages/FRONT_END/Global/ShopSection';
 import { ReviewSectionCity } from '@/app/components/Pages/FRONT_END/Global/ReviewSection';
 import GuideSection from '@/app/components/Pages/FRONT_END/Global/GuideSection';
-import ProductSliderSection, { ProductSliderSectionItinerary } from '@/app/components/Pages/FRONT_END/Global/ProductSliderSection';
+import ProductSliderSection from '@/app/components/Pages/FRONT_END/Global/ProductSliderSection';
 import { publicApi } from '@/lib/axiosInstance';
 import { notFound } from 'next/navigation';
 import { CityFilter } from '@/app/components/Pages/FRONT_END/city/city_filter';

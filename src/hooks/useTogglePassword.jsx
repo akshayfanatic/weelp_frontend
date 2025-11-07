@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react';
 
 /**
- * 
- * @param {boolean} initialState 
- * @returns 
+ *  Toggle Visible | Invisible for Passaword
+ * @param {boolean} initialState
+ * @returns
  */
 export const useTogglePassword = (initialState = false) => {
   const [visible, setVisible] = useState(initialState);

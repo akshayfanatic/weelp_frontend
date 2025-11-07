@@ -957,7 +957,7 @@ export const CreateActivityForm = ({ categories, attributes, tags, locations = [
       return;
     }
 
-    // console.log(mergedData);
+    
     // handle api for creating activity
     try {
       const res = await createActivity(mergedData);
