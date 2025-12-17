@@ -73,9 +73,7 @@ const Tours = ({ items, taglist }) => {
                   <label
                     htmlFor={tag?.name}
                     key={index}
-                    className={`flex items-center gap-2 cursor-pointer capitalize  text-grayDark font-medium text-md py-2 px-4 rounded-lg border w-fit ${
-                      selectedFilters.includes(tag?.name) ? 'bg-gray-300' : 'bg-[#eff3f6]'
-                    }`}
+                    className={`flex items-center gap-2 cursor-pointer capitalize  text-grayDark font-medium text-md py-2 px-4 rounded-lg border w-fit ${selectedFilters.includes(tag?.name) ? 'bg-gray-300' : 'bg-[#eff3f6]'}`}
                   >
                     <input
                       type="checkbox"

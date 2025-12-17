@@ -8,7 +8,7 @@ import { LoginForm } from '@/app/components/Form/LoginForm';
 const AdminLayout = async ({ children }) => {
   const session = await auth();
 
-  console.log(session)
+  console.log(session);
 
   return (
     <SidebarProvider>

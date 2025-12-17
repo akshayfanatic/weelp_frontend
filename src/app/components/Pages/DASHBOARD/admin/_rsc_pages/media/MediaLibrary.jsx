@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, Upload } from 'lucide-react';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Card } from '@/components/ui/card';
 import { usePathname } from 'next/navigation';
 import { useMediaStore } from '@/lib/store/useMediaStore';
@@ -86,9 +86,7 @@ export function Medialibrary() {
                 return (
                   <Card
                     key={index}
-                    className={`group relative aspect-square overflow-hidden rounded-lg bg-muted cursor-pointer  ${
-                      isMediaPage ? '' : selectedImages.some((img) => img.id === image.id) && 'border p-4 border-secondaryDark'
-                    } `}
+                    className={`group relative aspect-square overflow-hidden rounded-lg bg-muted cursor-pointer  ${isMediaPage ? '' : selectedImages.some((img) => img.id === image.id) && 'border p-4 border-secondaryDark'} `}
                     onClick={() => (isMediaPage ? handleSelectMedia(image) : handleSelect(image))}
                   >
                     <img src={image?.url} alt={image?.alt_text} className="object-cover transition-all hover:scale-105 w-full h-full" />
@@ -121,7 +119,7 @@ export function Medialibrary() {
           </DialogContent>
         </Dialog>
 
-        {/* If Images Are Selected */}
+        {/* If Images Are Selected Outside of the Media Library */}
         {!isMediaPage && !isEmpty(selectedImages) && (
           <Button onClick={selectedImagesHandleStore} className="bg-secondaryDark w-fit col-span-full">
             Select Images

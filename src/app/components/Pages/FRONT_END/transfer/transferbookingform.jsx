@@ -156,9 +156,7 @@ export default function TransferForm() {
                     <ul className="bg-white rounded-xl  w-[220px] overflow-hidden">
                       <li
                         onClick={() => field.onChange('')}
-                        className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-secondaryDark  cursor-pointer hover:bg-[#f2f7f5] ${
-                          field.value === '' ? 'bg-[#e9f5ed]' : 'bg-[#f2f7f5]'
-                        }`}
+                        className={`px-8 py-3 text-base font-medium hover:text-secondaryDark text-secondaryDark  cursor-pointer hover:bg-[#f2f7f5] ${field.value === '' ? 'bg-[#e9f5ed]' : 'bg-[#f2f7f5]'}`}
                       >
                         Suggested
                       </li>

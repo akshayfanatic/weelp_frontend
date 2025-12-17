@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.20.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.20.0...v0.20.1) (2025-11-07)
 
-
 ### ✨ Features
 
-* **seo, mdx:** integrate SEO and sample MDX ([fd31029](https://github.com/akshayfanatic/weelp_frontend/commit/fd31029793bea102161455e73d8a8abce5b02965))
+- **seo, mdx:** integrate SEO and sample MDX ([fd31029](https://github.com/akshayfanatic/weelp_frontend/commit/fd31029793bea102161455e73d8a8abce5b02965))
 
 ## [0.20.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.19.5...v0.20.0) (2025-10-16)
 

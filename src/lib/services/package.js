@@ -2,7 +2,6 @@
 import { authApi, publicApi } from '../axiosInstance';
 import { log } from '../utils';
 
-
 /**
  * Get Single Package on Public side
  * @param {Number} id
@@ -19,7 +18,6 @@ export async function getSinglePackage(packagee) {
     return []; // Return null instead of an empty array for clarity
   }
 }
-
 
 /**
  * Get Single Package on Admin side

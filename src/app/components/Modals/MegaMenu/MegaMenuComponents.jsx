@@ -8,9 +8,7 @@ export const RegionList = ({ navItems = [], selectedContinent, handleContinent }
       {navItems.map((navItem, index) => (
         <li
           key={index}
-          className={`hover:bg-secondaryLight2 text-grayDark hover:text-secondaryDark p-4 capitalize cursor-pointer ${
-            selectedContinent?.name === navItem.region ? 'bg-secondaryLight2 text-secondaryDark' : ''
-          }`}
+          className={`hover:bg-secondaryLight2 text-grayDark hover:text-secondaryDark p-4 capitalize cursor-pointer ${selectedContinent?.name === navItem.region ? 'bg-secondaryLight2 text-secondaryDark' : ''}`}
           onClick={() => handleContinent(navItem.region, navItem?.cities)}
         >
           {navItem.region}

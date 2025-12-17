@@ -5,7 +5,6 @@ import { useUIStore } from '@/lib/store/uiStore';
 import { Inter, Roboto, Poppins } from 'next/font/google';
 import AppProviders from '@/app/components/Layout/ProviderWrapper';
 
-
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 const roboto = Roboto({ subsets: ['latin'], display: 'swap', weight: '400' });
 const poppins = Poppins({ subsets: ['latin'], display: 'swap', weight: '400' });

@@ -2,7 +2,7 @@
 import React from 'react';
 import DestinationSlider from '../../../sliders/DestinationSlider';
 
-const DestinationSliderSection = ({ sliderTitle="", data }) => {
+const DestinationSliderSection = ({ sliderTitle = '', data }) => {
   if (sliderTitle && data) {
     return (
       <div className="container mx-auto flex flex-col gap-3 p-4 sm:my-4 my-10 productDestination">

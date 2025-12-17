@@ -83,7 +83,7 @@ const GallerySlider = ({ data }) => {
           slidesPerView={5}
           freeMode={true}
           watchSlidesProgress={true}
-          modules={[FreeMode, Navigation, ]}
+          modules={[FreeMode, Navigation]}
           className={`thumbnail-slider transition-all duration-500 ${showGallery ? 'opacity-100' : 'opacity-0 '} mt-4`}
         >
           {imageData.map((val, index) => (
