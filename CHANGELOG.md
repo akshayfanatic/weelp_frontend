@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.21.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.20.1...v0.21.0) (2025-12-17)
+
+
+### 🐛 Bug Fixes
+
+* **mdx:** remove markdown page ([6800b61](https://github.com/akshayfanatic/weelp_frontend/commit/6800b61966e86f044cabaf5b4cf50d0fcfba6332))
+
 ### [0.20.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.20.0...v0.20.1) (2025-11-07)
 
 ### ✨ Features
