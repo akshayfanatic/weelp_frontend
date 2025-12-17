@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.21.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.21.0...v0.21.1) (2025-12-17)
+
+
+### ✨ Features
+
+* **activity/navigation icon:** Add navigation arrow for create,edit forms ([ece77fd](https://github.com/akshayfanatic/weelp_frontend/commit/ece77fde9db1327871117b429f24eb42549ef953))
+
 ## [0.21.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.20.1...v0.21.0) (2025-12-17)
 
 ### 🐛 Bug Fixes
