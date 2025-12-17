@@ -9,14 +9,17 @@ import { Textarea } from '@/components/ui/textarea';
 import { getAllActivitesAdmin } from '@/lib/services/activites';
 import { log } from '@/lib/utils';
 import { isEmpty } from 'lodash';
-import { SearchIcon } from 'lucide-react';
+import { ArrowLeft, SearchIcon } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export const NavigationItinerary = ({ title, desciption }) => {
+  const router = useRouter();
   if (title && desciption) {
     return (
-      <div className="flex justify-between w-full py-4">
+      <div className="flex items-center gap-3 w-full py-4">
+        <ArrowLeft className="cursor-pointer" onClick={() => router.back()} />
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
           <p className="text-sm text-muted-foreground">{desciption}</p>

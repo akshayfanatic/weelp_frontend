@@ -118,6 +118,7 @@ const FilterTransfer = () => {
   // SWR fetch
   const { data, error, isValidating, mutate } = useSWR(`/api/admin/transfers?${queryParams}`, fetcher, { revalidateOnFocus: true });
 
+  console.log(data, 'data');
   // destructure data
   const { data: items = [], current_page = '', per_page = '', total: totalItems = '' } = data?.data || {}; // destructure safely
 
