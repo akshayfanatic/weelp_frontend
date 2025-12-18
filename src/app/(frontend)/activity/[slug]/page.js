@@ -37,6 +37,7 @@ export default async function SingleActivityPage({ params }) {
     description,
     item_type,
     pricing: { regular_price },
+    media_gallery,
   } = activityData;
 
   const jsonLd = {
@@ -46,10 +47,10 @@ export default async function SingleActivityPage({ params }) {
     description: description,
   };
 
-  // console.log(activityData);
+  console.log(activityData);
   return (
     <>
-      <BannerSection activityName={name} />
+      <BannerSection activityName={name} media_gallery={media_gallery} />
       <TabSectionActivity productId={id} productData={activityData} />
 
       {/* Add JSON-LD to your page */}
