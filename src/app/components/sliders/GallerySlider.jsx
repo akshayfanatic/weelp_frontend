@@ -14,7 +14,7 @@ import { ProductGalleryAnimation } from '../Animation/ProductAnimation';
 
 // Slider for City Page and
 const GallerySlider = ({ data }) => {
-  const [showGallery, setShowGallery] = useState(false);
+  const [showGallery, setShowGallery] = useState(false); // toggle gallery visibility
   const [imageData, setImageData] = useState([]);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
@@ -42,7 +42,7 @@ const GallerySlider = ({ data }) => {
           loop={true}
           spaceBetween={6} // Adjust the spacing between slides
           navigation={true}
-          thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
+          // thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
           // thumbs={{ swiper: thumbsSwiper }}
           watchSlidesProgress
           onSwiper={setThumbsSwiper}
@@ -62,7 +62,7 @@ const GallerySlider = ({ data }) => {
         >
           {imageData.map((val, index) => (
             <SwiperSlide key={index}>
-              <img src={val.image} alt={`Slide ${index + 1}`} className="max-w-full xs:max-w-80 w-full h-[400px] object-cover" />
+              <img src={val?.url || val?.image} alt={val?.alt_text || `Slide ${index + 1}`} className="max-w-full xs:max-w-80 w-full h-[400px] object-cover" />
             </SwiperSlide>
           ))}
 
@@ -83,20 +83,18 @@ const GallerySlider = ({ data }) => {
           slidesPerView={5}
           freeMode={true}
           watchSlidesProgress={true}
-          modules={[FreeMode, Navigation]}
+          modules={[FreeMode, Navigation, Thumbs]}
           className={`thumbnail-slider transition-all duration-500 ${showGallery ? 'opacity-100' : 'opacity-0 '} mt-4`}
         >
           {imageData.map((val, index) => (
             <SwiperSlide key={index}>
-              <img src={val.image} alt={`Thumbnail ${index + 1}`} className="max-w-80 w-full max-h-[70px] h-full object-cover rounded-md cursor-pointer" />
+              <img src={val?.url || val?.image} alt={`Thumbnail ${index + 1}`} className="max-w-80 w-full max-h-[70px] h-20 object-cover rounded-md cursor-pointer" />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
     );
   }
-
-  return <ProductGalleryAnimation />;
 };
 
 export default GallerySlider;

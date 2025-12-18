@@ -46,6 +46,7 @@ export default async function SingleActivityPage({ params }) {
     description: description,
   };
 
+  // console.log(activityData);
   return (
     <>
       <BannerSection activityName={name} />

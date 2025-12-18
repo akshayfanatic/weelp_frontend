@@ -1,10 +1,12 @@
 import BreadCrumb from '@/app/components/BreadCrumb';
+import SafeImage from '@/app/components/Image';
 import GallerySlider from '@/app/components/sliders/GallerySlider';
 import { fakeData } from '@/app/Data/ShopData';
 import { CircleCheckBig, Clock4, MapPin, Star } from 'lucide-react';
+import Image from 'next/image';
 import React from 'react';
 
-const BannerSection = ({ activityName }) => {
+const BannerSection = ({ activityName, media_gallery = [] }) => {
   return (
     <section className="flex items-center justify-center lg:h-full p-6 sm:p-0 sm:py-4 bg-[#FFFFFF] page_destination_banner ">
       <div className="container md:max-w-[80%] mx-auto">
@@ -39,9 +41,22 @@ const BannerSection = ({ activityName }) => {
             </li>
           </ul>
         </div>
-        <div>
-          <GallerySlider data={fakeData} />
-        </div>
+
+        {/* Gallery Slider displaying images */}
+        {media_gallery?.length > 0 &&
+          (media_gallery.length === 1 ? (
+            <Image
+              src={media_gallery?.[0]?.url}
+              alt={media_gallery?.[0]?.alt_text || `${activityName} Image`}
+              width={500}
+              height={200}
+              sizes="(max-width: 768px) 100vw, 800px"
+              className="object-cover rounded-lg"
+              priority
+            />
+          ) : (
+            <GallerySlider data={media_gallery} />
+          ))}
       </div>
     </section>
   );

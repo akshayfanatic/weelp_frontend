@@ -40,19 +40,19 @@ export default async function IterenaryPage({ params }) {
   }
 
   const { data, id } = iterenaryData;
-  const { name, seo } = data; //data
+  const { name, seo, media_gallery = [] } = data; //data
 
   // Parse schema_data safely
   let schemaJson = {};
   try {
     schemaJson = seo?.schema_data ? JSON.parse(seo.schema_data) : {};
   } catch (error) {
-    console.log('Invalid JSON schema_data:', error);
+    console.error('Invalid JSON schema_data:', error);
   }
 
   return (
     <>
-      <BannerSection activityName={name} />
+      <BannerSection activityName={name} media_gallery={media_gallery} />
       <TabSectionIterenary productData={data} />
 
       {/* Inject JSON-LD schema */}

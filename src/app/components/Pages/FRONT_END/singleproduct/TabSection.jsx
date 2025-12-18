@@ -226,6 +226,7 @@ export const TabSectionPackage = ({ productData }) => {
   const sectionRefs = useRef({});
   const [fixedTab, setFixedTab] = useState(false);
   const tabBarHeight = 68;
+  const faqs = productData?.faqs || []; // fallback to empty array if faqs is undefined
 
   useEffect(() => {
     const checkScrollY = () => {
@@ -310,7 +311,7 @@ export const TabSectionPackage = ({ productData }) => {
               <ReviewPanel />
             </div>
             <div id="tab_4" ref={(el) => (sectionRefs.current['tab_4'] = el)}>
-              <FaqPanel />
+              <FaqPanel faqs={faqs} />
             </div>
           </div>
         </div>

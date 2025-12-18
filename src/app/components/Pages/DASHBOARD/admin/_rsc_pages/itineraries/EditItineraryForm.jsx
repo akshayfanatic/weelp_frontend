@@ -1818,7 +1818,7 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
   const onSubmit = async (data) => {
     const mergedData = { ...formData, ...data };
 
-    if (currentStep < 7) {
+    if (currentStep < 8) {
       setFormData(mergedData);
       setCurrentStep((prev) => prev + 1);
       return;
@@ -1876,10 +1876,14 @@ export const EditItineraryForm = ({ categories, attributes, tags, locations = []
                     <li
                       key={step.id}
                       // onClick={() => {setCurrentStep(step?.id)}}
-                      className={`flex flex-col items-center w-full space-y-1 cursor-pointer group relative p-4 duration-300 ease-in-out group hover:bg-gray-100 ${currentStep == step?.id && ' bg-gradient-to-t from-[#c7ffc02e] to-slate-50 border-b-secondaryDark border-b-2'}`}
+                      className={`flex flex-col items-center w-full space-y-1 cursor-pointer group relative p-4 duration-300 ease-in-out group hover:bg-gray-100 ${
+                        currentStep == step?.id && ' bg-gradient-to-t from-[#c7ffc02e] to-slate-50 border-b-secondaryDark border-b-2'
+                      }`}
                     >
                       <div
-                        className={`text-sm font-medium pt-2 w-full text-nowrap duration-300 ease-in-out ${!currentStep == step?.id && ' group-hover:text-gray-800'} ${currentStep == step?.id ? 'text-secondaryDark ' : 'text-grayDark'}`}
+                        className={`text-sm font-medium pt-2 w-full text-nowrap duration-300 ease-in-out ${!currentStep == step?.id && ' group-hover:text-gray-800'} ${
+                          currentStep == step?.id ? 'text-secondaryDark ' : 'text-grayDark'
+                        }`}
                       >
                         {step.title}
                       </div>

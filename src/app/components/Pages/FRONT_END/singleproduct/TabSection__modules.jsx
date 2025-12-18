@@ -88,13 +88,15 @@ export const ReviewPanel = ({ triggered, panelTitle, panelContent }) => {
   );
 };
 
-//  const FAQ Panel
-export const FaqPanel = ({ triggered, panelTitle, panelContent }) => {
-  return (
-    <div>
-      <Accordion items={faqItems} />
-    </div>
-  );
+/**
+ * FAQ Panel
+ * <Accordion /> Component is used when faqs prop is not provided
+ * @param {Array} faqs - Array of faq objects
+ * @returns {JSX.Element} - Returns a div containing either <AccordionItems /> or Accordion component based on the length of faqs array
+ */
+
+export const FaqPanel = ({ faqs = [] }) => {
+  return <div>{faqs.length > 0 ? <AccordionItems faqs={faqs} /> : <Accordion items={faqItems} />}</div>;
 };
 
 // ineraryPanel
@@ -130,6 +132,7 @@ import { Separator } from '@/components/ui/separator';
 import SingleProductFormItinerary from '@/app/components/Form/SingleProductFormItinerary';
 import SingleProductFormPackage from '@/app/components/Form/SingleProductFormPackage';
 import { usePathname } from 'next/navigation';
+import { AccordionItems } from '@/app/components/Accordion';
 
 // activity form
 export const ProductForm = ({ productId, productData }) => {

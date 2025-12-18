@@ -29,11 +29,11 @@ export default async function PackagePage({ params }) {
   if (!packageData || packageData.length === 0) {
     notFound();
   }
-  const { name } = packageData;
+  const { name, media_gallery = [] } = packageData;
 
   return (
     <>
-      <BannerSection activityName={name} />
+      <BannerSection activityName={name} media_gallery={media_gallery} />
       <TabSectionPackage productData={packageData} />
     </>
   );
