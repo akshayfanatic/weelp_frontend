@@ -1,7 +1,7 @@
-import { ComingSoon } from '@/app/components/ComingSoon';
+import React from 'react';
 
 const AffiliatesPage = () => {
-  return <ComingSoon />;
+  return <div>AffiliatesPage</div>;
 };
 
 export default AffiliatesPage;

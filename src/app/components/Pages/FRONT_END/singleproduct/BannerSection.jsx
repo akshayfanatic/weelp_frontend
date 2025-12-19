@@ -1,5 +1,7 @@
 import BreadCrumb from '@/app/components/BreadCrumb';
+import SafeImage from '@/app/components/Image';
 import GallerySlider from '@/app/components/sliders/GallerySlider';
+import { fakeData } from '@/app/Data/ShopData';
 import { CircleCheckBig, Clock4, MapPin, Star } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
