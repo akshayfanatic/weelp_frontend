@@ -1,5 +1,4 @@
 'use client';
-import { Badge } from '@/components/ui/badge';
 import { useSidebar } from '@/components/ui/sidebar';
 import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
@@ -59,11 +58,6 @@ export function NavMain({ items }) {
                 <>
                   <item.icon />
                   <span className="text-black">{item.title}</span>
-                  {item.comingSoon && (
-                    <Badge variant="success" className="text-[8px] animate-pulse">
-                      Coming Soon
-                    </Badge>
-                  )}
                 </>
               )}
             </Link>

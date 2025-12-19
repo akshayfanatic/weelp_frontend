@@ -1,7 +1,7 @@
-import { ComingSoon } from '@/app/components/ComingSoon';
+import React from 'react';
 
 const AnalyticsPage = () => {
-  return <ComingSoon />;
+  return <div>AnalyticsPage</div>;
 };
 
 export default AnalyticsPage;

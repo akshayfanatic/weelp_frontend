@@ -4,13 +4,15 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.21.2](https://github.com/akshayfanatic/weelp_frontend/compare/v0.21.1...v0.21.2) (2025-12-18)
 
+
 ### 🐛 Bug Fixes
 
-- **gallery/package,package:** display real gallery images and implement FAQ ([01fd21b](https://github.com/akshayfanatic/weelp_frontend/commit/01fd21be2f46b4bb2e3e6778c4c4e0b209dcdf4c))
+* **gallery/package,package:** display real gallery images and implement FAQ ([01fd21b](https://github.com/akshayfanatic/weelp_frontend/commit/01fd21be2f46b4bb2e3e6778c4c4e0b209dcdf4c))
+
 
 ### ✨ Features
 
-- **gallery/activity:** implement gallery images with dynamic data and remove dummy images on Single Product Activity Page ([f201daa](https://github.com/akshayfanatic/weelp_frontend/commit/f201daae3533f1e8e6ae7eb82cf87628dd9f09c3))
+* **gallery/activity:** implement gallery images with dynamic data and remove dummy images on Single Product Activity Page ([f201daa](https://github.com/akshayfanatic/weelp_frontend/commit/f201daae3533f1e8e6ae7eb82cf87628dd9f09c3))
 
 ### [0.21.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.21.0...v0.21.1) (2025-12-17)
 

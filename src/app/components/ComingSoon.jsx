@@ -1,4 +1,3 @@
-// components/ComingSoon.tsx
 import { buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
 

@@ -1,8 +1,7 @@
-import Profile from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/settings/profile/profile';
 import React from 'react';
-
+import { ComingSoon } from '@/app/components/ComingSoon';
 const ProfilePage = () => {
-  return <Profile />;
+  return <ComingSoon description="Profile Feature Will Be Coming Soon" />;
 };
 
 export default ProfilePage;
