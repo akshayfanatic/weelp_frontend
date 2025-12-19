@@ -62,7 +62,7 @@ const GallerySlider = ({ data }) => {
         >
           {imageData.map((val, index) => (
             <SwiperSlide key={index}>
-              <img src={val?.url || val?.image} alt={val?.alt_text || `Slide ${index + 1}`} className="max-w-full xs:max-w-80 w-full h-[400px] object-cover" />
+              <img loading="lazy" src={val?.url || val?.image} alt={val?.alt_text || `Slide ${index + 1}`} className="max-w-full xs:max-w-80 w-full h-[400px] object-cover" />
             </SwiperSlide>
           ))}
 
@@ -88,7 +88,7 @@ const GallerySlider = ({ data }) => {
         >
           {imageData.map((val, index) => (
             <SwiperSlide key={index}>
-              <img src={val?.url || val?.image} alt={`Thumbnail ${index + 1}`} className="max-w-80 w-full max-h-[70px] h-20 object-cover rounded-md cursor-pointer" />
+              <img loading="lazy" src={val?.url || val?.image} alt={`Thumbnail ${index + 1}`} className="max-w-80 w-full max-h-[70px] h-20 object-cover rounded-md cursor-pointer" />
             </SwiperSlide>
           ))}
         </Swiper>

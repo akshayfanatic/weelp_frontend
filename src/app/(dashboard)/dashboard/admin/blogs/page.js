@@ -1,7 +1,8 @@
+import { ComingSoon } from '@/app/components/ComingSoon';
 import React from 'react';
 
 const AdminBlogPage = () => {
-  return <div>AdminBlogPage</div>;
+  return <ComingSoon />;
 };
 
 export default AdminBlogPage;

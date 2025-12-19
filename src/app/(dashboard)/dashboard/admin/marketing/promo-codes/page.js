@@ -1,5 +1,7 @@
+import { ComingSoon } from '@/app/components/ComingSoon';
+
 const PromoPage = () => {
-  return <div>PromoPage</div>;
+  return <ComingSoon />;
 };
 
 export default PromoPage;

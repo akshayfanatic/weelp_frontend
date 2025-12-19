@@ -94,12 +94,13 @@ export const DashboardAdminNav = {
     { title: 'Orders', icon: ShoppingCart, url: '/dashboard/admin/orders' },
     { title: 'Reviews', icon: MessageSquare, url: '/dashboard/admin/reviews' },
     { title: 'Manage Add Ons', icon: Plus, url: '/dashboard/admin/addon' },
-    { title: 'Pages', icon: FileText, url: '/dashboard/admin/pages' },
-    { title: 'Blogs', icon: FileText, url: '/dashboard/admin/blogs' },
+    { title: 'Pages', icon: FileText, url: '/dashboard/admin/pages', comingSoon: true },
+    { title: 'Blogs', icon: FileText, url: '/dashboard/admin/blogs', comingSoon: true },
     {
       title: 'Marketing',
       icon: Gift,
       url: '/dashboard/admin/marketing/promo-codes',
+      comingSoon: true,
       children: [
         {
           title: 'Promo Codes',
@@ -129,6 +130,7 @@ export const DashboardAdminNav = {
       title: 'Reports',
       icon: ChartColumnIncreasing,
       url: '/dashboard/admin/reports',
+      comingSoon: true,
     },
     { title: 'Users', icon: Users, url: '/dashboard/admin/users' },
     { title: 'Settings', icon: Settings, url: '/dashboard/admin/settings' },

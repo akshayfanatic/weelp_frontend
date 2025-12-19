@@ -11,14 +11,12 @@ export async function generateMetadata({ params }) {
 
   const { data: activityData = [] } = await getSingleActivity(slug);
 
-  if (!isEmpty(activityData)) {
-    const { name, description } = activityData;
+  const { name, description } = activityData;
 
-    return {
-      title: name,
-      description,
-    };
-  }
+  return {
+    title: name || '',
+    description: description || '',
+  };
 }
 
 export default async function SingleActivityPage({ params }) {
@@ -47,7 +45,6 @@ export default async function SingleActivityPage({ params }) {
     description: description,
   };
 
-  console.log(activityData);
   return (
     <>
       <BannerSection activityName={name} media_gallery={media_gallery} />

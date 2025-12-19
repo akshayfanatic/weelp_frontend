@@ -1,7 +1,8 @@
+import { ComingSoon } from '@/app/components/ComingSoon';
 import React from 'react';
 
 const AdminPages = () => {
-  return <div>AdminPages</div>;
+  return <ComingSoon />;
 };
 
 export default AdminPages;

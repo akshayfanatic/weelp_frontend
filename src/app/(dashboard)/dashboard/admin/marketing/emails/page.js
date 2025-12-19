@@ -1,7 +1,7 @@
-import React from 'react';
+import { ComingSoon } from '@/app/components/ComingSoon';
 
 const EmailsPage = () => {
-  return <div>EmailsPage</div>;
+  return <ComingSoon />;
 };
 
 export default EmailsPage;

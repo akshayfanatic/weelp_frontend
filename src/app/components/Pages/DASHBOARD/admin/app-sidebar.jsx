@@ -8,7 +8,7 @@ import { Description, DialogTitle } from '@radix-ui/react-dialog';
 import { DashboardAdminNav } from '@/app/Data/adminData';
 import { useSession } from 'next-auth/react';
 
-const { user, adminRoutes } = DashboardAdminNav;
+const { adminRoutes } = DashboardAdminNav;
 
 export function AppSidebar({ ...props }) {
   const { state, open, toggleSidebar, isMobile } = useSidebar();
