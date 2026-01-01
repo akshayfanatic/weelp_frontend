@@ -38,7 +38,7 @@ const SingleBlogPage = () => {
   return (
     <>
       <BannerSectionBlog {...postData} />
-      <ContentSection content={postData?.content || ""} />
+      <ContentSection content={postData?.content || ''} />
       <GuideSection sectionTitle={'Recommended'} data={fakeData} />
     </>
   );

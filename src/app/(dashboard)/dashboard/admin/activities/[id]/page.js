@@ -19,7 +19,7 @@ const EditActivity = async ({ params }) => {
   const { data: categories = [] } = categoriesData; // for categories
   const { data: attributes = [] } = attributesData; // for attributes
 
-  console.log(categoriesData)
+  console.log(categoriesData);
   const activitydata = await getSingleActivityAdmin(id); //dyanmic id
 
   if (isEmpty(activitydata)) {

@@ -1,5 +1,5 @@
-import { fetcher } from "@/lib/fetchers";
-import useSWR from "swr";
+import { fetcher } from '@/lib/fetchers';
+import useSWR from 'swr';
 
 /**
  * Custom React hook to fetch all admin tags options from the API.

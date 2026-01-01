@@ -8,7 +8,7 @@ import { Switch } from '@/components/ui/switch';
 
 export const BlogHeader = () => {
   const router = useRouter();
-  
+
   const {
     control,
     formState: { isDirty, isSubmitting },

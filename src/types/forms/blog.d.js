@@ -12,7 +12,6 @@
  * @property {string} updatedAt - ISO string of last update
  */
 
-
 /**
  * Creating New Blog Post
  * @typedef {Object} BlogPostForm

@@ -13,7 +13,7 @@ export const createTag = async (data) => {
   try {
     await delay(500);
     const res = await authApi.post('/api/admin/tags/', data);
-    
+
     // revalidate  path
     revalidatePath('/dashboard/admin/taxonomies/tags');
 
