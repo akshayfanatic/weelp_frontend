@@ -1,9 +1,9 @@
 import React from 'react';
 import { BlogAuthorInfo } from '@/app/components/singleproductguide';
-import { WhatIncludedPanel } from '../singleproduct/TabSection__modules';
 import { FollowUs, RelatedLinks } from './SingleBlogModules';
+import { TiptapPublic } from '../../DASHBOARD/admin/_rsc_pages/blogs/components/TiptapPublic';
 
-const ContentSection = () => {
+const ContentSection = ({ content }) => {
   return (
     <section className="flex flex-col lg:flex-row">
       <div className="flex-[2]">
@@ -13,15 +13,7 @@ const ContentSection = () => {
         {/* Content */}
         <div className="bg-[#cccccc]">
           <div className="max-w-4xl mx-auto p-6  flex flex-col gap-4">
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam aperiam neque dolorum necessitatibus placeat libero optio. Architecto, ratione adipisci modi nulla facilis eaque
-              voluptatibus minima, consequatur, quas eveniet hic tempora dignissimos. Commodi, accusamus dolore fugiat error placeat qui culpa! Perspiciatis quis ad reprehenderit voluptate aliquam
-              doloremque dicta laboriosam provident dolore, inventore exercitationem asperiores est ut esse sit rem eius omnis quia sequi! Doloribus dolor ut voluptate nisi blanditiis atque pariatur
-              ipsum aperiam aut, laudantium beatae a repellendus necessitatibus odit deserunt ab est perferendis soluta harum amet. Earum soluta facilis asperiores est quam odio eos! Impedit unde a
-              maiores corrupti cumque.
-            </p>
-            <WhatIncludedPanel panelTitle={'Lorem ipsum'} />
-            <WhatIncludedPanel panelTitle={'Lorem ipsum'} />
+            <TiptapPublic content={content} />
           </div>
         </div>
       </div>

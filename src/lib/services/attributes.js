@@ -1,7 +1,6 @@
 'use server';
 
 import { authApi } from '../axiosInstance';
-import { log } from '../utils';
 
 /**
  * Get Single Attribute on Admin side
@@ -33,7 +32,7 @@ export async function getAttributeBySlugAdmin(slug) {
 
     return response?.data?.data || [];
   } catch (error) {
-    console.log('catetch ', error?.response);
+    console.error('Attribute Slug ', error);
     return [];
   }
 }
