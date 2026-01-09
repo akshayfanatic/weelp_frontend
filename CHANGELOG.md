@@ -4,13 +4,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.21.3](https://github.com/akshayfanatic/weelp_frontend/compare/v0.21.2...v0.21.3) (2026-01-09)
 
-
 ### ✨ Features
 
-* **BlogFeature:** Implement Blog Feature in dashboard and display blogs in public  with SEO oriented ([9ef1a39](https://github.com/akshayfanatic/weelp_frontend/commit/9ef1a390604a94443cc2a4d683baa59215ef23fc))
-* **comingsoon:** Create Coming Soon Badge ([1c05646](https://github.com/akshayfanatic/weelp_frontend/commit/1c056469e0b0b3140ba852164e5ca6394895ff1d))
-* **editor/blog:** add blog editor with inline tag/category creation ([08e5b67](https://github.com/akshayfanatic/weelp_frontend/commit/08e5b675ad3cb68db83003abe2d22e487f5ac955))
-* **editor/blog:** add blog editor with inline tag/category creation ([4c1252f](https://github.com/akshayfanatic/weelp_frontend/commit/4c1252fd95b7f261cce62f28c2dd57c271909663))
+- **BlogFeature:** Implement Blog Feature in dashboard and display blogs in public with SEO oriented ([9ef1a39](https://github.com/akshayfanatic/weelp_frontend/commit/9ef1a390604a94443cc2a4d683baa59215ef23fc))
+- **comingsoon:** Create Coming Soon Badge ([1c05646](https://github.com/akshayfanatic/weelp_frontend/commit/1c056469e0b0b3140ba852164e5ca6394895ff1d))
+- **editor/blog:** add blog editor with inline tag/category creation ([08e5b67](https://github.com/akshayfanatic/weelp_frontend/commit/08e5b675ad3cb68db83003abe2d22e487f5ac955))
+- **editor/blog:** add blog editor with inline tag/category creation ([4c1252f](https://github.com/akshayfanatic/weelp_frontend/commit/4c1252fd95b7f261cce62f28c2dd57c271909663))
 
 ### [0.21.2](https://github.com/akshayfanatic/weelp_frontend/compare/v0.21.1...v0.21.2) (2025-12-18)
 

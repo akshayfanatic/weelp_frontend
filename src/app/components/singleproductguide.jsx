@@ -41,11 +41,10 @@ export const BlogCard = ({ imageSrc = '', blogTitle = '', created_at = '', slug 
   );
 };
 
-
 /** Shape of Blog Data
  * @typedef {BlogPost}
  */
-export const BlogCard2 = ({ imageSrc = '',  created_at = '', slug = '' }) => {
+export const BlogCard2 = ({ imageSrc = '', created_at = '', slug = '' }) => {
   const modifiedSubtitle = String(subtitle).slice(0, 30);
   return (
     <div className="max-w-full sm:max-w-sm  flex flex-col">

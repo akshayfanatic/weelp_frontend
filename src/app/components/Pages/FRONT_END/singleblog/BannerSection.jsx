@@ -37,9 +37,14 @@ const BannerSectionBlog = ({ title = '', excerpt = '', tags = [], media_gallery 
       {media_gallery?.length > 0 && (
         <div className="2xl:block w-full hidden overflow-scroll  tfc_scroll max-h-[400px]">
           {media_gallery?.length > 1 ? (
-            <div className='flex flex-row overflow-scroll overflow-y-hidden gap-2 tfc_scroll'>
+            <div className="flex flex-row overflow-scroll overflow-y-hidden gap-2 tfc_scroll">
               {media_gallery.map((media, index) => (
-                <img key={index} src={media.url} alt={media.alt ?? `Gallery Image ${index + 1}`} className=" object-center rounded-lg max-w-80 w-full h-[400px] scale-95 hover:scale-100 ease-in-out duration-500 mr-4" />
+                <img
+                  key={index}
+                  src={media.url}
+                  alt={media.alt ?? `Gallery Image ${index + 1}`}
+                  className=" object-center rounded-lg max-w-80 w-full h-[400px] scale-95 hover:scale-100 ease-in-out duration-500 mr-4"
+                />
               ))}
             </div>
           ) : (

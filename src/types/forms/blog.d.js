@@ -30,8 +30,6 @@
  * @property {boolean} [publish=true] -defaults to True
  */
 
-
-
 /**
  * Blog Media object
  *

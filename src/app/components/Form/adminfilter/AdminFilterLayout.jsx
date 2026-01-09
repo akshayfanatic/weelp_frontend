@@ -1,10 +1,7 @@
-import React from 'react'
+import React from 'react';
 
+const AdminFilterLayout = ({ sideBarComponent, itemComponents }) => {
+  return <div>AdminFilterLayout</div>;
+};
 
-const AdminFilterLayout = ({sideBarComponent,itemComponents}) => {
-  return (
-    <div>AdminFilterLayout</div>
-  )
-}
-
-export default AdminFilterLayout
+export default AdminFilterLayout;

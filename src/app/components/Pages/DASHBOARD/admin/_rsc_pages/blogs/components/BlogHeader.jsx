@@ -41,7 +41,7 @@ export const BlogHeader = () => {
         />
 
         <Button variant="secondary" type="submit" disabled={isSubmitting}>
-          {isSubmitting ?  'Submitting' : 'Submit' } 
+          {isSubmitting ? 'Submitting' : 'Submit'}
         </Button>
       </div>
     </div>

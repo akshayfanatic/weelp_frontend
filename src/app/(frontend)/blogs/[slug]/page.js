@@ -30,7 +30,7 @@ const SingleBlogPage = async ({ params }) => {
   if (!success) {
     notFound();
   }
-  
+
   return (
     <>
       <BannerSectionBlog {...data} />

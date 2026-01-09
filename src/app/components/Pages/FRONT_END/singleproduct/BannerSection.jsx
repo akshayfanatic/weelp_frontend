@@ -43,14 +43,13 @@ const BannerSection = ({ activityName, media_gallery = [] }) => {
         {/* Gallery Slider displaying images */}
         {media_gallery?.length > 0 &&
           (media_gallery.length === 1 ? (
-            <Image
+            <img
               src={media_gallery?.[0]?.url}
               alt={media_gallery?.[0]?.alt_text || `${activityName} Image`}
               width={500}
               height={200}
               sizes="(max-width: 768px) 100vw, 800px"
               className="object-cover rounded-lg"
-              priority
             />
           ) : (
             <GallerySlider data={media_gallery} />
