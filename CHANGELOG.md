@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.21.4](https://github.com/akshayfanatic/weelp_frontend/compare/v0.21.3...v0.21.4) (2026-01-09)
+
+
+### ♻️ Code Refactoring
+
+* **Cities Api:** Clean Code of Dynamic  City Page Data and Move API to domain specific ([5a096dd](https://github.com/akshayfanatic/weelp_frontend/commit/5a096dd98068e1c7951cbee7d2f0e97b2351a9e5))
+* **Optimize:** Convert Home Page Static to Dynamic ([ae009d5](https://github.com/akshayfanatic/weelp_frontend/commit/ae009d500781aabf93833536c0ddd0f0c08ce923))
+
 ### [0.21.3](https://github.com/akshayfanatic/weelp_frontend/compare/v0.21.2...v0.21.3) (2026-01-09)
 
 ### ✨ Features
