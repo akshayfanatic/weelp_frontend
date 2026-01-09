@@ -13,7 +13,7 @@ import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import { ProductGalleryAnimation } from '../Animation/ProductAnimation';
 
 // Slider for City Page and
-const GallerySlider = ({ data }) => {
+const GallerySlider = ({ data ,classNames=""}) => {
   const [showGallery, setShowGallery] = useState(false); // toggle gallery visibility
   const [imageData, setImageData] = useState([]);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -32,7 +32,7 @@ const GallerySlider = ({ data }) => {
   // check for having data
   if (imageData.length > 0) {
     return (
-      <div className="gallery_slider" key={location}>
+      <div className={`gallery_slider ${classNames}`} >
         {/* Main Slider */}
         <Swiper
           style={{

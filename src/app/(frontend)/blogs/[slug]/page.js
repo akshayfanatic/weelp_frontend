@@ -1,44 +1,40 @@
-'use client';
-import React, { useEffect, useState } from 'react';
 import BannerSectionBlog from '@/app/components/Pages/FRONT_END/singleblog/BannerSection';
 import ContentSection from '@/app/components/Pages/FRONT_END/singleblog/ContentSection';
 import GuideSection from '@/app/components/Pages/FRONT_END/Global/GuideSection';
 import { fakeData } from '@/app/Data/ShopData';
+import { getSingleBlog } from '@/lib/services/blogs';
+import { notFound } from 'next/navigation';
 
-// export async function generateMetadata() {
-//   return {
-//     title: 'Single Blog Page',
-//     description: 'Description of the Single Blog',
-//   };
-// }
-const SingleBlogPage = () => {
-  const [postData, setPostData] = useState({});
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
 
-  useEffect(() => {
-    // Initialize state from localStorage
-    const data = localStorage.getItem('blogdata');
-    if (data) setPostData(JSON.parse(data));
+  const { success, data } = await getSingleBlog(slug);
 
-    // Listen for changes in localStorage (from other tabs)
-    const handleStorageChange = (event) => {
-      console.log(event);
-      if (event.key === 'blogdata') {
-        setPostData(event.newValue ? JSON.parse(event.newValue) : null);
-      }
+  if (!success) {
+    return {
+      title: 'Blog Not Found',
     };
+  }
 
-    window.addEventListener('storage', handleStorageChange); // listen to storage
+  return {
+    title: data?.name || 'Single Blog Page',
+    description: data?.excerpt || 'Read this blog post',
+  };
+}
 
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
+const SingleBlogPage = async ({ params }) => {
+  const { slug } = await params;
 
-  // console.log(postData?.content)
+  const { success, data } = await getSingleBlog(slug);
+
+  if (!success) {
+    notFound();
+  }
+  
   return (
     <>
-      <BannerSectionBlog {...postData} />
-      <ContentSection content={postData?.content || ''} />
+      <BannerSectionBlog {...data} />
+      <ContentSection content={data?.content || ''} categories={data?.categories} />
       <GuideSection sectionTitle={'Recommended'} data={fakeData} />
     </>
   );

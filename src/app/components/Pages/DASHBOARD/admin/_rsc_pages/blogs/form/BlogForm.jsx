@@ -4,8 +4,6 @@ import { BlogHeader } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/bl
 import BlogSidebar from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/blogs/Sidebar';
 import { BlogMain } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/blogs/BlogMain';
 import { FormProvider, useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useToast } from '@/hooks/use-toast';
 import { createBlog, updateBlog } from '@/lib/actions/blogs';
 
@@ -48,7 +46,7 @@ export const BlogForm = ({ editPage = false, data: blogData }) => {
   //check it is edit page
   const methods = useForm({
     defaultValues: {
-      title: blogData?.title ?? '',
+      name: blogData?.name ?? '',
       content: '',
       excerpt: blogData?.excerpt ?? '',
       publish: blogData?.publish ?? true,

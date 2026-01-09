@@ -5,8 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import Singleproductguide, { BlogCard } from '../singleproductguide';
-import { DestinationCarouselAnimation } from '../Animation/ProductAnimation';
+import { BlogCard } from '../singleproductguide';
 
 const BlogSlider = ({ data }) => {
   const [intialize, setInitialize] = useState('');
@@ -44,14 +43,13 @@ const BlogSlider = ({ data }) => {
         >
           {data.map((val, index) => (
             <SwiperSlide key={index}>
-              <BlogCard imageSrc={val?.image} blogTitle={val?.name} />
+              <BlogCard imageSrc={val?.media_gallery?.[0]?.url} blogTitle={val?.name} {...val} />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
     );
   }
-  return <DestinationCarouselAnimation />;
 };
 
 export default BlogSlider;

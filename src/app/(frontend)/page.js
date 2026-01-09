@@ -1,10 +1,11 @@
+const dynamic = 'auto';
 import HereSection from '../components/Pages/FRONT_END/home/HeroSection';
 import ProductSliderSection from '../components/Pages/FRONT_END/Global/ProductSliderSection';
 import DestinationSliderSection from '../components/Pages/FRONT_END/Global/DestinationSection';
 import { fakeData } from '../Data/ShopData';
 
 // ReusableComponents
-import SingleProductCard from '../components/SingleProductCard';
+import SingleProductCard, { GlobalCard } from '../components/SingleProductCard';
 import TabButton from '../components/TabButton';
 import BuyNow from '../components/BuyNow';
 import BookingCard from '../components/BookingCard';
@@ -19,6 +20,8 @@ import { publicApi } from '@/lib/axiosInstance';
 import { log } from '@/lib/utils';
 import { getAllFeaturedActivities } from '@/lib/services/activites';
 import { ReviewCardCarouselAnimation } from '../components/Animation/ProductAnimation';
+import { SliderLayout } from '../components/Pages/FRONT_END/Global/Layout/FilterWrapper';
+import SectionLayout from '../components/Pages/FRONT_END/Global/Layout/SectionLayout';
 
 /**
  * Get All Featured Cities
@@ -42,6 +45,11 @@ const HomePage = async () => {
   return (
     <>
       <HereSection />
+      {/* {featuredActivities?.length > 0 && (
+        <SectionLayout title="Top Activities">
+          <SliderLayout data={featuredActivities} item={() => (<span>item </span>)}></SliderLayout>
+        </SectionLayout>
+      )} */}
       {featuredActivities?.length > 0 && <ProductSliderSection destinations={featuredActivities} />}
       {featuredCities?.length > 0 && <DestinationSliderSection sliderTitle={'Top Destination'} data={featuredCities} />}
       <TestimonialSection />
@@ -76,3 +84,9 @@ const HomePage = async () => {
 };
 
 export default HomePage;
+
+const MyCard = ({ children }) => {
+  console.log(children);
+
+  return <span>item</span>;
+};

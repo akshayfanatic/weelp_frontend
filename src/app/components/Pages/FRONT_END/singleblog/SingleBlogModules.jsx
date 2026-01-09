@@ -1,18 +1,20 @@
 import React from 'react';
 
-export const RelatedLinks = () => {
-  const blogsTitle = ['Top Places in Japan', 'Top Places in USA', 'Top Places in London'];
-
-  if (blogsTitle && blogsTitle.length > 0) {
+/**
+ * @type {Category}
+ * @returns {Component}
+ */
+export const RelatedLinks = ({ categories = [] }) => {
+  if (categories && categories.length > 0) {
     return (
-      <ul className="flex flex-col gap-2 sm:gap-4">
-        {blogsTitle.map((val, index) => {
+      <ul className="flex flex-wrap max-w-52  gap-2 sm:gap-4">
+        {categories.map((category, index) => {
           return (
             <li
               key={index}
               className="font-medium capitalize px-6 py-4 text-Lynchcolor hover:text-secondaryDark text-base border hover:border-secondaryDark hover:bg-[#e6ecea] cursor-pointer rounded-md w-fit"
             >
-              {val}
+              {category.name}
             </li>
           );
         })}

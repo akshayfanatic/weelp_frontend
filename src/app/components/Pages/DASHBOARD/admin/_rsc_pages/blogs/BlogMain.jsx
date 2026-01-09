@@ -12,7 +12,7 @@ export const BlogMain = ({ content }) => {
       {/* Blog Title */}
       <WidgetCard>
         <Controller
-          name="title"
+          name="name"
           rules={{ required: 'Field Required' }}
           control={control}
           render={({ field, fieldState: { error } }) => {

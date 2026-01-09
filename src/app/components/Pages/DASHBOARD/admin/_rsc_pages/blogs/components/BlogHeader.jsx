@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Loader } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -11,7 +11,7 @@ export const BlogHeader = () => {
 
   const {
     control,
-    formState: { isDirty, isSubmitting },
+    formState: { isSubmitting },
   } = useFormContext();
   return (
     <div className="flex items-center justify-between w-full">
@@ -40,8 +40,8 @@ export const BlogHeader = () => {
           )}
         />
 
-        <Button type="submit" disabled={!isDirty}>
-          {isSubmitting ? 'Submitting' : 'Submit'}
+        <Button variant="secondary" type="submit" disabled={isSubmitting}>
+          {isSubmitting ?  'Submitting' : 'Submit' } 
         </Button>
       </div>
     </div>

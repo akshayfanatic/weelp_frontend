@@ -1,152 +1,102 @@
 'use client';
-
-// Sorting Functionality
-import React, { useState } from 'react';
-import { fakeData } from '@/app/Data/ShopData';
-import { ListFilter, Map, X } from 'lucide-react';
+import React from 'react';
+import { useForm, Controller, useWatch } from 'react-hook-form';
 import { BlogCard } from '@/app/components/singleproductguide';
+import { useBlogs } from '@/hooks/api/public/blogs/useBlogs';
+import { useCategories } from '@/hooks/api/public/categories';
+import { CustomPagination } from '@/app/components/Pagination';
+import { BLOGSORT_OPTIONS } from '../../../DASHBOARD/admin/_rsc_pages/blogs/FilterBlogPage';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const BlogFilterBar = () => {
-  const [showsort, setShowSort] = useState(null);
-  const [sortData, setSortData] = useState('');
-  const [selectedFilters, setSelectedFilters] = useState([]); // State for selected filters
-  const [visibleCount, setVisibleCount] = useState(4);
+  // Initialize form with default values
+  const { control, setValue } = useForm({
+    defaultValues: {
+      // categories: [],
+      sort_by: '',
+      page: 1,
+    },
+  });
 
-  // Handle Filter Change
-  const handleFilterChange = (location) => {
-    setSelectedFilters((prevFilters) => {
-      if (prevFilters.includes(location)) {
-        // Remove filter if it exists (toggle functionality)
-        return prevFilters.filter((filter) => filter !== location);
-      } else {
-        // Add filter if it does not exist
-        return [...prevFilters, location];
-      }
-    });
+  const filters = useWatch({ control: control });
+
+  // Fetch categories for filter options
+  const { data: categoryRes = {} } = useCategories();
+
+  // Build query params for API
+  const filterQuery = {
+    sort_by: filters.sort_by,
+    page: filters.page,
   };
 
-  // Filter Data Based on Selected Filters
-  const filteredData = selectedFilters.length > 0 ? fakeData.filter((item) => selectedFilters.includes(item.location)) : fakeData;
+  // Fetch blogs using the useBlogs hook
+  const { blogs: blogRes = {}, isLoading, error } = useBlogs(filterQuery);
+  const { total: totalItems = 0, current_page = 0, per_page = 0 } = blogRes;
+  const blogs = blogRes?.data || [];
 
-  // Sorting Display Handle
-  const handleSort = (e) => {
-    e.preventDefault();
-    setShowSort(!showsort);
+  // handle page change
+  const handlePageChange = (newPage) => {
+    setValue('page', newPage, { shouldValidate: true, shouldDirty: true }); // through server side pagination
   };
 
-  // Handle Sort Value
-  const handleSortValue = (e) => {
-    const sortValue = e.target.getAttribute('value');
-    setSortData(sortValue);
-    setShowSort(!showsort);
-
-    if (sortValue === '5') {
-      // Sort by Popularity (Assuming popularity is based on `rating`)
-      filteredData.sort((a, b) => b.rating - a.rating);
-    } else if (sortValue === '5000') {
-      // Sort by Price: Low to High
-      filteredData.sort((a, b) => a.price - b.price);
-    } else if (sortValue === '200') {
-      // Sort by Price: High to Low
-      filteredData.sort((a, b) => b.price - a.price);
-    }
-  };
-
-  // handle Show MOre
-  const handleShowMore = (prevCount) => {
-    return setVisibleCount((prevCount) => prevCount + 4);
-  };
   return (
     <div className="flex flex-col gap-8 mt-4">
       {/* Sort Bar */}
-      <form className="flex flex-wrap gap-4 sm:justify-between justify-end">
-        <div className="hidden sm:block">
-          <ul className="flex gap-4 flex-wrap">
-            {fakeData &&
-              fakeData.map((val, index) => {
-                if (index > 4) {
-                  return null;
-                }
-                return (
-                  <label
-                    htmlFor={val?.location}
-                    key={index}
-                    className={`flex items-center gap-2 cursor-pointer capitalize  text-grayDark font-medium text-md py-2 px-4 rounded-lg border w-fit ${selectedFilters.includes(val?.location) ? 'bg-gray-300' : 'bg-[#eff3f6]'}`}
-                  >
-                    <input
-                      type="checkbox"
-                      id={val?.location}
-                      className="peer hidden"
-                      onChange={() => handleFilterChange(val?.location)} // Handle filter change
-                      checked={selectedFilters.includes(val?.location)} // Checkbox is checked if filter exists in state
-                    />
-                    {val?.location}
-                  </label>
-                );
-              })}
-          </ul>
-        </div>
-
+      <form className="flex flex-wrap gap-4 justify-end">
         <div className="relative">
-          <div className="flex gap-4 flex-wrap">
-            <button className="flex items-center gap-4 text-grayDark border text-base p-2 px-6  rounded-lg" onClick={(e) => e.preventDefault()}>
-              View on map
-              <Map size={18} />
-            </button>
-            <button className="flex items-center gap-4 text-grayDark border text-base p-2 px-6  rounded-lg" onClick={handleSort}>
-              Sort <ListFilter size={18} />
-            </button>
-          </div>
-          {showsort && (
-            <div
-              onMouseLeave={(e) => {
-                (e.stopPropagation(), setShowSort(!showsort));
-              }}
-            >
-              <input type="hidden" value={sortData} />
-              <ul className="absolute z-10 mt-4 left-24 border flex flex-col bg-white rounded-md text-sm">
-                <li className="cursor-pointer ease-in-out duration-200 p-4 capitalize hover:bg-[#f2f7f5] text-nowrap  text-grayDark" onClick={handleSortValue} value={'5'}>
-                  Sort By Popularity
-                </li>
-                <li className="cursor-pointer ease-in-out duration-200 p-4 capitalize hover:bg-[#f2f7f5] text-nowrap  text-grayDark" onClick={handleSortValue} value={5000}>
-                  Sort By Price: low to high
-                </li>
-                <li className="cursor-pointer ease-in-out duration-200 p-4 capitalize hover:bg-[#f2f7f5] text-nowrap  text-grayDark" onClick={handleSortValue} value={200}>
-                  Sort By Price : High to Low
-                </li>
-              </ul>
+          {/* Sort Dropdown */}
+          <div className="flex justify-start lg:justify-between flex-wrap">
+            <div className="space-y-4 flex flex-col ">
+              {/* Recommended */}
+              <Controller
+                name="sort_by"
+                control={control}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger className="w-64">
+                      <SelectValue placeholder="Recommended" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {BLOGSORT_OPTIONS.map(({ name, value }) => (
+                          <SelectItem key={value} value={value} className="cursor-pointer">
+                            {name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
             </div>
-          )}
+          </div>
         </div>
       </form>
 
-      {/* Result */}
-      <ul className="grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-16">
-        {filteredData &&
-          filteredData.slice(0, visibleCount).map((val, index) => {
-            return (
-              <li key={index}>
-                <BlogCard
-                  imageSrc={val?.image}
-                  blogTitle={val?.name}
-                  blogDate={''} //date not mentioned in my fakedata
-                />
-              </li>
-            );
-          })}
-      </ul>
-
-      {/* Read More Button */}
-      {visibleCount < filteredData.length && (
-        <div className="flex justify-center">
-          <button
-            onClick={handleShowMore}
-            className="bg-secondaryDark hover:bg-[#ffffff] text-[#ffffff] hover:text-secondaryDark border border-secondaryDark  text-base font-medium rounded-md w-fit py-2 px-6"
-          >
-            View More
-          </button>
-        </div>
+      {/* Results Grid */}
+      {isLoading ? (
+        <div className="loader"></div>
+      ) : error ? (
+        <div className="text-center py-8 text-red-500">Error loading blogs</div>
+      ) : blogs.length === 0 ? (
+        <div className="text-center py-8 text-gray-500">No blogs found</div>
+      ) : (
+        <ul className="grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-16">
+          {blogs.map((blog) => (
+            <li key={blog.id || blog.slug}>
+              <BlogCard
+              {...blog}
+                imageSrc={blog?.media_gallery?.[0]?.url || blog?.image}
+                blogTitle={blog?.title}
+                
+              />
+            </li>
+          ))}
+        </ul>
       )}
+
+      {/* Pagination */}
+      <CustomPagination totalItems={totalItems} itemsPerPage={per_page} currentPage={current_page} onPageChange={handlePageChange} />
     </div>
   );
 };

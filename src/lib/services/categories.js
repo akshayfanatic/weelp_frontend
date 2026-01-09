@@ -1,4 +1,5 @@
 import { authApi } from '../axiosInstance';
+import { log } from '../utils';
 
 /**
  * Get Single Category on Admin side
@@ -35,6 +36,12 @@ export async function getAllCategoriesOptionsAdmin() {
     return [];
   } catch (error) {
     console.error('Error fetching categories:', error);
-    return [];
+
+    // Server/network errors → throw for SWR
+    if (error.response) {
+      throw new Error(`Server Error ${error.response.status}: ${error.response.data?.message || error.message}`);
+    }
+
+    throw new Error(`Network Error: ${error.message}`);
   }
 }

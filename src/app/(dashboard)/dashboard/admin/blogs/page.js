@@ -1,8 +1,10 @@
-import { ComingSoon } from '@/app/components/ComingSoon';
-import React from 'react';
+export const dynamic = 'force-dynamic';
 
-const AdminBlogPage = () => {
-  return <ComingSoon />;
+import React from 'react';
+import FilterBlog from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/blogs/FilterBlogPage';
+
+const PackagebuilderPage = async () => {
+  return <FilterBlog />;
 };
 
-export default AdminBlogPage;
+export default PackagebuilderPage;

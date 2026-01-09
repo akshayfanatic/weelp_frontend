@@ -38,8 +38,14 @@ const BlogSidebar = () => {
         <Controller
           name="excerpt"
           control={control}
-          render={({ field }) => {
-            return <Textarea {...field} />;
+          rules={{ required: 'Field Required', maxLength: { value: 70, message: 'Too Much Loog' } }}
+          render={({ field, fieldState: { error } }) => {
+            return (
+              <>
+                <Textarea {...field} />
+                {error?.message && <span className="text-red-400">{error?.message}</span>}
+              </>
+            );
           }}
         />
       </WidgetCard>
@@ -62,11 +68,18 @@ const BlogSidebar = () => {
           <Controller
             name="categories"
             control={control}
-            render={({ field }) => {
-              return <Select isMulti {...field} placeholder="Select Categories" options={categoriesOptions} />;
+            rules={{ required: 'Field Required' }}
+            render={({ field, fieldState: { error } }) => {
+              return (
+                <>
+                  <Select isMulti {...field} placeholder="Select Categories" options={categoriesOptions} />
+                  {error?.message && <span className="text-red-400">{error?.message}</span>}
+                </>
+              );
             }}
           />
         )}
+
         <ActionForm type={'category'} placeholder="Add a category" onSuccess={mutateCategories} />
       </WidgetCard>
 
@@ -77,15 +90,14 @@ const BlogSidebar = () => {
           <Controller
             name="tags"
             control={control}
+            rules={{ required: 'Field Required' }}
             defaultValue={[]}
-            render={({ field }) => {
+            render={({ field, fieldState: { error } }) => {
               return (
-                <Select
-                  isMulti
-                  {...field} // spreads value & onChange
-                  options={tagOptions}
-                  placeholder="Select tags"
-                />
+                <>
+                  <Select isMulti {...field} placeholder="Select tags" options={tagOptions} />
+                  {error?.message && <span className="text-red-400">{error?.message}</span>}
+                </>
               );
             }}
           />

@@ -2,6 +2,7 @@
 import React from 'react';
 import { SearchFormBlogs, SearchFormCreator } from '@/app/components/Form/SearchForm';
 import { usePathname } from 'next/navigation';
+
 /** This section handle Creator / Blogs  */
 const BannerSectionSearchForm = ({ title, description }) => {
   const pathName = usePathname();

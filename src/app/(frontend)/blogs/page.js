@@ -16,7 +16,7 @@ const BlogsPage = () => {
   return (
     <>
       <BannerSectionSearchForm title={'Explore Blogs'} description={"You'll discover everything from whisky to Harry Potter, or even some bodysnatcher's, in scotland's capital"} />
-      <BlogSliderSection sectionTitle={'Latest Blogs'} data={fakeData} />
+      <BlogSliderSection sectionTitle={'Latest Blogs'} />
       <DestinationSliderSection sliderTitle={'Top Categories'} data={fakeData} />
       <BlogList />
     </>
