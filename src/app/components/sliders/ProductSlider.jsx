@@ -60,6 +60,7 @@ const ProductSlider = ({ data }) => {
                 productRating={product?.rating}
                 productCity={String(product?.locations[0]?.city).toLowerCase()}
                 productRegion={String(product?.locations[0]?.region).toLowerCase()}
+                imgsrc={product?.media_gallery?.[0]?.url}
               />
             </SwiperSlide>
           ))}

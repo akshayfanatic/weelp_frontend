@@ -2,6 +2,29 @@ import { publicApi, authApi } from '../axiosInstance';
 import { log } from '../utils';
 
 /**
+ * Display Single City Data
+ * @param {string} city slug of the city
+ * @returns  {Promise<{success:boolean,message?:string,data?:object}}
+ */
+export async function getCityData(city) {
+  try {
+    const response = await publicApi.get(`/api/city/${city}`, {
+      headers: { Accept: 'application/json' },
+    });
+
+    if (response.status == 200) {
+      return response?.data;
+    }
+
+    return { success: false, message: 'Not Found' };
+  } catch (error) {
+    console.errror('Error fetching Single City', error);
+
+    return { success: false, message: 'Something Went Wrong' };
+  }
+}
+
+/**
  * Get Single City on Admin side
  * @param {Number} id
  @returns {Promise<object>} - City data or empty object if not found

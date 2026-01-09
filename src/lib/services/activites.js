@@ -65,3 +65,26 @@ export async function getAllFeaturedActivities() {
     return [];
   }
 }
+
+/**
+ * Display All Activities by City
+ * @param {string} city Slug of the City
+ * @returns {Promise<{success:boolean,message?:string,data?:object}>}
+ */
+export async function getActivitisDataByCity(city) {
+  try {
+    const response = await publicApi.get(`/api/${city}/activities`, {
+      headers: { Accept: 'application/json' },
+    });
+
+    if (response.status == 200) {
+      return response?.data;
+    }
+
+    return { success: false, message: 'Not Found' };
+  } catch (error) {
+    console.errror(`Error fetching Activities of City: ${city}`, error);
+
+    return { success: false, message: 'Something Went Wrong' };
+  }
+}

@@ -4,69 +4,15 @@ import CitySection from '@/app/components/Pages/FRONT_END/Global/CitySection';
 import { whiteCardData, fakeData } from '@/app/Data/ShopData';
 import BreakSection from '@/app/components/BreakSection';
 import { TourSection } from '@/app/components/Pages/FRONT_END/Global/TourSection';
-import ShopSection from '@/app/components/Pages/FRONT_END/Global/ShopSection';
 import { ReviewSectionCity } from '@/app/components/Pages/FRONT_END/Global/ReviewSection';
 import GuideSection from '@/app/components/Pages/FRONT_END/Global/GuideSection';
 import ProductSliderSection from '@/app/components/Pages/FRONT_END/Global/ProductSliderSection';
-import { publicApi } from '@/lib/axiosInstance';
 import { notFound } from 'next/navigation';
 import { CityFilter } from '@/app/components/Pages/FRONT_END/city/city_filter';
-
-// fetch Page Data
-async function getCityData(city) {
-  try {
-    const response = await publicApi.get(`/api/city/${city}`, {
-      headers: { Accept: 'application/json' },
-    });
-
-    return response.data;
-  } catch (error) {
-    console.log('Error fetching city data:activities_city', error);
-    return []; // Return null to trigger 404
-  }
-}
-
-// fetch Activities Data
-async function getActivitisDataByCity(city) {
-  try {
-    const response = await publicApi.get(`/api/${city}/activities`, {
-      headers: { Accept: 'application/json' },
-    });
-
-    return response.data;
-  } catch (error) {
-    console.log('Error fetching city data:activities_city', error);
-    return []; // Return null to trigger 404
-  }
-}
-
-// fetch Itinerary Data
-async function getItineraryDataByCity(city) {
-  try {
-    const response = await publicApi.get(`/api/${city}/itineraries `, {
-      headers: { Accept: 'application/json' },
-    });
-
-    return response.data;
-  } catch (error) {
-    console.log('Error fetching city data:itinerary_city', error);
-    return []; // Return null to trigger 404
-  }
-}
-
-// fetch PackageData by city
-async function getPackageDataByCity(city) {
-  try {
-    const response = await publicApi.get(`/api/${city}/packages`, {
-      headers: { Accept: 'application/json' },
-    });
-
-    return response.data;
-  } catch (error) {
-    console.log('Error fetching city data:packages_city', error);
-    return []; // Return null to trigger 404
-  }
-}
+import { getCityData } from '@/lib/services/cities';
+import { getActivitisDataByCity } from '@/lib/services/activites';
+import { getItineraryDataByCity } from '@/lib/services/itineraries';
+import { getPackageDataByCity } from '@/lib/services/package';
 
 // seo
 export async function generateMetadata({ params }) {

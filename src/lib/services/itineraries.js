@@ -48,3 +48,26 @@ export async function getAllItinerariesAdmin(search = '') {
     return { success: false, data: [], message: 'Failed to fetch itineraries' };
   }
 }
+
+/**
+ * Display All Itineraries by City
+ * @param {string} city Slug of the City
+ * @returns {Promise<{success:boolean,message?:string,data?:object}>} Returns all Itineraries by City
+ */
+export async function getItineraryDataByCity(city) {
+  try {
+    const response = await publicApi.get(`/api/${city}/itineraries `, {
+      headers: { Accept: 'application/json' },
+    });
+
+    if (response.status == 200) {
+      return response?.data;
+    }
+
+    return { success: false, message: 'Not Found' };
+  } catch (error) {
+    console.errror(`Error fetching itineraries of City: ${city}`, error);
+
+    return { success: false, message: 'Something Went Wrong' };
+  }
+}

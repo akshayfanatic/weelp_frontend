@@ -42,6 +42,8 @@ async function getAllFeaturedCities() {
 const HomePage = async () => {
   const { data: featuredActivities = [], success } = await getAllFeaturedActivities(); // featured Activities
   const { data: featuredCities } = await getAllFeaturedCities(); // featured cities
+
+  console.log(featuredActivities)
   return (
     <>
       <HereSection />

@@ -70,3 +70,27 @@ export const getPackageDataByRegion = async (region) => {
     return {}; // Return empty object on error
   }
 };
+
+/**
+ * Display All Packages by City
+ * @param {string} city Slug of the City
+ * @returns {Promise<{success:boolean,message?:string,data?:object}>} Returns all Packages
+ */
+export async function getPackageDataByCity(city) {
+  try {
+    const response = await publicApi.get(`/api/${city}/packages`, {
+      headers: { Accept: 'application/json' },
+    });
+    if (response.status == 200) {
+      return response?.data;
+    }
+
+    return { success: false, message: 'Not Found' };
+  } catch (error) {
+    console.errror(`Error fetching Packages of City: ${city}`, error);
+
+    return { success: false, message: 'Something Went Wrong' };
+  }
+}
+
+
