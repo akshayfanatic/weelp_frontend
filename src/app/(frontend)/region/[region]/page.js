@@ -1,19 +1,14 @@
 /** This File will handle Region Page */
 import BannerSection from '@/app/components/Pages/FRONT_END/region/BannerSection';
-import CitySection from '@/app/components/Pages/FRONT_END/Global/CitySection';
 import { ReviewSectionRegion } from '@/app/components/Pages/FRONT_END/Global/ReviewSection';
-import ShopSection from '@/app/components/Pages/FRONT_END/Global/ShopSection';
 import DestinationSliderSection from '@/app/components/Pages/FRONT_END/Global/DestinationSection';
-import { whiteCardData, fakeData } from '@/app/Data/ShopData';
+import { fakeData } from '@/app/Data/ShopData';
 import BreakSection from '@/app/components/BreakSection';
 import { TourSection } from '@/app/components/Pages/FRONT_END/Global/TourSection';
 import GuideSection from '@/app/components/Pages/FRONT_END/Global/GuideSection';
-import { publicApi } from '@/lib/axiosInstance';
 import { notFound } from 'next/navigation';
-import { RegionFilter } from '@/app/components/Pages/FRONT_END/region/region_filter';
 import { getCitiesByRegion } from '@/lib/services/region';
 import { getPackageDataByRegion } from '@/lib/services/package';
-import { log } from 'console';
 import { RegionFilterNew } from '@/app/components/Pages/FRONT_END/region/region_filter_rhf';
 
 //  Region Page Component

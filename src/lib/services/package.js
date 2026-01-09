@@ -92,5 +92,3 @@ export async function getPackageDataByCity(city) {
     return { success: false, message: 'Something Went Wrong' };
   }
 }
-
-

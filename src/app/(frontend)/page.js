@@ -1,4 +1,4 @@
-const dynamic = 'auto';
+export const dynamic = 'force-dynamic';
 import HereSection from '../components/Pages/FRONT_END/home/HeroSection';
 import ProductSliderSection from '../components/Pages/FRONT_END/Global/ProductSliderSection';
 import DestinationSliderSection from '../components/Pages/FRONT_END/Global/DestinationSection';
@@ -43,7 +43,6 @@ const HomePage = async () => {
   const { data: featuredActivities = [], success } = await getAllFeaturedActivities(); // featured Activities
   const { data: featuredCities } = await getAllFeaturedCities(); // featured cities
 
-  console.log(featuredActivities)
   return (
     <>
       <HereSection />
@@ -86,9 +85,3 @@ const HomePage = async () => {
 };
 
 export default HomePage;
-
-const MyCard = ({ children }) => {
-  console.log(children);
-
-  return <span>item</span>;
-};
