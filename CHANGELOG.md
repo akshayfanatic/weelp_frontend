@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.21.5](https://github.com/akshayfanatic/weelp_frontend/compare/v0.21.4...v0.21.5) (2026-01-12)
+
+
+### ♻️ Code Refactoring
+
+* **Admin Navigation:** Rename File  adminData to AdminNavigation , and change file location ([145a7eb](https://github.com/akshayfanatic/weelp_frontend/commit/145a7eb326841770aef77100bf2ccc60b0fd0528))
+
 ### [0.21.4](https://github.com/akshayfanatic/weelp_frontend/compare/v0.21.3...v0.21.4) (2026-01-09)
 
 ### ♻️ Code Refactoring
