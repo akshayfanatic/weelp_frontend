@@ -3,9 +3,9 @@
 import * as React from 'react';
 import { Menu } from 'lucide-react';
 import { NavMain } from './nav-main';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail, useSidebar } from '@/components/ui/sidebar';
+import { Sidebar, SidebarContent, SidebarHeader, SidebarRail, useSidebar } from '@/components/ui/sidebar';
 import { Description, DialogTitle } from '@radix-ui/react-dialog';
-import { DashboardAdminNav } from '@/app/Data/adminData';
+import { DashboardAdminNav } from '@/constants/navigations/AdminNavigation';
 import { useSession } from 'next-auth/react';
 
 const { adminRoutes } = DashboardAdminNav;
