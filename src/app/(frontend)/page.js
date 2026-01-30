@@ -24,7 +24,6 @@ import { SliderLayout } from '../components/Pages/FRONT_END/Global/Layout/Filter
 import SectionLayout from '../components/Pages/FRONT_END/Global/Layout/SectionLayout';
 import { getAllFeaturedCities } from '@/lib/services/cities';
 
-
 const HomePage = async () => {
   const { data: featuredActivities = [], success } = await getAllFeaturedActivities(); // featured Activities
   const { data: featuredCities } = await getAllFeaturedCities(); // featured cities

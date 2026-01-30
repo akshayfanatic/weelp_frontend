@@ -85,7 +85,6 @@ export async function getAllCitiesOptionsAdmin() {
   }
 }
 
-
 /**
  * Get All Featured Cities
  * @returns []

@@ -7,8 +7,8 @@ export const FOOTER_NAVIGATION = [
         url: '/whats-new',
       },
       {
-        name: 'Curator',
-        url: '/curator',
+        name: 'Blogs',
+        url: '/blogs',
       },
       {
         name: 'Planner',
