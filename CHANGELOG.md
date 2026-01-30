@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.22.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.21.6...v0.22.0) (2026-01-30)
+
+
+### ✅ Tests
+
+* **testing:** Integrate Unit Testing First Time ([563cd4f](https://github.com/akshayfanatic/weelp_frontend/commit/563cd4fde81d528085be833763848a4b5466d151))
+
 ### [0.21.6](https://github.com/akshayfanatic/weelp_frontend/compare/v0.21.5...v0.21.6) (2026-01-30)
 
 ### [0.21.5](https://github.com/akshayfanatic/weelp_frontend/compare/v0.21.4...v0.21.5) (2026-01-12)
