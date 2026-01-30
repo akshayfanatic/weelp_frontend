@@ -19,7 +19,6 @@ import {
   Percent,
   BookImage,
   MessageSquare,
-  Dot,
   Plus,
 } from 'lucide-react';
 

@@ -84,3 +84,20 @@ export async function getAllCitiesOptionsAdmin() {
     return {};
   }
 }
+
+
+/**
+ * Get All Featured Cities
+ * @returns []
+ */
+export async function getAllFeaturedCities() {
+  try {
+    const response = await publicApi.get(`/api/featured-cities`, {
+      headers: { Accept: 'application/json' },
+    });
+    return response.data;
+  } catch (error) {
+    console.log('Error fetching city data:', error);
+    return [];
+  }
+}

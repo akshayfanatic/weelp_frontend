@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import useSWR from 'swr';
 import { fetcher } from '@/lib/fetchers';
 import { NotFoundComponent } from '@/app/components/NotFound';

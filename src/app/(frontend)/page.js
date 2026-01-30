@@ -22,22 +22,8 @@ import { getAllFeaturedActivities } from '@/lib/services/activites';
 import { ReviewCardCarouselAnimation } from '../components/Animation/ProductAnimation';
 import { SliderLayout } from '../components/Pages/FRONT_END/Global/Layout/FilterWrapper';
 import SectionLayout from '../components/Pages/FRONT_END/Global/Layout/SectionLayout';
+import { getAllFeaturedCities } from '@/lib/services/cities';
 
-/**
- * Get All Featured Cities
- * @returns []
- */
-async function getAllFeaturedCities() {
-  try {
-    const response = await publicApi.get(`/api/featured-cities`, {
-      headers: { Accept: 'application/json' },
-    });
-    return response.data;
-  } catch (error) {
-    console.log('Error fetching city data:', error);
-    return [];
-  }
-}
 
 const HomePage = async () => {
   const { data: featuredActivities = [], success } = await getAllFeaturedActivities(); // featured Activities
@@ -48,7 +34,7 @@ const HomePage = async () => {
       <HereSection />
       {/* {featuredActivities?.length > 0 && (
         <SectionLayout title="Top Activities">
-          <SliderLayout data={featuredActivities} item={() => (<span>item </span>)}></SliderLayout>
+          <SliderLayout data={featuredActivities} item={() => <span>item </span>}></SliderLayout>
         </SectionLayout>
       )} */}
       {featuredActivities?.length > 0 && <ProductSliderSection destinations={featuredActivities} />}

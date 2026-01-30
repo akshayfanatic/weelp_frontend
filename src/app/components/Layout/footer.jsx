@@ -12,10 +12,10 @@ const Footer = () => {
       <footer
         className="bg-white text-gray-600 px-12 py-8 "
         style={{
-          backgroundImage: 'url(/assets/images/Weelp..jpg)', // Update the image path
-          backgroundPosition: 'left', // Position the image at the bottom
-          backgroundSize: 'auto', // Make sure the image covers the entire footer
-          backgroundRepeat: 'no-repeat', // Prevent image repeat
+          backgroundImage: 'url(/assets/images/Weelp..jpg)',
+          backgroundPosition: 'left',
+          backgroundSize: 'auto',
+          backgroundRepeat: 'no-repeat',
         }}
       >
         <div className="grid grid-cols-2 sm:grid-cols-5  gap-8">
@@ -66,7 +66,7 @@ const FooterNavigation = ({ title = '', footerLink = [] }) => {
   if (!title && !footerLink.length > 0) return null;
   return (
     <div>
-      <h3 className="font-semibold text-gray-800 mb-4">{title}</h3>
+      {title && <h3 className="font-semibold text-gray-800 mb-4">{title}</h3>}
       <ul className="space-y-2">
         {footerLink.map(({ name, url, badge }, index) => {
           return (
