@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.23.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.22.0...v0.23.0) (2026-02-06)
+
+
+### ✨ Features
+
+* **blog feature:** Remove Blog Feature Badge From Admin Dashboard ([121d075](https://github.com/akshayfanatic/weelp_frontend/commit/121d0758572c27b39fe676be82d0212fadf56804))
+
+
+### 🐛 Bug Fixes
+
+* Fix Typo Error in Files mistakenly typed  console.errror ([659a694](https://github.com/akshayfanatic/weelp_frontend/commit/659a6947fe32ff9767ae5a798f461f60564fe3aa))
+
 ## [0.22.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.21.6...v0.22.0) (2026-01-30)
 
 ### ✅ Tests
