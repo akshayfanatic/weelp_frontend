@@ -83,7 +83,7 @@ export async function getActivitisDataByCity(city) {
 
     return { success: false, message: 'Not Found' };
   } catch (error) {
-    console.errror(`Error fetching Activities of City: ${city}`, error);
+    console.error(`Error fetching Activities of City: ${city}`, error);
 
     return { success: false, message: 'Something Went Wrong' };
   }

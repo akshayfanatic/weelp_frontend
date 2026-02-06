@@ -44,15 +44,15 @@ export async function generateMetadata({ params }) {
 export default async function CityPage({ params }) {
   const { city } = await params;
 
-  const { data: citydata = [] } = await getCityData(city);
-  const { data: activitesData = [] } = await getActivitisDataByCity(city);
-  const { data: itineraryData = [] } = await getItineraryDataByCity(city);
-  const { data: packageData = [], tag_list = [] } = await getPackageDataByCity(city);
+  const { data: citydata = [], success } = await getCityData(city);
 
-  // If all are empty or null, trigger notFound()
-  if ((!activitesData || activitesData.length === 0) && (!itineraryData || itineraryData.length === 0) && (!packageData || packageData.length === 0)) {
+  if (!success || !citydata) {
     notFound();
   }
+
+  const { data: activitesData = [], success: isActivityCity } = await getActivitisDataByCity(city);
+  const { data: itineraryData = [], success: isItineraryCity } = await getItineraryDataByCity(city);
+  const { data: packageData = [], tag_list = [], success: isPackagesCity } = await getPackageDataByCity(city);
 
   //dynamic schema
   const jsonLd = citydata?.seo?.schema_data || '';

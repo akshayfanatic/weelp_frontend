@@ -66,7 +66,7 @@ export async function getItineraryDataByCity(city) {
 
     return { success: false, message: 'Not Found' };
   } catch (error) {
-    console.errror(`Error fetching itineraries of City: ${city}`, error);
+    console.error(`Error fetching itineraries of City: ${city}`, error);
 
     return { success: false, message: 'Something Went Wrong' };
   }

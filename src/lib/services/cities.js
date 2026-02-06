@@ -1,10 +1,11 @@
+import { ApiResponse } from '@/dto/Success';
 import { publicApi, authApi } from '../axiosInstance';
 import { log } from '../utils';
 
 /**
  * Display Single City Data
  * @param {string} city slug of the city
- * @returns  {Promise<{success:boolean,message?:string,data?:object}}
+ * @returns  {Promise<{success:boolean,message?:string,data?:object,}}
  */
 export async function getCityData(city) {
   try {
@@ -12,15 +13,14 @@ export async function getCityData(city) {
       headers: { Accept: 'application/json' },
     });
 
-    if (response.status == 200) {
-      return response?.data;
+    if (response?.status === 200) {
+      return ApiResponse({ success: true, data: response?.data });
     }
 
-    return { success: false, message: 'Not Found' };
+    return ApiResponse({ success: false, data: {}, message: 'City Not Found' });
   } catch (error) {
-    console.errror('Error fetching Single City', error);
-
-    return { success: false, message: 'Something Went Wrong' };
+    console.error('Error fetching Single City', error);
+    return ApiResponse({ success: false, data: null, message: 'Something Went Wrong' });
   }
 }
 
@@ -96,7 +96,7 @@ export async function getAllFeaturedCities() {
     });
     return response.data;
   } catch (error) {
-    console.log('Error fetching city data:', error);
-    return [];
+    console.error('Error fetching All Featured Cities', error);
+    return ApiResponse({ success: false, data: null, message: 'Something Went Wrong' });
   }
 }

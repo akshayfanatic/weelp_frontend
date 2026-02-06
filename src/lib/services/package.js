@@ -87,7 +87,7 @@ export async function getPackageDataByCity(city) {
 
     return { success: false, message: 'Not Found' };
   } catch (error) {
-    console.errror(`Error fetching Packages of City: ${city}`, error);
+    console.error(`Error fetching Packages of City: ${city}`, error);
 
     return { success: false, message: 'Something Went Wrong' };
   }

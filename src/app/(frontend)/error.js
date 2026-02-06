@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useEffect } from 'react';
+import { AlertCircle } from 'lucide-react'; // nice visual icon
 
 export default function Error({ error, reset }) {
   useEffect(() => {
@@ -11,16 +12,21 @@ export default function Error({ error, reset }) {
   }, [error]);
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Card className="flex justify-center items-center shadow-none border-none flex-col gap-2">
-        <h2>Something went wrong!</h2>
+    <div className="flex justify-center items-center h-screen bg-gray-50 p-4">
+      <Card className="flex flex-col items-center gap-4 p-6 max-w-sm w-full shadow-lg border border-gray-200 rounded-2xl">
+        <AlertCircle className="text-red-500 w-12 h-12" />
+        <h2 className="text-2xl font-semibold text-gray-800 text-center">
+          Oops! Something went wrong
+        </h2>
+        <p className="text-gray-600 text-center">
+          An unexpected error occurred. Please try again.
+        </p>
         <Button
-          onClick={
-            // Attempt to recover by trying to re-render the segment
-            () => reset()
-          }
+          variant="default"
+          className="mt-2"
+          onClick={() => reset()}
         >
-          Try again
+          Retry
         </Button>
       </Card>
     </div>
