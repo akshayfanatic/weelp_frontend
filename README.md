@@ -157,6 +157,7 @@ src                         # Entry Point to the Application
 │ ├── auth.js               # Authentication configurations
 │ ├── axiosInstance.js      # Axios global configurations
 │ └── utils.js              # Utility/helper functions
+│ └── auth                  # Auth Configuration
 │
 │ middleware.js             # Middleware logic (handled routes and sessions)
 │ .env                      # Environment variables
