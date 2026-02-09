@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.23.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.23.0...v0.23.1) (2026-02-09)
+
+
+### ♻️ Code Refactoring
+
+* **error:** Implement a Resuable Error Component ,following DRY PRINCIPLE ([7e1925f](https://github.com/akshayfanatic/weelp_frontend/commit/7e1925fc65132e46e6db9387cc0c689d49863f7c))
+
 ## [0.23.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.22.0...v0.23.0) (2026-02-06)
 
 ### ✨ Features
