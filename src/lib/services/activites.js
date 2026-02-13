@@ -78,13 +78,13 @@ export async function getActivitisDataByCity(city) {
     });
 
     if (response.status == 200) {
-      return response?.data;
+      return { success: true, data: response?.data };
     }
 
     return { success: false, message: 'Not Found' };
   } catch (error) {
-    console.error(`Error fetching Activities of City: ${city}`, error);
+    // console.error(`Error fetching Activities of City: ${city}`, error);
 
-    return { success: false, message: 'Something Went Wrong' };
+    return { success: false, data: [], message: 'Something Went Wrong' };
   }
 }

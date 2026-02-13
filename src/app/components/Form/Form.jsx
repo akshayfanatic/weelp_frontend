@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { log } from '@/lib/utils';
 import { getCitiesRegions } from '@/lib/services/global';
 
@@ -29,7 +29,7 @@ const bookingSchema = z.object({
 
 export default function BookingForm() {
   const router = useRouter(); // for navigation
-
+  const searchParams = useSearchParams(); //
   const [allLocations, setAllLocations] = useState([]);
   const [showLocation, setShowLocation] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -38,6 +38,8 @@ export default function BookingForm() {
   const [filteredLocations, setFilteredLocations] = useState(allLocations || []);
   const [inputValue, setInputValue] = useState(''); // input for filtering
   const [hasTyped, setHasTyped] = useState(false); // track if user typed
+
+  const { location: whereTo = '', start_date = '', end_date = '', quantity = '' } = Object.fromEntries(searchParams.entries());
 
   const [howMany, setHowMany] = useState({
     adults: 1,
@@ -59,6 +61,13 @@ export default function BookingForm() {
     fetchAllLocations();
   }, []);
 
+
+  useEffect(() => {
+    setValue('whereTo', whereTo);
+    setValue('dateRange.from', start_date);
+        setValue('dateRange.to', end_date);
+  }, [whereTo, start_date, end_date, quantity]);
+
   // React Hook Form setup with Zod
   const {
     register,
@@ -70,14 +79,16 @@ export default function BookingForm() {
     resolver: zodResolver(bookingSchema),
     defaultValues: {
       type: '',
-      whereTo: '',
-      dateRange: { from: null, to: null },
+      whereTo: whereTo || '',
+      dateRange: { from: start_date ?? null, to: end_date ?? null },
       howMany: { adults: 1, children: 0, infants: 0 },
     },
   });
 
   // Handle form submission
   const onSubmit = async (data) => {
+
+    console.log("data in client")
     // Convert dates to YYYY-MM-DD format
     const startDate = data?.dateRange?.from ? data.dateRange.from.toISOString().split('T')[0] : '';
     const endDate = data?.dateRange?.to ? data.dateRange.to.toISOString().split('T')[0] : '';

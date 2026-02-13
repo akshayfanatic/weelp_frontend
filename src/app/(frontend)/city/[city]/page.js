@@ -63,7 +63,7 @@ export default async function CityPage({ params }) {
 
       <CitySection data={whiteCardData} />
 
-      {activitesData?.length > 0 && <ProductSliderSection sliderTitle={'Top Activities'} destinations={activitesData} />}
+      {activitesData?.length > 0 && !isActivityCity && <ProductSliderSection sliderTitle={'Top Activities'} destinations={activitesData} />}
 
       {itineraryData.length > 0 && <ProductSliderSection sliderTitle={'Top Itenerary'} destinations={itineraryData} />}
 

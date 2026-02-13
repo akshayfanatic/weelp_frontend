@@ -7,9 +7,9 @@
  * @param  {string} param.message
  * @returns {{data: any, status: number,success:boolean,message:string}}
  */
-export const ApiResponse = ({ data, success = false, status = 200 ,message="" }) => ({
+export const ApiResponse = ({ data, success = false, status = 200, message = '' }) => ({
   data,
   success,
   status,
-  message
+  message,
 });

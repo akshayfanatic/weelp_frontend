@@ -8,9 +8,10 @@ export function cn(...inputs) {
 
 /**
  * Create Method for  Delay Execution Promise
- * @param {Number} ms pass number
+ * @param {Number} ms  pass number
+ * @default ms default 2000ms
  */
-export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+export const delay = (ms = 2000) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Create Log method for checking where it come file

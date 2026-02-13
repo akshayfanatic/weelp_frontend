@@ -105,7 +105,7 @@ export const ShopAllProduct = () => {
           <Icon className={'hidden sm:block -translate-x-20 '} />
           <div className="flex flex-col gap-2">
             <h1 className="font-semibold sm:text-3xl text-center text-Nileblue ">Shop</h1>
-            {products && products.length > 0 && <p className="text-center font-medium text-Nileblue text-sm sm:text-lg">{products.length} Result Founds</p>}
+            {/* {products && products.length > 0 && <p className="text-center font-medium text-Nileblue text-sm sm:text-lg">{products.length} Result Founds</p>} */}
           </div>
           <Icon className={'hidden sm:block -translate-x-20 '} />
         </div>

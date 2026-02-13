@@ -5,7 +5,6 @@ import { log } from '@/lib/utils';
 
 export async function GET(req) {
   try {
-    log(req);
     const query = req.nextUrl.search || '';
     const response = await getAllAddOnsAdmin(query);
 
