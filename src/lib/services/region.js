@@ -2,6 +2,7 @@
 import { ApiResponse } from '@/dto/Success';
 import { publicApi } from '../axiosInstance';
 import { ApiError } from '@/dto/Error';
+import { delay } from '../utils';
 
 /**
  * Get all regions.
@@ -54,6 +55,7 @@ export const fetchRegionDetails = async (region) => {
  */
 export const getCitiesByRegion = async (region) => {
   try {
+    await delay();
     const response = await publicApi.get(`/api/region/${region}/cities/`, {
       headers: { 'Content-Type': 'application/json' },
     });

@@ -1,6 +1,6 @@
 import { ApiResponse } from '@/dto/Success';
 import { publicApi, authApi } from '../axiosInstance';
-import { log } from '../utils';
+import { delay, log } from '../utils';
 
 /**
  * Display Single City Data
@@ -9,6 +9,7 @@ import { log } from '../utils';
  */
 export async function getCityData(city) {
   try {
+    await delay();
     const response = await publicApi.get(`/api/city/${city}`, {
       headers: { Accept: 'application/json' },
     });

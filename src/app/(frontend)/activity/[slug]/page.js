@@ -38,11 +38,22 @@ export default async function SingleActivityPage({ params }) {
     media_gallery,
   } = activityData;
 
+  // const jsonLd = {
+  //   '@context': 'https://schema.org',
+  //   '@type': item_type,
+  //   name: name,
+  //   description: description,
+  // };
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': item_type,
-    name: name,
-    description: description,
+    '@type': 'TouristTrip',
+    name: 'Desert Safari Adventure',
+    description: 'Experience the thrill of a desert safari with dune bashing and camel rides.',
+    touristType: 'Adventure Travelers',
+    provider: {
+      '@type': 'Organization',
+      name: 'Your Company Name',
+    },
   };
 
   return (

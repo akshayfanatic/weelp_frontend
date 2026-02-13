@@ -1,7 +1,5 @@
 import React from 'react';
-import { log } from '@/lib/utils';
 import { notFound } from 'next/navigation';
-import { publicApi } from '@/lib/axiosInstance';
 import BannerSection from '@/app/components/Pages/FRONT_END/singleproduct/BannerSection';
 import { TabSectionPackage } from '@/app/components/Pages/FRONT_END/singleproduct/TabSection';
 import { getSinglePackage } from '@/lib/services/package';

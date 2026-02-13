@@ -1,7 +1,7 @@
 'use server';
 
 import { authApi } from '../axiosInstance';
-import { log } from '../utils';
+import { delay, log } from '../utils';
 
 /**
  * Get All Blogs Admin
@@ -83,6 +83,7 @@ export async function getSingleBlogAdmin(blogId) {
  */
 export async function getSingleBlog(blogSlug) {
   try {
+    await delay();
     if (!blogSlug) {
       return { success: false, message: 'Slug Not Found' };
     }

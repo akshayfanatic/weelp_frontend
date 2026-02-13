@@ -1,5 +1,5 @@
 import { publicApi, authApi } from '../axiosInstance';
-import { log } from '../utils';
+import { delay, log } from '../utils';
 
 /**
  * Get Single Activity on Client side
@@ -8,6 +8,7 @@ import { log } from '../utils';
  */
 export async function getSingleActivity(activitySlug) {
   try {
+    await delay();
     const response = await publicApi.get(`/api/activities/${activitySlug}`, {
       headers: { Accept: 'application/json' },
     });
@@ -55,6 +56,7 @@ export async function getAllActivitesAdmin(search = '') {
  */
 export async function getAllFeaturedActivities() {
   try {
+    await delay()
     const response = await publicApi.get(`/api/activities/featured-activities`, {
       headers: { Accept: 'application/json' },
     });
