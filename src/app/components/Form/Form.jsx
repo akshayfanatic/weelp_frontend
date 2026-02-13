@@ -61,11 +61,10 @@ export default function BookingForm() {
     fetchAllLocations();
   }, []);
 
-
   useEffect(() => {
     setValue('whereTo', whereTo);
     setValue('dateRange.from', start_date);
-        setValue('dateRange.to', end_date);
+    setValue('dateRange.to', end_date);
   }, [whereTo, start_date, end_date, quantity]);
 
   // React Hook Form setup with Zod
@@ -87,8 +86,7 @@ export default function BookingForm() {
 
   // Handle form submission
   const onSubmit = async (data) => {
-
-    console.log("data in client")
+    console.log('data in client');
     // Convert dates to YYYY-MM-DD format
     const startDate = data?.dateRange?.from ? data.dateRange.from.toISOString().split('T')[0] : '';
     const endDate = data?.dateRange?.to ? data.dateRange.to.toISOString().split('T')[0] : '';
