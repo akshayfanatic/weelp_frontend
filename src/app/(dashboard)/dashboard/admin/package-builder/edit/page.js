@@ -1,14 +1,14 @@
 export const dynamic = 'force-dynamic';
 
 import React from 'react';
-import { getSinglePackageAdmin } from '@/lib/services/package';
+import { getSinglePackageAdmin } from '@/lib/queries/package';
 import { isEmpty } from 'lodash';
 import { notFound } from 'next/navigation';
 import { EditPackageForm } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/packages/EditPackageForm';
-import { getAllAttributesAdmin, getAllCitiesAdmin, getAllTagsAdmin, getCategoriesAdmin } from '@/lib/services/global';
-import { getAllActivitesAdmin } from '@/lib/services/activites';
-import { getAllTransfersAdmin } from '@/lib/services/transfers';
-import { getAllItinerariesAdmin } from '@/lib/services/itineraries';
+import { getAllAttributesAdmin, getAllCitiesAdmin, getAllTagsAdmin, getCategoriesAdmin } from '@/lib/queries/global';
+import { getAllActivitesAdmin } from '@/lib/queries/activites';
+import { getAllTransfersAdmin } from '@/lib/queries/transfers';
+import { getAllItinerariesAdmin } from '@/lib/queries/itineraries';
 import { log } from '@/lib/utils';
 
 const EditPackage = async () => {

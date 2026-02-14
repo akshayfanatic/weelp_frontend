@@ -4,15 +4,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [0.24.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.23.0...v0.24.0) (2026-02-13)
 
-
 ### ♻️ Code Refactoring
 
-* **error:** Implement a Resuable Error Component ,following DRY PRINCIPLE ([7e1925f](https://github.com/akshayfanatic/weelp_frontend/commit/7e1925fc65132e46e6db9387cc0c689d49863f7c))
-
+- **error:** Implement a Resuable Error Component ,following DRY PRINCIPLE ([7e1925f](https://github.com/akshayfanatic/weelp_frontend/commit/7e1925fc65132e46e6db9387cc0c689d49863f7c))
 
 ### ✨ Features
 
-* **loading,errors:** Add Loading Animation in All Pages (frontend routes) ([5e7dd31](https://github.com/akshayfanatic/weelp_frontend/commit/5e7dd3185877f2ca7b715a7cb50374f90f72f0e9))
+- **loading,errors:** Add Loading Animation in All Pages (frontend routes) ([5e7dd31](https://github.com/akshayfanatic/weelp_frontend/commit/5e7dd3185877f2ca7b715a7cb50374f90f72f0e9))
 
 ### [0.23.1](https://github.com/akshayfanatic/weelp_frontend/compare/v0.23.0...v0.23.1) (2026-02-09)
 

@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import { AttributePageClient } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/taxonomies/attributes/attributes';
-import { getAllAttributesAdmin } from '@/lib/services/global';
+import { getAllAttributesAdmin } from '@/lib/queries/global';
 import { isEmpty } from 'lodash';
 import { notFound } from 'next/navigation';
 

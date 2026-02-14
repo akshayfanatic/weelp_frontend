@@ -1,5 +1,5 @@
 // app/api/public/region/[region]/getcities/route.js
-import { getCitiesByRegion } from '@/lib/services/region';
+import { getCitiesByRegion } from '@/lib/queries/region';
 import { NextResponse } from 'next/server';
 
 export async function GET(req, { params }) {

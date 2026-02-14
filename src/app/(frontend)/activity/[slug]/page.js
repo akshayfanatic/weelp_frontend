@@ -3,7 +3,7 @@
 import BannerSection from '@/app/components/Pages/FRONT_END/singleproduct/BannerSection';
 import { TabSectionActivity } from '@/app/components/Pages/FRONT_END/singleproduct/TabSection';
 import { notFound } from 'next/navigation';
-import { getSingleActivity } from '@/lib/services/activites';
+import { getSingleActivity } from '@/lib/queries/activites';
 import { isEmpty } from 'lodash';
 
 export async function generateMetadata({ params }) {

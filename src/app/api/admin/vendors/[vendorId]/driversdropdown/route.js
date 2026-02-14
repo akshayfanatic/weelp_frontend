@@ -1,7 +1,7 @@
 // app/api/admin/vendors/[id]/driversdropdown/route.js
 
 import { NextResponse } from 'next/server';
-import { getDriversByVendorIdOptions } from '@/lib/services/vendors'; // get drivers by vendor id
+import { getDriversByVendorIdOptions } from '@/lib/queries/vendors'; // get drivers by vendor id
 
 export async function GET(req, { params }) {
   const { vendorId } = await params;

@@ -1,6 +1,6 @@
 // /api/admin/reviews/route.js
 import { NextResponse } from 'next/server';
-import { getAllReviewsAdmin } from '@/lib/services/reviews';
+import { getAllReviewsAdmin } from '@/lib/queries/reviews';
 import { log } from '@/lib/utils';
 
 /**

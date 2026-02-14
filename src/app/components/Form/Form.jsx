@@ -9,7 +9,7 @@ import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { log } from '@/lib/utils';
-import { getCitiesRegions } from '@/lib/services/global';
+import { getCitiesRegions } from '@/lib/queries/global';
 
 // Zod Schema
 const bookingSchema = z.object({

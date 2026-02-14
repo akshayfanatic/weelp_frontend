@@ -1,7 +1,7 @@
 // app/api/admin/orders/route.js
 import { NextResponse } from 'next/server';
 import { delay, log } from '@/lib/utils';
-import { getAllOrdersAdmin } from '@/lib/services/orders';
+import { getAllOrdersAdmin } from '@/lib/queries/orders';
 
 // get all orders
 export async function GET(req) {

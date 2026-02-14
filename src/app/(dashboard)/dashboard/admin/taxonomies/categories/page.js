@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 
 import { isEmpty } from 'lodash';
 import { notFound } from 'next/navigation';
-import { getCategoriesAdmin } from '@/lib/services/global';
+import { getCategoriesAdmin } from '@/lib/queries/global';
 import { CategoryPageClient } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/taxonomies/category/category';
 
 const CategoriesPage = async () => {

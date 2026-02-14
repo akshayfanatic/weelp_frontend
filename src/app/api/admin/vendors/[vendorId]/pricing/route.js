@@ -1,7 +1,7 @@
 // app/api/admin/vendors/[id]/pricing/route.js
 import { NextResponse } from 'next/server';
 import { delay, log } from '@/lib/utils';
-import { getPriceByVendorIdAdmin } from '@/lib/services/vendors';
+import { getPriceByVendorIdAdmin } from '@/lib/queries/vendors';
 
 export async function GET(req, { params }) {
   const { vendorId } = await params;

@@ -1,6 +1,6 @@
 // app/api/admin/addons/route.js
 import { NextResponse } from 'next/server';
-import { getAllAddOnsAdmin } from '@/lib/services/addOn';
+import { getAllAddOnsAdmin } from '@/lib/queries/addOn';
 import { log } from '@/lib/utils';
 
 export async function GET(req) {

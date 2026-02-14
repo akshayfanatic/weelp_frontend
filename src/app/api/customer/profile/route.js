@@ -1,5 +1,5 @@
 // app/api/customer/profile/route.js
-import { getUserProfile } from '@/lib/services/users';
+import { getUserProfile } from '@/lib/queries/users';
 
 export async function GET() {
   try {

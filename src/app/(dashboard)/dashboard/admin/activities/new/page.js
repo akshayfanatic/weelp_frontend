@@ -1,6 +1,6 @@
 export const dynamic = 'force-dynamic';
 
-import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategoriesAdmin } from '@/lib/services/global';
+import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategoriesAdmin } from '@/lib/queries/global';
 import { CreateActivityForm } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/activities/CreateActivityForm';
 
 // RSC

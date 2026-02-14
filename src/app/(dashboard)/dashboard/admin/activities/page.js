@@ -1,8 +1,8 @@
 export const dynamic = 'force-dynamic';
 import React from 'react';
-import { getCategoriesAdmin } from '@/lib/services/global';
+import { getCategoriesAdmin } from '@/lib/queries/global';
 import FilterActivity from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/activities/FilterActivityPage';
-import { getAttributeBySlugAdmin } from '@/lib/services/attributes';
+import { getAttributeBySlugAdmin } from '@/lib/queries/attributes';
 
 const ActivityPage = async () => {
   const { data: allCategories = {} } = await getCategoriesAdmin();

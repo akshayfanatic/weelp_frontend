@@ -1,7 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { isEmpty } from 'lodash';
-import { getSingleStateAdmin } from '@/lib/services/state';
+import { getSingleStateAdmin } from '@/lib/queries/state';
 // import CreateCountryForm from "@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/destinations_forms/CreateCountryForm";
 import CreateStateForm from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/destinations_forms/CreateStateForm';
 

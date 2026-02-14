@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getItemsByRegion } from '@/lib/services/region';
+import { getItemsByRegion } from '@/lib/queries/region';
 import { log } from '@/lib/utils';
 
 export async function GET(req) {

@@ -2,7 +2,7 @@ import BannerSectionBlog from '@/app/components/Pages/FRONT_END/singleblog/Banne
 import ContentSection from '@/app/components/Pages/FRONT_END/singleblog/ContentSection';
 import GuideSection from '@/app/components/Pages/FRONT_END/Global/GuideSection';
 import { fakeData } from '@/app/Data/ShopData';
-import { getSingleBlog } from '@/lib/services/blogs';
+import { getSingleBlog } from '@/lib/queries/blogs';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({ params }) {

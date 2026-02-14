@@ -1,7 +1,7 @@
 // app/api/admin/vendors/[id]/schedules/route.js
 import { NextResponse } from 'next/server';
 import { delay, log } from '@/lib/utils';
-import { getSchedulesByVendorIdAdmin } from '@/lib/services/vendors';
+import { getSchedulesByVendorIdAdmin } from '@/lib/queries/vendors';
 
 export async function GET(req, { params }) {
   const { vendorId } = await params;

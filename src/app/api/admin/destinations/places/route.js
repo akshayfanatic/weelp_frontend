@@ -1,6 +1,6 @@
 // app/api/admin/destinations/places/route.js
 import { NextResponse } from 'next/server';
-import { getAllPlacesAdmin } from '@/lib/services/places';
+import { getAllPlacesAdmin } from '@/lib/queries/places';
 
 export async function GET(req) {
   const { searchParams } = req.nextUrl;

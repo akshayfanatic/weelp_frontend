@@ -1,4 +1,4 @@
-import { getSingleOrderAdmin } from '@/lib/services/orders';
+import { getSingleOrderAdmin } from '@/lib/queries/orders';
 import { isEmpty } from 'lodash';
 import { notFound } from 'next/navigation';
 import EditOrderForm from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/orders/EditOrderForm';

@@ -2,10 +2,10 @@ export const dynamic = 'force-dynamic';
 
 import React from 'react';
 import { CreatePackageForm } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/packages/CreatePackageForm';
-import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategoriesAdmin } from '@/lib/services/global';
-import { getAllActivitesAdmin } from '@/lib/services/activites';
-import { getAllTransfersAdmin } from '@/lib/services/transfers';
-import { getAllItinerariesAdmin } from '@/lib/services/itineraries';
+import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategoriesAdmin } from '@/lib/queries/global';
+import { getAllActivitesAdmin } from '@/lib/queries/activites';
+import { getAllTransfersAdmin } from '@/lib/queries/transfers';
+import { getAllItinerariesAdmin } from '@/lib/queries/itineraries';
 
 const CreatePackage = async () => {
   const [{ data: tagsData }, { data: locationsData = {} }, { data: attributesData = {} }, { data: categoriesData = {} }, { data: activitiesData = [] }, transfers, itineraries] = await Promise.all([

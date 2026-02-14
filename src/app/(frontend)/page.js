@@ -18,11 +18,11 @@ import ReviewCard, { ReviewCard2, SingleProductReviewCard } from '../components/
 import AiSection from '../components/Pages/FRONT_END/home/AiSection';
 import { publicApi } from '@/lib/axiosInstance';
 import { log } from '@/lib/utils';
-import { getAllFeaturedActivities } from '@/lib/services/activites';
+import { getAllFeaturedActivities } from '@/lib/queries/activites';
 import { ReviewCardCarouselAnimation } from '../components/Animation/ProductAnimation';
 import { SliderLayout } from '../components/Pages/FRONT_END/Global/Layout/FilterWrapper';
 import SectionLayout from '../components/Pages/FRONT_END/Global/Layout/SectionLayout';
-import { getAllFeaturedCities } from '@/lib/services/cities';
+import { getAllFeaturedCities } from '@/lib/queries/cities';
 
 const HomePage = async () => {
   const { data: featuredActivities = [], success } = await getAllFeaturedActivities(); // featured Activities

@@ -1,6 +1,6 @@
-import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategoriesAdmin } from '@/lib/services/global';
+import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategoriesAdmin } from '@/lib/queries/global';
 import { EditActivityForm } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/activities/EditActivityForm';
-import { getSingleActivityAdmin } from '@/lib/services/activites';
+import { getSingleActivityAdmin } from '@/lib/queries/activites';
 import { isEmpty } from 'lodash';
 import { notFound } from 'next/navigation';
 

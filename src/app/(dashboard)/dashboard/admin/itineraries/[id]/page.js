@@ -1,9 +1,9 @@
 import React from 'react';
-import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategoriesAdmin } from '@/lib/services/global';
+import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategoriesAdmin } from '@/lib/queries/global';
 import { EditItineraryForm } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/itineraries/EditItineraryForm';
-import { getSingleItineraryAdmin } from '@/lib/services/itineraries';
-import { getAllTransfersAdmin } from '@/lib/services/transfers';
-import { getAllActivitesAdmin } from '@/lib/services/activites';
+import { getSingleItineraryAdmin } from '@/lib/queries/itineraries';
+import { getAllTransfersAdmin } from '@/lib/queries/transfers';
+import { getAllActivitesAdmin } from '@/lib/queries/activites';
 import { isEmpty } from 'lodash';
 import { notFound } from 'next/navigation';
 

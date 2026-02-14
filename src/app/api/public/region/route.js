@@ -1,6 +1,6 @@
 // app/api/public/region/route.js
 import { NextResponse } from 'next/server';
-import { getAllRegions } from '@/lib/services/region';
+import { getAllRegions } from '@/lib/queries/region';
 
 export async function GET() {
   const result = await getAllRegions();

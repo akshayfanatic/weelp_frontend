@@ -1,6 +1,6 @@
 // /api/admin/blogs/[id]route.js
 import { NextResponse } from 'next/server';
-import { getSingleBlogAdmin } from '@/lib/services/blogs';
+import { getSingleBlogAdmin } from '@/lib/queries/blogs';
 
 export async function GET(req, { params }) {
   const { id } = await params;

@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
-import { getAllActivitesAdmin } from '@/lib/services/activites';
+import { getAllActivitesAdmin } from '@/lib/queries/activites';
 import { log } from '@/lib/utils';
 import { isEmpty } from 'lodash';
 import { SearchIcon } from 'lucide-react';

@@ -1,6 +1,6 @@
 // app/api/admin/blogs/route.js
 import { NextResponse } from 'next/server';
-import { getAllBlogsAdmin } from '@/lib/services/blogs';
+import { getAllBlogsAdmin } from '@/lib/queries/blogs';
 import { delay } from '@/lib/utils';
 
 export async function GET(req) {

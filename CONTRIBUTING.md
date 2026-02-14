@@ -8,14 +8,14 @@ This project follows a **concern-based, scalable architecture**, inspired by dom
 | --------------------------------------- | ----------------------------- | --------------------------------- |
 | Building a new UI element               | `src/app/components/feature/` | Create reusable components        |
 | Adding a new page                       | `src/app/route/`              | Follow Next.js routing            |
-| Writing GET API calls                   | `src/services/feature.js`     | Keep pure, testable functions     |
+| Writing GET API calls                   | `src/queries/feature.js`     | Keep pure, testable functions     |
 | Writing POST/PUT/DELETE logic           | `src/actions/feature.js`      | Encapsulate mutations             |
 | Creating shared hooks or Zustand stores | `src/lib/`                    | For global or reusable logic      |
 | Writing reusable helpers                | `src/utils/`                  | Must be pure and side-effect free |
 
 ### 💼 Folder Convention
 
-- `services/` — handles external GETs (public data)
+- `queries/` — handles external GETs (public data)
 - `actions/` — handles mutations or server actions
 - `lib/store/` — Zustand or shared logic
 - `components/` — atomic or feature-based UI blocks

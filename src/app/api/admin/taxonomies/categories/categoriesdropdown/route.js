@@ -1,6 +1,6 @@
 // app/api/admin/taxonomies/categories/categoriesdropdown/route.js
 import { NextResponse } from 'next/server';
-import { getAllCategoriesOptionsAdmin } from '@/lib/services/categories';
+import { getAllCategoriesOptionsAdmin } from '@/lib/queries/categories';
 
 export async function GET() {
   const data = await getAllCategoriesOptionsAdmin();

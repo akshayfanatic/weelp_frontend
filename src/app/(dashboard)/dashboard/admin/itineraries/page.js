@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 import React from 'react';
-import { getCategoriesAdmin } from '@/lib/services/global';
-import { getAttributeBySlugAdmin } from '@/lib/services/attributes';
+import { getCategoriesAdmin } from '@/lib/queries/global';
+import { getAttributeBySlugAdmin } from '@/lib/queries/attributes';
 import FilterItinerary from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/itineraries/FilteredItineraryPage';
 
 const ItineraryPage = async () => {

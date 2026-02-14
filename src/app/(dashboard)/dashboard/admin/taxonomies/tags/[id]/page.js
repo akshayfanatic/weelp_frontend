@@ -2,7 +2,7 @@ import React from 'react';
 import { isEmpty } from 'lodash';
 import { notFound } from 'next/navigation';
 import { EditTageForm } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/taxonomies/tags/edittag';
-import { getSingleTagAdmin } from '@/lib/services/tags';
+import { getSingleTagAdmin } from '@/lib/queries/tags';
 
 const EditTag = async ({ params }) => {
   const { id } = await params;

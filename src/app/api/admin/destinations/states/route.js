@@ -1,6 +1,6 @@
 // app/api/admin/destinations/states/route.js
 import { NextResponse } from 'next/server';
-import { getAllStatesAdmin } from '@/lib/services/state';
+import { getAllStatesAdmin } from '@/lib/queries/state';
 
 export async function GET(req) {
   const { searchParams } = req.nextUrl;

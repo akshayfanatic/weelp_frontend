@@ -1,5 +1,5 @@
 // app/api/admin/destinations/countries/[id]/route.js
-import { getSingleCountryAdmin } from '@/lib/services/country';
+import { getSingleCountryAdmin } from '@/lib/queries/country';
 
 export async function GET(req, { params }) {
   const { id } = params;

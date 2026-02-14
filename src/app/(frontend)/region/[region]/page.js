@@ -7,8 +7,8 @@ import BreakSection from '@/app/components/BreakSection';
 import { TourSection } from '@/app/components/Pages/FRONT_END/Global/TourSection';
 import GuideSection from '@/app/components/Pages/FRONT_END/Global/GuideSection';
 import { notFound } from 'next/navigation';
-import { getCitiesByRegion } from '@/lib/services/region';
-import { getPackageDataByRegion } from '@/lib/services/package';
+import { getCitiesByRegion } from '@/lib/queries/region';
+import { getPackageDataByRegion } from '@/lib/queries/package';
 import { RegionFilterNew } from '@/app/components/Pages/FRONT_END/region/region_filter_rhf';
 
 //  Region Page Component

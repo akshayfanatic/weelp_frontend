@@ -48,7 +48,7 @@ export const getCategoriesAdmin = async (page) => {
 /**
  * Get All Cities ( legacy )
  * @deprecated Please use for  {@link getAllCitiesAdminV2} instead (optimized version).
- * For More Information @see @lib/services/cities.js
+ * For More Information @see @lib/queries/cities.js
  * @returns []
  */
 

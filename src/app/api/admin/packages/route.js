@@ -1,6 +1,6 @@
 // app/api/admin/activities/route.js
 import { NextResponse } from 'next/server';
-import { getAllPackagesAdmin } from '@/lib/services/package';
+import { getAllPackagesAdmin } from '@/lib/queries/package';
 import { delay } from '@/lib/utils';
 
 export async function GET(req) {

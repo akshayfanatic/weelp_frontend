@@ -1,7 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { isEmpty } from 'lodash';
-import { getSingleCityAdmin } from '@/lib/services/cities';
+import { getSingleCityAdmin } from '@/lib/queries/cities';
 import CreateCityForm from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/destinations/destinations_forms/CreateCityForm';
 
 const EditCitiesPage = async ({ params }) => {

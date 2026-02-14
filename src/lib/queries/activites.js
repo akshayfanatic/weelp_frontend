@@ -56,7 +56,7 @@ export async function getAllActivitesAdmin(search = '') {
  */
 export async function getAllFeaturedActivities() {
   try {
-    await delay()
+    await delay();
     const response = await publicApi.get(`/api/activities/featured-activities`, {
       headers: { Accept: 'application/json' },
     });

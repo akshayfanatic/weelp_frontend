@@ -1,5 +1,5 @@
 // app/api/admin/destinations/countries/countriesdropdown/route.js
-import { getCountriesOptionsAdmin } from '@/lib/services/country';
+import { getCountriesOptionsAdmin } from '@/lib/queries/country';
 
 export async function GET(req) {
   try {

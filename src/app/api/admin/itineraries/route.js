@@ -1,6 +1,6 @@
 // app/api/admin/activities/route.js
 import { NextResponse } from 'next/server';
-import { getAllItinerariesAdmin } from '@/lib/services/itineraries';
+import { getAllItinerariesAdmin } from '@/lib/queries/itineraries';
 import { delay } from '@/lib/utils';
 
 export async function GET(req) {

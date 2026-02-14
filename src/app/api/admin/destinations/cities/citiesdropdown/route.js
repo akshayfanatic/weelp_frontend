@@ -1,5 +1,5 @@
 // app/api/admin/destinations/countries/statesdropdown/route.js
-import { getAllCitiesOptionsAdmin } from '@/lib/services/cities';
+import { getAllCitiesOptionsAdmin } from '@/lib/queries/cities';
 
 export async function GET(req) {
   try {

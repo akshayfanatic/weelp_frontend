@@ -1,6 +1,6 @@
 import React from 'react';
 import { CustomerReviewList } from '@/app/components/Pages/DASHBOARD/user/_rsc_pages/reviews/CustomerReviewList';
-import { getAllReviewsByCustomer } from '@/lib/services/customer/reviews';
+import { getAllReviewsByCustomer } from '@/lib/queries/customer/reviews';
 import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';

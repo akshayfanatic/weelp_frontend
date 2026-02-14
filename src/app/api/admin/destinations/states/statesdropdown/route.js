@@ -1,5 +1,5 @@
 // app/api/admin/destinations/countries/statesdropdown/route.js
-import { getStatesOptionsAdmin } from '@/lib/services/state';
+import { getStatesOptionsAdmin } from '@/lib/queries/state';
 export async function GET(req) {
   try {
     const data = await getStatesOptionsAdmin();

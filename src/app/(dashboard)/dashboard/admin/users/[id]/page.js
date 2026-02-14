@@ -1,5 +1,5 @@
 import React from 'react';
-import { getSingleUserAdmin } from '@/lib/services/users';
+import { getSingleUserAdmin } from '@/lib/queries/users';
 import { isEmpty } from 'lodash';
 import { notFound } from 'next/navigation';
 import EditUserForm from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/users/forms/EditUser';

@@ -8,7 +8,7 @@ import { delay, log } from '../utils';
  */
 export const getSingleItinerary = async (slug) => {
   try {
-    await delay()
+    await delay();
     const response = await publicApi.get(`/api/itineraries/${slug}`, {
       headers: { Accept: 'application/json' },
     });

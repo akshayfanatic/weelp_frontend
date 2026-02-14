@@ -1,6 +1,6 @@
 // app/api/public/menu/route.js
 import { NextResponse } from 'next/server';
-import { getNavMenuItems } from '@/lib/services/menus';
+import { getNavMenuItems } from '@/lib/queries/menus';
 
 export async function GET() {
   const result = await getNavMenuItems();

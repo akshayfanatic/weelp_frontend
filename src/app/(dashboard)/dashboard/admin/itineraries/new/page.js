@@ -1,9 +1,9 @@
 export const dynamic = 'force-dynamic';
 import React from 'react';
-import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategoriesAdmin } from '@/lib/services/global';
-import { getAllActivitesAdmin } from '@/lib/services/activites';
+import { getAllTagsAdmin, getAllCitiesAdmin, getAllAttributesAdmin, getCategoriesAdmin } from '@/lib/queries/global';
+import { getAllActivitesAdmin } from '@/lib/queries/activites';
 import { CreateItineraryForm } from '@/app/components/Pages/DASHBOARD/admin/_rsc_pages/itineraries/CreateItineraryForm';
-import { getAllTransfersAdmin } from '@/lib/services/transfers';
+import { getAllTransfersAdmin } from '@/lib/queries/transfers';
 import { log } from '@/lib/utils';
 
 const CreateItineriary = async () => {

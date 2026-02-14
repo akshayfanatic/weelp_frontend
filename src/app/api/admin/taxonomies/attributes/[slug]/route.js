@@ -1,6 +1,6 @@
 // /api/admin/taxonomies/attributes/[slug]/route.js
 import { NextResponse } from 'next/server';
-import { getAttributeBySlugAdmin } from '@/lib/services/attributes';
+import { getAttributeBySlugAdmin } from '@/lib/queries/attributes';
 
 export async function GET(req, { params }) {
   const { slug } = await params;

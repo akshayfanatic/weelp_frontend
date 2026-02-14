@@ -7,7 +7,7 @@ import * as Icons from '../../../../../../public/assets/Icons/Icons';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import { log } from '@/lib/utils';
-import { fetchRegionDetails } from '@/lib/services/region';
+import { fetchRegionDetails } from '@/lib/queries/region';
 
 // get region details
 const BannerSection = () => {

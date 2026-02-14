@@ -152,7 +152,7 @@ src                         # Entry Point to the Application
 │
 │ lib/
 │ ├── actions/              # Server actions (mutations: POST, PUT, DELETE)
-│ ├── services/             # Data fetching (GET only)
+│ ├── queries/              # Data fetching (GET only)
 │ ├── store/                # Zustand global state management
 │ ├── auth.js               # Authentication configurations
 │ ├── axiosInstance.js      # Axios global configurations
@@ -208,7 +208,7 @@ This project implements a scalable, modular architecture for managing API data a
 
 | Folder/File                  | Purpose                                                      |
 | ---------------------------- | ------------------------------------------------------------ |
-| `lib/services/activities.js` | Handle all **GET** requests related to `activities` model    |
+| `lib/queries/activities.js`  | Handle all **GET** requests related to `activities` model    |
 | `lib/actions/activities.js`  | Handle **mutations** using Next.js **Server Actions**        |
 | `lib/store/`                 | Zustand-based **global state management**                    |
 | `lib/stripe/`                | Stripe **payment logic & helpers**                           |
@@ -234,7 +234,7 @@ Benefits:
 
 Used in `lib/` to create simplified interfaces for:
 
-- Services
+- Queries
 - Mutations
 - External integrations (e.g., Stripe, Axios)
 

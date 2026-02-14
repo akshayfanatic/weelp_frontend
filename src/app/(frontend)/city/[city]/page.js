@@ -9,10 +9,10 @@ import GuideSection from '@/app/components/Pages/FRONT_END/Global/GuideSection';
 import ProductSliderSection from '@/app/components/Pages/FRONT_END/Global/ProductSliderSection';
 import { notFound } from 'next/navigation';
 import { CityFilter } from '@/app/components/Pages/FRONT_END/city/city_filter';
-import { getCityData } from '@/lib/services/cities';
-import { getActivitisDataByCity } from '@/lib/services/activites';
-import { getItineraryDataByCity } from '@/lib/services/itineraries';
-import { getPackageDataByCity } from '@/lib/services/package';
+import { getCityData } from '@/lib/queries/cities';
+import { getActivitisDataByCity } from '@/lib/queries/activites';
+import { getItineraryDataByCity } from '@/lib/queries/itineraries';
+import { getPackageDataByCity } from '@/lib/queries/package';
 
 // seo
 export async function generateMetadata({ params }) {

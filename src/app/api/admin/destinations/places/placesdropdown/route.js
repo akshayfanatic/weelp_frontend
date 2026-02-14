@@ -1,6 +1,6 @@
 // app/api/admin/destinations/places/placesdropdown/route.js
 import { NextResponse } from 'next/server';
-import { getPlacesByAdminOptions } from '@/lib/services/places';
+import { getPlacesByAdminOptions } from '@/lib/queries/places';
 
 export async function GET() {
   try {

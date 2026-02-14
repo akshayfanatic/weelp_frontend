@@ -1,7 +1,7 @@
 import BannerSection from '@/app/components/Pages/FRONT_END/singleproduct/BannerSection';
 import { TabSectionIterenary } from '@/app/components/Pages/FRONT_END/singleproduct/TabSection';
 import { notFound } from 'next/navigation';
-import { getSingleItinerary } from '@/lib/services/itineraries';
+import { getSingleItinerary } from '@/lib/queries/itineraries';
 
 //  Dynamic SEO Itinerary
 export async function generateMetadata({ params }) {

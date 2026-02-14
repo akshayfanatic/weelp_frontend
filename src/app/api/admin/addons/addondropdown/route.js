@@ -1,6 +1,6 @@
 // /api/admin/addons/addondropdown
 import { NextResponse } from 'next/server';
-import { getAddOnOptionsAdmin } from '@/lib/services/addOn';
+import { getAddOnOptionsAdmin } from '@/lib/queries/addOn';
 
 export async function GET() {
   const data = await getAddOnOptionsAdmin();
