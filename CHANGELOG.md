@@ -4,15 +4,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [0.25.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.24.0...v0.25.0) (2026-02-14)
 
-
 ### ♻️ Code Refactoring
 
-* **loading states, schema:** testing schema on live activity page ([ea8ae94](https://github.com/akshayfanatic/weelp_frontend/commit/ea8ae94f379dbac703ea23c148a634b7d143108d))
-
+- **loading states, schema:** testing schema on live activity page ([ea8ae94](https://github.com/akshayfanatic/weelp_frontend/commit/ea8ae94f379dbac703ea23c148a634b7d143108d))
 
 ### ✨ Features
 
-* **refactor:** Rename lib/services to lib/queries for better understanding of Folder ([c2ef990](https://github.com/akshayfanatic/weelp_frontend/commit/c2ef990e46f763d65a3dbd04267eca09436a9066))
+- **refactor:** Rename lib/services to lib/queries for better understanding of Folder ([c2ef990](https://github.com/akshayfanatic/weelp_frontend/commit/c2ef990e46f763d65a3dbd04267eca09436a9066))
 
 ## [0.24.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.23.0...v0.24.0) (2026-02-13)
 

@@ -206,15 +206,15 @@ This project implements a scalable, modular architecture for managing API data a
 
 ### LET TAKE A EXAMPLE OF (ACTIVITIES) MODEL
 
-| Folder/File                  | Purpose                                                      |
-| ---------------------------- | ------------------------------------------------------------ |
-| `lib/queries/activities.js`  | Handle all **GET** requests related to `activities` model    |
-| `lib/actions/activities.js`  | Handle **mutations** using Next.js **Server Actions**        |
-| `lib/store/`                 | Zustand-based **global state management**                    |
-| `lib/stripe/`                | Stripe **payment logic & helpers**                           |
-| `lib/axios/`                 | Global **Axios instance** with public/private interceptors   |
-| `lib/fetchers/`              | SWR-compatible **data fetchers**                             |
-| `lib/utils/`                 | General **utility functions** (formatters, validators, etc.) |
+| Folder/File                 | Purpose                                                      |
+| --------------------------- | ------------------------------------------------------------ |
+| `lib/queries/activities.js` | Handle all **GET** requests related to `activities` model    |
+| `lib/actions/activities.js` | Handle **mutations** using Next.js **Server Actions**        |
+| `lib/store/`                | Zustand-based **global state management**                    |
+| `lib/stripe/`               | Stripe **payment logic & helpers**                           |
+| `lib/axios/`                | Global **Axios instance** with public/private interceptors   |
+| `lib/fetchers/`             | SWR-compatible **data fetchers**                             |
+| `lib/utils/`                | General **utility functions** (formatters, validators, etc.) |
 
 ---
 
