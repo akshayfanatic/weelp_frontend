@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.26.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.25.0...v0.26.0) (2026-02-19)
+
+
+### 🐛 Bug Fixes
+
+* Remove withHoc file no usecase ([b69c9c3](https://github.com/akshayfanatic/weelp_frontend/commit/b69c9c39c3b4358d18bb1c79e696eb719e36ac24))
+
 ## [0.25.0](https://github.com/akshayfanatic/weelp_frontend/compare/v0.24.0...v0.25.0) (2026-02-14)
 
 ### ♻️ Code Refactoring
